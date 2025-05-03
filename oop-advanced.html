@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Advanced OOP Concepts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .btn-purple {
+        background-color: #8b5cf6; /* violet-500 */
+      }
+      .btn-purple:hover:not(:disabled) {
+        background-color: #7c3aed; /* violet-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .object-display {
+        background-color: #eff6ff; /* blue-50 */
+        border: 1px solid #bfdbfe; /* blue-200 */
+        padding: 1rem;
+        border-radius: 0.375rem;
+        margin-top: 0.5rem;
+        font-family: monospace;
+        font-size: 0.875rem;
+        white-space: pre-wrap;
+      }
+      .object-attribute {
+        font-weight: 500;
+        color: #1d4ed8;
+      }
+      .object-value {
+        color: #059669;
+      }
+      .class-def {
+        border: 1px dashed #a78bfa;
+        background-color: #f5f3ff;
+        padding: 0.5rem;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+      .class-name {
+        font-weight: bold;
+        color: #6d28d9;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Advanced OOP Concepts
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        Inheritance, Encapsulation, Polymorphism
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. Inheritance: Reusing Code
+        </h2>
+        <p class="mb-4">
+          Inheritance allows a new class (called a <strong>subclass</strong> or
+          <strong>derived class</strong>) to inherit attributes and methods from
+          an existing class (called a <strong>superclass</strong> or
+          <strong>base class</strong>). This establishes an "is-a" relationship
+          (e.g., a `Dog` *is an* `Animal`) and promotes code reuse.
+        </p>
+        <p class="mb-2">
+          You define a subclass by putting the superclass name in parentheses
+          after the subclass name:
+          <code>class SubclassName(SuperclassName):</code>.
+        </p>
+        <p class="mb-2">Subclasses can:</p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>Use methods and attributes from the superclass directly.</li>
+          <li>Add their own unique methods and attributes.</li>
+          <li>
+            <strong>Override</strong> methods from the superclass to provide
+            specialized behavior.
+          </li>
+          <li>
+            Use <code>super()</code> to call methods from the superclass (often
+            used in <code>__init__</code>).
+          </li>
+        </ul>
+        <pre><code class="language-python"># Superclass (Base Class)
+class Animal:
+  def __init__(self, name):
+    self.name = name
+    print(f"Animal '{self.name}' created.")
+
+  def speak(self):
+    print("Some generic animal sound")
+
+# Subclass (Derived Class) - inherits from Animal
+class Dog(Animal):
+  def __init__(self, name, breed):
+    # Call the Animal's __init__ method first
+    super().__init__(name)
+    self.breed = breed # Add a new attribute specific to Dog
+    print(f"It's a {self.breed} dog!")
+
+  # Override the speak method
+  def speak(self):
+    print("Woof! Woof!")
+
+  # Add a new method specific to Dog
+  def fetch(self):
+    print(f"{self.name} is fetching!")
+
+# --- Usage ---
+generic_animal = Animal("Creature") # Output: Animal 'Creature' created.
+generic_animal.speak()             # Output: Some generic animal sound
+
+print("-" * 10)
+
+my_dog = Dog("Buddy", "Golden Retriever")
+# Output: Animal 'Buddy' created.
+# Output: It's a Golden Retriever dog!
+
+my_dog.speak() # Calls the overridden Dog version -> Output: Woof! Woof!
+my_dog.fetch() # Calls the Dog-specific method -> Output: Buddy is fetching!
+print(f"{my_dog.name} is a {my_dog.breed}") # Access inherited and new attributes</code></pre>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Encapsulation: Bundling and Hiding
+        </h2>
+        <p class="mb-4">
+          Encapsulation is the bundling of data (attributes) and the methods
+          that operate on that data within a single unit (the object). It also
+          often involves restricting direct access to an object's internal
+          state, which helps prevent accidental modification and keeps the
+          object's implementation details hidden (information hiding).
+        </p>
+        <p class="mb-2">
+          Python doesn't have strict "private" variables like some other
+          languages. Instead, it uses conventions:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>
+            <strong>Single Underscore Prefix (<code>_attribute</code>):</strong>
+            Convention indicating that an attribute or method is intended for
+            internal use within the class or subclasses. It's a hint to other
+            developers not to access it directly from outside, but Python
+            doesn't prevent it.
+          </li>
+          <li>
+            <strong
+              >Double Underscore Prefix (<code>__attribute</code>):</strong
+            >
+            Triggers "name mangling". Python changes the name to
+            <code>_ClassName__attribute</code>. This makes it harder (but not
+            impossible) to access directly from outside and avoids accidental
+            name clashes in subclasses.
+          </li>
+        </ul>
+        <p class="mb-2">
+          The common practice is to provide public methods (like "getters" and
+          "setters", though not always explicitly named that way) to interact
+          with internal data if needed.
+        </p>
+        <pre><code class="language-python">class BankAccount:
+  def __init__(self, owner, initial_balance=0):
+    self.owner = owner
+    self._balance = initial_balance # Convention: internal use
+
+  def deposit(self, amount):
+    if amount > 0:
+      self._balance += amount
+      print(f"Deposited ${amount}. New balance: ${self._balance}")
+    else:
+      print("Deposit amount must be positive.")
+
+  def withdraw(self, amount):
+    if amount <= 0:
+        print("Withdrawal amount must be positive.")
+    elif amount > self._balance:
+      print(f"Insufficient funds. Balance: ${self._balance}")
+    else:
+      self._balance -= amount
+      print(f"Withdrew ${amount}. New balance: ${self._balance}")
+
+  def get_balance(self):
+    # Provide controlled access to the balance
+    print(f"Current balance for {self.owner}: ${self._balance}")
+    return self._balance
+
+# --- Usage ---
+account = BankAccount("Alice", 100)
+account.deposit(50)     # Output: Deposited $50. New balance: $150
+account.withdraw(30)    # Output: Withdrew $30. New balance: $120
+# account._balance = 10000 # Avoid doing this directly (violates convention)
+final_balance = account.get_balance() # Use the method for access</code></pre>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Polymorphism: Many Forms
+        </h2>
+        <p class="mb-4">
+          Polymorphism (from Greek meaning "many forms") allows objects of
+          different classes to be treated as objects of a common superclass. It
+          primarily manifests through method overriding: different subclasses
+          can provide their own specific implementation of a method inherited
+          from a superclass.
+        </p>
+        <p class="mb-2">
+          This means you can call the same method on different objects, and each
+          object will respond according to its own class's implementation. This
+          is powerful for writing flexible and extensible code.
+        </p>
+        <pre><code class="language-python">class Animal: # Same as before
+  def __init__(self, name):
+    self.name = name
+  def speak(self):
+    raise NotImplementedError("Subclass must implement this method") # Good practice
+
+class Dog(Animal): # Same as before
+  def speak(self):
+    return "Woof!"
+
+class Cat(Animal): # New subclass
+  def speak(self):
+    return "Meow!"
+
+class Duck(Animal): # Another subclass
+    def speak(self):
+        return "Quack!"
+
+# List containing objects of different Animal subclasses
+animals = [Dog("Buddy"), Cat("Whiskers"), Duck("Daffy")]
+
+print("Listen to the animals:")
+for animal in animals:
+  # We can call .speak() on any object in the list,
+  # regardless of its specific subclass (Dog, Cat, or Duck).
+  # Each object responds polymorphically.
+  print(f"  {animal.name} says: {animal.speak()}")
+
+# Output:
+# Listen to the animals:
+#   Buddy says: Woof!
+#   Whiskers says: Meow!
+#   Daffy says: Quack!</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          4. Try Polymorphism
+        </h2>
+        <p class="mb-4">
+          We have different `Shape` objects (Circle, Square). Click the button
+          to call the same `draw()` method on each shape in a list and see how
+          each responds differently.
+        </p>
+        <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="class-def">
+            <span class="class-name">class Shape:</span><br />
+            &nbsp;&nbsp;def draw(self): return "Drawing a generic shape..."
+          </div>
+          <div class="class-def">
+            <span class="class-name">class Circle(Shape):</span><br />
+            &nbsp;&nbsp;def draw(self): return "Drawing a circle O"
+          </div>
+          <div class="class-def">
+            <span class="class-name">class Square(Shape):</span><br />
+            &nbsp;&nbsp;def draw(self): return "Drawing a square []"
+          </div>
+          <div class="class-def">
+            <span class="class-name">class Triangle(Shape):</span><br />
+            &nbsp;&nbsp;def draw(self): return "Drawing a triangle /\\"
+          </div>
+        </div>
+
+        <p class="mb-2">
+          List of shapes: <code>[Circle(), Square(), Triangle(), Shape()]</code>
+        </p>
+        <button id="polyButton" class="btn btn-purple">
+          Call draw() on all shapes
+        </button>
+
+        <h4 class="text-md font-medium mt-3 mb-1">Output Log:</h4>
+        <div id="polyOutputDisplay" class="output-display">
+          <span class="text-gray-500 italic"
+            >Click the button to see polymorphic behavior.</span
+          >
+        </div>
+        <div id="polyMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: What is Inheritance primarily used for in OOP?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_adv_oop" value="a" class="mr-1" />
+            Hiding implementation details</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_adv_oop" value="b" class="mr-1" />
+            Allowing different objects to respond to the same method</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_adv_oop" value="c" class="mr-1" />
+            Code reuse and creating specialized classes</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: What does prefixing an attribute with a single underscore (`_`)
+            signify in Python?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_adv_oop" value="a" class="mr-1" /> It
+            makes the attribute strictly private and inaccessible</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_adv_oop" value="b" class="mr-1" />
+            It's a convention indicating the attribute is for internal
+            use</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_adv_oop" value="c" class="mr-1" /> It
+            marks the attribute as belonging to the class, not the
+            instance</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: Polymorphism allows you to treat objects of different classes
+            uniformly if they...
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_adv_oop" value="a" class="mr-1" />
+            Have the exact same attributes</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_adv_oop" value="b" class="mr-1" />
+            Share a common interface or superclass method</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_adv_oop" value="c" class="mr-1" /> Are
+            defined in the same file</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q4: What is the term for a subclass providing its own implementation
+            of a method that it inherited from its superclass?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q4_adv_oop" value="a" class="mr-1" />
+            Overloading</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_adv_oop" value="b" class="mr-1" />
+            Overriding</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_adv_oop" value="c" class="mr-1" />
+            Encapsulating</label
+          >
+        </div>
+        <button id="checkQuizButtonAdvOOP" class="btn">Check Answers</button>
+        <div
+          id="quizResultAdvOOP"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- DOM Elements ---
+      const polyButton = document.getElementById("polyButton");
+      const polyOutputDisplay = document.getElementById("polyOutputDisplay");
+      const polyMessage = document.getElementById("polyMessage");
+
+      const checkQuizButtonAdvOOP = document.getElementById(
+        "checkQuizButtonAdvOOP"
+      );
+      const quizResultAdvOOP = document.getElementById("quizResultAdvOOP");
+
+      // --- Simulate Polymorphism ---
+      // Define JS classes to simulate Python classes
+      class Shape {
+        draw() {
+          return "Drawing a generic shape...";
+        }
+        getType() {
+          return "Shape";
+        } // Helper for display
+      }
+      class Circle extends Shape {
+        draw() {
+          return "Drawing a circle O";
+        }
+        getType() {
+          return "Circle";
+        }
+      }
+      class Square extends Shape {
+        draw() {
+          return "Drawing a square []";
+        }
+        getType() {
+          return "Square";
+        }
+      }
+      class Triangle extends Shape {
+        draw() {
+          return "Drawing a triangle /\\";
+        }
+        getType() {
+          return "Triangle";
+        }
+      }
+
+      const shapes = [new Circle(), new Square(), new Triangle(), new Shape()];
+
+      polyButton.addEventListener("click", () => {
+        polyOutputDisplay.innerHTML = "Calling draw() on each shape:\n";
+        shapes.forEach((shape) => {
+          polyOutputDisplay.innerHTML += `- (${shape.getType()}): ${shape.draw()}\n`;
+        });
+        polyOutputDisplay.scrollTop = polyOutputDisplay.scrollHeight;
+        showMessage(polyMessage, "Polymorphic calls executed.", "success");
+      });
+
+      // --- Quiz Logic ---
+      function checkAdvOOPQuiz() {
+        const answers = {
+          q1_adv_oop: "c", // Code reuse / specialization
+          q2_adv_oop: "b", // Convention for internal use
+          q3_adv_oop: "b", // Share common interface/method
+          q4_adv_oop: "b", // Overriding
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultAdvOOP.textContent =
+            "Please answer all questions before checking.";
+          quizResultAdvOOP.className = "message-box message-box-error";
+          quizResultAdvOOP.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultAdvOOP.innerHTML = resultsHTML;
+        quizResultAdvOOP.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultAdvOOP.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkQuizButtonAdvOOP.addEventListener("click", checkAdvOOPQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        // No specific setup needed initially beyond HTML rendering
+      };
+    </script>
+  </body>
+</html>

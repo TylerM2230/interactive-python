@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intro to Programming & Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .concept-box {
+        background-color: #fefce8; /* yellow-50 */
+        border: 1px solid #fef08a; /* yellow-200 */
+        padding: 1rem;
+        border-radius: 0.375rem;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Introduction to Programming & Python
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">An Interactive Overview</p>
+    </header>
+    <nav
+      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+    >
+      <a
+        href="index.html"
+        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+      >
+        &larr; Back to Home
+      </a>
+      <a
+        href="variables-types.html"
+        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+      >
+        Next Tutorial: Variables & Types &rarr;
+      </a>
+    </nav>
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What is Programming?
+        </h2>
+        <p class="mb-4">
+          At its core, **programming** is the process of writing instructions
+          that a computer can understand and execute to perform a specific task
+          or solve a problem. Think of it like writing a very detailed recipe
+          for a computer to follow.
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
+          <li>
+            <strong>Instructions:</strong> Computers need precise, step-by-step
+            instructions because they can't "think" or make assumptions like
+            humans do.
+          </li>
+          <li>
+            <strong>Programming Languages:</strong> We use special languages
+            (like Python, Java, C++, JavaScript) with strict rules (syntax) to
+            write these instructions.
+          </li>
+          <li>
+            <strong>The Goal:</strong> Programmers write code to create
+            software, automate tasks, analyze data, build websites, develop
+            games, and much more.
+          </li>
+        </ul>
+
+        <div class="concept-box interactive-section">
+          <h3 class="text-lg font-medium mb-2">
+            Mini-Challenge: Instructions vs. Goal
+          </h3>
+          <p class="mb-3 text-sm">
+            Consider making a cup of tea. Which of these is an **instruction** a
+            computer (or robot) could follow directly?
+          </p>
+          <div class="space-y-2">
+            <label
+              class="block p-2 border rounded-md hover:bg-gray-100 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="instruction_goal"
+                value="goal"
+                class="mr-2"
+              />
+              Make a nice cup of tea. (The Goal)
+            </label>
+            <label
+              class="block p-2 border rounded-md hover:bg-gray-100 cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="instruction_goal"
+                value="instruction"
+                class="mr-2"
+              />
+              Boil water to 100 degrees Celsius. (An Instruction)
+            </label>
+          </div>
+          <button id="checkInstructionButton" class="btn btn-green mt-3">
+            Check Answer
+          </button>
+          <div
+            id="instructionResult"
+            class="message-box mt-2"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. What is Python?
+        </h2>
+        <p class="mb-4">
+          **Python** is a specific, popular, and powerful programming language
+          created by Guido van Rossum. It's widely used across many industries
+          due to its versatility and readability.
+        </p>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Key Characteristics:
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
+          <li>
+            <strong>High-Level:</strong> Syntax is closer to human language,
+            easier to learn.
+          </li>
+          <li>
+            <strong>Interpreted:</strong> Code executed line by line, often
+            faster development.
+          </li>
+          <li>
+            <strong>General-Purpose:</strong> Versatile, used for many different
+            applications.
+          </li>
+          <li>
+            <strong>Readable Syntax:</strong> Uses indentation for code blocks,
+            emphasizing clarity.
+          </li>
+          <li>
+            <strong>Large Standard Library:</strong> Many built-in tools for
+            common tasks.
+          </li>
+          <li>
+            <strong>Strong Community:</strong> Lots of support, tutorials, and
+            third-party libraries.
+          </li>
+        </ul>
+
+        <div class="concept-box interactive-section">
+          <h3 class="text-lg font-medium mb-2">
+            Try a Simple Python Instruction
+          </h3>
+          <p class="mb-3 text-sm">
+            The <code>print()</code> function in Python displays output. Click
+            the button to simulate running the code
+            <code>print("Hello, Python!")</code>.
+          </p>
+          <pre><code class="language-python">print("Hello, Python!")</code></pre>
+          <button id="runPrintButton" class="btn btn-green">Run Code</button>
+          <h4 class="text-md font-medium mt-3 mb-1">Simulated Output:</h4>
+          <div id="printOutputDisplay" class="output-display">
+            <span class="text-gray-500 italic"
+              >Click 'Run Code' to see the output.</span
+            >
+          </div>
+          <div
+            id="printMessage"
+            class="message-box mt-2"
+            style="display: none"
+          ></div>
+        </div>
+
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-5">
+          Common Uses for Python:
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>Web Development (Django, Flask)</li>
+          <li>Data Science, Machine Learning, AI</li>
+          <li>Scripting and Automation</li>
+          <li>Scientific Computing</li>
+          <li>Game Development (Pygame)</li>
+          <li>Desktop Applications</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Why Learn Python?
+        </h2>
+        <p class="mb-2">
+          Python is often recommended as a great first programming language
+          because:
+        </p>
+        <ol class="list-decimal list-inside ml-4 space-y-1">
+          <li>
+            **It's relatively easy to learn:** Readable syntax lowers the
+            barrier.
+          </li>
+          <li>
+            **It's highly versatile:** Use it for many different project types.
+          </li>
+          <li>**It's in high demand:** Valuable skills in many job markets.</li>
+          <li>
+            **It has excellent community support:** Easy to find help and
+            libraries.
+          </li>
+        </ol>
+        <p class="mt-3">
+          Learning Python provides a solid foundation in programming principles
+          applicable to other languages too.
+        </p>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: What is programming fundamentally about?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_intro" value="a" class="mr-1" />
+            Designing computer hardware</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_intro" value="b" class="mr-1" />
+            Writing instructions for a computer</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_intro" value="c" class="mr-1" /> Using
+            software applications</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: Which characteristic describes Python's syntax?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_intro" value="a" class="mr-1" />
+            Complex and close to machine code</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_intro" value="b" class="mr-1" /> Uses
+            `{}` braces extensively for blocks</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_intro" value="c" class="mr-1" />
+            Readable and uses indentation for blocks</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: What does it mean for Python to be "Interpreted"?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_intro" value="a" class="mr-1" /> Code
+            is translated entirely before running</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_intro" value="b" class="mr-1" /> Code
+            is executed line by line by another program</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_intro" value="c" class="mr-1" /> Code
+            can only be used for interpretation, not creation</label
+          >
+        </div>
+        <button id="checkQuizButtonIntro" class="btn">Check Answers</button>
+        <div
+          id="quizResultIntro"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Coding!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        // Auto-hide for success/error, keep info longer? No, 3s is fine.
+        const autoHide = type === "success" || type === "error";
+        if (autoHide) {
+          setTimeout(() => {
+            element.style.display = "none";
+          }, 3000);
+        }
+      }
+
+      // --- DOM Elements ---
+      const checkInstructionButton = document.getElementById(
+        "checkInstructionButton"
+      );
+      const instructionResult = document.getElementById("instructionResult");
+
+      const runPrintButton = document.getElementById("runPrintButton");
+      const printOutputDisplay = document.getElementById("printOutputDisplay");
+      const printMessage = document.getElementById("printMessage");
+
+      const checkQuizButtonIntro = document.getElementById(
+        "checkQuizButtonIntro"
+      );
+      const quizResultIntro = document.getElementById("quizResultIntro");
+
+      // --- Interactive Logic ---
+
+      // Instruction vs Goal Check
+      checkInstructionButton.addEventListener("click", () => {
+        const selected = document.querySelector(
+          'input[name="instruction_goal"]:checked'
+        );
+        if (!selected) {
+          showMessage(instructionResult, "Please select an answer.", "error");
+          instructionResult.style.display = "block"; // Ensure it's visible
+        } else if (selected.value === "instruction") {
+          showMessage(
+            instructionResult,
+            'Correct! "Boil water..." is a specific, actionable instruction.',
+            "success"
+          );
+          instructionResult.style.display = "block";
+        } else {
+          showMessage(
+            instructionResult,
+            'Not quite. "Make tea" is the overall goal, not a single, direct instruction for a simple machine.',
+            "error"
+          );
+          instructionResult.style.display = "block";
+        }
+      });
+
+      // Simulate Print
+      runPrintButton.addEventListener("click", () => {
+        printOutputDisplay.textContent = "Hello, Python!";
+        showMessage(
+          printMessage,
+          "Simulated print() function executed.",
+          "success"
+        );
+      });
+
+      // --- Quiz Logic ---
+      function checkIntroQuiz() {
+        const answers = {
+          q1_intro: "b", // Writing instructions
+          q2_intro: "c", // Readable, indentation
+          q3_intro: "b", // Executed line by line
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultIntro.textContent =
+            "Please answer all questions before checking.";
+          quizResultIntro.className = "message-box message-box-error";
+          quizResultIntro.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultIntro.innerHTML = resultsHTML;
+        quizResultIntro.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultIntro.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkQuizButtonIntro.addEventListener("click", checkIntroQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        // No specific setup needed initially
+      };
+    </script>
+  </body>
+</html>

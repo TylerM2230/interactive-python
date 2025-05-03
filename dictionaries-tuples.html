@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Dictionaries & Tuples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .btn-red {
+        background-color: #ef4444; /* red-500 */
+      }
+      .btn-red:hover:not(:disabled) {
+        background-color: #dc2626; /* red-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .input-field-small {
+        width: 60px;
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 250px;
+        overflow-y: auto;
+      }
+      /* Styling for tuple/list visualization */
+      .sequence-item {
+        display: inline-block;
+        border: 1px solid #d1d5db; /* gray-300 */
+        background-color: #fff;
+        padding: 0.3rem 0.6rem;
+        margin: 2px;
+        border-radius: 3px;
+        font-family: monospace;
+        min-width: 30px;
+        text-align: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .sequence-item.highlight {
+        background-color: #fcd34d; /* amber-300 */
+        border-color: #f59e0b; /* amber-500 */
+        font-weight: bold;
+        transform: scale(1.1);
+        z-index: 10;
+      }
+      .sequence-container {
+        background-color: #f3f4f6; /* gray-100 */
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        margin-top: 0.5rem;
+        overflow-x: auto; /* Allow horizontal scroll */
+        white-space: nowrap; /* Prevent wrapping */
+      }
+      .tuple-container::before {
+        content: "(";
+        margin-right: 2px;
+      }
+      .tuple-container::after {
+        content: ")";
+        margin-left: 2px;
+      }
+
+      /* Dictionary display */
+      .dict-entry {
+        margin-bottom: 0.25rem;
+      }
+      .dict-key {
+        font-weight: 500;
+        color: #1d4ed8; /* blue-700 */
+      }
+      .dict-value {
+        color: #059669; /* emerald-600 */
+      }
+      .dict-value.highlight {
+        background-color: #fcd34d;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding Dictionaries & Tuples
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. Dictionaries (dict)
+        </h2>
+        <p class="mb-4">
+          A dictionary is a collection of <strong>key-value pairs</strong>. Each
+          key must be unique and is used to look up its corresponding value.
+          Think of it like a real-world dictionary where the word (key) maps to
+          its definition (value), or like a contact list where a name (key) maps
+          to a phone number (value).
+        </p>
+        <p class="mb-2">Key characteristics:</p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>
+            <strong>Key-Value Pairs:</strong> Data is stored as
+            <code>key: value</code>.
+          </li>
+          <li>
+            <strong>Mutable:</strong> You can add, remove, or change key-value
+            pairs after creation.
+          </li>
+          <li>
+            <strong>Unordered (Historically):</strong> Before Python 3.7,
+            dictionaries didn't maintain insertion order. From Python 3.7
+            onwards, they remember the order in which items were inserted.
+          </li>
+          <li>
+            <strong>Unique Keys:</strong> Keys within a dictionary must be
+            unique. Values can be duplicated.
+          </li>
+          <li>
+            <strong>Keys must be immutable types:</strong> Keys are typically
+            strings, numbers, or tuples (containing only immutable types). Lists
+            cannot be keys.
+          </li>
+        </ul>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Creating Dictionaries:
+        </h3>
+        <pre><code class="language-python"># Creating an empty dictionary
+empty_dict = {}
+
+# Creating a dictionary with initial items
+student = {
+  "name": "Alice",
+  "major": "Computer Science",
+  "gpa": 3.8,
+  "courses": ["CS101", "Math200"] # Values can be any type, including lists
+}
+print(student)
+print(type(student)) # Output: <class 'dict'></code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Accessing Values:
+        </h3>
+        <p class="mb-2">
+          You access values using their corresponding key inside square brackets
+          <code>[]</code>.
+        </p>
+        <pre><code class="language-python">print(student["name"])  # Output: Alice
+print(student["gpa"])   # Output: 3.8
+
+# Accessing a non-existent key raises a KeyError
+# print(student["age"]) # This would cause an error
+
+# Safer access using .get(key, default_value)
+age = student.get("age", "N/A") # Returns 'N/A' if 'age' key doesn't exist
+print(f"Age: {age}") # Output: Age: N/A</code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Adding/Updating Items:
+        </h3>
+        <pre><code class="language-python"># Add a new key-value pair
+student["year"] = 3
+print(student) # 'year': 3 is added
+
+# Update an existing value
+student["gpa"] = 3.9
+print(student) # 'gpa' value is updated</code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">Iterating:</h3>
+        <pre><code class="language-python"># Iterate through keys (default)
+print("\nKeys:")
+for key in student:
+  print(key)
+
+# Iterate through values
+print("\nValues:")
+for value in student.values():
+  print(value)
+
+# Iterate through key-value pairs (items)
+print("\nItems:")
+for key, value in student.items():
+  print(f"  {key}: {value}")</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Try Dictionaries
+        </h2>
+        <p class="mb-4">
+          Interact with a sample dictionary. Add/update key-value pairs or
+          access a value by its key.
+        </p>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="dictKeyInput" class="mr-2">Key:</label>
+          <input
+            type="text"
+            id="dictKeyInput"
+            class="input-field"
+            placeholder="e.g., city"
+          />
+          <label for="dictValueInput" class="ml-4 mr-2">Value:</label>
+          <input
+            type="text"
+            id="dictValueInput"
+            class="input-field"
+            placeholder="e.g., London"
+          />
+          <button id="addUpdateButton" class="btn">Add/Update Item</button>
+        </div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="accessKeyInput" class="mr-2">Key to Access:</label>
+          <input
+            type="text"
+            id="accessKeyInput"
+            class="input-field"
+            placeholder="e.g., name"
+          />
+          <button id="accessValueButton" class="btn btn-green">
+            Access Value
+          </button>
+          <button id="removeKeyButton" class="btn btn-red">Remove Key</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div>
+            <h3 class="text-lg font-medium mb-2">Current Dictionary:</h3>
+            <div id="dictDisplay" class="output-display">{ }</div>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-2">Operation Result:</h3>
+            <div id="dictResultDisplay" class="output-display">
+              <span class="text-gray-500 italic">Perform an operation.</span>
+            </div>
+          </div>
+        </div>
+        <div id="dictMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Tuples (tuple)
+        </h2>
+        <p class="mb-4">
+          A tuple is an <strong>ordered, immutable sequence</strong> of items.
+          Think of it like a list, but once you create it, you cannot change its
+          contents (add, remove, or modify elements). Tuples are typically used
+          to store collections of related items where the order and content
+          should not change, like coordinates (x, y) or RGB color values (red,
+          green, blue).
+        </p>
+        <p class="mb-2">Key characteristics:</p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li><strong>Ordered:</strong> Items maintain their position.</li>
+          <li><strong>Immutable:</strong> Cannot be changed after creation.</li>
+          <li>
+            <strong>Allows Duplicates:</strong> Can contain the same item
+            multiple times.
+          </li>
+          <li>
+            <strong>Heterogeneous:</strong> Can contain items of different data
+            types.
+          </li>
+        </ul>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Creating Tuples:
+        </h3>
+        <p class="mb-2">
+          Tuples are created using parentheses <code>()</code>, with items
+          separated by commas.
+        </p>
+        <pre><code class="language-python"># Creating an empty tuple
+empty_tuple = ()
+
+# Creating a tuple with items
+point = (10, 20) # A 2D point
+colors = ("red", "green", "blue")
+mixed = (1, "hello", 3.14)
+
+# Single item tuple needs a trailing comma!
+single_item_tuple = (99,) # Without the comma, it's just the number 99
+not_a_tuple = (99)
+
+print(point)
+print(type(point)) # Output: <class 'tuple'>
+print(type(single_item_tuple)) # Output: <class 'tuple'>
+print(type(not_a_tuple)) # Output: <class 'int'></code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Accessing Elements:
+        </h3>
+        <p class="mb-2">
+          You access tuple elements using indexing <code>[index]</code>, just
+          like lists (starting from 0).
+        </p>
+        <pre><code class="language-python">colors = ("red", "green", "blue")
+print(colors[0]) # Output: red
+print(colors[-1]) # Output: blue
+
+# Slicing also works
+print(colors[0:2]) # Output: ('red', 'green')</code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Immutability:
+        </h3>
+        <p class="mb-2">
+          Trying to change an element will result in a <code>TypeError</code>.
+        </p>
+        <pre><code class="language-python"># colors[0] = "yellow" # This would raise a TypeError</code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Packing and Unpacking:
+        </h3>
+        <p class="mb-2">
+          You can easily assign tuple elements to individual variables
+          (unpacking).
+        </p>
+        <pre><code class="language-python">point = (10, 20)
+x, y = point # Unpacking
+
+print(f"x coordinate: {x}") # Output: 10
+print(f"y coordinate: {y}") # Output: 20</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Try Tuples</h2>
+        <p class="mb-4">
+          Access elements from a sample tuple using their index (0-based).
+        </p>
+        <h3 class="text-lg font-medium mb-2">Sample Tuple:</h3>
+        <div
+          id="tupleVisualizer"
+          class="sequence-container tuple-container mb-4"
+        ></div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="tupleIndexInput" class="mr-2">Index to Access:</label>
+          <input
+            type="number"
+            id="tupleIndexInput"
+            class="input-field input-field-small"
+            placeholder="e.g., 0, -1"
+          />
+          <button id="accessTupleButton" class="btn btn-green">
+            Access Element
+          </button>
+        </div>
+        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+        <div id="tupleResultDisplay" class="output-display">
+          <span class="text-gray-500 italic"
+            >Enter an index and click 'Access Element'.</span
+          >
+        </div>
+        <div id="tupleMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: How do you access the value associated with the key
+            <code>"city"</code> in a dictionary called <code>address</code>?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_dictuple" value="a" class="mr-1" />
+            <code>address("city")</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_dictuple" value="b" class="mr-1" />
+            <code>address.city</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_dictuple" value="c" class="mr-1" />
+            <code>address["city"]</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: Which of the following data types is immutable?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_dictuple" value="a" class="mr-1" />
+            List</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_dictuple" value="b" class="mr-1" />
+            Dictionary</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_dictuple" value="c" class="mr-1" />
+            Tuple</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: How do you create a tuple containing only the number 5?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_dictuple" value="a" class="mr-1" />
+            <code>(5)</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_dictuple" value="b" class="mr-1" />
+            <code>[5,]</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_dictuple" value="c" class="mr-1" />
+            <code>(5,)</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q4: Can a list be used as a key in a Python dictionary?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q4_dictuple" value="a" class="mr-1" />
+            Yes</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_dictuple" value="b" class="mr-1" />
+            No</label
+          >
+        </div>
+        <button id="checkQuizButtonDicTuple" class="btn">Check Answers</button>
+        <div
+          id="quizResultDicTuple"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- DOM Elements ---
+      const dictKeyInput = document.getElementById("dictKeyInput");
+      const dictValueInput = document.getElementById("dictValueInput");
+      const addUpdateButton = document.getElementById("addUpdateButton");
+      const accessKeyInput = document.getElementById("accessKeyInput");
+      const accessValueButton = document.getElementById("accessValueButton");
+      const removeKeyButton = document.getElementById("removeKeyButton");
+      const dictDisplay = document.getElementById("dictDisplay");
+      const dictResultDisplay = document.getElementById("dictResultDisplay");
+      const dictMessage = document.getElementById("dictMessage");
+
+      const tupleVisualizer = document.getElementById("tupleVisualizer");
+      const tupleIndexInput = document.getElementById("tupleIndexInput");
+      const accessTupleButton = document.getElementById("accessTupleButton");
+      const tupleResultDisplay = document.getElementById("tupleResultDisplay");
+      const tupleMessage = document.getElementById("tupleMessage");
+
+      const checkQuizButtonDicTuple = document.getElementById(
+        "checkQuizButtonDicTuple"
+      );
+      const quizResultDicTuple = document.getElementById("quizResultDicTuple");
+
+      // --- State ---
+      let interactiveDict = {
+        name: "Example",
+        type: "Dictionary",
+        items: 2,
+      };
+      const sampleTuple = ("apple", 100, True, 3.14, "banana"); // JS doesn't have tuples, simulate with array
+
+      // --- Dictionary Logic ---
+      function renderDictionary() {
+        dictDisplay.innerHTML = ""; // Clear previous
+        let content = "{\n";
+        const keys = Object.keys(interactiveDict);
+        if (keys.length === 0) {
+          content = "{ }"; // Empty dictionary
+        } else {
+          keys.forEach((key, index) => {
+            const value = interactiveDict[key];
+            // Basic type formatting for display
+            let valueStr = typeof value === "string" ? `"${value}"` : value;
+            if (typeof value === "boolean")
+              valueStr =
+                value.toString().charAt(0).toUpperCase() +
+                value.toString().slice(1);
+
+            content += `  <span class="dict-entry"><span class="dict-key">"${key}"</span>: <span class="dict-value">${valueStr}</span></span>`;
+            if (index < keys.length - 1) {
+              content += ",\n";
+            } else {
+              content += "\n";
+            }
+          });
+          content += "}";
+        }
+        dictDisplay.innerHTML = content;
+      }
+
+      addUpdateButton.addEventListener("click", () => {
+        const key = dictKeyInput.value.trim();
+        const value = dictValueInput.value; // Keep value as string for simplicity, could parse later
+
+        if (!key) {
+          showMessage(dictMessage, "Please enter a key.", "error");
+          return;
+        }
+        const keyExists = interactiveDict.hasOwnProperty(key);
+        interactiveDict[key] = value; // Add or update
+        renderDictionary();
+        dictKeyInput.value = "";
+        dictValueInput.value = "";
+        dictResultDisplay.textContent = `Item "${key}": "${value}" ${
+          keyExists ? "updated" : "added"
+        }.`;
+        showMessage(
+          dictMessage,
+          `Item ${keyExists ? "updated" : "added"}.`,
+          "success"
+        );
+      });
+
+      accessValueButton.addEventListener("click", () => {
+        const key = accessKeyInput.value.trim();
+        if (!key) {
+          showMessage(dictMessage, "Please enter a key to access.", "error");
+          return;
+        }
+
+        renderDictionary(); // Re-render to clear previous highlights
+
+        if (interactiveDict.hasOwnProperty(key)) {
+          const value = interactiveDict[key];
+          let valueStr = typeof value === "string" ? `"${value}"` : value;
+          if (typeof value === "boolean")
+            valueStr =
+              value.toString().charAt(0).toUpperCase() +
+              value.toString().slice(1);
+          dictResultDisplay.textContent = `Value for key "${key}": ${valueStr}`;
+          // Highlight the accessed value
+          const valueElements = dictDisplay.querySelectorAll(".dict-value");
+          const keyElements = dictDisplay.querySelectorAll(".dict-key");
+          for (let i = 0; i < keyElements.length; i++) {
+            if (keyElements[i].textContent === `"${key}"`) {
+              valueElements[i].classList.add("highlight");
+              break;
+            }
+          }
+          showMessage(dictMessage, "Value accessed.", "success");
+        } else {
+          dictResultDisplay.textContent = `Error: Key "${key}" not found.`;
+          showMessage(dictMessage, `Key "${key}" not found.`, "error");
+        }
+      });
+
+      removeKeyButton.addEventListener("click", () => {
+        const key = accessKeyInput.value.trim();
+        if (!key) {
+          showMessage(dictMessage, "Please enter a key to remove.", "error");
+          return;
+        }
+        if (interactiveDict.hasOwnProperty(key)) {
+          delete interactiveDict[key];
+          renderDictionary();
+          dictResultDisplay.textContent = `Key "${key}" removed.`;
+          showMessage(dictMessage, `Key "${key}" removed.`, "success");
+          accessKeyInput.value = ""; // Clear input after removal
+        } else {
+          renderDictionary(); // Clear highlights even if key not found
+          dictResultDisplay.textContent = `Error: Key "${key}" not found.`;
+          showMessage(dictMessage, `Key "${key}" not found.`, "error");
+        }
+      });
+
+      // --- Tuple Logic ---
+      function renderTuple() {
+        tupleVisualizer.innerHTML = ""; // Clear previous
+        sampleTuple.forEach((item, index) => {
+          const span = document.createElement("span");
+          span.className = "sequence-item";
+          // Basic type formatting
+          let itemStr = typeof item === "string" ? `"${item}"` : item;
+          if (typeof item === "boolean")
+            itemStr =
+              item.toString().charAt(0).toUpperCase() +
+              item.toString().slice(1);
+          span.textContent = itemStr;
+          span.dataset.index = index;
+          tupleVisualizer.appendChild(span);
+        });
+      }
+
+      function clearTupleHighlights() {
+        tupleVisualizer
+          .querySelectorAll(".sequence-item.highlight")
+          .forEach((span) => {
+            span.classList.remove("highlight");
+          });
+      }
+
+      accessTupleButton.addEventListener("click", () => {
+        clearTupleHighlights();
+        const indexStr = tupleIndexInput.value;
+        if (indexStr === "") {
+          showMessage(tupleMessage, "Please enter an index.", "error");
+          tupleResultDisplay.textContent =
+            "<span class=\"text-gray-500 italic\">Enter an index and click 'Access Element'.</span>";
+          return;
+        }
+        const index = parseInt(indexStr, 10);
+
+        if (
+          isNaN(index) ||
+          index < -sampleTuple.length ||
+          index >= sampleTuple.length
+        ) {
+          showMessage(
+            tupleMessage,
+            `Invalid index. Must be between -${sampleTuple.length} and ${
+              sampleTuple.length - 1
+            }.`,
+            "error"
+          );
+          tupleResultDisplay.textContent =
+            '<span class="text-red-500">Error: Index out of bounds.</span>';
+          return;
+        }
+
+        const actualIndex = index < 0 ? sampleTuple.length + index : index;
+        const element = sampleTuple[actualIndex];
+        let elementStr = typeof element === "string" ? `"${element}"` : element;
+        if (typeof element === "boolean")
+          elementStr =
+            element.toString().charAt(0).toUpperCase() +
+            element.toString().slice(1);
+
+        tupleResultDisplay.textContent = `Element at index ${index}: ${elementStr}`;
+        // Highlight
+        const targetSpan = tupleVisualizer.querySelector(
+          `.sequence-item[data-index="${actualIndex}"]`
+        );
+        if (targetSpan) targetSpan.classList.add("highlight");
+        showMessage(tupleMessage, "Element accessed.", "success");
+      });
+
+      // --- Quiz Logic ---
+      function checkDicTupleQuiz() {
+        const answers = {
+          q1_dictuple: "c", // address["city"]
+          q2_dictuple: "c", // Tuple
+          q3_dictuple: "c", // (5,)
+          q4_dictuple: "b", // No (lists are mutable)
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultDicTuple.textContent =
+            "Please answer all questions before checking.";
+          quizResultDicTuple.className = "message-box message-box-error";
+          quizResultDicTuple.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultDicTuple.innerHTML = resultsHTML;
+        quizResultDicTuple.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultDicTuple.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkQuizButtonDicTuple.addEventListener("click", checkDicTupleQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        renderDictionary();
+        renderTuple();
+      };
+    </script>
+  </body>
+</html>

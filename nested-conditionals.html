@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Nested Conditionals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative; /* Needed for absolute positioning of line numbers if added */
+      }
+      code {
+        font-family: monospace;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+      }
+      /* Styling for conditional code highlight */
+      .code-line {
+        display: block; /* Ensure each span takes full width */
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.25rem;
+        transition: background-color 0.5s ease;
+        min-height: 1.2em; /* Ensure empty lines have height */
+      }
+      .code-line.highlight {
+        background-color: #fef9c3; /* yellow-100 */
+        font-weight: bold;
+      }
+      /* Indentation simulation for code display */
+      .indent-1 {
+        padding-left: 2rem;
+      }
+      .indent-2 {
+        padding-left: 4rem;
+      }
+      .indent-3 {
+        padding-left: 6rem;
+      } /* If needed */
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding Nested Conditionals
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What are Nested Conditionals?
+        </h2>
+        <p class="mb-4">
+          Nested conditionals occur when you place an <code>if</code>,
+          <code>elif</code>, or <code>else</code> statement inside another
+          <code>if</code>, <code>elif</code>, or <code>else</code> block. This
+          allows you to check for more complex conditions where one decision
+          depends on the outcome of a previous decision.
+        </p>
+        <p class="mb-2">
+          Imagine you need to check multiple criteria. For example, to qualify
+          for a specific discount, a customer might need to be a member AND be
+          over a certain age.
+        </p>
+        <pre><code class="language-python"># Example: Checking discount eligibility
+is_member = True
+age = 65
+
+if is_member:  # Outer condition: Check membership first
+  print("Customer is a member.")
+  # Inner condition: Only check age if they are a member
+  if age >= 60:
+    print("Eligible for Senior Member Discount!")
+  else:
+    print("Eligible for Standard Member Discount.")
+else:  # Outer else: If not a member
+  print("Customer is not a member.")
+  print("Not eligible for member discounts.")
+
+# Output for the values above:
+# Customer is a member.
+# Eligible for Senior Member Discount!</code></pre>
+        <p class="mt-2 text-sm text-gray-600">
+          Notice the indentation! The inner <code>if/else</code> block is
+          indented further, showing it's contained within the outer
+          <code>if</code> block.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Why Use Nested Conditionals?
+        </h2>
+        <ul class="list-disc list-inside mb-4 space-y-2">
+          <li>
+            <strong>Handling Complex Logic:</strong> They allow you to model
+            situations where criteria depend on each other. The logic flows
+            step-by-step based on previous outcomes.
+          </li>
+          <li>
+            <strong>Avoiding Redundant Checks:</strong> Instead of writing
+            complex <code>and</code>/<code>or</code> combinations that might be
+            hard to read, nesting can sometimes make the logic clearer by
+            breaking it down. For instance, you only check the age *after*
+            confirming membership in the example above.
+          </li>
+          <li>
+            <strong>Structuring Decisions:</strong> They help structure decision
+            trees where different paths lead to different outcomes based on a
+            sequence of checks.
+          </li>
+        </ul>
+        <p class="text-sm text-gray-600">
+          <strong>Caution:</strong> While useful, deeply nested conditionals
+          (more than 2-3 levels) can become hard to read and debug. Sometimes,
+          breaking the logic into separate functions or using other techniques
+          might be better for very complex scenarios.
+        </p>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. See Nested Conditionals in Action
+        </h2>
+        <p class="mb-4">
+          Let's simulate checking access permissions. Access might depend on
+          being logged in and having a specific role (e.g., 'admin' or
+          'editor'). Select the status and role below.
+        </p>
+        <div class="mb-4 flex flex-wrap items-center space-x-4">
+          <div>
+            <label for="loginStatus" class="block font-medium mb-1"
+              >Login Status:</label
+            >
+            <select id="loginStatus" class="select-field">
+              <option value="True">Logged In</option>
+              <option value="False">Not Logged In</option>
+            </select>
+          </div>
+          <div>
+            <label for="userRole" class="block font-medium mb-1"
+              >User Role:</label
+            >
+            <select id="userRole" class="select-field">
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+              <option value="viewer">Viewer</option>
+              <option value="guest">Guest</option>
+            </select>
+          </div>
+        </div>
+        <button id="checkAccessButton" class="btn btn-green">
+          Check Access
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <h3 class="text-lg font-medium mb-2">Conditional Code:</h3>
+            <pre id="nestedCodeDisplay"><code class="language-python">
+<span class="code-line" data-line="1">logged_in = ? # Your selection</span>
+<span class="code-line" data-line="2">role = ?      # Your selection</span>
+<span class="code-line" data-line="3"></span>
+<span class="code-line" data-line="4">if logged_in:</span>
+<span class="code-line indent-1" data-line="5">  print("User is logged in.")</span>
+<span class="code-line indent-1" data-line="6">  # --- Nested Check ---</span>
+<span class="code-line indent-1" data-line="7">  if role == "admin":</span>
+<span class="code-line indent-2" data-line="8">    access_level = "Full Access Granted (Admin)"</span>
+<span class="code-line indent-1" data-line="9">  elif role == "editor":</span>
+<span class="code-line indent-2" data-line="10">   access_level = "Edit Access Granted (Editor)"</span>
+<span class="code-line indent-1" data-line="11"> else:</span>
+<span class="code-line indent-2" data-line="12">   access_level = "View Access Only (Viewer/Other)"</span>
+<span class="code-line indent-1" data-line="13"> # --- End Nested ---</span>
+<span class="code-line" data-line="14">else:</span>
+<span class="code-line indent-1" data-line="15"> print("User is not logged in.")</span>
+<span class="code-line indent-1" data-line="16"> access_level = "No Access (Guest)"</span>
+<span class="code-line" data-line="17"></span>
+<span class="code-line" data-line="18">print(f"Final Access: {access_level}")</span>
+                    </code></pre>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-2">Execution Result & Output:</h3>
+            <div id="nestedResultDisplay" class="output-display">
+              <span class="text-gray-500 italic"
+                >Select status/role and click 'Check Access'.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div id="nestedMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">Q1: What defines a nested conditional?</p>
+          <label class="block"
+            ><input type="radio" name="q1_nested" value="a" class="mr-1" />
+            Using <code>and</code>/<code>or</code> operators</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_nested" value="b" class="mr-1" /> An
+            <code>if</code>/<code>elif</code>/<code>else</code> inside another
+            <code>if</code>/<code>elif</code>/<code>else</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_nested" value="c" class="mr-1" />
+            Having multiple <code>elif</code> statements</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">Q2: Consider the code:</p>
+          <pre class="text-xs"><code class="language-python">x = 10
+if x > 5:
+  if x < 15:
+    print("A")
+  else:
+    print("B")
+else:
+  print("C")</code></pre>
+          <p class="font-medium mt-1">What will be printed?</p>
+          <label class="block"
+            ><input type="radio" name="q2_nested" value="a" class="mr-1" />
+            A</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_nested" value="b" class="mr-1" />
+            B</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_nested" value="c" class="mr-1" />
+            C</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: What is a potential downside of using too many levels of
+            nesting?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_nested" value="a" class="mr-1" /> It
+            makes the code run faster</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_nested" value="b" class="mr-1" /> It
+            can make the code harder to read and debug</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_nested" value="c" class="mr-1" /> It
+            uses more memory</label
+          >
+        </div>
+        <button id="checkQuizButtonNested" class="btn">Check Answers</button>
+        <div
+          id="quizResultNested"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- DOM Elements ---
+      const loginStatusSelect = document.getElementById("loginStatus");
+      const userRoleSelect = document.getElementById("userRole");
+      const checkAccessButton = document.getElementById("checkAccessButton");
+      const nestedCodeDisplay = document.getElementById("nestedCodeDisplay");
+      const nestedResultDisplay = document.getElementById(
+        "nestedResultDisplay"
+      );
+      const nestedMessage = document.getElementById("nestedMessage");
+
+      const checkQuizButtonNested = document.getElementById(
+        "checkQuizButtonNested"
+      );
+      const quizResultNested = document.getElementById("quizResultNested");
+
+      // --- Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`; // Reset classes and add new ones
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // Parse string 'True'/'False' to actual boolean
+      function parseBool(str) {
+        return str === "True";
+      }
+
+      // --- Interactive Nested Conditional Logic ---
+      function highlightCodeLine(lineNumber) {
+        // Highlight a specific line number
+        const lineElement = nestedCodeDisplay.querySelector(
+          `.code-line[data-line="${lineNumber}"]`
+        );
+        if (lineElement) {
+          lineElement.classList.add("highlight");
+        }
+      }
+
+      function clearHighlights() {
+        nestedCodeDisplay
+          .querySelectorAll(".code-line.highlight")
+          .forEach((el) => {
+            el.classList.remove("highlight");
+          });
+      }
+
+      function handleCheckAccess() {
+        const isLoggedIn = parseBool(loginStatusSelect.value);
+        const role = userRoleSelect.value;
+
+        // Automatically set role to 'guest' if not logged in, for consistency
+        if (!isLoggedIn && role !== "guest") {
+          userRoleSelect.value = "guest";
+          showMessage(
+            nestedMessage,
+            "Role set to 'Guest' as user is not logged in.",
+            "info"
+          );
+          // Re-read role after potential change
+          // Note: This auto-change might be slightly confusing, but simplifies the logic display.
+          // Alternatively, disable role selection when not logged in.
+          // Let's stick with the auto-change for now.
+          // const updatedRole = userRoleSelect.value; // No need, role already updated if needed
+        }
+        if (isLoggedIn && role === "guest") {
+          userRoleSelect.value = "viewer"; // Default logged-in role if guest selected
+          showMessage(
+            nestedMessage,
+            "Role cannot be 'Guest' if logged in. Set to 'Viewer'.",
+            "info"
+          );
+        }
+
+        // Re-read values after potential adjustments
+        const finalIsLoggedIn = parseBool(loginStatusSelect.value);
+        const finalRole = userRoleSelect.value;
+
+        let accessLevel = "";
+        let outputLog = ""; // To store print statements
+        let executedLines = [1, 2]; // Initial assignments always run conceptually
+
+        clearHighlights(); // Clear previous highlights
+
+        // Simulate the nested if/else flow
+        executedLines.push(4); // Check outer if
+        if (finalIsLoggedIn) {
+          executedLines.push(5); // Outer if block starts
+          outputLog += "User is logged in.\n";
+
+          // --- Nested Check ---
+          executedLines.push(7); // Check inner if
+          if (finalRole === "admin") {
+            executedLines.push(8); // Inner if block
+            accessLevel = "Full Access Granted (Admin)";
+          } else {
+            executedLines.push(9); // Check inner elif
+            if (finalRole === "editor") {
+              executedLines.push(10); // Inner elif block
+              accessLevel = "Edit Access Granted (Editor)";
+            } else {
+              executedLines.push(11); // Inner else condition (implicit)
+              executedLines.push(12); // Inner else block
+              accessLevel = "View Access Only (Viewer/Other)";
+            }
+          }
+          // Line 13 is just a comment / end marker conceptually
+        } else {
+          executedLines.push(14); // Outer else condition (implicit)
+          executedLines.push(15); // Outer else block starts
+          outputLog += "User is not logged in.\n";
+          executedLines.push(16);
+          accessLevel = "No Access (Guest)";
+        }
+
+        executedLines.push(18); // Final print statement
+        outputLog += `Final Access: ${accessLevel}`;
+
+        // Apply highlights sequentially
+        let delay = 0;
+        executedLines.forEach((lineNum) => {
+          setTimeout(() => highlightCodeLine(lineNum), delay);
+          delay += 200; // Adjust delay as needed
+        });
+
+        // Update the result display after the animation
+        setTimeout(() => {
+          nestedResultDisplay.textContent = outputLog;
+          showMessage(nestedMessage, "Access check complete.", "success");
+        }, delay);
+      }
+
+      // Add listener to potentially disable role if not logged in (alternative approach)
+      // loginStatusSelect.addEventListener('change', () => {
+      //     userRoleSelect.disabled = !parseBool(loginStatusSelect.value);
+      //     if (!parseBool(loginStatusSelect.value)) {
+      //         userRoleSelect.value = 'guest'; // Force guest if logged out
+      //     }
+      // });
+
+      // --- Quiz Logic ---
+      function checkNestedQuiz() {
+        const answers = {
+          q1_nested: "b", // if/else inside another
+          q2_nested: "a", // Prints A (10 > 5 is True, 10 < 15 is True)
+          q3_nested: "b", // Harder to read/debug
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultNested.textContent =
+            "Please answer all questions before checking.";
+          quizResultNested.className = "message-box message-box-error";
+          quizResultNested.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultNested.innerHTML = resultsHTML;
+        quizResultNested.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultNested.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkAccessButton.addEventListener("click", handleCheckAccess);
+      checkQuizButtonNested.addEventListener("click", checkNestedQuiz);
+
+      // --- Initial Setup ---
+      // No specific setup needed unless implementing the alternative role disabling logic
+    </script>
+  </body>
+</html>

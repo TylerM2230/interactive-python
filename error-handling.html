@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Error Handling (Try/Except)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 80px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      /* Highlighting code */
+      .code-line {
+        display: block;
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.25rem;
+        min-height: 1.2em;
+        transition: background-color 0.3s ease;
+      }
+      .indent-1 {
+        padding-left: 2rem;
+      }
+      .code-line.highlight-try {
+        background-color: #fef9c3;
+      } /* yellow-100 */
+      .code-line.highlight-except {
+        background-color: #fee2e2;
+      } /* red-100 */
+      .code-line.highlight-else {
+        background-color: #dbeafe;
+      } /* blue-100 */
+      .code-line.highlight-finally {
+        background-color: #e5e7eb;
+      } /* gray-200 */
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding Error Handling (Try/Except)
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What are Errors in Programming?
+        </h2>
+        <p class="mb-4">
+          Errors are problems that occur during the execution of a program,
+          causing it to stop unexpectedly. Python distinguishes between two main
+          types:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>
+            <strong>Syntax Errors:</strong> Errors in the structure or grammar
+            of your code (like typos, missing colons, incorrect indentation).
+            Python detects these *before* running the code. You must fix them
+            for the program to start.
+          </li>
+          <li>
+            <strong>Exceptions:</strong> Errors that occur *during* the
+            execution of the program, even if the syntax is correct. Examples
+            include trying to divide by zero (<code>ZeroDivisionError</code>),
+            accessing a non-existent list index (<code>IndexError</code>), or
+            trying to convert invalid input to a number
+            (<code>ValueError</code>).
+          </li>
+        </ul>
+        <p class="mt-2">
+          This tutorial focuses on handling <strong>Exceptions</strong> using
+          the <code>try...except</code> mechanism.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Handling Exceptions: `try` and `except`
+        </h2>
+        <p class="mb-2">
+          To prevent exceptions from crashing your program, you can use a
+          <code>try...except</code> block.
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>
+            The code that might potentially raise an exception is placed inside
+            the <code>try</code> block.
+          </li>
+          <li>
+            If an exception occurs within the <code>try</code> block, Python
+            immediately jumps to the corresponding <code>except</code> block.
+          </li>
+          <li>
+            The code inside the <code>except</code> block is executed only if an
+            exception occurred in the <code>try</code> block.
+          </li>
+          <li>
+            If no exception occurs in the <code>try</code> block, the
+            <code>except</code> block is skipped entirely.
+          </li>
+        </ul>
+        <pre><code class="language-python">try:
+  # Code that might cause an error
+  numerator = 10
+  denominator = int(input("Enter a number to divide by: ")) # Potential ValueError or ZeroDivisionError
+  result = numerator / denominator
+  print(f"The result is: {result}")
+
+except: # This catches *any* exception (generally not recommended, be specific!)
+  print("An error occurred! Maybe invalid input or division by zero?")
+
+print("Program continues after try-except block...")</code></pre>
+        <p class="mt-2">
+          This allows your program to handle the error gracefully (e.g., print a
+          message, log the error) and continue running instead of crashing.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Handling Specific Exceptions
+        </h2>
+        <p class="mb-2">
+          It's usually better to catch specific types of exceptions rather than
+          using a generic <code>except:</code> block. This allows you to handle
+          different errors in different ways. You can have multiple
+          <code>except</code> blocks for a single <code>try</code>.
+        </p>
+        <pre><code class="language-python">try:
+  number_str = input("Enter a number: ")
+  number = int(number_str) # Potential ValueError
+  result = 100 / number      # Potential ZeroDivisionError
+  print(f"100 divided by {number} is {result}")
+
+except ValueError:
+  print(f"Invalid input: '{number_str}' is not a valid integer.")
+except ZeroDivisionError:
+  print("Error: Cannot divide by zero!")
+except Exception as e: # Catch any other unexpected exceptions
+    print(f"An unexpected error occurred: {e}")
+
+print("Program continues...")</code></pre>
+        <p class="mt-2">
+          Python checks the <code>except</code> blocks in order. The first one
+          that matches the type of exception raised is executed, and the rest
+          are skipped.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          4. The `else` and `finally` Blocks
+        </h2>
+        <p class="mb-2">
+          You can add two optional clauses to the
+          <code>try...except</code> structure:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li>
+            <strong><code>else</code>:</strong> This block executes *only if* no
+            exceptions were raised in the <code>try</code> block. It's useful
+            for code that should run only when the `try` part succeeds.
+          </li>
+          <li>
+            <strong><code>finally</code>:</strong> This block executes *always*,
+            regardless of whether an exception occurred or not. It's typically
+            used for cleanup actions, like closing files or releasing resources,
+            ensuring they happen even if an error occurs.
+          </li>
+        </ul>
+        <pre><code class="language-python">try:
+  print("Attempting operation...")
+  value = int(input("Enter a non-zero number: "))
+  result = 10 / value # Potential ValueError or ZeroDivisionError
+except ValueError:
+  print("Error: Invalid number entered.")
+except ZeroDivisionError:
+  print("Error: Cannot divide by zero.")
+else:
+  # This runs ONLY if no exception occurred in the try block
+  print(f"Operation successful! Result: {result}")
+finally:
+  # This runs ALWAYS, whether an exception happened or not
+  print("Executing cleanup actions (finally block).")
+
+print("Program finished.")</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          5. Try Error Handling
+        </h2>
+        <p class="mb-4">
+          Enter a value below. The code will attempt to convert it to an integer
+          and then divide 10 by it. Observe which blocks (`try`, `except`,
+          `else`, `finally`) execute based on your input.
+        </p>
+        <div class="mb-4">
+          <h4 class="text-md font-medium mb-1">Code to Execute:</h4>
+          <pre id="errorHandlerCodeDisplay"><code class="language-python">
+<span class="code-line" data-line="1">print("Starting execution...")</span>
+<span class="code-line" data-line="2">try:</span>
+<span class="code-line indent-1" data-line="3">  print("  Inside TRY block...")</span>
+<span class="code-line indent-1" data-line="4">  user_input = get_input() # Your input below</span>
+<span class="code-line indent-1" data-line="5">  number = int(user_input) # Potential ValueError</span>
+<span class="code-line indent-1" data-line="6">  result = 10 / number     # Potential ZeroDivisionError</span>
+<span class="code-line indent-1" data-line="7">  print(f"    Calculation result: {result}")</span>
+<span class="code-line" data-line="8">except ValueError:</span>
+<span class="code-line indent-1" data-line="9">  print("  Inside ValueError EXCEPT block.")</span>
+<span class="code-line" data-line="10">except ZeroDivisionError:</span>
+<span class="code-line indent-1" data-line="11"> print("  Inside ZeroDivisionError EXCEPT block.")</span>
+<span class="code-line" data-line="12">else:</span>
+<span class="code-line indent-1" data-line="13"> print("  Inside ELSE block (no exceptions).")</span>
+<span class="code-line" data-line="14">finally:</span>
+<span class="code-line indent-1" data-line="15"> print("  Inside FINALLY block (always runs).")</span>
+<span class="code-line" data-line="16">print("Execution finished.")</span>
+                </code></pre>
+        </div>
+
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="errorInput" class="mr-2"
+            >Enter value (try "5", "0", "abc"):</label
+          >
+          <input
+            type="text"
+            id="errorInput"
+            class="input-field"
+            placeholder="e.g., 5, 0, abc"
+            value="5"
+          />
+          <button id="runTryExceptButton" class="btn btn-green">
+            Run Code
+          </button>
+        </div>
+
+        <h4 class="text-md font-medium mt-3 mb-1">
+          Execution Log & Highlights:
+        </h4>
+        <div id="errorHandlingLog" class="output-display">
+          <span class="text-gray-500 italic"
+            >Enter a value and click 'Run Code'.</span
+          >
+        </div>
+
+        <div
+          id="errorHandlingMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">6. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: What is the primary purpose of a `try` block?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_error" value="a" class="mr-1" /> To
+            define a function</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_error" value="b" class="mr-1" /> To
+            enclose code that might raise an exception</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_error" value="c" class="mr-1" /> To
+            always execute cleanup code</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: If an exception occurs in the `try` block, which block executes
+            immediately after?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_error" value="a" class="mr-1" />
+            `else`</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_error" value="b" class="mr-1" />
+            `finally`</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_error" value="c" class="mr-1" /> The
+            matching `except` block</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: When does the `else` block associated with a `try...except`
+            structure execute?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_error" value="a" class="mr-1" />
+            Always</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_error" value="b" class="mr-1" /> Only
+            if an exception occurs in the `try` block</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_error" value="c" class="mr-1" /> Only
+            if NO exception occurs in the `try` block</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q4: Which block is guaranteed to execute, regardless of whether an
+            exception occurs or not?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q4_error" value="a" class="mr-1" />
+            `try`</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_error" value="b" class="mr-1" />
+            `except`</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_error" value="c" class="mr-1" />
+            `finally`</label
+          >
+        </div>
+        <button id="checkQuizButtonError" class="btn">Check Answers</button>
+        <div
+          id="quizResultError"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- DOM Elements ---
+      const errorInput = document.getElementById("errorInput");
+      const runTryExceptButton = document.getElementById("runTryExceptButton");
+      const errorHandlingLog = document.getElementById("errorHandlingLog");
+      const errorHandlingMessage = document.getElementById(
+        "errorHandlingMessage"
+      );
+      const codeLines = document.querySelectorAll(
+        "#errorHandlerCodeDisplay .code-line"
+      );
+
+      const checkQuizButtonError = document.getElementById(
+        "checkQuizButtonError"
+      );
+      const quizResultError = document.getElementById("quizResultError");
+
+      // --- Interactive Error Handling Logic ---
+      function highlightCode(lineNumbers, className) {
+        // Clear previous highlights of *any* type first
+        codeLines.forEach((line) =>
+          line.classList.remove(
+            "highlight-try",
+            "highlight-except",
+            "highlight-else",
+            "highlight-finally"
+          )
+        );
+        if (!Array.isArray(lineNumbers)) lineNumbers = [lineNumbers]; // Ensure it's an array
+
+        lineNumbers.forEach((ln) => {
+          const lineElement = document.querySelector(
+            `.code-line[data-line="${ln}"]`
+          );
+          if (lineElement) lineElement.classList.add(className);
+        });
+      }
+
+      function simulateExecution() {
+        const userInput = errorInput.value;
+        errorHandlingLog.innerHTML = ""; // Clear previous log
+        highlightCode([], ""); // Clear highlights
+
+        let log = "";
+        let errorOccurred = null; // To track which error, if any
+        let result = null;
+
+        const appendLog = (lineNum, message, highlightClass) => {
+          log += message + "\n";
+          errorHandlingLog.innerHTML = log;
+          errorHandlingLog.scrollTop = errorHandlingLog.scrollHeight;
+          highlightCode(lineNum, highlightClass);
+        };
+
+        // Simulate line 1
+        appendLog(1, "Starting execution...", "");
+
+        // Simulate entering TRY block (line 2, 3)
+        appendLog([2, 3], "  Inside TRY block...", "highlight-try");
+
+        // Simulate getting input (line 4) - conceptual
+        appendLog(4, `    (Input provided: "${userInput}")`, "highlight-try");
+
+        // --- Actual TRY logic ---
+        try {
+          // Simulate line 5: int conversion
+          appendLog(
+            5,
+            `    Attempting int("${userInput}")...`,
+            "highlight-try"
+          );
+          const number = parseInt(userInput);
+          if (isNaN(number) || number.toString() !== userInput.trim()) {
+            // Stricter check than just isNaN
+            throw new Error("ValueError"); // Simulate ValueError
+          }
+
+          // Simulate line 6: Division
+          appendLog(6, `    Attempting 10 / ${number}...`, "highlight-try");
+          if (number === 0) {
+            throw new Error("ZeroDivisionError"); // Simulate ZeroDivisionError
+          }
+          result = 10 / number;
+
+          // Simulate line 7: Success print
+          appendLog(7, `    Calculation result: ${result}`, "highlight-try");
+        } catch (e) {
+          errorOccurred = e.message; // Store the type of error
+        }
+
+        // --- EXCEPT, ELSE, FINALLY ---
+        if (errorOccurred) {
+          if (errorOccurred === "ValueError") {
+            // Simulate line 8, 9
+            appendLog(
+              [8, 9],
+              "  Inside ValueError EXCEPT block.",
+              "highlight-except"
+            );
+          } else if (errorOccurred === "ZeroDivisionError") {
+            // Simulate line 10, 11
+            appendLog(
+              [10, 11],
+              "  Inside ZeroDivisionError EXCEPT block.",
+              "highlight-except"
+            );
+          } else {
+            // Generic catch simulation (though our example is specific)
+            appendLog(
+              [],
+              `  An unexpected error occurred: ${errorOccurred}`,
+              "highlight-except"
+            );
+          }
+        } else {
+          // No error occurred, simulate ELSE block (line 12, 13)
+          appendLog(
+            [12, 13],
+            "  Inside ELSE block (no exceptions).",
+            "highlight-else"
+          );
+        }
+
+        // Simulate FINALLY block (line 14, 15) - always runs
+        appendLog(
+          [14, 15],
+          "  Inside FINALLY block (always runs).",
+          "highlight-finally"
+        );
+
+        // Simulate line 16
+        appendLog(16, "Execution finished.", "");
+
+        showMessage(
+          errorHandlingMessage,
+          `Execution simulation complete. ${
+            errorOccurred ? "An error was handled." : "No errors occurred."
+          }`,
+          errorOccurred ? "error" : "success"
+        );
+
+        // Clear highlights after a short delay
+        setTimeout(() => highlightCode([], ""), 1500);
+      }
+
+      runTryExceptButton.addEventListener("click", simulateExecution);
+
+      // --- Quiz Logic ---
+      function checkErrorQuiz() {
+        const answers = {
+          q1_error: "b", // Enclose code that might raise exception
+          q2_error: "c", // Matching except block
+          q3_error: "c", // Only if NO exception occurs
+          q4_error: "c", // finally
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultError.textContent =
+            "Please answer all questions before checking.";
+          quizResultError.className = "message-box message-box-error";
+          quizResultError.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultError.innerHTML = resultsHTML;
+        quizResultError.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultError.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkQuizButtonError.addEventListener("click", checkErrorQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        // No specific setup needed initially
+      };
+    </script>
+  </body>
+</html>

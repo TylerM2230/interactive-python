@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Guide to Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Custom style for link cards */
+      .link-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .link-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 min-h-screen p-4 md:p-8"
+  >
+    <header class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-indigo-700">
+        Interactive Guide to Python
+      </h1>
+      <p class="text-lg text-gray-600 mt-3">
+        Your interactive journey into Python programming concepts.
+      </p>
+    </header>
+
+    <main class="max-w-5xl mx-auto">
+      <section class="mb-10">
+        <h2
+          class="text-2xl font-semibold text-gray-800 mb-6 text-center border-b-2 border-indigo-300 pb-2"
+        >
+          Core Concepts
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="intro-programming.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Introduction to Programming & Python
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Understand what programming is and get an overview of the Python
+              language.
+            </p>
+          </a>
+
+          <a
+            href="variables-types.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Variables & Data Types
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn how to store information using variables and understand
+              basic data types like integers, floats, strings, and booleans.
+            </p>
+          </a>
+
+          <a
+            href="lists-iteration.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Lists & Iteration
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore ordered collections (lists) and how to process each item
+              using loops.
+            </p>
+          </a>
+
+          <a
+            href="booleans-conditionals.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Booleans & Conditionals
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Understand true/false logic and how to make decisions in your code
+              using `if`, `elif`, and `else`.
+            </p>
+          </a>
+
+          <a
+            href="nested-conditionals.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Nested Conditionals
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn how to place conditional statements inside others for more
+              complex decision-making.
+            </p>
+          </a>
+
+          <a
+            href="loops.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Loops (For & While)
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Master code repetition using `for` loops (iteration) and `while`
+              loops (condition-based).
+            </p>
+          </a>
+
+          <a
+            href="nested-loops.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Nested Loops
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Understand how to use loops inside other loops, often used for
+              grids or combinations.
+            </p>
+          </a>
+
+          <a
+            href="string-operations.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              String Operations
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn how to manipulate text data using concatenation, slicing,
+              and built-in string methods.
+            </p>
+          </a>
+
+          <a
+            href="functions.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Functions</h3>
+            <p class="text-gray-600 text-sm">
+              Discover how to create reusable blocks of code with parameters and
+              return values.
+            </p>
+          </a>
+
+          <a
+            href="error-handling.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Error Handling
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn how to gracefully handle errors using `try`, `except`,
+              `else`, and `finally` blocks.
+            </p>
+          </a>
+
+          <a
+            href="file-handling.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              File Handling
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore how to read from and write to files using Python,
+              including the `with` statement.
+            </p>
+          </a>
+
+          <a
+            href="random-module.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">
+              Random Module
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn how to generate pseudo-random numbers, choose items
+              randomly, and shuffle sequences.
+            </p>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2
+          class="text-2xl font-semibold text-gray-800 mb-6 text-center border-b-2 border-indigo-300 pb-2"
+        >
+          Data Structures & Algorithms
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="2d-lists.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-purple-600 mb-2">2D Lists</h3>
+            <p class="text-gray-600 text-sm">
+              Understand how to work with lists of lists to represent grids or
+              matrices.
+            </p>
+          </a>
+
+          <a
+            href="dictionaries-tuples.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-purple-600 mb-2">
+              Dictionaries & Tuples
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore key-value pairs (dictionaries) and immutable sequences
+              (tuples).
+            </p>
+          </a>
+
+          <a
+            href="data-structures.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-purple-600 mb-2">
+              Data Structures Overview
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn about Sets, Stacks (LIFO), and Queues (FIFO).
+            </p>
+          </a>
+
+          <a
+            href="trees.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-purple-600 mb-2">
+              Trees (BST)
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore hierarchical tree structures, focusing on Binary Search
+              Trees and traversals.
+            </p>
+          </a>
+
+          <a
+            href="graphs.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-purple-600 mb-2">Graphs</h3>
+            <p class="text-gray-600 text-sm">
+              Understand how graphs represent relationships using nodes and
+              edges.
+            </p>
+          </a>
+
+          <a
+            href="sorting-basic.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-teal-600 mb-2">
+              Sorting Algorithms (Bubble/Selection)
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn the basics of sorting and visualize Bubble Sort and
+              Selection Sort.
+            </p>
+          </a>
+
+          <a
+            href="sorting-merge-joke.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-teal-600 mb-2">
+              Merge Sort & Joke Sorts
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore the efficient Merge Sort algorithm and contrast it with
+              impractical "joke" sorts.
+            </p>
+          </a>
+
+          <a
+            href="searching-binary.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-teal-600 mb-2">
+              Searching (Binary Search)
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Learn about searching and visualize the efficient Binary Search
+              algorithm on sorted data.
+            </p>
+          </a>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2
+          class="text-2xl font-semibold text-gray-800 mb-6 text-center border-b-2 border-indigo-300 pb-2"
+        >
+          Object-Oriented Programming (OOP)
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="oop-basics.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-emerald-600 mb-2">
+              OOP Basics
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Introduction to classes, objects, attributes, methods, and the
+              `__init__` constructor.
+            </p>
+          </a>
+          <a
+            href="oop-advanced.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-emerald-600 mb-2">
+              Advanced OOP Concepts
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Explore Inheritance, Encapsulation, and Polymorphism.
+            </p>
+          </a>
+          <a
+            href="recursion.html"
+            class="link-card block bg-white p-6 rounded-lg shadow-md hover:shadow-lg"
+          >
+            <h3 class="text-xl font-semibold text-emerald-600 mb-2">
+              Recursion
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Understand how functions can call themselves to solve problems,
+              including base cases and recursive steps.
+            </p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-16 text-gray-500 text-sm">
+      <p>Explore the tutorials and happy learning!</p>
+    </footer>
+  </body>
+</html>

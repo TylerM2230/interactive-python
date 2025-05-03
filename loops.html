@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Loops: For and While</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+      }
+      code {
+        font-family: monospace;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+      }
+      /* Styling for loop visualization */
+      .loop-item {
+        border: 2px solid #9ca3af; /* gray-400 */
+        background-color: #e5e7eb; /* gray-200 */
+        color: #374151; /* gray-700 */
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        margin: 0.25rem; /* m-1 */
+        border-radius: 0.375rem; /* rounded-md */
+        display: inline-block;
+        min-width: 40px;
+        text-align: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      .loop-item.highlight {
+        background-color: #fcd34d; /* amber-300 */
+        border-color: #f59e0b; /* amber-500 */
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding Loops: For & While
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. Why Use Loops?
+        </h2>
+        <p class="mb-4">
+          Loops are a fundamental concept in programming used to execute a block
+          of code repeatedly. Instead of writing the same (or similar) code
+          lines multiple times, you can use a loop to automate the repetition.
+          This makes your code shorter, easier to read, and less prone to
+          errors.
+        </p>
+        <p>There are two main types of loops in Python:</p>
+        <ul class="list-disc list-inside ml-4 mt-2">
+          <li>
+            <strong><code>for</code> loops:</strong> Used when you want to
+            iterate over a sequence of items (like a list, a string, or a range
+            of numbers) a specific number of times.
+          </li>
+          <li>
+            <strong><code>while</code> loops:</strong> Used when you want to
+            repeat a block of code as long as a certain condition remains true.
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. The `for` Loop
+        </h2>
+        <p class="mb-2">
+          A <code>for</code> loop iterates over the items of any sequence (a
+          list, a tuple, a dictionary, a set, or a string) or other iterable
+          object, executing the block of code once for each item.
+        </p>
+        <h3 class="text-lg font-medium text-gray-600 mb-1">
+          Iterating over a List:
+        </h3>
+        <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+  print(f"Current fruit: {fruit}")
+
+# Output:
+# Current fruit: apple
+# Current fruit: banana
+# Current fruit: cherry</code></pre>
+        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+          Iterating using `range()`:
+        </h3>
+        <p class="mb-2">
+          The <code>range()</code> function generates a sequence of numbers,
+          which is often used with <code>for</code> loops to repeat code a
+          specific number of times.
+        </p>
+        <pre><code class="language-python"># range(5) generates numbers from 0 up to (but not including) 5
+for i in range(5):
+  print(f"Number: {i}")
+
+# Output:
+# Number: 0
+# Number: 1
+# Number: 2
+# Number: 3
+# Number: 4</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. See a `for` Loop in Action
+        </h2>
+        <p class="mb-4">
+          Click the button to visualize a <code>for</code> loop iterating
+          through a predefined list of items.
+        </p>
+        <div class="mb-4">
+          <button id="runForLoopButton" class="btn btn-green">
+            Run `for` Loop
+          </button>
+          <button id="resetForLoopButton" class="btn">Reset</button>
+        </div>
+        <h3 class="text-lg font-medium mb-2">Sequence (List):</h3>
+        <div
+          id="forLoopSequence"
+          class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
+        ></div>
+        <h3 class="text-lg font-medium mt-4 mb-2">
+          Loop Output / Current Item:
+        </h3>
+        <div id="forLoopOutput" class="output-display">
+          <span class="text-gray-500 italic"
+            >Click "Run `for` Loop" to start.</span
+          >
+        </div>
+        <div
+          id="forLoopMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          4. The `while` Loop
+        </h2>
+        <p class="mb-2">
+          A <code>while</code> loop executes a block of code as long as a
+          specified condition evaluates to <code>True</code>.
+        </p>
+        <p class="mb-2">
+          <strong>Crucially:</strong> The condition must eventually become
+          <code>False</code>, or the loop will run forever (an "infinite loop").
+          You usually need to include code inside the loop that modifies the
+          variables involved in the condition.
+        </p>
+        <pre><code class="language-python">count = 0  # Initialize a counter
+
+while count < 5:  # Condition: loop as long as count is less than 5
+  print(f"Count is: {count}")
+  count = count + 1  # IMPORTANT: Update the counter
+
+print("Loop finished!")
+
+# Output:
+# Count is: 0
+# Count is: 1
+# Count is: 2
+# Count is: 3
+# Count is: 4
+# Loop finished!</code></pre>
+        <p class="mt-2 text-sm text-red-600 font-medium">
+          Warning: Be careful with <code>while</code> loops! Always ensure the
+          condition will eventually become false.
+        </p>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          5. See a `while` Loop in Action
+        </h2>
+        <p class="mb-4">
+          Click the button to visualize a <code>while</code> loop counting up
+          until a condition (<code>count &lt; 5</code>) is met.
+        </p>
+        <div class="mb-4">
+          <button id="runWhileLoopButton" class="btn btn-green">
+            Run `while` Loop
+          </button>
+          <button id="resetWhileLoopButton" class="btn">Reset</button>
+        </div>
+        <h3 class="text-lg font-medium mb-2">Loop State:</h3>
+        <div id="whileLoopState" class="bg-gray-100 p-4 rounded-md">
+          <p>Condition: <code class="font-semibold">count &lt; 5</code></p>
+          <p>
+            Counter value:
+            <code id="whileCounterValue" class="font-semibold">0</code>
+          </p>
+        </div>
+        <h3 class="text-lg font-medium mt-4 mb-2">Loop Output / Status:</h3>
+        <div id="whileLoopOutput" class="output-display">
+          <span class="text-gray-500 italic"
+            >Click "Run `while` Loop" to start.</span
+          >
+        </div>
+        <div
+          id="whileLoopMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          6. Loop Control: `break` and `continue`
+        </h2>
+        <p class="mb-2">Sometimes you need more control over loop execution:</p>
+        <ul class="list-disc list-inside mb-3 space-y-1">
+          <li>
+            <strong><code>break</code>:</strong> Immediately exits the current
+            loop (the innermost loop if nested).
+          </li>
+          <li>
+            <strong><code>continue</code>:</strong> Skips the rest of the code
+            inside the current iteration of the loop and proceeds to the next
+            iteration.
+          </li>
+        </ul>
+        <pre><code class="language-python"># Example using break
+print("--- Break Example ---")
+for i in range(10):
+  if i == 5:
+    print("Breaking loop at i=5")
+    break  # Exit the loop
+  print(f"i = {i}")
+
+# Example using continue
+print("\n--- Continue Example ---")
+for i in range(5):
+  if i == 2:
+    print("Skipping iteration at i=2")
+    continue # Skip print(f"i = {i}") for this iteration
+  print(f"i = {i}")</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">7. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: Which loop is typically used when you know in advance how many
+            times you want to repeat?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_loop" value="a" class="mr-1" />
+            <code>while</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_loop" value="b" class="mr-1" />
+            <code>for</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_loop" value="c" class="mr-1" />
+            <code>if</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: What does <code>range(3)</code> generate in a `for` loop?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_loop" value="a" class="mr-1" /> 1, 2,
+            3</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_loop" value="b" class="mr-1" /> 0, 1,
+            2</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_loop" value="c" class="mr-1" /> 0, 1,
+            2, 3</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: What is the main risk associated with `while` loops?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_loop" value="a" class="mr-1" /> They
+            are slower than `for` loops</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_loop" value="b" class="mr-1" /> They
+            cannot iterate over lists</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_loop" value="c" class="mr-1" />
+            Potential for infinite loops if the condition never becomes
+            false</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q4: What does the `break` statement do inside a loop?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q4_loop" value="a" class="mr-1" /> Skips
+            the current iteration and continues to the next</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_loop" value="b" class="mr-1" /> Exits
+            the loop entirely</label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_loop" value="c" class="mr-1" /> Pauses
+            the loop</label
+          >
+        </div>
+        <button id="checkQuizButtonLoop" class="btn">Check Answers</button>
+        <div
+          id="quizResultLoop"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- For Loop Elements and State ---
+      const runForLoopButton = document.getElementById("runForLoopButton");
+      const resetForLoopButton = document.getElementById("resetForLoopButton");
+      const forLoopSequence = document.getElementById("forLoopSequence");
+      const forLoopOutput = document.getElementById("forLoopOutput");
+      const forLoopMessage = document.getElementById("forLoopMessage");
+      const forLoopItems = ["A", "B", "C", "D", "E"];
+      let forLoopInterval = null;
+      let currentForIndex = 0;
+
+      // --- While Loop Elements and State ---
+      const runWhileLoopButton = document.getElementById("runWhileLoopButton");
+      const resetWhileLoopButton = document.getElementById(
+        "resetWhileLoopButton"
+      );
+      const whileLoopState = document.getElementById("whileLoopState");
+      const whileCounterValue = document.getElementById("whileCounterValue");
+      const whileLoopOutput = document.getElementById("whileLoopOutput");
+      const whileLoopMessage = document.getElementById("whileLoopMessage");
+      let whileLoopInterval = null;
+      let currentWhileCount = 0;
+      const whileLoopLimit = 5;
+      const MAX_WHILE_ITERATIONS = 100; // Safety break
+
+      // --- Quiz Elements ---
+      const checkQuizButtonLoop = document.getElementById(
+        "checkQuizButtonLoop"
+      );
+      const quizResultLoop = document.getElementById("quizResultLoop");
+
+      // --- For Loop Logic ---
+      function renderForSequence() {
+        forLoopSequence.innerHTML = ""; // Clear previous
+        forLoopItems.forEach((item, index) => {
+          const span = document.createElement("span");
+          span.textContent = item;
+          span.className = "loop-item";
+          span.dataset.index = index;
+          forLoopSequence.appendChild(span);
+        });
+      }
+
+      function resetForLoop() {
+        if (forLoopInterval) {
+          clearInterval(forLoopInterval);
+          forLoopInterval = null;
+        }
+        currentForIndex = 0;
+        forLoopOutput.innerHTML =
+          '<span class="text-gray-500 italic">Click "Run `for` Loop" to start.</span>';
+        // Remove highlights
+        forLoopSequence
+          .querySelectorAll(".loop-item.highlight")
+          .forEach((el) => el.classList.remove("highlight"));
+        runForLoopButton.disabled = false;
+        showMessage(forLoopMessage, "For loop reset.", "info");
+      }
+
+      function stepThroughForLoop() {
+        // Remove highlight from previous item
+        if (currentForIndex > 0) {
+          const prevElement = forLoopSequence.querySelector(
+            `[data-index="${currentForIndex - 1}"]`
+          );
+          if (prevElement) prevElement.classList.remove("highlight");
+        }
+
+        if (currentForIndex < forLoopItems.length) {
+          const currentItem = forLoopItems[currentForIndex];
+          const currentElement = forLoopSequence.querySelector(
+            `[data-index="${currentForIndex}"]`
+          );
+
+          // Highlight current item
+          if (currentElement) currentElement.classList.add("highlight");
+
+          // Update output
+          forLoopOutput.innerHTML += `Processing item: <strong class="text-blue-600">${currentItem}</strong>\n`;
+          currentForIndex++;
+        } else {
+          // Iteration finished
+          forLoopOutput.innerHTML += `<strong class="text-green-600">For loop Complete!</strong>\n`;
+          clearInterval(forLoopInterval);
+          forLoopInterval = null;
+          runForLoopButton.disabled = false; // Re-enable button
+          showMessage(forLoopMessage, "For loop finished.", "success");
+        }
+      }
+
+      function startForLoop() {
+        if (forLoopInterval) return; // Prevent multiple runs
+        resetForLoop(); // Ensure clean state
+        runForLoopButton.disabled = true;
+        forLoopOutput.innerHTML = "Starting `for` loop...\n"; // Clear previous output
+        forLoopInterval = setInterval(stepThroughForLoop, 800); // Delay between steps
+      }
+
+      // --- While Loop Logic ---
+      function resetWhileLoop() {
+        if (whileLoopInterval) {
+          clearInterval(whileLoopInterval);
+          whileLoopInterval = null;
+        }
+        currentWhileCount = 0;
+        whileCounterValue.textContent = currentWhileCount;
+        whileLoopOutput.innerHTML =
+          '<span class="text-gray-500 italic">Click "Run `while` Loop" to start.</span>';
+        runWhileLoopButton.disabled = false;
+        showMessage(whileLoopMessage, "While loop reset.", "info");
+      }
+
+      function stepThroughWhileLoop() {
+        // Check condition BEFORE executing the block
+        const conditionMet = currentWhileCount < whileLoopLimit;
+        let statusMessage = `Checking condition: ${currentWhileCount} < ${whileLoopLimit} => ${conditionMet}\n`;
+
+        if (conditionMet) {
+          // Simulate loop body execution
+          statusMessage += `Condition TRUE. Executing block...\n`;
+          statusMessage += `  Output: Count is: <strong class="text-blue-600">${currentWhileCount}</strong>\n`;
+
+          // Simulate counter update
+          currentWhileCount++;
+          statusMessage += `  Updating counter: count = ${currentWhileCount}\n`;
+          whileCounterValue.textContent = currentWhileCount; // Update display
+
+          // Safety break
+          if (currentWhileCount > MAX_WHILE_ITERATIONS) {
+            statusMessage += `<strong class="text-red-600">SAFETY BREAK: Exceeded max iterations!</strong>\n`;
+            clearInterval(whileLoopInterval);
+            whileLoopInterval = null;
+            runWhileLoopButton.disabled = false;
+            showMessage(
+              whileLoopMessage,
+              "While loop stopped (safety break).",
+              "error"
+            );
+          }
+        } else {
+          // Condition is false, loop terminates
+          statusMessage += `Condition FALSE. Loop terminates.\n`;
+          statusMessage += `<strong class="text-green-600">While loop Complete!</strong>\n`;
+          clearInterval(whileLoopInterval);
+          whileLoopInterval = null;
+          runWhileLoopButton.disabled = false; // Re-enable button
+          showMessage(whileLoopMessage, "While loop finished.", "success");
+        }
+        whileLoopOutput.innerHTML += statusMessage + "----\n";
+        // Auto-scroll output
+        whileLoopOutput.scrollTop = whileLoopOutput.scrollHeight;
+      }
+
+      function startWhileLoop() {
+        if (whileLoopInterval) return; // Prevent multiple runs
+        resetWhileLoop(); // Ensure clean state
+        runWhileLoopButton.disabled = true;
+        whileLoopOutput.innerHTML = "Starting `while` loop...\n----\n"; // Clear previous output
+        whileLoopInterval = setInterval(stepThroughWhileLoop, 1000); // Delay between steps
+      }
+
+      // --- Quiz Logic ---
+      function checkLoopsQuiz() {
+        const answers = {
+          q1_loop: "b", // for
+          q2_loop: "b", // 0, 1, 2
+          q3_loop: "c", // Infinite loops
+          q4_loop: "b", // Exits loop
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultLoop.textContent =
+            "Please answer all questions before checking.";
+          quizResultLoop.className = "message-box message-box-error";
+          quizResultLoop.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultLoop.innerHTML = resultsHTML;
+        quizResultLoop.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultLoop.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      runForLoopButton.addEventListener("click", startForLoop);
+      resetForLoopButton.addEventListener("click", resetForLoop);
+
+      runWhileLoopButton.addEventListener("click", startWhileLoop);
+      resetWhileLoopButton.addEventListener("click", resetWhileLoop);
+
+      checkQuizButtonLoop.addEventListener("click", checkLoopsQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        renderForSequence(); // Render the sequence for the 'for' loop example
+        resetWhileLoop(); // Set initial state for while loop display
+      };
+    </script>
+  </body>
+</html>

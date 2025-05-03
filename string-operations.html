@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn String Operations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+      }
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .input-field-small {
+        width: 60px;
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 50px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      /* Styling for string visualization */
+      .string-char {
+        display: inline-block;
+        border: 1px solid #d1d5db; /* gray-300 */
+        background-color: #fff;
+        padding: 0.3rem 0.5rem;
+        margin: 1px;
+        border-radius: 3px;
+        font-family: monospace;
+        min-width: 25px;
+        text-align: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .string-char.highlight {
+        background-color: #fcd34d; /* amber-300 */
+        border-color: #f59e0b; /* amber-500 */
+        font-weight: bold;
+        transform: scale(1.1);
+        z-index: 10;
+      }
+      .string-vis-container {
+        background-color: #f3f4f6; /* gray-100 */
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        margin-top: 0.5rem;
+        overflow-x: auto; /* Allow horizontal scroll for long strings */
+        white-space: nowrap; /* Prevent wrapping */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding String Operations
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What are Strings?
+        </h2>
+        <p class="mb-4">
+          A string (<code>str</code> in Python) is a sequence of characters.
+          Think of it as text data. Strings are enclosed in either single quotes
+          (<code>'...'</code>) or double quotes (<code>"..."</code>). They are
+          immutable, meaning once a string is created, its contents cannot be
+          directly changed (though you can create new strings based on existing
+          ones).
+        </p>
+        <pre><code class="language-python">greeting = "Hello, World!"
+name = 'Alice'
+empty_string = ""
+
+print(greeting)
+print(type(name)) # Output: <class 'str'></code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Combining & Repeating Strings
+        </h2>
+        <p class="mb-2">
+          You can easily combine (concatenate) strings using the
+          <code>+</code> operator and repeat strings using the
+          <code>*</code> operator.
+        </p>
+        <pre><code class="language-python">first = "Hello"
+second = " "
+third = "There"
+
+# Concatenation
+full_greeting = first + second + third
+print(full_greeting) # Output: Hello There
+
+# Repetition
+repeated_laugh = "Ha" * 3
+print(repeated_laugh) # Output: HaHaHa</code></pre>
+
+        <h3 class="text-lg font-medium mt-4 mb-2">Try it:</h3>
+        <div class="flex flex-wrap items-center mb-2">
+          <input
+            type="text"
+            id="str1Input"
+            class="input-field"
+            placeholder="String 1"
+            value="Hello"
+          />
+          <span class="mx-2 text-xl font-bold">+</span>
+          <input
+            type="text"
+            id="str2Input"
+            class="input-field"
+            placeholder="String 2"
+            value=" World"
+          />
+          <button id="concatButton" class="btn">Concatenate</button>
+        </div>
+        <div class="flex flex-wrap items-center mb-2">
+          <input
+            type="text"
+            id="strRepeatInput"
+            class="input-field"
+            placeholder="String to Repeat"
+            value="Go "
+          />
+          <span class="mx-2 text-xl font-bold">*</span>
+          <input
+            type="number"
+            id="repeatNumInput"
+            class="input-field input-field-small"
+            placeholder="Num"
+            value="3"
+            min="0"
+          />
+          <button id="repeatButton" class="btn">Repeat</button>
+        </div>
+        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+        <div id="combineResultDisplay" class="output-display">
+          <span class="text-gray-500 italic"
+            >Click buttons above to see results.</span
+          >
+        </div>
+        <div
+          id="combineMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Accessing Parts of Strings
+        </h2>
+        <p class="mb-2">
+          Since strings are sequences, you can access individual characters
+          using indexing (starting from 0) and extract substrings using slicing.
+        </p>
+        <ul class="list-disc list-inside mb-3 space-y-1">
+          <li>
+            <strong>Indexing <code>[index]</code>:</strong> Gets the character
+            at a specific position. Negative indices count from the end (<code
+              >-1</code
+            >
+            is the last character).
+          </li>
+          <li>
+            <strong>Slicing <code>[start:stop:step]</code>:</strong> Extracts a
+            portion of the string.
+            <ul>
+              <li>
+                <code>start</code>: The index to begin extraction (inclusive,
+                defaults to 0).
+              </li>
+              <li>
+                <code>stop</code>: The index to end extraction (exclusive,
+                defaults to end of string).
+              </li>
+              <li>
+                <code>step</code>: The amount to jump between characters
+                (defaults to 1).
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <pre><code class="language-python">text = "Python"
+
+# Indexing
+print(text[0])    # Output: P (First character)
+print(text[2])    # Output: t
+print(text[-1])   # Output: n (Last character)
+
+# Slicing
+print(text[0:3])  # Output: Pyt (Chars at index 0, 1, 2)
+print(text[2:])   # Output: thon (From index 2 to the end)
+print(text[:4])   # Output: Pyth (From start up to index 4)
+print(text[::2])  # Output: Pto (Every second character)
+print(text[::-1]) # Output: nohtyP (Reverse the string)</code></pre>
+
+        <h3 class="text-lg font-medium mt-4 mb-2">
+          Try it with "Programming":
+        </h3>
+        <div id="accessStringVis" class="string-vis-container mb-4"></div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="accessIndexInput" class="mr-2">Index:</label>
+          <input
+            type="number"
+            id="accessIndexInput"
+            class="input-field input-field-small"
+            placeholder="e.g., 0, -1"
+          />
+          <button id="accessIndexButton" class="btn">Get Character</button>
+        </div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="sliceStartInput" class="mr-2">Slice Start:</label>
+          <input
+            type="number"
+            id="sliceStartInput"
+            class="input-field input-field-small"
+            placeholder="Start"
+          />
+          <label for="sliceStopInput" class="ml-4 mr-2">Stop:</label>
+          <input
+            type="number"
+            id="sliceStopInput"
+            class="input-field input-field-small"
+            placeholder="Stop"
+          />
+          <label for="sliceStepInput" class="ml-4 mr-2">Step:</label>
+          <input
+            type="number"
+            id="sliceStepInput"
+            class="input-field input-field-small"
+            placeholder="Step"
+          />
+          <button id="sliceButton" class="btn">Get Slice</button>
+        </div>
+        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+        <div id="accessResultDisplay" class="output-display">
+          <span class="text-gray-500 italic"
+            >Enter index/slice values and click buttons.</span
+          >
+        </div>
+        <div
+          id="accessStrMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          4. Common String Methods
+        </h2>
+        <p class="mb-2">
+          Strings have many useful built-in methods (functions attached to the
+          string object) that return *new* strings (remember, strings are
+          immutable).
+        </p>
+        <ul class="list-disc list-inside mb-3 space-y-1 text-sm">
+          <li>
+            <code>.upper()</code>: Returns a copy with all characters uppercase.
+          </li>
+          <li>
+            <code>.lower()</code>: Returns a copy with all characters lowercase.
+          </li>
+          <li>
+            <code>.strip()</code>: Returns a copy with leading/trailing
+            whitespace removed.
+          </li>
+          <li>
+            <code>.replace(old, new)</code>: Returns a copy with all occurrences
+            of <code>old</code> replaced by <code>new</code>.
+          </li>
+          <li>
+            <code>.find(substring)</code>: Returns the starting index of the
+            first occurrence of <code>substring</code> (or -1 if not found).
+          </li>
+          <li>
+            <code>.split(separator)</code>: Returns a list of substrings split
+            by the <code>separator</code> (defaults to whitespace).
+          </li>
+          <li>
+            <code>len(string)</code>: (This is a function, not a method) Returns
+            the number of characters in the string.
+          </li>
+        </ul>
+        <pre><code class="language-python">sentence = "  Hello Python World!  "
+
+print(f"Original: '{sentence}'")
+print(f"Length: {len(sentence)}")
+print(f".upper(): '{sentence.upper()}'")
+print(f".lower(): '{sentence.lower()}'")
+print(f".strip(): '{sentence.strip()}'")
+print(f".replace('o', '0'): '{sentence.replace('o', '0')}'")
+print(f".find('Python'): {sentence.find('Python')}") # Index where 'Python' starts
+print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
+
+        <h3 class="text-lg font-medium mt-4 mb-2">Try String Methods:</h3>
+        <div class="mb-2">
+          <label for="methodStrInput" class="block font-medium"
+            >Input String:</label
+          >
+          <input
+            type="text"
+            id="methodStrInput"
+            class="input-field w-full"
+            value="  Example String To Test  "
+          />
+        </div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="methodSelect" class="mr-2">Method:</label>
+          <select id="methodSelect" class="select-field">
+            <option value="len">len()</option>
+            <option value="upper">.upper()</option>
+            <option value="lower">.lower()</option>
+            <option value="strip">.strip()</option>
+            <option value="replace">.replace(old, new)</option>
+            <option value="find">.find(substring)</option>
+            <option value="split">.split(separator)</option>
+          </select>
+          <div id="methodArgsContainer" class="inline-block ml-2"></div>
+          <button id="applyMethodButton" class="btn btn-green">
+            Apply Method
+          </button>
+        </div>
+        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+        <div id="methodResultDisplay" class="output-display">
+          <span class="text-gray-500 italic"
+            >Select a method and click 'Apply'.</span
+          >
+        </div>
+        <div id="methodMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: What is the result of <code>"Py" + "thon"</code>?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_string" value="a" class="mr-1" />
+            <code>"Python"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_string" value="b" class="mr-1" />
+            <code>"Py thon"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_string" value="c" class="mr-1" />
+            Error</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: If <code>s = "abcde"</code>, what is <code>s[1:4]</code>?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_string" value="a" class="mr-1" />
+            <code>"abcd"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_string" value="b" class="mr-1" />
+            <code>"bcde"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_string" value="c" class="mr-1" />
+            <code>"bcd"</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: Which method removes whitespace from *both* ends of a string?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_string" value="a" class="mr-1" />
+            <code>.trim()</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_string" value="b" class="mr-1" />
+            <code>.strip()</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_string" value="c" class="mr-1" />
+            <code>.clean()</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q4: What does <code>"Test".lower()</code> return?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q4_string" value="a" class="mr-1" />
+            <code>"Test"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_string" value="b" class="mr-1" />
+            <code>"test"</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q4_string" value="c" class="mr-1" />
+            <code>"TEST"</code></label
+          >
+        </div>
+        <button id="checkQuizButtonString" class="btn">Check Answers</button>
+        <div
+          id="quizResultString"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- DOM Elements ---
+      const str1Input = document.getElementById("str1Input");
+      const str2Input = document.getElementById("str2Input");
+      const concatButton = document.getElementById("concatButton");
+      const strRepeatInput = document.getElementById("strRepeatInput");
+      const repeatNumInput = document.getElementById("repeatNumInput");
+      const repeatButton = document.getElementById("repeatButton");
+      const combineResultDisplay = document.getElementById(
+        "combineResultDisplay"
+      );
+      const combineMessage = document.getElementById("combineMessage");
+
+      const accessStringVis = document.getElementById("accessStringVis");
+      const accessIndexInput = document.getElementById("accessIndexInput");
+      const accessIndexButton = document.getElementById("accessIndexButton");
+      const sliceStartInput = document.getElementById("sliceStartInput");
+      const sliceStopInput = document.getElementById("sliceStopInput");
+      const sliceStepInput = document.getElementById("sliceStepInput");
+      const sliceButton = document.getElementById("sliceButton");
+      const accessResultDisplay = document.getElementById(
+        "accessResultDisplay"
+      );
+      const accessStrMessage = document.getElementById("accessStrMessage");
+      const accessExampleString = "Programming";
+
+      const methodStrInput = document.getElementById("methodStrInput");
+      const methodSelect = document.getElementById("methodSelect");
+      const methodArgsContainer = document.getElementById(
+        "methodArgsContainer"
+      );
+      const applyMethodButton = document.getElementById("applyMethodButton");
+      const methodResultDisplay = document.getElementById(
+        "methodResultDisplay"
+      );
+      const methodMessage = document.getElementById("methodMessage");
+
+      const checkQuizButtonString = document.getElementById(
+        "checkQuizButtonString"
+      );
+      const quizResultString = document.getElementById("quizResultString");
+
+      // --- Concatenation & Repetition Logic ---
+      concatButton.addEventListener("click", () => {
+        const str1 = str1Input.value;
+        const str2 = str2Input.value;
+        const result = str1 + str2;
+        combineResultDisplay.textContent = `"${str1}" + "${str2}" => "${result}"`;
+        showMessage(combineMessage, "Concatenation complete.", "success");
+      });
+
+      repeatButton.addEventListener("click", () => {
+        const str = strRepeatInput.value;
+        const numStr = repeatNumInput.value;
+        const num = parseInt(numStr, 10);
+
+        if (isNaN(num) || num < 0) {
+          showMessage(
+            combineMessage,
+            "Please enter a non-negative number for repetition.",
+            "error"
+          );
+          combineResultDisplay.textContent =
+            '<span class="text-red-500">Error: Invalid number.</span>';
+          return;
+        }
+        const result = str.repeat(num); // Use built-in repeat for simplicity
+        combineResultDisplay.textContent = `"${str}" * ${num} => "${result}"`;
+        showMessage(combineMessage, "Repetition complete.", "success");
+      });
+
+      // --- Indexing & Slicing Logic ---
+      function renderStringVisual(container, text) {
+        container.innerHTML = "";
+        for (let i = 0; i < text.length; i++) {
+          const charSpan = document.createElement("span");
+          charSpan.className = "string-char";
+          charSpan.textContent = text[i];
+          charSpan.dataset.index = i;
+          container.appendChild(charSpan);
+        }
+      }
+
+      function clearStringHighlights(container) {
+        container.querySelectorAll(".string-char.highlight").forEach((span) => {
+          span.classList.remove("highlight");
+        });
+      }
+
+      accessIndexButton.addEventListener("click", () => {
+        clearStringHighlights(accessStringVis);
+        const indexStr = accessIndexInput.value;
+        if (indexStr === "") {
+          showMessage(accessStrMessage, "Please enter an index.", "error");
+          accessResultDisplay.textContent =
+            '<span class="text-gray-500 italic">Enter index/slice values and click buttons.</span>';
+          return;
+        }
+        const index = parseInt(indexStr, 10);
+
+        try {
+          const char = accessExampleString[index];
+          if (char === undefined) {
+            // Handle out-of-bounds more gracefully than error
+            throw new Error("Index out of bounds");
+          }
+          accessResultDisplay.textContent = `Character at index ${index}: "${char}"`;
+          // Highlight the character
+          const targetSpan = accessStringVis.querySelector(
+            `.string-char[data-index="${
+              index < 0 ? accessExampleString.length + index : index
+            }"]`
+          );
+          if (targetSpan) targetSpan.classList.add("highlight");
+          showMessage(accessStrMessage, "Character accessed.", "success");
+        } catch (e) {
+          showMessage(accessStrMessage, "Error: Index out of bounds.", "error");
+          accessResultDisplay.textContent =
+            '<span class="text-red-500">Error: Index out of bounds.</span>';
+        }
+      });
+
+      sliceButton.addEventListener("click", () => {
+        clearStringHighlights(accessStringVis);
+        // Get slice parameters, treating empty as undefined for default behavior
+        const start =
+          sliceStartInput.value === ""
+            ? undefined
+            : parseInt(sliceStartInput.value, 10);
+        const stop =
+          sliceStopInput.value === ""
+            ? undefined
+            : parseInt(sliceStopInput.value, 10);
+        const step =
+          sliceStepInput.value === ""
+            ? undefined
+            : parseInt(sliceStepInput.value, 10);
+
+        // Basic validation for NaN
+        if (
+          (start !== undefined && isNaN(start)) ||
+          (stop !== undefined && isNaN(stop)) ||
+          (step !== undefined && isNaN(step))
+        ) {
+          showMessage(
+            accessStrMessage,
+            "Invalid number entered for slice parameter.",
+            "error"
+          );
+          accessResultDisplay.textContent =
+            '<span class="text-red-500">Error: Invalid slice number.</span>';
+          return;
+        }
+        if (step === 0) {
+          showMessage(accessStrMessage, "Slice step cannot be zero.", "error");
+          accessResultDisplay.textContent =
+            '<span class="text-red-500">Error: Step cannot be zero.</span>';
+          return;
+        }
+
+        try {
+          // Use slice method - handles undefined parameters correctly
+          const sliceResult = accessExampleString.slice(start, stop);
+          // For step, we need a different approach if step is provided
+          let finalResult = sliceResult;
+          let indicesToHighlight = [];
+
+          if (step !== undefined) {
+            finalResult = "";
+            const len = accessExampleString.length;
+            const actualStart =
+              start === undefined || isNaN(start)
+                ? step > 0
+                  ? 0
+                  : len - 1
+                : start < 0
+                ? len + start
+                : start;
+            const actualStop =
+              stop === undefined || isNaN(stop)
+                ? step > 0
+                  ? len
+                  : -1
+                : stop < 0
+                ? len + stop
+                : stop;
+
+            if (step > 0) {
+              for (let i = actualStart; i < actualStop; i += step) {
+                if (i >= 0 && i < len) {
+                  finalResult += accessExampleString[i];
+                  indicesToHighlight.push(i);
+                }
+              }
+            } else {
+              // step < 0
+              for (let i = actualStart; i > actualStop; i += step) {
+                if (i >= 0 && i < len) {
+                  finalResult += accessExampleString[i];
+                  indicesToHighlight.push(i);
+                }
+              }
+            }
+          } else {
+            // Calculate indices for simple slice without step
+            const len = accessExampleString.length;
+            const actualStart =
+              start === undefined || isNaN(start)
+                ? 0
+                : start < 0
+                ? len + start
+                : start;
+            const actualStop =
+              stop === undefined || isNaN(stop)
+                ? len
+                : stop < 0
+                ? len + stop
+                : stop;
+            for (let i = actualStart; i < actualStop; i++) {
+              if (i >= 0 && i < len) {
+                indicesToHighlight.push(i);
+              }
+            }
+          }
+
+          accessResultDisplay.textContent = `Slice result: "${finalResult}"`;
+          // Highlight characters in the slice
+          indicesToHighlight.forEach((idx) => {
+            const targetSpan = accessStringVis.querySelector(
+              `.string-char[data-index="${idx}"]`
+            );
+            if (targetSpan) targetSpan.classList.add("highlight");
+          });
+
+          showMessage(accessStrMessage, "Slice applied.", "success");
+        } catch (e) {
+          showMessage(
+            accessStrMessage,
+            `Error applying slice: ${e.message}`,
+            "error"
+          );
+          accessResultDisplay.textContent = `<span class="text-red-500">Error: ${e.message}</span>`;
+        }
+      });
+
+      // --- String Methods Logic ---
+      function updateMethodArgs() {
+        methodArgsContainer.innerHTML = ""; // Clear previous args
+        const selectedMethod = methodSelect.value;
+
+        if (selectedMethod === "replace") {
+          methodArgsContainer.innerHTML = `
+                    <input type="text" id="replaceOld" class="input-field" placeholder="Old Substring">
+                    <input type="text" id="replaceNew" class="input-field" placeholder="New Substring">
+                `;
+        } else if (selectedMethod === "find") {
+          methodArgsContainer.innerHTML = `
+                    <input type="text" id="findSubstr" class="input-field" placeholder="Substring to Find">
+                `;
+        } else if (selectedMethod === "split") {
+          methodArgsContainer.innerHTML = `
+                    <input type="text" id="splitSep" class="input-field" placeholder="Separator (optional)">
+                `;
+        }
+      }
+
+      methodSelect.addEventListener("change", updateMethodArgs);
+
+      applyMethodButton.addEventListener("click", () => {
+        const inputStr = methodStrInput.value;
+        const method = methodSelect.value;
+        let result;
+        let resultDisplayStr = "";
+
+        try {
+          switch (method) {
+            case "len":
+              result = inputStr.length;
+              resultDisplayStr = `len("${inputStr}") => ${result}`;
+              break;
+            case "upper":
+              result = inputStr.toUpperCase();
+              resultDisplayStr = `"${inputStr}".upper() => "${result}"`;
+              break;
+            case "lower":
+              result = inputStr.toLowerCase();
+              resultDisplayStr = `"${inputStr}".lower() => "${result}"`;
+              break;
+            case "strip":
+              result = inputStr.strip(); // Use strip() - trim is JS
+              resultDisplayStr = `"${inputStr}".strip() => "${result}"`;
+              break;
+            case "replace":
+              const oldSub = document.getElementById("replaceOld").value;
+              const newSub = document.getElementById("replaceNew").value;
+              result = inputStr.replace(
+                new RegExp(oldSub.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"),
+                newSub
+              ); // Use RegExp for global replace
+              resultDisplayStr = `"${inputStr}".replace("${oldSub}", "${newSub}") => "${result}"`;
+              break;
+            case "find":
+              const findSub = document.getElementById("findSubstr").value;
+              result = inputStr.indexOf(findSub); // Use indexOf (JS equivalent of find)
+              resultDisplayStr = `"${inputStr}".find("${findSub}") => ${result}`;
+              break;
+            case "split":
+              const separator = document.getElementById("splitSep").value;
+              // If separator is empty, split by whitespace (default Python behavior simulated)
+              // If separator provided, split by it.
+              result =
+                separator === ""
+                  ? inputStr.trim().split(/\s+/)
+                  : inputStr.split(separator);
+              // Format list output nicely
+              const listStr =
+                "[" + result.map((item) => `"${item}"`).join(", ") + "]";
+              resultDisplayStr = `"${inputStr}".split(${
+                separator === "" ? "" : '"' + separator + '"'
+              }) => ${listStr}`;
+              break;
+            default:
+              throw new Error("Invalid method selected");
+          }
+          methodResultDisplay.textContent = resultDisplayStr;
+          showMessage(methodMessage, `Method .${method}() applied.`, "success");
+        } catch (e) {
+          showMessage(methodMessage, `Error: ${e.message}`, "error");
+          methodResultDisplay.textContent = `<span class="text-red-500">Error: ${e.message}</span>`;
+        }
+      });
+
+      // --- Quiz Logic ---
+      function checkStringQuiz() {
+        const answers = {
+          q1_string: "a", // "Python"
+          q2_string: "c", // "bcd" (index 1, 2, 3)
+          q3_string: "b", // .strip()
+          q4_string: "b", // "test"
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultString.textContent =
+            "Please answer all questions before checking.";
+          quizResultString.className = "message-box message-box-error";
+          quizResultString.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultString.innerHTML = resultsHTML;
+        quizResultString.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultString.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      checkQuizButtonString.addEventListener("click", checkStringQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        renderStringVisual(accessStringVis, accessExampleString);
+        updateMethodArgs(); // Setup initial args for default method
+      };
+    </script>
+  </body>
+</html>

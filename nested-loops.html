@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Nested Loops</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field,
+      .select-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 100px; /* Increased height */
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 300px; /* Limit height and allow scroll */
+        overflow-y: auto; /* Add scrollbar if needed */
+      }
+      /* Styling for loop visualization */
+      .loop-counter {
+        padding: 0.5rem 1rem;
+        margin: 0.25rem;
+        border-radius: 0.375rem;
+        display: inline-block;
+        border: 2px solid transparent;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      .outer-loop {
+        background-color: #dbeafe; /* blue-100 */
+        border-color: #93c5fd; /* blue-300 */
+      }
+      .inner-loop {
+        background-color: #dcfce7; /* green-100 */
+        border-color: #86efac; /* green-300 */
+      }
+      .loop-counter.highlight {
+        border-color: #f59e0b; /* amber-500 */
+        font-weight: bold;
+        box-shadow: 0 0 5px rgba(245, 158, 11, 0.5); /* amber-500 with opacity */
+      }
+      /* Indentation simulation for code display */
+      .code-line {
+        display: block;
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.25rem;
+        min-height: 1.2em;
+      }
+      .indent-1 {
+        padding-left: 2rem;
+      }
+      .indent-2 {
+        padding-left: 4rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding Nested Loops
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What are Nested Loops?
+        </h2>
+        <p class="mb-4">
+          A nested loop is simply a loop placed inside another loop. The
+          structure consists of an "outer loop" and one or more "inner loops".
+        </p>
+        <p class="mb-2">
+          The key concept is how they execute: For
+          <strong>each single iteration</strong> of the outer loop, the
+          <strong>entire inner loop</strong> completes all of its iterations.
+        </p>
+        <pre><code class="language-python"># Basic structure (for loop inside a for loop)
+for i in range(3):  # Outer loop (runs 3 times: i=0, i=1, i=2)
+  print(f"Outer loop iteration: i = {i}")
+  for j in range(2):  # Inner loop (runs 2 times for EACH outer iteration: j=0, j=1)
+    print(f"  Inner loop iteration: j = {j}")
+  print("-" * 10) # Separator after inner loop finishes
+
+# Output:
+# Outer loop iteration: i = 0
+#   Inner loop iteration: j = 0
+#   Inner loop iteration: j = 1
+# ----------
+# Outer loop iteration: i = 1
+#   Inner loop iteration: j = 0
+#   Inner loop iteration: j = 1
+# ----------
+# Outer loop iteration: i = 2
+#   Inner loop iteration: j = 0
+#   Inner loop iteration: j = 1
+# ----------</code></pre>
+        <p class="mt-2">
+          You can nest any type of loop inside another (e.g., a
+          <code>while</code> loop inside a <code>for</code> loop), but nested
+          <code>for</code> loops are very common.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Common Use Cases
+        </h2>
+        <p class="mb-2">
+          Nested loops are powerful for tasks that involve multi-dimensional
+          structures or combinations:
+        </p>
+        <ul class="list-disc list-inside mb-4 space-y-2">
+          <li>
+            <strong>Working with Grids or 2D Arrays:</strong> Iterating through
+            rows (outer loop) and then columns within each row (inner loop) to
+            access or modify elements in a grid.
+          </li>
+          <li>
+            <strong>Generating Combinations or Pairs:</strong> Creating all
+            possible pairs from two lists, or combinations of elements within a
+            single list.
+          </li>
+          <li>
+            <strong>Creating Patterns:</strong> Printing patterns like triangles
+            or squares using characters, where the outer loop controls rows and
+            the inner loop controls columns or elements per row.
+          </li>
+          <li>
+            <strong>Processing Multi-level Data:</strong> Handling data
+            structures like lists of lists, where the outer loop processes the
+            main list and the inner loop processes the sub-lists.
+          </li>
+        </ul>
+        <pre><code class="language-python"># Example: Generating coordinate pairs (like a grid)
+rows = 3
+cols = 2
+coordinates = []
+
+for r in range(rows): # Outer loop for rows
+    for c in range(cols): # Inner loop for columns
+        coordinates.append((r, c)) # Add the (row, col) tuple
+
+print(coordinates)
+# Output: [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1)]</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. See Nested Loops in Action (Generating Coordinates)
+        </h2>
+        <p class="mb-4">
+          Click the button to visualize a nested <code>for</code> loop
+          generating coordinate pairs (row, column) for a small grid (3 rows, 2
+          columns). Observe how the inner loop completes for each outer loop
+          iteration.
+        </p>
+        <div class="mb-4">
+          <button id="runNestedLoopButton" class="btn btn-green">
+            Run Nested Loop
+          </button>
+          <button id="resetNestedLoopButton" class="btn">Reset</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-medium mb-2">Loop State:</h3>
+            <div class="bg-gray-100 p-4 rounded-md">
+              <p>
+                Outer Loop (<code class="font-semibold">i</code>):
+                <span id="outerLoopCounter" class="loop-counter outer-loop"
+                  >-</span
+                >
+              </p>
+              <p>
+                Inner Loop (<code class="font-semibold">j</code>):
+                <span id="innerLoopCounter" class="loop-counter inner-loop"
+                  >-</span
+                >
+              </p>
+            </div>
+            <h4 class="text-md font-medium mt-4 mb-1">Code Snippet:</h4>
+            <pre class="text-xs"><code class="language-python">
+<span class="code-line" data-line="1">for i in range(3): # Outer</span>
+<span class="code-line indent-1" data-line="2">  # Outer loop body starts</span>
+<span class="code-line indent-1" data-line="3">  for j in range(2): # Inner</span>
+<span class="code-line indent-2" data-line="4">    # Inner loop body starts</span>
+<span class="code-line indent-2" data-line="5">    print(f"({i}, {j})")</span>
+<span class="code-line indent-2" data-line="6">    # Inner loop body ends</span>
+<span class="code-line indent-1" data-line="7">  # Inner loop finishes</span>
+<span class="code-line indent-1" data-line="8"> # Outer loop body ends</span>
+<span class="code-line" data-line="9"># Outer loop finishes</span>
+                    </code></pre>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-medium mb-2">Generated Output:</h3>
+            <div id="nestedLoopOutput" class="output-display">
+              <span class="text-gray-500 italic"
+                >Click "Run Nested Loop" to start.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          id="nestedLoopMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: If an outer loop runs 3 times and an inner loop runs 4 times for
+            each outer iteration, how many times does the innermost code block
+            execute in total?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_nestedloop" value="a" class="mr-1" />
+            3 times</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_nestedloop" value="b" class="mr-1" />
+            4 times</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_nestedloop" value="c" class="mr-1" />
+            7 times</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_nestedloop" value="d" class="mr-1" />
+            12 times</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">Q2: Consider the code:</p>
+          <pre class="text-xs"><code class="language-python">count = 0
+for x in range(2):
+  for y in range(2):
+    count = count + 1
+print(count)</code></pre>
+          <p class="font-medium mt-1">What will be printed?</p>
+          <label class="block"
+            ><input type="radio" name="q2_nestedloop" value="a" class="mr-1" />
+            2</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_nestedloop" value="b" class="mr-1" />
+            3</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_nestedloop" value="c" class="mr-1" />
+            4</label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_nestedloop" value="d" class="mr-1" />
+            1</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: Which use case is NOT a typical application of nested loops?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_nestedloop" value="a" class="mr-1" />
+            Iterating through a simple list (1D)</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_nestedloop" value="b" class="mr-1" />
+            Processing pixels in an image (grid)</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_nestedloop" value="c" class="mr-1" />
+            Generating all possible pairs of players from two teams</label
+          >
+        </div>
+        <button id="checkQuizButtonNestedLoop" class="btn">
+          Check Answers
+        </button>
+        <div
+          id="quizResultNestedLoop"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- Nested Loop Elements and State ---
+      const runNestedLoopButton = document.getElementById(
+        "runNestedLoopButton"
+      );
+      const resetNestedLoopButton = document.getElementById(
+        "resetNestedLoopButton"
+      );
+      const outerLoopCounter = document.getElementById("outerLoopCounter");
+      const innerLoopCounter = document.getElementById("innerLoopCounter");
+      const nestedLoopOutput = document.getElementById("nestedLoopOutput");
+      const nestedLoopMessage = document.getElementById("nestedLoopMessage");
+      const codeLines = document.querySelectorAll(
+        "#nestedCodeDisplay .code-line"
+      ); // Select code lines for highlighting
+
+      let nestedLoopInterval = null;
+      let currentOuterIndex = 0;
+      let currentInnerIndex = 0;
+      const outerLimit = 3;
+      const innerLimit = 2;
+      let nestedLoopRunning = false;
+
+      // --- Quiz Elements ---
+      const checkQuizButtonNestedLoop = document.getElementById(
+        "checkQuizButtonNestedLoop"
+      );
+      const quizResultNestedLoop = document.getElementById(
+        "quizResultNestedLoop"
+      );
+
+      // --- Nested Loop Logic ---
+      function highlightCode(lineNumbers) {
+        codeLines.forEach((line) => line.classList.remove("highlight")); // Clear previous
+        if (Array.isArray(lineNumbers)) {
+          lineNumbers.forEach((ln) => {
+            const lineElement = document.querySelector(
+              `.code-line[data-line="${ln}"]`
+            );
+            if (lineElement) lineElement.classList.add("highlight");
+          });
+        } else {
+          // Single line number
+          const lineElement = document.querySelector(
+            `.code-line[data-line="${lineNumbers}"]`
+          );
+          if (lineElement) lineElement.classList.add("highlight");
+        }
+      }
+
+      function resetNestedLoop() {
+        if (nestedLoopInterval) {
+          clearInterval(nestedLoopInterval);
+          nestedLoopInterval = null;
+        }
+        nestedLoopRunning = false;
+        currentOuterIndex = 0;
+        currentInnerIndex = 0;
+        outerLoopCounter.textContent = "-";
+        innerLoopCounter.textContent = "-";
+        outerLoopCounter.classList.remove("highlight");
+        innerLoopCounter.classList.remove("highlight");
+        nestedLoopOutput.innerHTML =
+          '<span class="text-gray-500 italic">Click "Run Nested Loop" to start.</span>';
+        runNestedLoopButton.disabled = false;
+        highlightCode([]); // Clear code highlights
+        showMessage(nestedLoopMessage, "Nested loop reset.", "info");
+      }
+
+      function stepThroughNestedLoop() {
+        if (!nestedLoopRunning) return; // Stop if reset called
+
+        // Determine current state and next action
+        if (currentOuterIndex < outerLimit) {
+          // Outer loop is running
+          outerLoopCounter.textContent = currentOuterIndex;
+          outerLoopCounter.classList.add("highlight");
+          innerLoopCounter.classList.remove("highlight");
+          highlightCode([1, 2]); // Highlight outer loop line and start of its body
+
+          // Check if inner loop needs to start/continue
+          if (currentInnerIndex < innerLimit) {
+            // Inner loop's turn
+            innerLoopCounter.textContent = currentInnerIndex;
+            outerLoopCounter.classList.remove("highlight"); // De-emphasize outer while inner runs
+            innerLoopCounter.classList.add("highlight");
+            highlightCode([3, 4, 5, 6]); // Highlight inner loop line and its body
+
+            // Append output for this inner iteration
+            nestedLoopOutput.innerHTML += `(${currentOuterIndex}, ${currentInnerIndex})\n`;
+            nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight; // Auto-scroll
+
+            // Increment inner index for next step
+            currentInnerIndex++;
+          } else {
+            // Inner loop finished for this outer iteration
+            innerLoopCounter.textContent = "-"; // Reset inner display
+            innerLoopCounter.classList.remove("highlight");
+            highlightCode([7, 8]); // Highlight end of inner loop, end of outer body
+
+            // Reset inner index and increment outer index for the *next* step
+            currentInnerIndex = 0;
+            currentOuterIndex++;
+            // Add a separator in output
+            if (currentOuterIndex < outerLimit) {
+              // Add separator only if outer loop continues
+              nestedLoopOutput.innerHTML += `----\n`;
+              nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight;
+            }
+          }
+        } else {
+          // Outer loop finished
+          outerLoopCounter.textContent = "-";
+          innerLoopCounter.textContent = "-";
+          outerLoopCounter.classList.remove("highlight");
+          innerLoopCounter.classList.remove("highlight");
+          highlightCode([9]); // Highlight end of outer loop
+
+          nestedLoopOutput.innerHTML += `<strong class="text-green-600">Nested loop Complete!</strong>\n`;
+          nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight;
+
+          clearInterval(nestedLoopInterval);
+          nestedLoopInterval = null;
+          nestedLoopRunning = false;
+          runNestedLoopButton.disabled = false; // Re-enable button
+          showMessage(nestedLoopMessage, "Nested loop finished.", "success");
+        }
+      }
+
+      function startNestedLoop() {
+        if (nestedLoopRunning) return; // Prevent multiple runs
+        resetNestedLoop(); // Ensure clean state before starting
+        nestedLoopRunning = true;
+        runNestedLoopButton.disabled = true;
+        nestedLoopOutput.innerHTML = "Starting nested loop...\n"; // Clear previous output
+        // Initial state setup before first interval tick
+        outerLoopCounter.textContent = currentOuterIndex;
+        outerLoopCounter.classList.add("highlight");
+        innerLoopCounter.textContent = "-"; // Inner hasn't started yet
+        highlightCode([1]); // Highlight outer loop start
+
+        nestedLoopInterval = setInterval(stepThroughNestedLoop, 900); // Delay between steps
+      }
+
+      // --- Quiz Logic ---
+      function checkNestedLoopsQuiz() {
+        const answers = {
+          q1_nestedloop: "d", // 3 * 4 = 12
+          q2_nestedloop: "c", // 2 * 2 = 4 increments
+          q3_nestedloop: "a", // Simple list usually needs only one loop
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResultNestedLoop.textContent =
+            "Please answer all questions before checking.";
+          quizResultNestedLoop.className = "message-box message-box-error";
+          quizResultNestedLoop.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResultNestedLoop.innerHTML = resultsHTML;
+        quizResultNestedLoop.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResultNestedLoop.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      runNestedLoopButton.addEventListener("click", startNestedLoop);
+      resetNestedLoopButton.addEventListener("click", resetNestedLoop);
+      checkQuizButtonNestedLoop.addEventListener("click", checkNestedLoopsQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        resetNestedLoop(); // Set initial state for display
+      };
+    </script>
+  </body>
+</html>

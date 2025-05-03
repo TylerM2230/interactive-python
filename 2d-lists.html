@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn 2D Lists (Lists of Lists)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles (consistent with previous tutorials) */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      pre {
+        background-color: #f3f4f6; /* gray-100 */
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+        padding: 1rem; /* p-4 */
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.875rem; /* text-sm */
+        margin-top: 0.5rem; /* mt-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        position: relative;
+      }
+      code {
+        font-family: monospace;
+      }
+      .interactive-section {
+        background-color: #ffffff; /* white */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        margin-bottom: 1.5rem; /* mb-6 */
+      }
+      .btn {
+        background-color: #3b82f6; /* blue-500 */
+        color: white;
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-weight: 500; /* font-medium */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
+      }
+      .btn:hover:not(:disabled) {
+        background-color: #2563eb; /* blue-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
+      }
+      .btn-green {
+        background-color: #22c55e; /* green-500 */
+      }
+      .btn-green:hover:not(:disabled) {
+        background-color: #16a34a; /* green-600 */
+      }
+      .input-field {
+        border: 1px solid #d1d5db; /* gray-300 */
+        padding: 0.5rem; /* p-2 */
+        border-radius: 0.375rem; /* rounded-md */
+        margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
+        width: 60px; /* Fixed width for index inputs */
+      }
+      .message-box {
+        margin-top: 1rem; /* mt-4 */
+        padding: 0.75rem; /* p-3 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+      }
+      .message-box-success {
+        background-color: #dcfce7; /* green-100 */
+        color: #166534; /* green-800 */
+        border: 1px solid #86efac; /* green-300 */
+      }
+      .message-box-error {
+        background-color: #fee2e2; /* red-100 */
+        color: #991b1b; /* red-800 */
+        border: 1px solid #fecaca; /* red-300 */
+      }
+      .message-box-info {
+        background-color: #e0f2fe; /* sky-100 */
+        color: #075985; /* sky-800 */
+        border: 1px solid #bae6fd; /* sky-300 */
+      }
+      .output-display {
+        background-color: #f9fafb; /* gray-50 */
+        border: 1px dashed #d1d5db; /* gray-300 */
+        padding: 1rem; /* p-4 */
+        border-radius: 0.375rem; /* rounded-md */
+        min-height: 80px;
+        font-family: monospace;
+        white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      /* Styling for 2D list visualization */
+      .grid-container {
+        display: inline-block; /* Fit content */
+        border: 1px solid #ccc;
+        padding: 5px;
+        background-color: #f9fafb; /* gray-50 */
+        border-radius: 4px;
+        margin-top: 0.5rem;
+      }
+      .grid-row {
+        display: flex; /* Arrange cells horizontally */
+        margin-bottom: 4px; /* Spacing between rows */
+      }
+      .grid-row:last-child {
+        margin-bottom: 0;
+      }
+      .grid-cell {
+        border: 1px solid #d1d5db; /* gray-300 */
+        background-color: #fff;
+        min-width: 45px;
+        min-height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 4px; /* Spacing between cells */
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease, border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .grid-cell:last-child {
+        margin-right: 0;
+      }
+      .grid-cell.highlight {
+        background-color: #fcd34d; /* amber-300 */
+        border-color: #f59e0b; /* amber-500 */
+        font-weight: bold;
+        transform: scale(1.1);
+        z-index: 10; /* Bring highlighted cell to front */
+      }
+      .grid-cell.highlight-row {
+        border-color: #60a5fa; /* blue-400 */
+        background-color: #dbeafe; /* blue-100 */
+      }
+      .grid-cell.highlight-processing {
+        background-color: #a7f3d0; /* emerald-200 */
+        border-color: #34d399; /* emerald-400 */
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+        Understanding 2D Lists (Lists of Lists)
+      </h1>
+      <p class="text-lg text-gray-600 mt-2">
+        An Interactive Guide (using Python examples)
+      </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          1. What are 2D Lists?
+        </h2>
+        <p class="mb-4">
+          A 2D list, often called a list of lists or a matrix, is simply a list
+          where each item is itself another list. This structure is commonly
+          used to represent grids, tables, game boards, matrices in mathematics,
+          or any data that has rows and columns.
+        </p>
+        <p class="mb-2">Here's how you can create a 2D list in Python:</p>
+        <pre><code class="language-python"># A 3x4 grid (3 rows, 4 columns)
+grid = [
+  [1, 2, 3, 4],    # Row 0
+  [5, 6, 7, 8],    # Row 1
+  [9, 10, 11, 12]  # Row 2
+]
+
+# You can also create them dynamically, e.g., an empty 2x3 grid
+rows = 2
+cols = 3
+empty_grid = [[0 for _ in range(cols)] for _ in range(rows)]
+# empty_grid will be: [[0, 0, 0], [0, 0, 0]]
+
+print(grid)
+print(empty_grid)</code></pre>
+        <p class="mt-2">
+          Each inner list represents a row, and the elements within the inner
+          lists represent the columns for that row.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          2. Accessing Elements in a 2D List
+        </h2>
+        <p class="mb-2">
+          To access a specific element in a 2D list, you need two indices: one
+          for the row and one for the column. Remember that indexing starts at
+          0.
+        </p>
+        <p class="mb-2">
+          The syntax is: <code>list_name[row_index][column_index]</code>
+        </p>
+        <pre><code class="language-python">grid = [
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12]
+]
+
+# Access the element at Row 0, Column 1 (value is 2)
+element_0_1 = grid[0][1]
+print(f"Element at [0][1]: {element_0_1}")  # Output: 2
+
+# Access the element at Row 2, Column 3 (value is 12)
+element_2_3 = grid[2][3]
+print(f"Element at [2][3]: {element_2_3}")  # Output: 12
+
+# Access an entire row (Row 1)
+row_1 = grid[1]
+print(f"Row 1: {row_1}")  # Output: [5, 6, 7, 8]</code></pre>
+        <p class="mt-2 text-sm text-red-600">
+          Be careful! Accessing an index outside the valid range (e.g.,
+          <code>grid[3]</code> or <code>grid[0][4]</code> in the example above)
+          will cause an <code>IndexError</code>.
+        </p>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          3. Try Accessing Elements
+        </h2>
+        <p class="mb-4">
+          Enter a row and column index below to see the corresponding element
+          highlighted in the example grid. Valid row indices are 0-2, valid
+          column indices are 0-3.
+        </p>
+        <div class="flex flex-wrap items-center mb-4">
+          <div>
+            <label for="rowIndexInput" class="mr-2 font-medium">Row:</label>
+            <input
+              type="number"
+              id="rowIndexInput"
+              class="input-field"
+              placeholder="0-2"
+              min="0"
+              max="2"
+            />
+          </div>
+          <div>
+            <label for="colIndexInput" class="mr-2 font-medium">Column:</label>
+            <input
+              type="number"
+              id="colIndexInput"
+              class="input-field"
+              placeholder="0-3"
+              min="0"
+              max="3"
+            />
+          </div>
+          <button id="accessElementButton" class="btn">Access Element</button>
+        </div>
+
+        <div class="flex flex-wrap items-start">
+          <div class="mr-6 mb-4">
+            <h3 class="text-lg font-medium mb-2">Example Grid:</h3>
+            <div id="gridVisualizer" class="grid-container"></div>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-2">Result:</h3>
+            <div id="accessResultDisplay" class="output-display min-h-[40px]">
+              <span class="text-gray-500 italic"
+                >Enter indices and click 'Access Element'.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div id="accessMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          4. Iterating Through 2D Lists
+        </h2>
+        <p class="mb-2">
+          The most common way to process every element in a 2D list is using
+          nested loops. The outer loop iterates through the rows, and the inner
+          loop iterates through the elements (columns) within the current row.
+        </p>
+        <pre><code class="language-python">grid = [
+  [1, 2, 3],
+  [4, 5, 6]
+]
+
+print("Iterating by element:")
+for row_index in range(len(grid)): # Outer loop iterates through row indices (0, 1)
+  for col_index in range(len(grid[row_index])): # Inner loop iterates through col indices (0, 1, 2)
+    element = grid[row_index][col_index]
+    print(f"  Processing element at [{row_index}][{col_index}]: {element}")
+
+print("\nAlternative: Iterating directly through rows and elements:")
+for row in grid: # Outer loop gets each inner list (row)
+    print(f"Processing Row: {row}")
+    for element in row: # Inner loop gets each element in the current row
+        print(f"  Element: {element}")</code></pre>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+          5. Visualize Iteration
+        </h2>
+        <p class="mb-4">
+          Click the button to visualize nested loops iterating through the
+          example grid. Observe how it processes row by row, then element by
+          element within each row.
+        </p>
+        <div class="mb-4">
+          <button id="runIterationButton" class="btn btn-green">
+            Run Iteration
+          </button>
+          <button id="resetIterationButton" class="btn">Reset</button>
+        </div>
+
+        <div class="flex flex-wrap items-start">
+          <div class="mr-6 mb-4">
+            <h3 class="text-lg font-medium mb-2">Example Grid:</h3>
+            <div id="gridVisualizerIter" class="grid-container"></div>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-2">Iteration Log:</h3>
+            <div id="iterationLogDisplay" class="output-display min-h-[150px]">
+              <span class="text-gray-500 italic"
+                >Click "Run Iteration" to start.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          id="iterationMessage"
+          class="message-box"
+          style="display: none"
+        ></div>
+      </section>
+
+      <section class="mb-8 interactive-section">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">6. Quick Quiz</h2>
+        <p class="mb-4">Test your understanding!</p>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q1: If <code>my_list = [[1, 2], [3, 4]]</code>, what is
+            <code>my_list[1][0]</code>?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q1_2dlist" value="a" class="mr-1" />
+            1</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_2dlist" value="b" class="mr-1" />
+            2</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_2dlist" value="c" class="mr-1" />
+            3</label
+          >
+          <label class="block"
+            ><input type="radio" name="q1_2dlist" value="d" class="mr-1" />
+            4</label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q2: How do you typically get the number of rows in a 2D list called
+            `data`?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q2_2dlist" value="a" class="mr-1" />
+            <code>len(data[0])</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_2dlist" value="b" class="mr-1" />
+            <code>len(data)</code></label
+          >
+          <label class="block"
+            ><input type="radio" name="q2_2dlist" value="c" class="mr-1" />
+            <code>data.rows()</code></label
+          >
+        </div>
+        <div class="mb-3">
+          <p class="font-medium mb-1">
+            Q3: To access every element in a 2D list, what programming structure
+            is most commonly used?
+          </p>
+          <label class="block"
+            ><input type="radio" name="q3_2dlist" value="a" class="mr-1" /> A
+            single `for` loop</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_2dlist" value="b" class="mr-1" />
+            Nested `if` statements</label
+          >
+          <label class="block"
+            ><input type="radio" name="q3_2dlist" value="c" class="mr-1" />
+            Nested loops (`for` or `while`)</label
+          >
+        </div>
+        <button id="checkQuizButton2DList" class="btn">Check Answers</button>
+        <div
+          id="quizResult2DList"
+          class="message-box mt-4"
+          style="display: none"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+      <p>Happy Learning!</p>
+    </footer>
+
+    <script>
+      // --- Shared Utility Functions ---
+      function showMessage(element, message, type = "info") {
+        element.textContent = message;
+        element.className = `message-box message-box-${type}`;
+        element.style.display = "block";
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 3000);
+      }
+
+      // --- Example 2D List Data ---
+      const exampleGridData = [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 10, 11, 12],
+      ];
+      const numRows = exampleGridData.length;
+      const numCols = exampleGridData[0].length; // Assumes a rectangular grid
+
+      // --- DOM Elements ---
+      const rowIndexInput = document.getElementById("rowIndexInput");
+      const colIndexInput = document.getElementById("colIndexInput");
+      const accessElementButton = document.getElementById(
+        "accessElementButton"
+      );
+      const gridVisualizer = document.getElementById("gridVisualizer");
+      const accessResultDisplay = document.getElementById(
+        "accessResultDisplay"
+      );
+      const accessMessage = document.getElementById("accessMessage");
+
+      const runIterationButton = document.getElementById("runIterationButton");
+      const resetIterationButton = document.getElementById(
+        "resetIterationButton"
+      );
+      const gridVisualizerIter = document.getElementById("gridVisualizerIter");
+      const iterationLogDisplay = document.getElementById(
+        "iterationLogDisplay"
+      );
+      const iterationMessage = document.getElementById("iterationMessage");
+
+      const checkQuizButton2DList = document.getElementById(
+        "checkQuizButton2DList"
+      );
+      const quizResult2DList = document.getElementById("quizResult2DList");
+
+      // --- Grid Rendering Function ---
+      function renderGrid(containerElement, gridData) {
+        containerElement.innerHTML = ""; // Clear previous grid
+        gridData.forEach((rowData, rIndex) => {
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "grid-row";
+          rowDiv.dataset.rowIndex = rIndex;
+          rowData.forEach((cellData, cIndex) => {
+            const cellDiv = document.createElement("div");
+            cellDiv.className = "grid-cell";
+            cellDiv.textContent = cellData;
+            cellDiv.dataset.rowIndex = rIndex;
+            cellDiv.dataset.colIndex = cIndex;
+            rowDiv.appendChild(cellDiv);
+          });
+          containerElement.appendChild(rowDiv);
+        });
+      }
+
+      // --- Interactive Element Access Logic ---
+      function clearHighlights(containerElement) {
+        containerElement
+          .querySelectorAll(".grid-cell.highlight")
+          .forEach((cell) => {
+            cell.classList.remove("highlight");
+          });
+      }
+
+      function handleAccessElement() {
+        clearHighlights(gridVisualizer); // Clear previous highlight
+        const rStr = rowIndexInput.value;
+        const cStr = colIndexInput.value;
+
+        if (rStr === "" || cStr === "") {
+          showMessage(
+            accessMessage,
+            "Please enter both row and column indices.",
+            "error"
+          );
+          accessResultDisplay.innerHTML =
+            "<span class=\"text-gray-500 italic\">Enter indices and click 'Access Element'.</span>";
+          return;
+        }
+
+        const r = parseInt(rStr, 10);
+        const c = parseInt(cStr, 10);
+
+        // Validate indices
+        if (
+          isNaN(r) ||
+          isNaN(c) ||
+          r < 0 ||
+          r >= numRows ||
+          c < 0 ||
+          c >= numCols
+        ) {
+          showMessage(
+            accessMessage,
+            `Invalid indices. Row must be 0-${numRows - 1}, Column must be 0-${
+              numCols - 1
+            }.`,
+            "error"
+          );
+          accessResultDisplay.innerHTML =
+            '<span class="text-red-500">Error: Index out of bounds.</span>';
+          return;
+        }
+
+        // Highlight the cell
+        const targetCell = gridVisualizer.querySelector(
+          `.grid-cell[data-row-index="${r}"][data-col-index="${c}"]`
+        );
+        if (targetCell) {
+          targetCell.classList.add("highlight");
+          const value = exampleGridData[r][c];
+          accessResultDisplay.textContent = `Value at grid[${r}][${c}]: ${value}`;
+          showMessage(
+            accessMessage,
+            `Element at [${r}][${c}] highlighted.`,
+            "success"
+          );
+        } else {
+          // Should not happen if validation is correct, but good fallback
+          showMessage(
+            accessMessage,
+            "Could not find the specified cell.",
+            "error"
+          );
+          accessResultDisplay.innerHTML =
+            '<span class="text-red-500">Error: Cell not found.</span>';
+        }
+      }
+
+      // --- Iteration Visualization Logic ---
+      let iterationInterval = null;
+      let iterRow = 0;
+      let iterCol = 0;
+      let iterationRunning = false;
+
+      function clearIterationHighlights() {
+        gridVisualizerIter.querySelectorAll(".grid-cell").forEach((cell) => {
+          cell.classList.remove("highlight-row", "highlight-processing");
+        });
+      }
+
+      function resetIteration() {
+        if (iterationInterval) {
+          clearInterval(iterationInterval);
+          iterationInterval = null;
+        }
+        iterationRunning = false;
+        iterRow = 0;
+        iterCol = 0;
+        clearIterationHighlights();
+        iterationLogDisplay.innerHTML =
+          '<span class="text-gray-500 italic">Click "Run Iteration" to start.</span>';
+        runIterationButton.disabled = false;
+        showMessage(iterationMessage, "Iteration reset.", "info");
+      }
+
+      function stepThroughIteration() {
+        if (!iterationRunning) return;
+        clearIterationHighlights(); // Clear previous step's highlights
+
+        if (iterRow < numRows) {
+          // Highlight the current row being processed
+          gridVisualizerIter
+            .querySelectorAll(`.grid-cell[data-row-index="${iterRow}"]`)
+            .forEach((cell) => {
+              cell.classList.add("highlight-row");
+            });
+
+          if (iterCol < numCols) {
+            // Highlight the specific cell being processed
+            const currentCell = gridVisualizerIter.querySelector(
+              `.grid-cell[data-row-index="${iterRow}"][data-col-index="${iterCol}"]`
+            );
+            if (currentCell) {
+              currentCell.classList.add("highlight-processing");
+            }
+
+            // Log the action
+            const value = exampleGridData[iterRow][iterCol];
+            iterationLogDisplay.innerHTML += `Processing grid[${iterRow}][${iterCol}]: ${value}\n`;
+            iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight; // Auto-scroll
+
+            // Move to the next column for the next step
+            iterCol++;
+          } else {
+            // Finished columns for this row, move to the next row
+            iterationLogDisplay.innerHTML += `Finished Row ${iterRow}.\n`;
+            iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight;
+            iterRow++;
+            iterCol = 0; // Reset column index for the new row
+          }
+        } else {
+          // Finished all rows
+          iterationLogDisplay.innerHTML += `<strong class="text-green-600">Iteration Complete!</strong>\n`;
+          iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight;
+          clearInterval(iterationInterval);
+          iterationInterval = null;
+          iterationRunning = false;
+          runIterationButton.disabled = false;
+          showMessage(iterationMessage, "Iteration finished.", "success");
+        }
+      }
+
+      function startIteration() {
+        if (iterationRunning) return;
+        resetIteration(); // Ensure clean state
+        iterationRunning = true;
+        runIterationButton.disabled = true;
+        iterationLogDisplay.innerHTML = "Starting iteration...\n";
+        iterationInterval = setInterval(stepThroughIteration, 700); // Delay between steps
+      }
+
+      // --- Quiz Logic ---
+      function check2DListQuiz() {
+        const answers = {
+          q1_2dlist: "c", // my_list[1] is [3, 4], my_list[1][0] is 3
+          q2_2dlist: "b", // len(data) gives the number of inner lists (rows)
+          q3_2dlist: "c", // Nested loops
+        };
+        let score = 0;
+        let resultsHTML = "<ul>";
+        let allAnswered = true;
+
+        for (const q in answers) {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (!selected) {
+            allAnswered = false;
+            break;
+          }
+          const isCorrect = selected.value === answers[q];
+          if (isCorrect) {
+            score++;
+            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
+              1,
+              2
+            )}: Correct!</li>`;
+          } else {
+            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
+              1,
+              2
+            )}: Incorrect.</li>`;
+          }
+        }
+
+        if (!allAnswered) {
+          quizResult2DList.textContent =
+            "Please answer all questions before checking.";
+          quizResult2DList.className = "message-box message-box-error";
+          quizResult2DList.style.display = "block";
+          return;
+        }
+
+        resultsHTML += "</ul>";
+        resultsHTML =
+          `<p class="font-medium mb-2">You scored ${score} out of ${
+            Object.keys(answers).length
+          }.</p>` + resultsHTML;
+
+        quizResult2DList.innerHTML = resultsHTML;
+        quizResult2DList.className =
+          score === Object.keys(answers).length
+            ? "message-box message-box-success"
+            : "message-box message-box-error";
+        quizResult2DList.style.display = "block";
+      }
+
+      // --- Event Listeners ---
+      accessElementButton.addEventListener("click", handleAccessElement);
+      // Optional: Add Enter key listener for index inputs
+      rowIndexInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleAccessElement();
+      });
+      colIndexInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleAccessElement();
+      });
+
+      runIterationButton.addEventListener("click", startIteration);
+      resetIterationButton.addEventListener("click", resetIteration);
+
+      checkQuizButton2DList.addEventListener("click", check2DListQuiz);
+
+      // --- Initial Setup ---
+      window.onload = () => {
+        renderGrid(gridVisualizer, exampleGridData); // Render grid for access example
+        renderGrid(gridVisualizerIter, exampleGridData); // Render grid for iteration example
+        resetIteration(); // Set initial iteration state
+      };
+    </script>
+  </body>
+</html>
