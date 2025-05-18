@@ -3,628 +3,281 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Dictionaries & Tuples</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dictionaries & Tuples - Python Guide</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Dictionaries & Tuples
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Storing key-value pairs with dictionaries and ordered, immutable sequences with tuples.
-      </p>
-    </header>
-
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a href="2d-lists.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: 2D Lists
-      </a>
-      <a href="data-structures.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: Data Structures Overview &rarr;
-      </a>
-    </nav>
-
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. Dictionaries (<code>dict</code>): Key-Value Stores
-        </h2>
-        <p class="mb-4">
-          A dictionary is a collection of <strong>key-value pairs</strong>. Each
-          key must be unique and is used to look up its corresponding value.
-          Think of it like a real-world dictionary where the word (key) maps to
-          its definition (value), or like a contact list where a name (key) maps
-          to a phone number (value).
+  <body class="min-h-screen">
+    <div class="console-screen-border">
+      <header class="text-center mb-12 md:mb-16">
+        <h1 class="pixel-header">
+          Interactive Python Guide
+        </h1>
+        <p class="pixel-subheader mt-4">
+          Retro Journey into Code!
         </p>
-        <p class="mb-2">Key characteristics:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong>Key-Value Pairs:</strong> Data is stored as
-            <code>key: value</code>.
-          </li>
-          <li>
-            <strong>Mutable:</strong> You can add, remove, or change key-value
-            pairs after creation.
-          </li>
-          <li>
-            <strong>Unordered (Historically):</strong> Before Python 3.7,
-            dictionaries didn't maintain insertion order. From Python 3.7
-            onwards, they remember the order in which items were inserted.
-          </li>
-          <li>
-            <strong>Unique Keys:</strong> Keys within a dictionary must be
-            unique. Values can be duplicated.
-          </li>
-          <li>
-            <strong>Keys must be immutable types:</strong> Keys are typically
-            strings, numbers, or tuples (containing only immutable types). Lists
-            cannot be keys.
-          </li>
-        </ul>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Creating Dictionaries:
-        </h3>
-        <pre><code class="language-python"># Creating an empty dictionary
-empty_dict = {}
+      </header>
+
+      <main class="mx-auto">
+        <h1 class="page-title-8bit">
+          Dictionaries & Tuples
+        </h1>
+
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            1. Dictionaries (<code>dict</code>): Key-Value Stores
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              A dictionary in Python is an unordered (prior to Python 3.7) or ordered (Python 3.7+) collection of <strong>key-value pairs</strong>. Each key is unique and is used to store and retrieve its associated value. Think of it like a real-world dictionary where a word (the key) maps to its definition (the value), or a phone book where a name (key) maps to a phone number (value).
+            </p>
+            <p>Key characteristics of dictionaries:</p>
+            <ul>
+              <li>
+                <strong>Key-Value Pairs:</strong> Data is stored in <code>key: value</code> format. Keys are used to access their corresponding values efficiently.
+              </li>
+              <li>
+                <strong>Mutable:</strong> Dictionaries can be changed after they are created. You can add, remove, or update key-value pairs.
+              </li>
+              <li>
+                <strong>Ordered (Python 3.7+):</strong> Since Python 3.7 (and CPython 3.6), dictionaries remember the order in which items were inserted. In older Python versions, they were unordered.
+              </li>
+              <li>
+                <strong>Unique Keys:</strong> Keys within a single dictionary must be unique. If you assign a value to an existing key, it will overwrite the previous value. Values, however, can be duplicated.
+              </li>
+              <li>
+                <strong>Keys Must Be Immutable:</strong> Keys must be of an immutable type (e.g., strings, numbers, tuples containing only immutable elements). Lists or other dictionaries cannot be used as keys because they are mutable.
+              </li>
+            </ul>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Creating Dictionaries:</h3>
+            <pre><code class="code-block-8bit python"># Creating an empty dictionary
+empty_dict_v1 = {}
+empty_dict_v2 = dict()
 
 # Creating a dictionary with initial items
-student = {
-  "name": "Alice",
-  "major": "Computer Science",
-  "gpa": 3.8,
-  "courses": ["CS101", "Math200"] # Values can be any type, including lists
+player_stats = {
+  "name": "Pixel Knight",
+  "level": 5,
+  "hp": 100,
+  "inventory": ["sword", "shield", "potion"], # Values can be any type
+  "active_quest": None
 }
-print(student)
-print(type(student)) # Output: <class 'dict'></code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Accessing Values:
-        </h3>
-        <p class="mb-2">
-          You access values using their corresponding key inside square brackets
-          <code>[]</code>.
-        </p>
-        <pre><code class="language-python">print(student["name"])  # Output: Alice
-print(student["gpa"])   # Output: 3.8
 
-# Accessing a non-existent key raises a KeyError
-# print(student["age"]) # This would cause an error
+print(f"Player Stats: {player_stats}")
+print(f"Type of player_stats: {type(player_stats)}") # Output: <class 'dict'></code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Accessing Values:</h3>
+            <p>
+              You access values using their corresponding key inside square brackets <code>[]</code>. If the key doesn't exist, this will raise a <code>KeyError</code>. A safer way to access values is using the <code>.get()</code> method, which can return a default value if the key is not found.
+            </p>
+            <pre><code class="code-block-8bit python"># Accessing with [] (raises KeyError if key is missing)
+print(f"Player Name: {player_stats["name"]}")  # Output: Pixel Knight
+# print(player_stats["experience"]) # This would cause a KeyError
 
 # Safer access using .get(key, default_value)
-age = student.get("age", "N/A") # Returns 'N/A' if 'age' key doesn't exist
-print(f"Age: {age}") # Output: Age: N/A</code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Adding/Updating Items:
-        </h3>
-        <pre><code class="language-python"># Add a new key-value pair
-student["year"] = 3
-print(student) # 'year': 3 is added
+experience = player_stats.get("experience", 0) # Returns 0 if "experience" key doesn't exist
+print(f"Player Experience: {experience}")      # Output: Player Experience: 0
+
+current_hp = player_stats.get("hp")
+print(f"Player HP: {current_hp}")             # Output: Player HP: 100</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Adding or Updating Items:</h3>
+            <p>You can add a new key-value pair or update the value of an existing key using assignment.</p>
+            <pre><code class="code-block-8bit python"># Add a new key-value pair
+player_stats["experience"] = 1500
+print(f"Updated Experience: {player_stats["experience"]}")
 
 # Update an existing value
-student["gpa"] = 3.9
-print(student) # 'gpa' value is updated</code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">Iterating:</h3>
-        <pre><code class="language-python"># Iterate through keys (default)
-print("\nKeys:")
-for key in student:
-  print(key)
+player_stats["hp"] = 95 # Player took some damage!
+player_stats["inventory"] = ["sword", "shield"] # Lost a potion
+print(f"Updated HP: {player_stats["hp"]}")
+print(f"Updated Inventory: {player_stats["inventory"]}")
 
-# Iterate through values
-print("\nValues:")
-for value in student.values():
-  print(value)
+print(f"\nFull Player Stats after updates:\n{player_stats}")</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Removing Items:</h3>
+            <pre><code class="code-block-8bit python"># Using del statement (raises KeyError if key is missing)
+if "active_quest" in player_stats:
+    del player_stats["active_quest"]
+print(f"Quest removed (del): {player_stats.get('active_quest', 'No active quest')}")
 
-# Iterate through key-value pairs (items)
-print("\nItems:")
-for key, value in student.items():
-  print(f"  {key}: {value}")</code></pre>
-      </section>
+# Using .pop(key, default_value) (returns value, safer)
+removed_level = player_stats.pop("level", -1) # Returns -1 if not found
+print(f"Removed level: {removed_level}")
+print(f"Level after pop: {player_stats.get('level', 'Level key not found')}")
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive Dictionary Operations
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <h3 class="text-lg font-medium mb-2">Current Dictionary:</h3>
-            <div id="dictDisplay" class="output-display">{ }</div>
+# Using .popitem() (removes and returns the last inserted (key,value) pair in LIFO order since Py 3.7)
+# Useful for destructively iterating through a dictionary.
+if player_stats: # Check if dictionary is not empty
+    last_item = player_stats.popitem()
+    print(f"Popped item: {last_item}")
+    print(f"Dictionary after popitem: {player_stats}")</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Iterating Through Dictionaries:</h3>
+            <pre><code class="code-block-8bit python">player_config = {"difficulty": "hard", "sound": True, "autosave": False}
+
+# Iterate through keys (this is the default iteration behavior)
+print("\nIterating through Keys:")
+for k in player_config:
+  print(f"  Key: {k}, Value: {player_config[k]}")
+
+# Iterate through values using .values()
+print("\nIterating through Values:")
+for v in player_config.values():
+  print(f"  Value: {v}")
+
+# Iterate through key-value pairs using .items()
+print("\nIterating through Items (key-value pairs):")
+for key, value_item in player_config.items():
+  print(f"  {key} -> {value_item}")</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Other Useful Dictionary Methods:</h3>
+             <ul>
+                <li><code>len(my_dict)</code>: Returns the number of key-value pairs.</li>
+                <li><code>key in my_dict</code>: Returns <code>True</code> if <code>key</code> exists in the dictionary, <code>False</code> otherwise.</li>
+                <li><code>my_dict.clear()</code>: Removes all items from the dictionary.</li>
+                <li><code>my_dict.copy()</code>: Returns a shallow copy of the dictionary.</li>
+                <li><code>dict.fromkeys(sequence, value)</code>: Creates a new dictionary with keys from sequence and all values set to <code>value</code>.</li>
+            </ul>
           </div>
-          <div>
-            <h3 class="text-lg font-medium mb-2">Operation Result:</h3>
-            <div id="dictResultDisplay" class="output-display">
-              <span class="text-gray-500 italic">Perform an operation.</span>
+        </section>
+
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            Interactive Dictionary Operations (Display Only)
+          </h2>
+          <div class="sub-interactive-box">
+            <p>This area is for displaying dictionary states. (No interactive JS implemented yet for this section, but styled for future use).</p>
+            <div class="grid-cols-2-responsive mt-4">
+              <div>
+                <h3 class="section-subtitle-8bit smaller-subtitle">Current Dictionary State:</h3>
+                <div id="dictDisplay" class="output-display-8bit min-h-[150px]"><p>{ "name": "Hero", "class": "Warrior", "level": 10 }</p></div>
+              </div>
+              <div>
+                <h3 class="section-subtitle-8bit smaller-subtitle">Operation Result / Log:</h3>
+                <div id="dictResultDisplay" class="output-display-8bit min-h-[150px]"><p><em>No operation performed yet.</em></p></div>
+              </div>
             </div>
+            <div id="dictMessage" class="message-box-8bit mt-2" style="display: none;">Message area</div>
           </div>
-        </div>
-        <div id="dictMessage" class="message-box" style="display: none"></div>
-      </section>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Tuples (<code>tuple</code>): Immutable Sequences
-        </h2>
-        <p class="mb-4">
-          A tuple is an <strong>ordered, immutable sequence</strong> of items.
-          Think of it like a list, but once you create it, you cannot change its
-          contents (add, remove, or modify elements). Tuples are typically used
-          to store collections of related items where the order and content
-          should not change, like coordinates (x, y) or RGB color values (red,
-          green, blue).
-        </p>
-        <p class="mb-2">Key characteristics:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li><strong>Ordered:</strong> Items maintain their position.</li>
-          <li><strong>Immutable:</strong> Cannot be changed after creation.</li>
-          <li>
-            <strong>Allows Duplicates:</strong> Can contain the same item
-            multiple times.
-          </li>
-          <li>
-            <strong>Heterogeneous:</strong> Can contain items of different data
-            types.
-          </li>
-        </ul>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Creating Tuples:
-        </h3>
-        <p class="mb-2">
-          Tuples are created using parentheses <code>()</code>, with items
-          separated by commas.
-        </p>
-        <pre><code class="language-python"># Creating an empty tuple
-empty_tuple = ()
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            2. Tuples (<code>tuple</code>): Immutable Sequences
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              A tuple is an <strong>ordered, immutable sequence</strong> of items. \"Immutable\" means that once a tuple is created, its contents cannot be changed—you cannot add, remove, or modify elements. Tuples are typically used to store collections of related items where the order and content should remain constant, such as coordinates (x, y), RGB color values (red, green, blue), or records from a database.
+            </p>
+            <p>Key characteristics of tuples:</p>
+            <ul>
+              <li><strong>Ordered:</strong> Items are stored in a specific sequence, and this order is maintained.</li>
+              <li><strong>Immutable:</strong> Once created, the elements within a tuple cannot be changed, nor can elements be added or removed. This makes tuples safer to use as dictionary keys if all their elements are immutable.</li>
+              <li><strong>Allows Duplicates:</strong> Tuples can contain the same item multiple times.</li>
+              <li><strong>Heterogeneous:</strong> Tuples can contain items of different data types (e.g., a mix of integers, strings, and floats).</li>
+            </ul>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Creating Tuples:</h3>
+            <p>
+              Tuples are created by enclosing a comma-separated sequence of items within parentheses <code>()</code>. Parentheses are optional in many contexts if the commas make the tuple clear, but it's good practice to use them for readability.
+            </p>
+            <pre><code class="code-block-8bit python"># Creating an empty tuple
+empty_tuple_v1 = ()
+empty_tuple_v2 = tuple()
 
 # Creating a tuple with items
-point = (10, 20) # A 2D point
-colors = ("red", "green", "blue")
-mixed = (1, "hello", 3.14)
+coordinates = (10, 20, 5) # A 3D point (x, y, z)
+primary_colors = ("red", "green", "blue")
+player_info = ("PixelPete", 25, 1500.75) # name, age, score
 
-# Single item tuple needs a trailing comma!
-single_item_tuple = (99,) # Without the comma, it's just the number 99
-not_a_tuple = (99)
+print(f"Coordinates: {coordinates}")
+print(f"Type of coordinates: {type(coordinates)}") # Output: <class 'tuple'>
 
-print(point)
-print(type(point)) # Output: <class 'tuple'>
-print(type(single_item_tuple)) # Output: <class 'tuple'>
-print(type(not_a_tuple)) # Output: <class 'int'></code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Accessing Elements:
-        </h3>
-        <p class="mb-2">
-          You access tuple elements using indexing <code>[index]</code>, just
-          like lists (starting from 0).
+# Parentheses are sometimes optional (tuple packing)
+packed_tuple = 1, 'hello', True
+print(f"Packed tuple: {packed_tuple}, Type: {type(packed_tuple)}")
+
+# Special case: Single item tuple needs a trailing comma!
+single_item_tuple = (99,) # This is a tuple with one element
+not_a_tuple_but_int = (99)  # This is just the integer 99 in parentheses
+string_in_tuple = ("apple",) # Tuple containing one string
+
+print(f"Single item tuple: {single_item_tuple}, Type: {type(single_item_tuple)}")
+print(f"Not a tuple: {not_a_tuple_but_int}, Type: {type(not_a_tuple_but_int)}")</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Accessing Elements:</h3>
+            <p>Elements in a tuple are accessed using indexing (starting from 0), just like lists.</p>
+            <pre><code class="code-block-8bit python">rgb_color = (255, 128, 0) # Orange
+red_value = rgb_color[0]
+print(f"Red: {red_value}") # Output: 255
+
+# Slicing also works like lists
+green_and_blue = rgb_color[1:3]
+print(f"Green and Blue: {green_and_blue}") # Output: (128, 0)</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Immutability:</h3>
+            <p>Once a tuple is created, you cannot change its elements.</p>
+            <pre><code class="code-block-8bit python">my_tuple = (1, 2, 3)
+# my_tuple[0] = 100  # This would raise a TypeError: 'tuple' object does not support item assignment
+# my_tuple.append(4) # This would raise an AttributeError: 'tuple' object has no attribute 'append'
+
+# However, if a tuple contains a mutable object (like a list), the mutable object itself can be changed.
+mutable_in_tuple = ([1, 2], [3, 4])
+mutable_in_tuple[0].append(99) # This is allowed, modifies the inner list
+print(f"Tuple with modified inner list: {mutable_in_tuple}")
+# Output: Tuple with modified inner list: ([1, 2, 99], [3, 4])</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Tuple Packing and Unpacking:</h3>
+            <p>Tuple packing is when you assign a sequence of values to a single variable, implicitly creating a tuple. Unpacking is assigning the elements of a tuple to multiple variables.</p>
+            <pre><code class="code-block-8bit python"># Tuple Packing
+packed_data = "Player1", 100, "Active" # Creates a tuple
+print(f"Packed: {packed_data}")
+
+# Tuple Unpacking
+name, health, status = packed_data # Assigns elements to variables
+print(f"Name: {name}, Health: {health}, Status: {status}")
+
+# Unpacking can be used for swapping variables elegantly
+a = 5
+b = 10
+a, b = b, a # a becomes 10, b becomes 5 (internally uses tuples)
+print(f"Swapped a: {a}, b: {b}")</code></pre>
+            <h3 class="section-subtitle-8bit smaller-subtitle">When to Use Tuples:</h3>
+            <ul>
+                <li>For fixed collections of items that should not change (e.g., coordinates, constants).</li>
+                <li>When you need to use a collection as a dictionary key (since keys must be immutable).</li>
+                <li>When you want to ensure data integrity (prevent accidental modification).</li>
+                <li>Sometimes for slight performance gains over lists in specific scenarios (due to their fixed size and immutability), though this is often minor.</li>
+            </ul>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Tuple Methods:</h3>
+            <p>Tuples have only two main methods because they are immutable:</p>
+            <ul>
+                <li><code>my_tuple.count(value)</code>: Returns the number of times <code>value</code> appears in the tuple.</li>
+                <li><code>my_tuple.index(value)</code>: Returns the index of the first occurrence of <code>value</code>. Raises a <code>ValueError</code> if the value is not found.</li>
+            </ul>
+            <pre><code class="code-block-8bit python">example_tuple = ('a', 'b', 'c', 'a', 'd', 'a')
+print(f"Count of 'a': {example_tuple.count('a')}") # Output: 3
+print(f"Index of 'd': {example_tuple.index('d')}") # Output: 4</code></pre>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-8bit text-center py-6">
+        <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+        <p class="mt-3 md:mt-4">
+          <a
+            href="../index.html"
+            class="link-8bit"
+            >Back to Main Menu</a
+          >
         </p>
-        <pre><code class="language-python">colors = ("red", "green", "blue")
-print(colors[0]) # Output: red
-print(colors[-1]) # Output: blue
-
-# Slicing also works
-print(colors[0:2]) # Output: ('red', 'green')</code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Immutability:
-        </h3>
-        <p class="mb-2">
-          Trying to change an element will result in a <code>TypeError</code>.
-        </p>
-        <pre><code class="language-python"># colors[0] = "yellow" # This would raise a TypeError</code></pre>
-        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
-          Packing and Unpacking:
-        </h3>
-        <p class="mb-2">
-          You can easily assign tuple elements to individual variables
-          (unpacking).
-        </p>
-        <pre><code class="language-python">point = (10, 20)
-x, y = point # Unpacking
-
-print(f"x coordinate: {x}") # Output: 10
-print(f"y coordinate: {y}") # Output: 20</code></pre>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive Tuple Operations
-        </h2>
-        <div class="mb-4">
-          <h3 class="text-lg font-medium mb-2">Sample Tuple:</h3>
-          <div
-            id="tupleVisualizer"
-            class="sequence-container tuple-container mb-4"
-          ></div>
-        </div>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="tupleIndexInput" class="mr-2">Index to Access:</label>
-          <input
-            type="number"
-            id="tupleIndexInput"
-            class="input-field input-field-small"
-            placeholder="e.g., 0, -1"
-          />
-          <button id="accessTupleButton" class="btn btn-green">
-            Access Element
-          </button>
-        </div>
-        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-        <div id="tupleResultDisplay" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter an index and click 'Access Element'.</span
-          >
-        </div>
-        <div id="tupleMessage" class="message-box" style="display: none"></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: How do you access the value associated with the key
-            <code>"city"</code> in a dictionary called <code>address</code>?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1_dictuple" value="a" class="mr-1" />
-            <code>address("city")</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_dictuple" value="b" class="mr-1" />
-            <code>address.city</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_dictuple" value="c" class="mr-1" />
-            <code>address["city"]</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: Which of the following data types is immutable?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_dictuple" value="a" class="mr-1" />
-            List</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_dictuple" value="b" class="mr-1" />
-            Dictionary</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_dictuple" value="c" class="mr-1" />
-            Tuple</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: How do you create a tuple containing only the number 5?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_dictuple" value="a" class="mr-1" />
-            <code>(5)</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_dictuple" value="b" class="mr-1" />
-            <code>[5,]</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_dictuple" value="c" class="mr-1" />
-            <code>(5,)</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: Can a list be used as a key in a Python dictionary?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_dictuple" value="a" class="mr-1" />
-            Yes</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_dictuple" value="b" class="mr-1" />
-            No</label
-          >
-        </div>
-        <button id="checkQuizButtonDicTuple" class="btn">Check Answers</button>
-        <div
-          id="quizResultDicTuple"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
-
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
-
-    <script src="../js/main.js" defer></script>
+      </footer>
+    </div> <!-- End of console-screen-border -->
     <script>
-      // showMessage is now in js/main.js
-
-      // --- DOM Elements ---
-      const dictKeyInput = document.getElementById("dictKeyInput");
-      const dictValueInput = document.getElementById("dictValueInput");
-      const addUpdateButton = document.getElementById("addUpdateButton");
-      const accessKeyInput = document.getElementById("accessKeyInput");
-      const accessValueButton = document.getElementById("accessValueButton");
-      const removeKeyButton = document.getElementById("removeKeyButton");
-      const dictDisplay = document.getElementById("dictDisplay");
-      const dictResultDisplay = document.getElementById("dictResultDisplay");
-      const dictMessage = document.getElementById("dictMessage");
-
-      const tupleVisualizer = document.getElementById("tupleVisualizer");
-      const tupleIndexInput = document.getElementById("tupleIndexInput");
-      const accessTupleButton = document.getElementById("accessTupleButton");
-      const tupleResultDisplay = document.getElementById("tupleResultDisplay");
-      const tupleMessage = document.getElementById("tupleMessage");
-
-      const checkQuizButtonDicTuple = document.getElementById(
-        "checkQuizButtonDicTuple"
-      );
-      const quizResultDicTuple = document.getElementById("quizResultDicTuple");
-
-      // --- State ---
-      let interactiveDict = {
-        name: "Example",
-        type: "Dictionary",
-        items: 2,
-      };
-      const sampleTuple = ("apple", 100, True, 3.14, "banana"); // JS doesn't have tuples, simulate with array
-
-      // --- Dictionary Logic ---
-      function renderDictionary() {
-        dictDisplay.innerHTML = ""; // Clear previous
-        let content = "{\n";
-        const keys = Object.keys(interactiveDict);
-        if (keys.length === 0) {
-          content = "{ }"; // Empty dictionary
-        } else {
-          keys.forEach((key, index) => {
-            const value = interactiveDict[key];
-            // Basic type formatting for display
-            let valueStr = typeof value === "string" ? `"${value}"` : value;
-            if (typeof value === "boolean")
-              valueStr =
-                value.toString().charAt(0).toUpperCase() +
-                value.toString().slice(1);
-
-            content += `  <span class="dict-entry"><span class="dict-key">"${key}"</span>: <span class="dict-value">${valueStr}</span></span>`;
-            if (index < keys.length - 1) {
-              content += ",\n";
-            } else {
-              content += "\n";
-            }
-          });
-          content += "}";
-        }
-        dictDisplay.innerHTML = content;
-      }
-
-      addUpdateButton.addEventListener("click", () => {
-        const key = dictKeyInput.value.trim();
-        const value = dictValueInput.value; // Keep value as string for simplicity, could parse later
-
-        if (!key) {
-          showMessage(dictMessage, "Please enter a key.", "error");
-          return;
-        }
-        const keyExists = interactiveDict.hasOwnProperty(key);
-        interactiveDict[key] = value; // Add or update
-        renderDictionary();
-        dictKeyInput.value = "";
-        dictValueInput.value = "";
-        dictResultDisplay.textContent = `Item "${key}": "${value}" ${
-          keyExists ? "updated" : "added"
-        }.`;
-        showMessage(
-          dictMessage,
-          `Item ${keyExists ? "updated" : "added"}.`,
-          "success"
-        );
-      });
-
-      accessValueButton.addEventListener("click", () => {
-        const key = accessKeyInput.value.trim();
-        if (!key) {
-          showMessage(dictMessage, "Please enter a key to access.", "error");
-          return;
-        }
-
-        renderDictionary(); // Re-render to clear previous highlights
-
-        if (interactiveDict.hasOwnProperty(key)) {
-          const value = interactiveDict[key];
-          let valueStr = typeof value === "string" ? `"${value}"` : value;
-          if (typeof value === "boolean")
-            valueStr =
-              value.toString().charAt(0).toUpperCase() +
-              value.toString().slice(1);
-          dictResultDisplay.textContent = `Value for key "${key}": ${valueStr}`;
-          // Highlight the accessed value
-          const valueElements = dictDisplay.querySelectorAll(".dict-value");
-          const keyElements = dictDisplay.querySelectorAll(".dict-key");
-          for (let i = 0; i < keyElements.length; i++) {
-            if (keyElements[i].textContent === `"${key}"`) {
-              valueElements[i].classList.add("highlight");
-              break;
-            }
-          }
-          showMessage(dictMessage, "Value accessed.", "success");
-        } else {
-          dictResultDisplay.textContent = `Error: Key "${key}" not found.`;
-          showMessage(dictMessage, `Key "${key}" not found.`, "error");
-        }
-      });
-
-      removeKeyButton.addEventListener("click", () => {
-        const key = accessKeyInput.value.trim();
-        if (!key) {
-          showMessage(dictMessage, "Please enter a key to remove.", "error");
-          return;
-        }
-        if (interactiveDict.hasOwnProperty(key)) {
-          delete interactiveDict[key];
-          renderDictionary();
-          dictResultDisplay.textContent = `Key "${key}" removed.`;
-          showMessage(dictMessage, `Key "${key}" removed.`, "success");
-          accessKeyInput.value = ""; // Clear input after removal
-        } else {
-          renderDictionary(); // Clear highlights even if key not found
-          dictResultDisplay.textContent = `Error: Key "${key}" not found.`;
-          showMessage(dictMessage, `Key "${key}" not found.`, "error");
-        }
-      });
-
-      // --- Tuple Logic ---
-      function renderTuple() {
-        tupleVisualizer.innerHTML = ""; // Clear previous
-        sampleTuple.forEach((item, index) => {
-          const span = document.createElement("span");
-          span.className = "sequence-item";
-          // Basic type formatting
-          let itemStr = typeof item === "string" ? `"${item}"` : item;
-          if (typeof item === "boolean")
-            itemStr =
-              item.toString().charAt(0).toUpperCase() +
-              item.toString().slice(1);
-          span.textContent = itemStr;
-          span.dataset.index = index;
-          tupleVisualizer.appendChild(span);
-        });
-      }
-
-      function clearTupleHighlights() {
-        tupleVisualizer
-          .querySelectorAll(".sequence-item.highlight")
-          .forEach((span) => {
-            span.classList.remove("highlight");
-          });
-      }
-
-      accessTupleButton.addEventListener("click", () => {
-        clearTupleHighlights();
-        const indexStr = tupleIndexInput.value;
-        if (indexStr === "") {
-          showMessage(tupleMessage, "Please enter an index.", "error");
-          tupleResultDisplay.textContent =
-            "<span class=\"text-gray-500 italic\">Enter an index and click 'Access Element'.</span>";
-          return;
-        }
-        const index = parseInt(indexStr, 10);
-
-        if (
-          isNaN(index) ||
-          index < -sampleTuple.length ||
-          index >= sampleTuple.length
-        ) {
-          showMessage(
-            tupleMessage,
-            `Invalid index. Must be between -${sampleTuple.length} and ${
-              sampleTuple.length - 1
-            }.`,
-            "error"
-          );
-          tupleResultDisplay.textContent =
-            '<span class="text-red-500">Error: Index out of bounds.</span>';
-          return;
-        }
-
-        const actualIndex = index < 0 ? sampleTuple.length + index : index;
-        const element = sampleTuple[actualIndex];
-        let elementStr = typeof element === "string" ? `"${element}"` : element;
-        if (typeof element === "boolean")
-          elementStr =
-            element.toString().charAt(0).toUpperCase() +
-            element.toString().slice(1);
-
-        tupleResultDisplay.textContent = `Element at index ${index}: ${elementStr}`;
-        // Highlight
-        const targetSpan = tupleVisualizer.querySelector(
-          `.sequence-item[data-index="${actualIndex}"]`
-        );
-        if (targetSpan) targetSpan.classList.add("highlight");
-        showMessage(tupleMessage, "Element accessed.", "success");
-      });
-
-      // --- Quiz Logic ---
-      function checkDicTupleQuiz() {
-        const answers = {
-          q1_dictuple: "c", // address["city"]
-          q2_dictuple: "c", // Tuple
-          q3_dictuple: "c", // (5,)
-          q4_dictuple: "b", // No (lists are mutable)
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultDicTuple.textContent =
-            "Please answer all questions before checking.";
-          quizResultDicTuple.className = "message-box message-box-error";
-          quizResultDicTuple.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultDicTuple.innerHTML = resultsHTML;
-        quizResultDicTuple.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultDicTuple.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonDicTuple.addEventListener("click", checkDicTupleQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        renderDictionary();
-        renderTuple();
-      };
+      // No specific JavaScript for this page in the current version,
+      // but the structure for dictDisplay, dictResultDisplay, dictMessage is in place
+      // for potential future interactivity.
+      const dictDisplay = document.getElementById('dictDisplay');
+      const dictResultDisplay = document.getElementById('dictResultDisplay');
+      // If dictDisplay and dictResultDisplay were to be populated by default or via JS:
+      // if (dictDisplay) { dictDisplay.innerHTML = '<p>{ "name": "Hero", "class": "Warrior", "level": 10 }</p>'; }
+      // if (dictResultDisplay) { dictResultDisplay.innerHTML = '<p><em>No operation performed yet.</em></p>'; }
     </script>
   </body>
 </html>

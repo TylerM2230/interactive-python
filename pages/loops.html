@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Loops (For & While)</title>
+    <title>Loops (For & While) in Python</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
@@ -11,644 +11,280 @@
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Loops: For & While
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Repeating blocks of code efficiently using 'for' loops for definite iteration and 'while' loops for indefinite iteration.
-      </p>
-    </header>
+  <body class="p-4 md:p-8">
+    <div class="console-screen-border">
+        <nav class="navbar-8bit">
+            <a href="nested-conditionals.html" class="btn btn-8bit">
+                &laquo; Prev: Nested Conditionals
+            </a>
+            <a href="../index.html" class="text-lg"> Home </a>
+            <a href="lists-iteration.html" class="btn btn-8bit">
+                Next: Lists & Iteration &rarr;
+            </a>
+        </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="nested-conditionals.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Nested Conditionals
-      </a>
-      <a
-        href="lists-iteration.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: Lists & Iteration &rarr;
-      </a>
-    </nav>
+        <div class="content-wrapper-8bit">
+            <header class="text-center mb-8">
+                <h1 class="page-title-8bit">Loops (For & While)</h1>
+                <p class="text-sm italic mt-1">
+                    Repeating blocks of code efficiently using <code>for</code> and <code>while</code> loops.
+                </p>
+            </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. Why Use Loops?
-        </h2>
-        <p class="mb-4">
-          Loops are a fundamental concept in programming used to execute a block
-          of code repeatedly. Instead of writing the same (or similar) code
-          lines multiple times, you can use a loop to automate the repetition.
-          This makes your code shorter, easier to read, and less prone to
-          errors.
-        </p>
-        <p>There are two main types of loops in Python:</p>
-        <ul class="list-disc list-inside ml-4 mt-2">
-          <li>
-            <strong><code>for</code> loops:</strong> Used when you want to
-            iterate over a sequence of items (like a list, a string, or a range
-            of numbers) a specific number of times.
-          </li>
-          <li>
-            <strong><code>while</code> loops:</strong> Used when you want to
-            repeat a block of code as long as a certain condition remains true.
-          </li>
-        </ul>
-      </section>
+            <main>
+                <section class="interactive-section mb-8">
+                    <h2>1. What are Loops?</h2>
+                    <p class="mb-4">
+                        Loops are a fundamental concept in programming that allow you to execute a block of code multiple times. Instead of writing the same (or similar) lines of code over and over, you can use a loop to automate repetition. Python primarily uses two types of loops: <code>for</code> loops and <code>while</code> loops.
+                    </p>
+                </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. The `for` Loop
-        </h2>
-        <p class="mb-2">
-          A <code>for</code> loop iterates over the items of any sequence (a
-          list, a tuple, a dictionary, a set, or a string) or other iterable
-          object, executing the block of code once for each item.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">
-          Iterating over a List:
-        </h3>
-        <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
-for fruit in fruits:
-  print(f"Current fruit: {fruit}")
-
+                <section class="interactive-section mb-8">
+                    <h2>2. The <code>for</code> Loop</h2>
+                    <p class="mb-2">
+                        A <code>for</code> loop is used for iterating over a sequence (like a list, a tuple, a dictionary, a set, or a string) or other iterable objects. It executes a block of code once for each item in the sequence.
+                    </p>
+                    <h3 class="text-md mt-3 mb-1">Iterating over a String:</h3>
+                    <pre><code class="language-python"># Each character in the string is processed one by one
+word = "PYTHON"
+for letter in word:
+    print(letter)
 # Output:
-# Current fruit: apple
-# Current fruit: banana
-# Current fruit: cherry</code></pre>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
-          Iterating using `range()`:
-        </h3>
-        <p class="mb-2">
-          The <code>range()</code> function generates a sequence of numbers,
-          which is often used with <code>for</code> loops to repeat code a
-          specific number of times.
-        </p>
-        <pre><code class="language-python"># range(5) generates numbers from 0 up to (but not including) 5
+# P
+# Y
+# T
+# H
+# O
+# N</code></pre>
+                    <h3 class="text-md mt-3 mb-1">Using <code>range()</code>:</h3>
+                    <p class="mb-2">
+                        The <code>range()</code> function is often used with <code>for</code> loops to execute a block of code a specific number of times.
+                        <code>range(n)</code> generates numbers from 0 up to (but not including) <code>n</code>.
+                        <code>range(start, stop)</code> generates numbers from <code>start</code> up to (but not including) <code>stop</code>.
+                        <code>range(start, stop, step)</code> generates numbers from <code>start</code> up to <code>stop</code>, incrementing by <code>step</code>.
+                    </p>
+                    <pre><code class="language-python"># Print numbers 0 to 4
 for i in range(5):
-  print(f"Number: {i}")
+    print(i)  # Output: 0, 1, 2, 3, 4
 
-# Output:
-# Number: 0
-# Number: 1
-# Number: 2
-# Number: 3
-# Number: 4</code></pre>
-      </section>
+# Print numbers 2 to 5
+for num in range(2, 6):
+    print(num) # Output: 2, 3, 4, 5
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. See a `for` Loop in Action
-        </h2>
-        <p class="mb-4">
-          Click the button to visualize a <code>for</code> loop iterating
-          through a predefined list of items.
-        </p>
-        <div class="mb-4">
-          <button id="runForLoopButton" class="btn btn-green">
-            Run `for` Loop
-          </button>
-          <button id="resetForLoopButton" class="btn">Reset</button>
-        </div>
-        <h3 class="text-lg font-medium text-cyan-400 mb-2">Sequence (List):</h3>
-        <div
-          id="forLoopSequence"
-          class="bg-blue-900 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
-        ></div>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-2">
-          Loop Output / Current Item:
-        </h3>
-        <div id="forLoopOutput" class="output-display">
-          <span class="text-gray-500 italic"
-            >Click "Run `for` Loop" to start.</span
-          >
-        </div>
-        <div
-          id="forLoopMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+# Print even numbers from 0 to 8
+for x in range(0, 10, 2):
+    print(x)  # Output: 0, 2, 4, 6, 8</code></pre>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. The `while` Loop
-        </h2>
-        <p class="mb-2">
-          A <code>while</code> loop executes a block of code as long as a
-          specified condition is true. It's used when you don't know beforehand
-          how many times you need to loop.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">Basic Example:</h3>
-        <pre><code class="language-python">count = 0
-while count < 5:
-  print(f"Count is: {count}")
-  count = count + 1  # IMPORTANT: Update the counter
+                    <div class="sub-interactive-box p-4 mt-4">
+                        <h3>Try It: <code>for</code> Loop with <code>range()</code></h3>
+                        <p class="mb-2 text-sm">
+                            Enter a number to see a <code>for</code> loop count up to it (exclusive).
+                        </p>
+                        <label for="forLoopRangeInput" class="block mb-1">Count up to (exclusive):</label>
+                        <input type="number" id="forLoopRangeInput" class="input-field mb-2" value="5" min="0" max="20">
+                        <button id="runForLoopButton" class="btn">Run For Loop</button>
+                        <div class="mt-3">
+                            <p>Simulated Loop Output:</p>
+                            <div id="forLoopOutput" class="output-display min-h-[50px]">
+                                <span class="placeholder-text">Output will appear here.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-print("Loop finished!")
-
-# Output:
-# Count is: 0
-# Count is: 1
-# Count is: 2
-# Count is: 3
-# Count is: 4
-# Loop finished!</code></pre>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
-          Using `break` in a `while` loop:
-        </h3>
-        <p class="mb-2">
-          <strong>Crucially:</strong> The condition must eventually become
-          <code>False</code>, or the loop will run forever (an "infinite loop").
-          You usually need to include code inside the loop that modifies the
-          variables involved in the condition.
-        </p>
-        <pre><code class="language-python">count = 0  # Initialize a counter
-
+                <section class="interactive-section mb-8">
+                    <h2>3. The <code>while</code> Loop</h2>
+                    <p class="mb-2">
+                        A <code>while</code> loop executes a block of code as long as a specified condition remains <code>True</code>.
+                        It's useful when you don't know beforehand how many times you need to loop, but you know the condition under which the loop should continue or stop.
+                    </p>
+                    <pre><code class="language-python">count = 0
 while count < 5:  # Condition: loop as long as count is less than 5
-  print(f"Count is: {count}")
-  count = count + 1  # IMPORTANT: Update the counter
+    print(f"Count is: {count}")
+    count = count + 1  # Important: Update the variable used in the condition!
 
-print("Loop finished!")
-
+print("Loop finished.")
 # Output:
 # Count is: 0
 # Count is: 1
 # Count is: 2
 # Count is: 3
 # Count is: 4
-# Loop finished!</code></pre>
-        <p class="mt-2 text-sm text-red-600 font-medium">
-          Warning: Be careful with <code>while</code> loops! Always ensure the
-          condition will eventually become false.
-        </p>
-      </section>
+# Loop finished.</code></pre>
+                    <p class="mt-3 mb-2">
+                        <strong>Caution:</strong> Be careful with <code>while</code> loops! If the condition never becomes <code>False</code>, you'll create an <strong>infinite loop</strong>, and your program might freeze. Always ensure there's a way for the condition to eventually become <code>False</code>.
+                    </p>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. See a `while` Loop in Action
-        </h2>
-        <p class="mb-4">
-          Click the button to visualize a <code>while</code> loop counting up
-          until a condition (<code>count &lt; 5</code>) is met.
-        </p>
-        <div class="mb-4">
-          <button id="runWhileLoopButton" class="btn btn-green">
-            Run `while` Loop
-          </button>
-          <button id="resetWhileLoopButton" class="btn">Reset</button>
+                    <div class="sub-interactive-box p-4 mt-4">
+                        <h3>Try It: <code>while</code> Loop Countdown</h3>
+                        <p class="mb-2 text-sm">
+                            Enter a number to countdown from using a <code>while</code> loop.
+                        </p>
+                        <label for="whileLoopStartInput" class="block mb-1">Countdown from:</label>
+                        <input type="number" id="whileLoopStartInput" class="input-field mb-2" value="3" min="1" max="10">
+                        <button id="runWhileLoopButton" class="btn">Start Countdown</button>
+                        <div class="mt-3">
+                            <p>Simulated Loop Output:</p>
+                            <div id="whileLoopOutput" class="output-display min-h-[50px]">
+                                <span class="placeholder-text">Output will appear here.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="interactive-section mb-8">
+                    <h2>4. Loop Control Statements: <code>break</code> and <code>continue</code></h2>
+                    <p class="mb-2">
+                        Sometimes you need more control over how a loop executes. Python provides two statements for this:
+                    </p>
+                    <h3 class="text-md mt-3 mb-1"><code>break</code> Statement:</h3>
+                    <p class="mb-2">
+                        The <code>break</code> statement immediately terminates the current loop (both <code>for</code> and <code>while</code> loops). Execution continues at the first statement after the loop.
+                    </p>
+                    <pre><code class="language-python">for i in range(10):
+    if i == 5:
+        break  # Stop the loop when i is 5
+    print(i)
+# Output: 0, 1, 2, 3, 4</code></pre>
+
+                    <h3 class="text-md mt-4 mb-1"><code>continue</code> Statement:</h3>
+                    <p class="mb-2">
+                        The <code>continue</code> statement skips the rest of the code inside the current iteration of the loop and proceeds to the next iteration.
+                    </p>
+                    <pre><code class="language-python">for i in range(5):
+    if i == 2: 
+        continue  # Skip this iteration when i is 2
+    print(i)
+# Output: 0, 1, 3, 4 (2 is skipped)</code></pre>
+                </section>
+                
+                <section class="interactive-section mb-8">
+                    <h2>5. Quick Quiz</h2>
+                    <p class="mb-4">Test your knowledge about loops!</p>
+                    <div class="quiz-options mb-3">
+                        <p class="font-medium mb-1">Q1: Which loop is typically used when you know how many times you want to repeat a block of code?</p>
+                        <label class="quiz-option-label"><input type="radio" name="q1_loops" value="a"> <code>while</code> loop</label>
+                        <label class="quiz-option-label"><input type="radio" name="q1_loops" value="b"> <code>for</code> loop</label>
+                    </div>
+
+                    <div class="quiz-options mb-3">
+                        <p class="font-medium mb-1">Q2: What does <code>range(3)</code> generate?</p>
+                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="a"> 1, 2, 3</label>
+                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="b"> 0, 1, 2</label>
+                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="c"> 0, 1, 2, 3</label>
+                    </div>
+
+                    <div class="quiz-options mb-3">
+                        <p class="font-medium mb-1">Q3: What is the primary risk with a <code>while</code> loop if not managed correctly?</p>
+                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="a"> It runs too slowly.</label>
+                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="b"> It might not run at all.</label>
+                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="c"> It can become an infinite loop.</label>
+                    </div>
+                    <div class="quiz-options mb-3">
+                        <p class="font-medium mb-1">Q4: What does the <code>continue</code> statement do in a loop?</p>
+                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="a"> Exits the loop entirely.</label>
+                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="b"> Skips the current iteration and goes to the next.</label>
+                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="c"> Pauses the loop.</label>
+                    </div>
+                    <button id="checkQuizButtonLoops" class="btn">Check Answers</button>
+                    <div id="quizResultLoops" class="message-box mt-3" style="display: none;"></div>
+                </section>
+            </main>
+
+            <footer class="text-center mt-12 py-4">
+                <p class="text-sm mb-2">Ready to iterate over data collections?</p>
+                <a href="lists-iteration.html" class="btn btn-8bit">
+                    Next Tutorial: Lists & Iteration &rarr;
+                </a>
+            </footer>
         </div>
-        <h3 class="text-lg font-medium text-cyan-400 mb-2">
-          Condition: <code class="text-cyan-400">count < <span id="whileConditionLimit">5</span></code>
-        </h3>
-        <div class="mb-4">
-          <label for="whileLoopLimit" class="mr-2 text-gray-300"
-            >Set loop limit (1-10):</label
-          >
-          <input
-            type="number"
-            id="whileLoopLimit"
-            value="5"
-            min="1"
-            max="10"
-            class="input-field w-20"
-          />
-        </div>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-2">
-          Loop Output / Current Count:
-        </h3>
-        <div id="whileLoopOutput" class="output-display">
-          <span class="text-gray-500 italic"
-            >Click "Run `while` Loop" to start.</span
-          >
-        </div>
-        <div
-          id="whileLoopMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+    </div>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          6. `break` and `continue` Statements
-        </h2>
-        <p class="mb-2">
-          Python provides two statements to control loop execution:
-          <code>break</code> and <code>continue</code>.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">
-          <code>break</code> Statement:
-        </h3>
-        <p class="mb-2">
-          The <code>break</code> statement immediately exits the current
-          loop (the innermost loop if nested).
-        </p>
-        <pre><code class="language-python"># Example using break
-print("--- Break Example ---")
-for i in range(10):
-  if i == 5:
-    print("Breaking loop at i=5")
-    break  # Exit the loop
-  print(f"i = {i}")
-
-# Output:
-# i = 0
-# i = 1
-# i = 2
-# i = 3
-# i = 4
-# Breaking loop at i=5</code></pre>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
-          <code>continue</code> Statement:
-        </h3>
-        <p class="mb-2">
-          The <code>continue</code> statement skips the rest of the code
-          inside the current iteration of the loop and proceeds to the next
-          iteration.
-        </p>
-        <pre><code class="language-python"># Example using continue
-print("\n--- Continue Example ---")
-for i in range(5):
-  if i == 2:
-    print("Skipping iteration at i=2")
-    continue # Skip print(f"i = {i}") for this iteration
-  print(f"i = {i}")
-
-# Output:
-# i = 0
-# i = 1
-# Skipping iteration at i=2
-# i = 3
-# i = 4</code></pre>
-        <div class="interactive-section mt-6">
-          <h3 class="text-xl font-semibold text-yellow-300 mb-2">
-            Test <code>break</code> and <code>continue</code>
-          </h3>
-          <p class="mb-2">
-            Enter a list of numbers separated by commas (e.g., 1,2,3,4,5).
-          </p>
-          <p class="mb-2">
-            The loop will <code>break</code> if it finds a number greater than
-            <code class="text-cyan-400">7</code>.
-          </p>
-          <p class="mb-4">
-            It will <code>continue</code> (skip printing) for even numbers.
-          </p>
-          <input
-            type="text"
-            id="breakContinueInput"
-            placeholder="e.g., 1,2,3,8,4,5"
-            class="input-field w-full md:w-1/2"
-          />
-          <button id="runBreakContinueButton" class="btn btn-green mt-2">
-            Run with Break/Continue
-          </button>
-          <div id="breakContinueOutput" class="output-display mt-4">
-            <span class="text-gray-500 italic"
-              >Enter numbers and click run.</span
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          7. `else` in Loops
-        </h2>
-        <p class="mb-2">
-          Python allows an optional <code>else</code> clause at the end of a
-          <code>for</code> or <code>while</code> loop. This block is executed
-          if the loop completes normally (i.e., not terminated by a
-          <code>break</code> statement).
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">
-          <code>for...else</code>:
-        </h3>
-        <pre><code class="language-python">for i in range(3):
-  print(i)
-else:
-  print("Loop finished normally.")
-
-# Output:
-# 0
-# 1
-# 2
-# Loop finished normally.</code></pre>
-
-        <pre><code class="language-python">for i in range(5):
-  print(i)
-  if i == 2:
-    print("Breaking loop")
-    break
-else:
-  print("Loop finished normally.") # This will NOT be printed
-
-# Output:
-# 0
-# 1
-# 2
-# Breaking loop</code></pre>
-
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
-          <code>while...else</code>:
-        </h3>
-        <pre><code class="language-python">count = 0
-while count < 3:
-  print(count)
-  count += 1
-else:
-  print("Loop finished normally.")
-
-# Output:
-# 0
-# 1
-# 2
-# Loop finished normally.</code></pre>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          8. Summary & Best Practices
-        </h2>
-        <ul class="list-disc list-inside ml-4 space-y-2">
-          <li>
-            <strong><code>for</code> loops:</strong> Use when you know in
-            advance how many times you want to repeat.
-          </li>
-          <li>
-            <strong><code>while</code> loops:</strong> Use when you don't know
-            beforehand how many times you need to loop.
-          </li>
-          <li>
-            <strong>Be careful with <code>while</code> loops:</strong> Ensure
-            the condition will eventually become false to avoid infinite loops.
-          </li>
-          <li>
-            <strong>Use <code>break</code> and <code>continue</code>:</strong>
-            Control loop execution more precisely.
-          </li>
-          <li>
-            <strong>Consider <code>else</code> clauses:</strong> Execute code
-            after the loop completes normally.
-          </li>
-        </ul>
-      </section>
-    </main>
-
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
-
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+        // For Loop Simulator
+        const forLoopRangeInput = document.getElementById('forLoopRangeInput');
+        const runForLoopButton = document.getElementById('runForLoopButton');
+        const forLoopOutput = document.getElementById('forLoopOutput');
 
-      // Declare variables that will hold element references
-      let runForLoopButton, resetForLoopButton, forLoopSequence, forLoopOutput, forLoopMessage;
-      let runWhileLoopButton, resetWhileLoopButton, whileLoopOutput, whileLoopMessage;
-      let whileLoopLimitInput, whileConditionLimitSpan;
-      let breakContinueInput, runBreakContinueButton, breakContinueOutput;
-
-
-      const forLoopItems = ["A", "B", "C", "D", "E"];
-      let forLoopInterval = null;
-      let currentForIndex = 0;
-
-      let currentWhileCount = 0;
-      const MAX_WHILE_ITERATIONS = 100; // Safety break
-      let whileLoopInterval = null;
-
-
-      // --- For Loop Logic ---
-      function renderForSequence() {
-        if (!forLoopSequence) {
-          console.error("renderForSequence: forLoopSequence element not found!");
-          return;
-        }
-        forLoopSequence.innerHTML = ""; // Clear previous
-        forLoopItems.forEach((item, index) => {
-          const span = document.createElement("span");
-          span.textContent = item;
-          span.className = "loop-item";
-          span.dataset.index = index;
-          forLoopSequence.appendChild(span);
-        });
-      }
-
-      function resetForLoop() {
-        if (forLoopInterval) {
-          clearInterval(forLoopInterval);
-          forLoopInterval = null;
-        }
-        currentForIndex = 0;
-        forLoopOutput.innerHTML =
-          '<span class="text-gray-500 italic">Click "Run `for` Loop" to start.</span>';
-        // Remove highlights
-        forLoopSequence
-          .querySelectorAll(".loop-item.highlight")
-          .forEach((el) => el.classList.remove("highlight"));
-        runForLoopButton.disabled = false;
-        showMessage(forLoopMessage, "For loop reset.", "info");
-      }
-
-      function stepThroughForLoop() {
-        // Remove highlight from previous item
-        if (currentForIndex > 0) {
-          const prevElement = forLoopSequence.querySelector(
-            `[data-index="${currentForIndex - 1}"]`
-          );
-          if (prevElement) prevElement.classList.remove("highlight");
+        if (runForLoopButton) {
+            runForLoopButton.addEventListener('click', () => {
+                const countTo = parseInt(forLoopRangeInput.value);
+                let outputHTML = '';
+                if (isNaN(countTo) || countTo < 0) {
+                    forLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid non-negative number.</span>';
+                    return;
+                }
+                for (let i = 0; i < countTo; i++) {
+                    outputHTML += `Iteration: ${i}<br>`;
+                }
+                if (outputHTML === '') outputHTML = '<span class="placeholder-text">Loop did not run (e.g., count to 0).</span>';
+                forLoopOutput.innerHTML = outputHTML;
+            });
         }
 
-        if (currentForIndex < forLoopItems.length) {
-          const currentItem = forLoopItems[currentForIndex];
-          const currentElement = forLoopSequence.querySelector(
-            `[data-index="${currentForIndex}"]`
-          );
+        // While Loop Simulator
+        const whileLoopStartInput = document.getElementById('whileLoopStartInput');
+        const runWhileLoopButton = document.getElementById('runWhileLoopButton');
+        const whileLoopOutput = document.getElementById('whileLoopOutput');
 
-          // Highlight current item
-          if (currentElement) currentElement.classList.add("highlight");
-
-          // Update output
-          forLoopOutput.innerHTML += `Processing item: <strong class="text-blue-600">${currentItem}</strong>\n`;
-          currentForIndex++;
-        } else {
-          // Iteration finished
-          forLoopOutput.innerHTML += `<strong class="text-green-600">For loop Complete!</strong>\n`;
-          clearInterval(forLoopInterval);
-          forLoopInterval = null;
-          runForLoopButton.disabled = false; // Re-enable button
-          showMessage(forLoopMessage, "For loop finished.", "success");
-        }
-      }
-
-      function startForLoop() {
-        if (forLoopInterval) return; // Prevent multiple runs
-        resetForLoop(); // Ensure clean state
-        runForLoopButton.disabled = true;
-        forLoopOutput.innerHTML = "Starting `for` loop...\n"; // Clear previous output
-        forLoopInterval = setInterval(stepThroughForLoop, 800); // Delay between steps
-      }
-
-      // --- While Loop Logic ---
-      function resetWhileLoop() {
-        if (whileLoopInterval) {
-          clearInterval(whileLoopInterval);
-          whileLoopInterval = null;
-        }
-        currentWhileCount = 0;
-        whileLoopOutput.innerHTML =
-          '<span class="text-gray-500 italic">Click "Run `while` Loop" to start.</span>';
-        if (runWhileLoopButton) runWhileLoopButton.disabled = false;
-        if (showMessage && whileLoopMessage) showMessage(whileLoopMessage, "While loop reset.", "info");
-      }
-
-      function stepThroughWhileLoop() {
-        if (!whileLoopLimitInput) return; // Guard
-        const currentLimit = parseInt(whileLoopLimitInput.value) || 5;
-
-        // Check condition BEFORE executing the block
-        const conditionMet = currentWhileCount < currentLimit;
-        let statusMessage = `Checking condition: ${currentWhileCount} < ${currentLimit} => ${conditionMet}\n`;
-
-        if (conditionMet) {
-          // Simulate loop body execution
-          statusMessage += `Condition TRUE. Executing block...\n`;
-          statusMessage += `  Output: Count is: <strong class="text-blue-600">${currentWhileCount}</strong>\n`;
-
-          // Simulate counter update
-          currentWhileCount++;
-          statusMessage += `  Updating counter: count = ${currentWhileCount}\n`;
-
-          // Safety break
-          if (currentWhileCount > MAX_WHILE_ITERATIONS) {
-            statusMessage += `<strong class="text-red-600">SAFETY BREAK: Exceeded max iterations!</strong>\n`;
-            clearInterval(whileLoopInterval);
-            whileLoopInterval = null;
-            runWhileLoopButton.disabled = false;
-            showMessage(
-              whileLoopMessage,
-              "While loop stopped (safety break).",
-              "error"
-            );
-          }
-        } else {
-          // Condition is false, loop terminates
-          statusMessage += `Condition FALSE. Loop terminates.\n`;
-          statusMessage += `<strong class="text-green-600">While loop Complete!</strong>\n`;
-          clearInterval(whileLoopInterval);
-          whileLoopInterval = null;
-          runWhileLoopButton.disabled = false; // Re-enable button
-          showMessage(whileLoopMessage, "While loop finished.", "success");
-        }
-        if (whileLoopOutput) { // Guard
-            whileLoopOutput.innerHTML += statusMessage + "----\n";
-            // Auto-scroll output
-            whileLoopOutput.scrollTop = whileLoopOutput.scrollHeight;
-        }
-      }
-
-      function startWhileLoop() {
-        if (whileLoopInterval) return; // Prevent multiple runs
-        resetWhileLoop(); // Ensure clean state
-        runWhileLoopButton.disabled = true;
-        whileLoopOutput.innerHTML = "Starting `while` loop...\n----\n"; // Clear previous output
-        whileLoopInterval = setInterval(stepThroughWhileLoop, 1000); // Delay between steps
-      }
-
-      // --- Quiz Logic ---
-
-      // --- Event Listeners ---
-      document.addEventListener("DOMContentLoaded", () => {
-        // --- Initialize Element References ---
-        runForLoopButton = document.getElementById("runForLoopButton");
-        resetForLoopButton = document.getElementById("resetForLoopButton");
-        forLoopSequence = document.getElementById("forLoopSequence");
-        forLoopOutput = document.getElementById("forLoopOutput");
-        forLoopMessage = document.getElementById("forLoopMessage");
-
-        runWhileLoopButton = document.getElementById("runWhileLoopButton");
-        resetWhileLoopButton = document.getElementById("resetWhileLoopButton");
-        whileLoopOutput = document.getElementById("whileLoopOutput");
-        whileLoopMessage = document.getElementById("whileLoopMessage");
-        whileLoopLimitInput = document.getElementById("whileLoopLimit");
-        whileConditionLimitSpan = document.getElementById("whileConditionLimit");
-
-        breakContinueInput = document.getElementById("breakContinueInput");
-        runBreakContinueButton = document.getElementById("runBreakContinueButton");
-        breakContinueOutput = document.getElementById("breakContinueOutput");
-
-        // --- Attach Event Listeners ---
-        if (runForLoopButton) runForLoopButton.addEventListener("click", startForLoop);
-        if (resetForLoopButton) resetForLoopButton.addEventListener("click", resetForLoop);
-
-        if (runWhileLoopButton) runWhileLoopButton.addEventListener("click", startWhileLoop);
-        if (resetWhileLoopButton) resetWhileLoopButton.addEventListener("click", resetWhileLoop);
-        if (whileLoopLimitInput) whileLoopLimitInput.addEventListener("input", updateWhileLoopLimitDisplay);
-
-        if (runBreakContinueButton) runBreakContinueButton.addEventListener("click", runBreakContinueDemo);
-
-        // --- Initial Function Calls ---
-        if (forLoopSequence) {
-            renderForSequence(); // Display the for loop items initially
-        } else {
-            console.error("Initial setup: forLoopSequence element not found, cannot render.");
-        }
-        if (whileLoopLimitInput && whileConditionLimitSpan) {
-             updateWhileLoopLimitDisplay(); // Update the displayed limit for while loop
-        } else {
-            console.error("Initial setup: whileLoopLimitInput or whileConditionLimitSpan not found.");
+        if (runWhileLoopButton) {
+            runWhileLoopButton.addEventListener('click', () => {
+                let countFrom = parseInt(whileLoopStartInput.value);
+                let outputHTML = '';
+                if (isNaN(countFrom) || countFrom < 1) {
+                    whileLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid number greater than 0.</span>';
+                    return;
+                }
+                while (countFrom > 0) {
+                    outputHTML += `Countdown: ${countFrom}<br>`;
+                    countFrom--;
+                }
+                outputHTML += 'Blast off! (Loop finished)<br>';
+                whileLoopOutput.innerHTML = outputHTML;
+            });
         }
 
-      });
+        // Quiz Logic
+        const checkQuizButtonLoops = document.getElementById('checkQuizButtonLoops');
+        const quizResultLoops = document.getElementById('quizResultLoops');
 
-      // Helper function for break/continue demo (if you add one)
-      function runBreakContinueDemo() {
-        if (!breakContinueInput || !breakContinueOutput) return;
-        const inputText = breakContinueInput.value;
-        const numbers = inputText.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n));
-        let outputHTML = "";
+        if (checkQuizButtonLoops) {
+            checkQuizButtonLoops.addEventListener('click', () => {
+                const answers = { q1_loops: 'b', q2_loops: 'b', q3_loops: 'c', q4_loops: 'b' };
+                let score = 0;
+                let allAnswered = true;
+                let resultHTML = '<h4>Quiz Results:</h4><ul>';
 
-        for (let num of numbers) {
-            if (num > 7) {
-                outputHTML += `Found ${num}, breaking loop.\\n`;
-                break;
-            }
-            if (num % 2 === 0) {
-                outputHTML += `Skipping even number: ${num}\\n`;
-                continue;
-            }
-            outputHTML += `Processing odd number: ${num}\\n`;
+                for (const question in answers) {
+                    const selected = document.querySelector(`input[name="${question}"]:checked`);
+                    if (selected) {
+                        if (selected.value === answers[question]) {
+                            score++;
+                            resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
+                        } else {
+                            resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
+                        }
+                    } else {
+                        allAnswered = false;
+                        break;
+                    }
+                }
+
+                if (!allAnswered) {
+                    quizResultLoops.innerHTML = 'Please answer all questions.';
+                    quizResultLoops.className = 'message-box message-box-info';
+                } else {
+                    resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
+                    quizResultLoops.innerHTML = resultHTML;
+                    if (score === Object.keys(answers).length) {
+                        quizResultLoops.className = 'message-box message-box-success';
+                    } else {
+                        quizResultLoops.className = 'message-box message-box-info';
+                    }
+                }
+                quizResultLoops.style.display = 'block';
+            });
         }
-        breakContinueOutput.textContent = outputHTML || "No valid numbers processed or loop did not run.";
-      }
-
-      // Helper function for while loop limit display
-      function updateWhileLoopLimitDisplay() {
-        if (whileLoopLimitInput && whileConditionLimitSpan) {
-            whileConditionLimitSpan.textContent = whileLoopLimitInput.value;
-        }
-      }
-
     </script>
   </body>
 </html>

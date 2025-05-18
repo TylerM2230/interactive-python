@@ -4,46 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learn String Operations</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
+  <body class="">
+    <div class="console-screen-border">
     <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+      <h1 class="pixel-header"><a href="../index.html">
         Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+      </a></h1>
+      <h2 class="pixel-subheader">
         Understanding String Operations
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
+      </h2>
+      <p class="text-xs mt-1 italic">
         Manipulating text data using various built-in methods for formatting, searching, and modification.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
+      class="mb-6 p-3 flex justify-between items-center"
     >
       <a
         href="nested-loops.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+        class="btn"
       >
         &larr; Previous: Nested Loops
       </a>
       <a
         href="functions.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+        class="btn"
       >
         Next: Functions &rarr;
       </a>
     </nav>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+    <main class="content-wrapper-8bit">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           1. What are Strings?
         </h2>
         <p class="mb-4">
@@ -67,8 +67,8 @@ print(type(name)) # Output: <class 'str'>
 print(multiline_string)</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           2. Combining & Repeating Strings
         </h2>
         <p class="mb-2">
@@ -142,8 +142,8 @@ print(f"Age: {age}")      # Using an f-string (preferred for readability)</code>
         ></div>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           3. String Indexing and Slicing
         </h2>
         <p class="mb-2">
@@ -176,8 +176,8 @@ print(f"Slice [::2]: {text[::2]}")  # Output: Pto u (every other character)
 </code></pre>
       </section>
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           Interactive String Indexing & Slicing
         </h2>
         <p class="mb-4">
@@ -232,8 +232,8 @@ print(f"Slice [::2]: {text[::2]}")  # Output: Pto u (every other character)
         ></div>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           4. Common String Methods
         </h2>
         <p class="mb-2">
@@ -273,8 +273,8 @@ print(f"Find 'Python': {text.find('Python')}")
 print(f"Count 'o': {text.count('o')}")</code></pre>
       </section>
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           Interactive String Methods
         </h2>
         <p class="mb-4">
@@ -316,8 +316,8 @@ print(f"Count 'o': {text.count('o')}")</code></pre>
         <div id="methodMessage" class="message-box" style="display: none"></div>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           5. String Formatting
         </h2>
         <p class="mb-2">
@@ -350,8 +350,8 @@ print(formatted_percent)</code></pre>
         </p>
       </section>
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           Interactive: String Formatting (f-string)
         </h2>
         <p class="mb-4">Enter a name and an item to create a personalized message using an f-string.</p>
@@ -383,8 +383,8 @@ print(formatted_percent)</code></pre>
         <div id="formatMessage" class="message-box" style="display: none"></div>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           6. Escape Characters
         </h2>
         <p class="mb-2">
@@ -423,8 +423,8 @@ print(f"Raw path: {path2}")
 # Note: A raw string cannot end in an odd number of backslashes.</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           8. Quick Quiz
         </h2>
         <p class="mb-4">Test your understanding!</p>
@@ -508,9 +508,13 @@ print(f"Raw path: {path2}")
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
+    <footer class="footer-8bit">
       <p>Happy Learning!</p>
+      <p class="mt-2">
+        <a href="../index.html">Back to Main Menu</a>
+      </p>
     </footer>
+  </div>
 
     <script src="../js/main.js" defer></script>
     <script>

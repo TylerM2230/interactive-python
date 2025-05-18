@@ -3,535 +3,309 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Recursion in Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Recursion - Python Guide</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Recursion in Python
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Solving problems by defining functions that call themselves with simpler inputs until a base case is reached.
-      </p>
-    </header>
-
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
-      <a href="random-module.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Random Module
-      </a>
-      <a href="2d-lists.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: 2D Lists &rarr;
-      </a>
-    </nav>
-
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What is Recursion?
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Recursion is a programming technique where a function calls itself in
-          order to solve a problem. Instead of using loops (like
-          <code>for</code> or <code>while</code>) to repeat steps, a recursive
-          function breaks the problem down into smaller, self-similar
-          subproblems until it reaches a simple case that can be solved
-          directly.
+  <body class="min-h-screen">
+    <div class="console-screen-border">
+      <header class="text-center mb-12 md:mb-16">
+        <h1 class="pixel-header">
+          Interactive Python Guide
+        </h1>
+        <p class="pixel-subheader mt-4">
+          Retro Journey into Code!
         </p>
-        <p>
-          Think of it like Russian nesting dolls: each doll contains a smaller
-          version of itself, until you reach the smallest doll that can't be
-          opened further.
-        </p>
-        <p class="mt-2">A recursive function typically has two main parts:</p>
-        <ul class="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-300">
-          <li>
-            <strong>Base Case:</strong> The simplest version of the problem that
-            can be solved directly, without making another recursive call. This
-            stops the recursion.
-          </li>
-          <li>
-            <strong>Recursive Step:</strong> The part where the function calls
-            itself with modified arguments, moving closer to the base case.
-          </li>
-        </ul>
-      </section>
+      </header>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Base Case and Recursive Step: The Factorial Example
-        </h2>
-        <p class="mb-2 text-gray-300">
-          Calculating the factorial of a non-negative integer `n` (denoted as
-          `n!`) is a classic example.
-          <code>n! = n * (n-1) * (n-2) * ... * 1</code>. For example,
-          <code>5! = 5 * 4 * 3 * 2 * 1 = 120</code>. Also, <code>0!</code> is
-          defined as 1.
-        </p>
-        <p class="mb-2 text-gray-300">We can define factorial recursively:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
-          <li>
-            <strong>Base Case:</strong> If <code>n</code> is 0, the factorial is
-            1. (<code>factorial(0) = 1</code>)
-          </li>
-          <li>
-            <strong>Recursive Step:</strong> If <code>n</code> is greater than
-            0, the factorial is <code>n</code> multiplied by the factorial of
-            <code>n-1</code>. (<code>factorial(n) = n * factorial(n-1)</code>)
-          </li>
-        </ul>
-        <pre><code class="language-python">def factorial(n):
+      <main class="mx-auto">
+        <h1 class="page-title-8bit">
+          Understanding Recursion
+        </h1>
+
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            1. What is Recursion?
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              Recursion is a powerful programming technique where a function calls itself in order to solve a problem. Instead of using iterative loops (like <code>for</code> or <code>while</code>) to repeat a set of operations, a recursive function breaks the problem down into smaller, self-similar subproblems. It continues to do so until it reaches a simple, elementary case that can be solved directly, without further recursion.
+            </p>
+            <p>
+              A common analogy is Russian nesting dolls (Matryoshka dolls): each doll contains a smaller, identical version of itself, until you reach the smallest doll that cannot be opened further. This smallest doll represents the "base case" in recursion.
+            </p>
+            <p>A recursive function must have two key components:</p>
+            <ul>
+              <li>
+                <strong>Base Case(s):</strong> This is one or more conditions that define the simplest version of the problem. When a base case is met, the function returns a result directly without making another recursive call. The base case is crucial for stopping the chain of recursive calls and preventing infinite loops.
+              </li>
+              <li>
+                <strong>Recursive Step (or Recursive Case):</strong> This is the part of the function where it calls itself, but with modified arguments that progress towards a base case. The problem is typically reduced in size or complexity with each recursive call.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            2. Base Case and Recursive Step: The Factorial Example
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              Calculating the factorial of a non-negative integer `n` (denoted as `n!`) is a classic example used to illustrate recursion. The factorial is the product of all positive integers less than or equal to `n`.
+              For example, <code>5! = 5 * 4 * 3 * 2 * 1 = 120</code>. By definition, <code>0! = 1</code>.
+            </p>
+            <p>We can define factorial recursively as follows:</p>
+            <ul>
+              <li>
+                <strong>Base Case:</strong> If <code>n</code> is 0 (or 1, as 1! is also 1), the factorial is 1. So, <code>factorial(0) = 1</code>.
+              </li>
+              <li>
+                <strong>Recursive Step:</strong> If <code>n</code> is greater than 0, the factorial of <code>n</code> is <code>n</code> multiplied by the factorial of <code>(n-1)</code>. So, <code>factorial(n) = n * factorial(n-1)</code> for <code>n > 0</code>.
+              </li>
+            </ul>
+            <pre><code class="code-block-8bit python">def factorial(n):
+  print(f"Function call: factorial({n})")
   # Base Case: Stop the recursion
   if n == 0:
-    print(f"Base case reached: factorial(0) returns 1")
+    print(f"  Base case reached for factorial(0). Returning 1.")
     return 1
   # Recursive Step: Call the function with a smaller value
   else:
-    print(f"Calculating factorial({n})... Needs factorial({n-1})")
+    print(f"  Recursive step for factorial({n}). Needs factorial({n-1})...")
     recursive_result = factorial(n - 1) # Function calls itself
     result = n * recursive_result
-    print(f"Returning from factorial({n}): {n} * {recursive_result} = {result}")
+    print(f"  Returning from factorial({n}): calculated {n} * {recursive_result} = {result}")
     return result
 
-# Example call
-print("Calculating 3!:")
+# Example call to demonstrate the flow
+print("Calculating factorial of 3:")
 final_answer = factorial(3)
-print(f"\nFinal Answer for 3!: {final_answer}") # Output: 6</code></pre>
-        <p class="mt-2 text-red-400 font-medium">
-          <strong>Crucial:</strong> Without a base case, a recursive function
-          would call itself infinitely, leading to a "stack overflow" error.
-        </p>
-      </section>
+print(f"\nFinal Answer for 3!: {final_answer}")
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. How Recursion Works: The Call Stack
-        </h2>
-        <p class="mb-4 text-gray-300">
-          When a function calls another function (or itself), the system uses a
-          structure called the <strong>call stack</strong> to keep track of
-          where it is. Each time a function is called, a new "frame" is added to
-          the top of the stack, containing information about that specific call
-          (like its local variables).
-        </p>
-        <p class="mb-2">In recursion:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
-          <li>
-            Each recursive call adds a new frame to the stack (e.g.,
-            <code>factorial(3)</code> calls <code>factorial(2)</code>, which
-            calls <code>factorial(1)</code>, etc.).
-          </li>
-          <li>
-            When a function reaches its base case and returns a value, its frame
-            is removed (popped) from the stack.
-          </li>
-          <li>
-            The returned value is passed back to the function call that was
-            waiting for it (the frame below it on the stack).
-          </li>
-          <li>
-            This "unwinding" process continues until the original function call
-            receives its result and its frame is popped off the stack.
-          </li>
-        </ul>
-        <p class="mt-2">
-          Visualizing this stack helps understand how recursion progresses and
-          eventually terminates.
-        </p>
-      </section>
+# Expected Output (illustrative):
+# Calculating factorial of 3:
+# Function call: factorial(3)
+#   Recursive step for factorial(3). Needs factorial(2)...
+# Function call: factorial(2)
+#   Recursive step for factorial(2). Needs factorial(1)...
+# Function call: factorial(1)
+#   Recursive step for factorial(1). Needs factorial(0)...
+# Function call: factorial(0)
+#   Base case reached for factorial(0). Returning 1.
+#   Returning from factorial(1): calculated 1 * 1 = 1
+#   Returning from factorial(2): calculated 2 * 1 = 2
+#   Returning from factorial(3): calculated 3 * 2 = 6
+# 
+# Final Answer for 3!: 6</code></pre>
+            <div class="message-box-8bit error">
+              <strong>Crucial Point:</strong> A recursive function MUST have a correctly defined base case. Without it, or if the recursive calls don't eventually reach a base case, the function would call itself infinitely (or until system resources are exhausted), leading to a "stack overflow" error.
+            </div>
+          </div>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Interactive Factorial Visualization
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Enter a small non-negative integer (e.g., 0-10) to see the factorial
-          calculation and the call stack trace. Large numbers can cause too many
-          calls and slow down the browser.
-        </p>
-        <div class="flex flex-wrap items-center mb-4">
-          <label for="factorialInput" class="mr-2 text-gray-200"
-            >Number (n):</label
-          >
-          <input
-            type="number"
-            id="factorialInput"
-            class="input-field"
-            min="0"
-            max="20"
-            value="4"
-          />
-          <button id="calculateFactorialButton" class="btn btn-green">
-            Calculate & Visualize
-          </button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Python Code:</h3>
-        <p class="mb-4">
-          Enter a small non-negative integer (e.g., 3, 4, 5) to see a
-          step-by-step simulation of the recursive factorial calculation.
-          Observe the calls going deeper and the results returning back up.
-        </p>
-        <div class="mb-4">
-          <h4 class="text-md font-medium mb-1">Function Definition:</h4>
-          <pre><code class="language-python">
-def factorial(n):
-  if n == 0: # Base Case
-    return 1
-  else:      # Recursive Step
-    return n * factorial(n - 1)
-                </code></pre>
-        </div>
-
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="factorialInput" class="mr-2"
-            >Calculate Factorial of:</label
-          >
-          <input
-            type="number"
-            id="factorialInput"
-            class="input-field input-field-small"
-            placeholder="e.g., 4"
-            value="4"
-            min="0"
-            max="15"
-          />
-          <button id="runFactorialButton" class="btn btn-green">
-            Run Simulation
-          </button>
-        </div>
-
-        <h4 class="text-md font-medium mt-3 mb-1">
-          Execution Trace (Simulated Call Stack):
-        </h4>
-        <div id="recursionLogDisplay" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter a number and click 'Run Simulation'.</span
-          >
-        </div>
-
-        <div
-          id="recursionMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          5. Pros and Cons of Recursion
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-medium text-green-600">Pros:</h3>
-            <ul class="list-disc list-inside mt-1 space-y-1">
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            3. How Recursion Works: The Call Stack
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              When any function calls another function (including when a recursive function calls itself), the computer system uses a special memory area called the <strong>call stack</strong> to keep track of these calls. The call stack manages the order of function execution and the local state of each function call.
+            </p>
+            <p>Here's how it works in the context of recursion:</p>
+            <ul>
               <li>
-                Can lead to elegant, simple code for problems that are naturally
-                recursive (e.g., tree traversals, some mathematical functions).
+                <strong>Pushing to the Stack:</strong> Each time a function is called, a new "stack frame" (or "activation record") is created and pushed onto the top of the call stack. This frame contains information specific to that particular call, such as its parameters, local variables, and the point in the code to return to after the function finishes.
+                For <code>factorial(3)</code>, a frame for <code>factorial(3)</code> is pushed. Then <code>factorial(3)</code> calls <code>factorial(2)</code>, so a frame for <code>factorial(2)</code> is pushed on top, and so on, until <code>factorial(0)</code>.
               </li>
               <li>
-                Reduces the need for complex loop management in some cases.
+                <strong>Reaching the Base Case:</strong> When a recursive call reaches a base case (e.g., <code>factorial(0)</code>), it computes its result and returns.
               </li>
               <li>
-                Can make code easier to read and understand *if* the problem
-                fits the recursive pattern well.
+                <strong>Popping from the Stack (Unwinding):</strong> When a function returns, its stack frame is removed (popped) from the top of the call stack. The returned value is then passed back to the caller function (the one whose frame is now at the top of the stack). This caller function can then use this returned value to complete its own computation.
+                So, <code>factorial(0)</code> returns 1 to <code>factorial(1)</code>. <code>factorial(1)</code> computes <code>1*1=1</code> and returns 1 to <code>factorial(2)</code>. <code>factorial(2)</code> computes <code>2*1=2</code> and returns 2 to <code>factorial(3)</code>. Finally, <code>factorial(3)</code> computes <code>3*2=6</code> and returns 6 to the original caller.
+              </li>
+              <li>
+                This process of returning values and popping frames is often called "unwinding" the stack.
               </li>
             </ul>
+            <p>
+              Visualizing this stack of function calls growing and shrinking is key to understanding how recursion progresses and eventually terminates to produce the final result.
+            </p>
           </div>
-          <div>
-            <h3 class="text-lg font-medium text-red-600">Cons:</h3>
-            <ul class="list-disc list-inside mt-1 space-y-1">
-              <li>
-                Can be less efficient than iterative solutions due to the
-                overhead of function calls (call stack management).
-              </li>
-              <li>
-                Can lead to stack overflow errors if the recursion goes too deep
-                (exceeds the maximum stack depth).
-              </li>
-              <li>
-                Can sometimes be harder to debug and trace compared to loops.
-              </li>
-              <li>Not all problems are well-suited for recursion.</li>
-            </ul>
+        </section>
+
+        <section class="interactive-section">
+          <h2 class="section-subtitle-8bit">
+            4. Interactive Factorial Visualization
+          </h2>
+          <div class="sub-interactive-box">
+            <p>
+              Enter a small non-negative integer (e.g., 0-12, as larger numbers create many calls) to see the factorial calculation steps and a simplified call stack trace.
+            </p>
+            <div class="controls-flex">
+              <label for="factorialInput">Number (n):</label>
+              <input
+                type="number"
+                id="factorialInput"
+                class="input-field-8bit"
+                min="0"
+                max="12"
+                value="4"
+              />
+              <button id="calculateFactorialButton" class="button-8bit">
+                Calculate & Visualize
+              </button>
+            </div>
+            <div class="grid-cols-2-responsive mt-4">
+              <div>
+                <h3 class="section-subtitle-8bit smaller-subtitle">Call Stack Trace:</h3>
+                <div id="callStackOutput" class="output-display-8bit min-h-[200px]"><p><em>Call stack events will appear here.</em></p></div>
+              </div>
+              <div>
+                <h3 class="section-subtitle-8bit smaller-subtitle">Calculation Steps:</h3>
+                <div id="calculationStepsOutput" class="output-display-8bit min-h-[200px]"><p><em>Calculation details will appear here.</em></p></div>
+              </div>
+            </div>
+            <p class="mt-4">
+                <strong>Final Result for n!: <span id="finalResult" class="final-result-text">N/A</span></strong>
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">6. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">Q1: What defines a recursive function?</p>
-          <label class="block"
-            ><input type="radio" name="q1_recur" value="a" class="mr-1" /> It
-            uses a `for` loop</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_recur" value="b" class="mr-1" /> It
-            calls itself</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_recur" value="c" class="mr-1" /> It
-            handles errors with `try...except`</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: What is the purpose of a "base case" in recursion?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_recur" value="a" class="mr-1" /> To
-            make the function call itself</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_recur" value="b" class="mr-1" /> To
-            handle errors</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_recur" value="c" class="mr-1" /> To
-            stop the recursion and provide a direct answer</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What happens if a recursive function has no base case (or it's
-            never reached)?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_recur" value="a" class="mr-1" /> The
-            function returns `None`</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_recur" value="b" class="mr-1" /> It
-            runs infinitely (or until a stack overflow error)</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_recur" value="c" class="mr-1" /> It
-            automatically stops after 100 calls</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: Which data structure does the system use internally to manage
-            function calls, including recursive ones?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_recur" value="a" class="mr-1" />
-            Queue</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_recur" value="b" class="mr-1" />
-            List</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_recur" value="c" class="mr-1" /> Call
-            Stack</label
-          >
-        </div>
-        <button id="checkQuizButtonRecur" class="btn">Check Answers</button>
-        <div
-          id="quizResultRecur"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+        <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+                5. When to Use Recursion (and When Not To)
+            </h2>
+            <div class="sub-interactive-box">
+                <p>Recursion can be an elegant and intuitive solution for problems that have a naturally recursive structure:</p>
+                <ul>
+                    <li><strong>Tree and Graph Traversals:</strong> Algorithms like Depth-First Search (DFS) for exploring tree or graph nodes are often implemented recursively (e.g., finding files in a directory structure).</li>
+                    <li><strong>Divide and Conquer Algorithms:</strong> Many efficient algorithms, such as Merge Sort and Quick Sort, break the problem into smaller subproblems, solve them recursively, and then combine the results.</li>
+                    <li><strong>Mathematical Problems Defined Recursively:</strong> Problems like the Fibonacci sequence (<code>F(n) = F(n-1) + F(n-2)</code>) or factorial (<code>n! = n * (n-1)!</code>) have direct recursive definitions.</li>
+                    <li><strong>Parsing Hierarchical Data:</strong> Structures like JSON or XML can be parsed recursively, though often, dedicated libraries handle this complexity.</li>
+                </ul>
+                <p>However, recursion is not always the optimal choice and has potential drawbacks:</p>
+                <ul>
+                    <li><strong>Performance Overhead:</strong> Each function call incurs some overhead (e.g., creating a stack frame, passing parameters). For simple iterative problems (like summing elements in a list), a straightforward loop is usually faster and more memory-efficient.</li>
+                    <li><strong>Stack Overflow Risk:</strong> If the recursion is too deep (i.e., too many nested calls without reaching a base case quickly enough), it can exhaust the available space on the call stack, leading to a stack overflow error. This is particularly a concern for problems that might lead to very long chains of recursion. Python has a default recursion limit (which can be checked with <code>sys.getrecursionlimit()</code> and modified with <code>sys.setrecursionlimit()</code>), but relying on increasing this limit is often a sign that an iterative approach might be better suited if the depth is an issue for typical inputs.</li>
+                    <li><strong>Readability and Debugging:</strong> While recursion can be very clear for problems that map directly to a recursive definition, complex recursive logic can sometimes be harder to understand, follow, and debug than an equivalent iterative solution, especially for those less familiar with the concept.</li>
+                </ul>
+                <div class="message-box-8bit info">
+                    It's important to note that any problem solvable with recursion can also be solved using iteration (loops), though the iterative solution might require an explicit data structure (like a stack) to mimic the behavior of the call stack. The choice between recursion and iteration often depends on factors like the clarity of the solution for the specific problem, efficiency considerations, and the potential for stack overflow issues with the expected input sizes.
+                </div>
+            </div>
+        </section>
+      </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
-    </footer>
+      <footer class="footer-8bit text-center py-6">
+        <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+        <p class="mt-3 md:mt-4">
+          <a
+            href="../index.html"
+            class="link-8bit"
+            >Back to Main Menu</a>
+        </p>
+      </footer>
+    </div> <!-- End of console-screen-border -->
 
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+        const factorialInput = document.getElementById('factorialInput');
+        const calculateFactorialButton = document.getElementById('calculateFactorialButton');
+        const callStackOutput = document.getElementById('callStackOutput');
+        const calculationStepsOutput = document.getElementById('calculationStepsOutput');
+        const finalResultSpan = document.getElementById('finalResult');
 
-      // --- DOM Elements ---
-      const factorialInput = document.getElementById("factorialInput");
-      const runFactorialButton = document.getElementById("runFactorialButton");
-      const recursionLogDisplay = document.getElementById(
-        "recursionLogDisplay"
-      );
-      const recursionMessage = document.getElementById("recursionMessage");
+        let callStackDepth = 0;
 
-      const checkQuizButtonRecur = document.getElementById(
-        "checkQuizButtonRecur"
-      );
-      const quizResultRecur = document.getElementById("quizResultRecur");
-
-      // --- Recursion Simulation Logic ---
-      let simulationTimeout = null; // To cancel ongoing simulation if needed
-
-      // Function to simulate factorial and log steps
-      async function simulateFactorial(n, level = 0) {
-        const indent = "&nbsp;".repeat(level * 2); // Indentation for visualization
-        const logDiv = (message, className = "") => {
-          const entry = document.createElement("div");
-          entry.className = `call-level ${className}`;
-          entry.style.setProperty("--level", `${level * 10}px`); // Control CSS variable for indent
-          entry.innerHTML = indent + message;
-          recursionLogDisplay.appendChild(entry);
-          recursionLogDisplay.scrollTop = recursionLogDisplay.scrollHeight;
-        };
-
-        // Log the function call
-        logDiv(`-> Calling factorial(${n})`, "calling");
-        await new Promise((resolve) => setTimeout(resolve, 400)); // Delay
-
-        // Base Case
-        if (n === 0) {
-          logDiv(`   Base case (n=0), returning 1`, "base-case");
-          await new Promise((resolve) => setTimeout(resolve, 400));
-          return 1;
-        }
-        // Recursive Step
-        else {
-          logDiv(`   Needs factorial(${n - 1})...`, "calling");
-          await new Promise((resolve) => setTimeout(resolve, 400));
-
-          const recursiveResult = await simulateFactorial(n - 1, level + 1); // Recursive call
-
-          const result = n * recursiveResult;
-          logDiv(
-            `<- Returning from factorial(${n}): ${n} * ${recursiveResult} = ${result}`,
-            "returning"
-          );
-          await new Promise((resolve) => setTimeout(resolve, 400));
-          return result;
-        }
-      }
-
-      runFactorialButton.addEventListener("click", async () => {
-        // Cancel any previous simulation
-        if (simulationTimeout) {
-          clearTimeout(simulationTimeout);
-          simulationTimeout = null;
-        }
-        runFactorialButton.disabled = true;
-        recursionLogDisplay.innerHTML = ""; // Clear previous log
-
-        const nStr = factorialInput.value;
-        const n = parseInt(nStr, 10);
-
-        if (isNaN(n) || n < 0 || !Number.isInteger(n)) {
-          recursionLogDisplay.innerHTML =
-            '<span class="text-red-500">Error: Please enter a non-negative integer.</span>';
-          showMessage(recursionMessage, "Invalid input.", "error");
-          runFactorialButton.disabled = false;
-          return;
-        }
-        if (n > 15) {
-          // Limit to prevent browser slowdown/too much output
-          recursionLogDisplay.innerHTML =
-            '<span class="text-orange-500">Input is large, limiting to 15 for visualization.</span>';
-          showMessage(
-            recursionMessage,
-            "Input too large, limited to 15.",
-            "info"
-          );
-          // n = 15; // Optionally cap the value
-          // factorialInput.value = 15;
-          // For now, just show message and don't run
-          runFactorialButton.disabled = false;
-          return;
+        function logToCallStack(message, type = 'call') {
+            const p = document.createElement('p');
+            let prefix = '';
+            if (type === 'call') {
+                prefix = `&rarr; Call (${callStackDepth}): `;
+            } else if (type === 'return') {
+                prefix = `&larr; Return (${callStackDepth}): `;
+            }
+            p.innerHTML = `${'&nbsp;'.repeat(callStackDepth * 2)}${prefix}${message}`;
+            callStackOutput.appendChild(p);
+            callStackOutput.scrollTop = callStackOutput.scrollHeight;
         }
 
-        showMessage(recursionMessage, `Simulating factorial(${n})...`, "info");
-
-        try {
-          const finalResult = await simulateFactorial(n);
-          const finalMsg = document.createElement("div");
-          finalMsg.innerHTML = `\n<strong>Final Result for factorial(${n}): ${finalResult}</strong>`;
-          recursionLogDisplay.appendChild(finalMsg);
-          recursionLogDisplay.scrollTop = recursionLogDisplay.scrollHeight;
-          showMessage(recursionMessage, "Simulation complete.", "success");
-        } catch (e) {
-          // Should not happen with input validation, but good practice
-          recursionLogDisplay.innerHTML += `<span class="text-red-500">\nSimulation Error: ${e.message}</span>`;
-          showMessage(
-            recursionMessage,
-            "An error occurred during simulation.",
-            "error"
-          );
-        } finally {
-          runFactorialButton.disabled = false;
-        }
-      });
-
-      // --- Quiz Logic ---
-      function checkRecursionQuiz() {
-        const answers = {
-          q1_recur: "b", // Calls itself
-          q2_recur: "c", // Stop recursion / direct answer
-          q3_recur: "b", // Infinite loop / stack overflow
-          q4_recur: "c", // Call Stack
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
+        function logToCalculation(message) {
+            const p = document.createElement('p');
+            p.innerHTML = `${'&nbsp;'.repeat(callStackDepth * 2)}${message}`;
+            calculationStepsOutput.appendChild(p);
+            calculationStepsOutput.scrollTop = calculationStepsOutput.scrollHeight;
         }
 
-        if (!allAnswered) {
-          quizResultRecur.textContent =
-            "Please answer all questions before checking.";
-          quizResultRecur.className = "message-box message-box-error";
-          quizResultRecur.style.display = "block";
-          return;
+        function factorialVisualize(n) {
+            callStackDepth++;
+            logToCallStack(`factorial(${n}) invoked.`);
+
+            if (n < 0) {
+                logToCalculation(`Error: Factorial is not defined for negative numbers.`);
+                logToCallStack(`factorial(${n}) returning error.`, 'return');
+                callStackDepth--;
+                throw new Error("Factorial not defined for negative numbers");
+            }
+            if (n > 12) { // Limit to prevent browser slowdown / too much output
+                logToCalculation(`Input ${n} is too large for visualization. Max is 12.`);
+                 logToCallStack(`factorial(${n}) stopping due to large input.`, 'return');
+                callStackDepth--;
+                throw new Error("Input too large for visualization.");
+            }
+
+            // Base Case
+            if (n === 0) {
+                logToCalculation(`Base Case: factorial(0) = 1.`);
+                logToCallStack(`factorial(0) returns 1.`, 'return');
+                callStackDepth--;
+                return 1;
+            }
+            // Recursive Step
+            else {
+                logToCalculation(`Recursive Step: factorial(${n}) = ${n} * factorial(${n - 1})`);
+                const recursiveResult = factorialVisualize(n - 1);
+                const result = n * recursiveResult;
+                logToCalculation(`Calculation: factorial(${n}) = ${n} * ${recursiveResult} = ${result}`);
+                logToCallStack(`factorial(${n}) returns ${result}.`, 'return');
+                callStackDepth--;
+                return result;
+            }
         }
 
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
+        calculateFactorialButton.addEventListener('click', () => {
+            callStackOutput.innerHTML = '';
+            calculationStepsOutput.innerHTML = '';
+            finalResultSpan.textContent = 'N/A';
+            callStackDepth = 0;
 
-        quizResultRecur.innerHTML = resultsHTML;
-        quizResultRecur.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultRecur.style.display = "block";
-      }
+            const num = parseInt(factorialInput.value);
 
-      // --- Event Listeners ---
-      checkQuizButtonRecur.addEventListener("click", checkRecursionQuiz);
+            if (isNaN(num)) {
+                calculationStepsOutput.innerHTML = '<p>Please enter a valid number.</p>';
+                return;
+            }
 
-      // --- Initial Setup ---
-      window.onload = () => {
-        // No specific setup needed initially
-      };
+            try {
+                logToCallStack(`--- Starting factorial(${num}) visualization ---`);
+                const result = factorialVisualize(num);
+                finalResultSpan.textContent = result;
+                logToCallStack(`--- Visualization complete for factorial(${num}) ---`, 'complete');
+            } catch (error) {
+                finalResultSpan.textContent = 'Error';
+                // Error already logged in calculation/stack trace by the recursive function
+                logToCallStack(`--- Visualization stopped due to error for factorial(${num}) ---`, 'error');
+            }
+        });
+
+        // Initial placeholder messages
+        callStackOutput.innerHTML = '<p><em>Call stack events will appear here. Click \'Calculate & Visualize\'.</em></p>';
+        calculationStepsOutput.innerHTML = '<p><em>Calculation details will appear here. Click \'Calculate & Visualize\'.</em></p>';
     </script>
   </body>
 </html>

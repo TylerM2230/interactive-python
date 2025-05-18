@@ -4,46 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learn Functions in Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
+  <body class="">
+    <div class="console-screen-border">
     <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+      <h1 class="pixel-header"><a href="../index.html">
         Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+      </a></h1>
+      <h2 class="pixel-subheader">
         Learn Functions in Python
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
+      </h2>
+      <p class="text-xs mt-1 italic">
         A way to package up code and give it a name.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
+      class="mb-6 p-3 flex justify-between items-center"
     >
       <a
         href="string-operations.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+        class="btn"
       >
         &larr; Previous: String Operations
       </a>
       <a
         href="error-handling.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+        class="btn"
       >
         Next: Error Handling &rarr;
       </a>
     </nav>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+    <main class="content-wrapper-8bit">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           1. What is a Function?
         </h2>
         <p class="mb-4">
@@ -73,8 +73,8 @@
         </ul>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           2. Defining and Calling Functions
         </h2>
         <p class="mb-2">
@@ -109,8 +109,8 @@ print("Function call finished.")
         </p>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           3. Parameters and Arguments
         </h2>
         <p class="mb-2">
@@ -134,8 +134,8 @@ greet_person("Alice", "Good morning") # Output: Good morning, Alice!
 greet_person("Bob", "Hi")             # Output: Hi, Bob!</code></pre>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           4. Return Values
         </h2>
         <p class="mb-2">
@@ -170,8 +170,8 @@ what_is_returned = function_without_explicit_return()
 print(f"Value returned: {what_is_returned}") # Output: Value returned: None</code></pre>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           5. Default Argument Values
         </h2>
         <p class="mb-2">
@@ -188,8 +188,8 @@ greet_person("Alice") # Output: Hello, Alice!
 greet_person("Bob", "Good morning") # Output: Good morning, Bob!</code></pre>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           6. Keyword Arguments
         </h2>
         <p class="mb-2">
@@ -205,8 +205,8 @@ greet_person("Bob", "Good morning") # Output: Good morning, Bob!</code></pre>
 greet_person(name="Bob", greeting="Good morning") # Output: Good morning, Bob!</code></pre>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           7. Variable Number of Arguments (*args and **kwargs)
         </h2>
         <p class="mb-2">
@@ -227,8 +227,8 @@ def print_keyword_arguments(**kwargs):
 print_keyword_arguments(a=1, b=2, c=3) # Output: a: 1, b: 2, c: 3</code></pre>
       </section>
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">
           Interactive: Define and Call a Simple Function
         </h2>
         <p class="mb-4">
@@ -282,8 +282,8 @@ print_keyword_arguments(a=1, b=2, c=3) # Output: a: 1, b: 2, c: 3</code></pre>
         ></div>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+      <section class="game-section">
+        <h2 class="section-title-8bit">
           8. Variable Scope (Briefly)
         </h2>
         <p class="mb-2">
@@ -307,8 +307,8 @@ my_function() # Output: I'm inside the function
         </p>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">9. Quick Quiz</h2>
+      <section class="game-section interactive-section">
+        <h2 class="section-title-8bit">9. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -389,16 +389,16 @@ my_function() # Output: I'm inside the function
       </section>
     </main>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
+    <footer class="footer-8bit">
+      <p>Happy Coding!</p>
       <p class="mt-2">
         <a
           href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
           >Back to Main Menu</a
         >
       </p>
     </footer>
+  </div>
 
     <script src="../js/main.js" defer></script>
     <script>

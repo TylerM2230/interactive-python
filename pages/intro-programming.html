@@ -4,371 +4,330 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to Programming & Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Introduction to Programming & Python
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Understanding the basics of giving computers instructions and why Python is a popular choice to start.
-      </p>
-    </header>
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-end items-center"
-    >
-      <a
-        href="variables-types.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next Tutorial: Variables & Data Types &rarr;
-      </a>
-    </nav>
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What is Programming?
-        </h2>
-        <p class="mb-4">
-          At its core, **programming** is the process of giving a computer a set of precise instructions
-          to perform a specific task or solve a problem. Think of it like writing a very detailed recipe
-          for a computer to follow. These instructions are written in a **programming language**.
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
-          <li>
-            <strong>Instructions:</strong> Computers need exact, step-by-step
-            commands because they cannot infer meaning or make assumptions like
-            humans do.
-          </li>
-          <li>
-            <strong>Programming Languages:</strong> We use special languages
-            (like Python, Java, C++, JavaScript) with strict grammatical rules (syntax) to
-            write these instructions. Each language has its own strengths.
-          </li>
-          <li>
-            <strong>The Goal:</strong> Programmers write code (sequences of instructions) to create
-            software applications, automate repetitive tasks, analyze data, build websites, develop
-            games, power artificial intelligence, and much more.
-          </li>
-        </ul>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="variables-types.html" class="btn">
+          Next: Variables &rarr;
+        </a>
+      </nav>
 
-        <div class="concept-box interactive-section">
-          <h3 class="text-lg font-medium text-cyan-400 mb-2">
-            Mini-Challenge: Instructions vs. Goal
-          </h3>
-          <p class="mb-3 text-sm">
-            Consider making a cup of tea. Which of these is an **instruction** a
-            computer (or a simple robot) could follow directly?
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Introduction to Programming & Python
+          </h2>
+          <p class="text-sm italic mt-1">
+            Understanding the basics of giving computers instructions and why Python is a popular choice to start.
           </p>
-          <div class="space-y-2">
-            <label
-              class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-            >
+        </header>
+
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What is Programming?</h2>
+            <p class="mb-4">
+              At its core, <strong>programming</strong> is the process of giving a computer a set of precise instructions
+              to perform a specific task or solve a problem. Think of it like writing a very detailed recipe
+              for a computer to follow. These instructions are written in a <strong>programming language</strong>.
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
+              <li>
+                <strong>Instructions:</strong> Computers need exact, step-by-step
+                commands because they cannot infer meaning or make assumptions like
+                humans do.
+              </li>
+              <li>
+                <strong>Programming Languages:</strong> We use special languages
+                (like Python, Java, C++, JavaScript) with strict grammatical rules (syntax) to
+                write these instructions. Each language has its own strengths.
+              </li>
+              <li>
+                <strong>The Goal:</strong> Programmers write code (sequences of instructions) to create
+                software applications, automate repetitive tasks, analyze data, build websites, develop
+                games, power artificial intelligence, and much more.
+              </li>
+            </ul>
+
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Mini-Challenge: Instructions vs. Goal</h3>
+              <p class="mb-3 text-sm">
+                Consider making a cup of tea. Which of these is an <strong>instruction</strong> a
+                computer (or a simple robot) could follow directly?
+              </p>
+              <div class="space-y-2 quiz-options">
+                <label class="quiz-option-label">
+                  <input type="radio" name="instruction_goal" value="goal" class="mr-2" />
+                  Make a nice cup of tea. (The Goal)
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="instruction_goal" value="instruction" class="mr-2" />
+                  Boil water to 100 degrees Celsius. (An Instruction)
+                </label>
+              </div>
+              <button id="checkInstructionButton" class="btn mt-3">
+                Check Answer
+              </button>
+              <div id="instructionResult" class="message-box mt-2" style="display: none"></div>
+            </div>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. What is Python?</h2>
+            <p class="mb-4">
+              <strong>Python</strong> is a popular, high-level, general-purpose programming language
+              created by Guido van Rossum and first released in 1991. It's widely used across many industries
+              due to its versatility, extensive libraries, and notably, its readability.
+            </p>
+            <h3 class="mt-3">Key Characteristics:</h3>
+            <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
+              <li>
+                <strong>High-Level:</strong> Its syntax is designed to be closer to human language
+                than to machine code, making it generally easier to learn and write.
+              </li>
+              <li>
+                <strong>Interpreted:</strong> Python code is typically executed line by line by an interpreter.
+                This often leads to a faster development cycle (write, test, debug) as you don't usually
+                need a separate compilation step like in languages such as C++ or Java.
+              </li>
+              <li>
+                <strong>General-Purpose:</strong> It's not specialized for one type of task. Python is
+                versatile and used for web development, data science, artificial intelligence,
+                automation, scientific computing, and much more.
+              </li>
+              <li>
+                <strong>Readable and Clean Syntax:</strong> Python emphasizes code readability. It uses
+                indentation (whitespace) to define code blocks (like loops or functions) rather
+                than curly braces or keywords, which enforces a clean and uncluttered style.
+                This is often summarized by the Zen of Python's "Readability counts."
+              </li>
+              <li>
+                <strong>Large Standard Library:</strong> Python comes with a vast collection of pre-built
+                modules and functions that provide tools for many common tasks, so you don't
+                have to write everything from scratch.
+              </li>
+              <li>
+                <strong>Dynamically Typed:</strong> You don't need to declare the type of a variable
+                (e.g., integer, string) explicitly. Python figures it out at runtime.
+              </li>
+              <li>
+                <strong>Cross-Platform:</strong> Python code can run on various operating systems
+                (Windows, macOS, Linux) without significant modifications.
+              </li>
+            </ul>
+
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try a Simple Python Instruction</h3>
+              <p class="mb-3 text-sm">
+                The <code>print()</code> function in Python displays output. Click
+                the button to simulate running the code
+                <code>print("Hello, Python!")</code>.
+              </p>
+              <pre><code class="language-python">print("Hello, Python!")</code></pre>
+              <button id="runPrintButton" class="btn">Run Code</button>
+              <h4 class="text-md font-medium mt-3 mb-1">Simulated Output:</h4>
+              <div id="printOutputDisplay" class="output-display">
+                <span class="placeholder-text">
+                  Click 'Run Code' to see the output.
+                </span>
+              </div>
+              <div id="printMessage" class="message-box mt-2" style="display: none"></div>
+            </div>
+
+            <h3 class="mt-5">Common Uses for Python:</h3>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li>Web Development (Django, Flask)</li>
+              <li>Data Science, Machine Learning, AI</li>
+              <li>Scripting and Automation</li>
+              <li>Scientific Computing</li>
+              <li>Game Development (Pygame)</li>
+              <li>Desktop Applications</li>
+            </ul>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. Why Learn Python?</h2>
+            <p class="mb-2">
+              Python is often recommended as a great first programming language
+              because:
+            </p>
+            <ol class="list-decimal list-inside ml-4 space-y-1">
+              <li>
+                <strong>It's relatively easy to learn:</strong> Readable syntax lowers the
+                barrier.
+              </li>
+              <li>
+                <strong>It's highly versatile:</strong> Use it for many different project types.
+              </li>
+              <li><strong>It's in high demand:</strong> Valuable skills in many job markets.</li>
+              <li>
+                <strong>It has excellent community support:</strong> Easy to find help and
+                libraries.
+              </li>
+            </ol>
+            <p class="mt-3">
+              Learning Python provides a solid foundation in programming principles
+              applicable to other languages too.
+            </p>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Quick Quiz</h2>
+            <p class="mb-4">Test your understanding!</p>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1"> 
+                Q1: What is programming fundamentally about?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_intro" value="a" class="mr-1" />
+                Designing computer hardware
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_intro" value="b" class="mr-1" />
+                Writing instructions for a computer
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_intro" value="c" class="mr-1" /> 
+                Using software applications
+              </label>
+            </div>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">
+                Q2: Which characteristic describes Python's syntax?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_intro" value="a" class="mr-1" />
+                Complex and close to machine code
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_intro" value="b" class="mr-1" /> 
+                Uses <code>{ }</code> braces extensively for blocks
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_intro" value="c" class="mr-1" />
+                Readable and uses indentation for blocks
+              </label>
+            </div>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">
+                Q3: What does it mean for Python to be "Interpreted"?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_intro" value="a" class="mr-1" /> Code
+                is translated entirely before running
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_intro" value="b" class="mr-1" /> Code
+                is executed line by line by another program
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_intro" value="c" class="mr-1" /> Code
+                can only be used for interpretation, not creation
+              </label>
+            </div>
+            <button id="checkQuizButtonIntro" class="btn">Check Answers</button>
+            <div
+              id="quizResultIntro"
+              class="message-box mt-4"
+              style="display: none"
+            ></div>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Why Learn Python?</h2>
+            <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
+              <li>
+                <strong>Beginner-Friendly:</strong> Its simple syntax makes it one of
+                the easiest languages to start with.
+              </li>
+              <li>
+                <strong>Versatile:</strong> Applicable in web development, data science,
+                AI, machine learning, automation, and more.
+              </li>
+              <li>
+                <strong>Large Community:</strong> Abundant resources, tutorials, and
+                support available.
+              </li>
+              <li>
+                <strong>High Demand:</strong> Python developers are in high demand in
+                the job market.
+              </li>
+              <li>
+                <strong>Extensive Libraries:</strong> A vast ecosystem of third-party
+                packages (like NumPy for numerical computing, Pandas for data
+                analysis, Django/Flask for web development) that extend its
+                capabilities.
+              </li>
+            </ul>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Your First Interactive Python "Code"</h2>
+            <p class="mb-3">
+              Let's try a very simple interaction. This isn't running Python code
+              directly in your browser in a full sense, but it simulates how Python
+              might respond.
+            </p>
+            <div class="mb-3">
+              <label for="userNameInput" class="block mb-1 font-medium"
+                >Enter Your Name:</label
+              >
               <input
-                type="radio"
-                name="instruction_goal"
-                value="goal"
-                class="mr-2"
+                type="text"
+                id="userNameInput"
+                class="input-field w-full md:w-1/2"
+                placeholder="e.g., Alex"
               />
-              Make a nice cup of tea. (The Goal)
-            </label>
-            <label
-              class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-            >
-              <input
-                type="radio"
-                name="instruction_goal"
-                value="instruction"
-                class="mr-2"
-              />
-              Boil water to 100 degrees Celsius. (An Instruction)
-            </label>
-          </div>
-          <button id="checkInstructionButton" class="btn btn-green mt-3">
-            Check Answer
-          </button>
-          <div
-            id="instructionResult"
-            class="message-box mt-2"
-            style="display: none"
-          ></div>
-        </div>
-      </section>
+            </div>
+            <button id="greetUserButton" class="btn btn-green">Greet Me!</button>
+            <div id="greetingOutput" class="output-display mt-3">
+              <span class="text-gray-500 italic"
+                >Output will appear here...</span
+              >
+            </div>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. What is Python?
-        </h2>
-        <p class="mb-4">
-          **Python** is a popular, high-level, general-purpose programming language
-          created by Guido van Rossum and first released in 1991. It's widely used across many industries
-          due to its versatility, extensive libraries, and notably, its readability.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
-          Key Characteristics:
-        </h3>
-        <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
-          <li>
-            <strong>High-Level:</strong> Its syntax is designed to be closer to human language
-            than to machine code, making it generally easier to learn and write.
-          </li>
-          <li>
-            <strong>Interpreted:</strong> Python code is typically executed line by line by an interpreter.
-            This often leads to a faster development cycle (write, test, debug) as you don't usually
-            need a separate compilation step like in languages such as C++ or Java.
-          </li>
-          <li>
-            <strong>General-Purpose:</strong> It's not specialized for one type of task. Python is
-            versatile and used for web development, data science, artificial intelligence,
-            automation, scientific computing, and much more.
-          </li>
-          <li>
-            <strong>Readable and Clean Syntax:</strong> Python emphasizes code readability. It uses
-            indentation (whitespace) to define code blocks (like loops or functions) rather
-            than curly braces or keywords, which enforces a clean and uncluttered style.
-            This is often summarized by the Zen of Python's "Readability counts."
-          </li>
-          <li>
-            <strong>Large Standard Library:</strong> Python comes with a vast collection of pre-built
-            modules and functions that provide tools for many common tasks, so you don't
-            have to write everything from scratch.
-          </li>
-          <li>
-            <strong>Dynamically Typed:</strong> You don't need to declare the type of a variable
-            (e.g., integer, string) explicitly. Python figures it out at runtime.
-          </li>
-          <li>
-            <strong>Cross-Platform:</strong> Python code can run on various operating systems
-            (Windows, macOS, Linux) without significant modifications.
-          </li>
-        </ul>
-
-        <div class="concept-box interactive-section">
-          <h3 class="text-lg font-medium mb-2">
-            Try a Simple Python Instruction
-          </h3>
-          <p class="mb-3 text-sm">
-            The <code>print()</code> function in Python displays output. Click
-            the button to simulate running the code
-            <code>print("Hello, Python!")</code>.
-          </p>
-          <pre><code class="language-python">print("Hello, Python!")</code></pre>
-          <button id="runPrintButton" class="btn btn-green">Run Code</button>
-          <h4 class="text-md font-medium mt-3 mb-1">Simulated Output:</h4>
-          <div id="printOutputDisplay" class="output-display">
-            <span class="text-gray-500 italic"
-              >Click 'Run Code' to see the output.</span
-            >
-          </div>
-          <div
-            id="printMessage"
-            class="message-box mt-2"
-            style="display: none"
-          ></div>
-        </div>
-
-        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-5">
-          Common Uses for Python:
-        </h3>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>Web Development (Django, Flask)</li>
-          <li>Data Science, Machine Learning, AI</li>
-          <li>Scripting and Automation</li>
-          <li>Scientific Computing</li>
-          <li>Game Development (Pygame)</li>
-          <li>Desktop Applications</li>
-        </ul>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Why Learn Python?
-        </h2>
-        <p class="mb-2">
-          Python is often recommended as a great first programming language
-          because:
-        </p>
-        <ol class="list-decimal list-inside ml-4 space-y-1">
-          <li>
-            **It's relatively easy to learn:** Readable syntax lowers the
-            barrier.
-          </li>
-          <li>
-            **It's highly versatile:** Use it for many different project types.
-          </li>
-          <li>**It's in high demand:** Valuable skills in many job markets.</li>
-          <li>
-            **It has excellent community support:** Easy to find help and
-            libraries.
-          </li>
-        </ol>
-        <p class="mt-3">
-          Learning Python provides a solid foundation in programming principles
-          applicable to other languages too.
-        </p>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">4. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What is programming fundamentally about?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1_intro" value="a" class="mr-1" />
-            Designing computer hardware</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_intro" value="b" class="mr-1" />
-            Writing instructions for a computer</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_intro" value="c" class="mr-1" /> Using
-            software applications</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: Which characteristic describes Python's syntax?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_intro" value="a" class="mr-1" />
-            Complex and close to machine code</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_intro" value="b" class="mr-1" /> Uses
-            `{}` braces extensively for blocks</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_intro" value="c" class="mr-1" />
-            Readable and uses indentation for blocks</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What does it mean for Python to be "Interpreted"?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_intro" value="a" class="mr-1" /> Code
-            is translated entirely before running</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_intro" value="b" class="mr-1" /> Code
-            is executed line by line by another program</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_intro" value="c" class="mr-1" /> Code
-            can only be used for interpretation, not creation</label
-          >
-        </div>
-        <button id="checkQuizButtonIntro" class="btn">Check Answers</button>
-        <div
-          id="quizResultIntro"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. Why Learn Python?
-        </h2>
-        <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
-          <li>
-            <strong>Beginner-Friendly:</strong> Its simple syntax makes it one of
-            the easiest languages to start with.
-          </li>
-          <li>
-            <strong>Versatile:</strong> Applicable in web development, data science,
-            AI, machine learning, automation, and more.
-          </li>
-          <li>
-            <strong>Large Community:</strong> Abundant resources, tutorials, and
-            support available.
-          </li>
-          <li>
-            <strong>High Demand:</strong> Python developers are in high demand in
-            the job market.
-          </li>
-          <li>
-            <strong>Extensive Libraries:</strong> A vast ecosystem of third-party
-            packages (like NumPy for numerical computing, Pandas for data
-            analysis, Django/Flask for web development) that extend its
-            capabilities.
-          </li>
-        </ul>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          6. Your First Interactive Python "Code"
-        </h2>
-        <p class="mb-3">
-          Let's try a very simple interaction. This isn't running Python code
-          directly in your browser in a full sense, but it simulates how Python
-          might respond.
-        </p>
-        <div class="mb-3">
-          <label for="userNameInput" class="block mb-1 font-medium"
-            >Enter Your Name:</label
-          >
-          <input
-            type="text"
-            id="userNameInput"
-            class="input-field w-full md:w-1/2"
-            placeholder="e.g., Alex"
-          />
-        </div>
-        <button id="greetUserButton" class="btn btn-green">Greet Me!</button>
-        <div id="greetingOutput" class="output-display mt-3">
-          <span class="text-gray-500 italic"
-            >Output will appear here...</span
-          >
-        </div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          7. Basic Python Concepts (A Sneak Peek)
-        </h2>
-        <p class="mb-4">
-          You'll learn these in detail in upcoming tutorials, but here's a quick
-          glimpse:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-2 text-sm">
-          <li>
-            <strong class="text-cyan-400">Variables:</strong> Named containers for storing data (e.g.,
-            <code>age = 25</code>, <code>name = "Ada"</code>).
-          </li>
-          <li>
-            <strong class="text-cyan-400">Data Types:</strong> Different kinds of data, like numbers
-            (integers, floats), text (strings), and booleans (True/False).
-          </li>
-          <li>
-            <strong class="text-cyan-400">Operators:</strong> Symbols that perform operations on data
-            (e.g., <code>+</code> for addition, <code>==</code> for comparison).
-          </li>
-          <li>
-            <strong class="text-cyan-400">Control Flow:</strong> Structures that control the order
-            in which instructions are executed (e.g., <code>if</code> statements
-            for decisions, <code>for</code>/<code>while</code> loops for repetition).
-          </li>
-          <li>
-            <strong class="text-cyan-400">Functions:</strong> Reusable blocks of code that perform
-            specific tasks (like <code>print()</code>, or ones you define yourself).
-          </li>
-        </ul>
-        <pre><code class="language-python"># A very simple Python program demonstrating a few concepts:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">7. Basic Python Concepts (A Sneak Peek)</h2>
+            <p class="mb-4">
+              You'll learn these in detail in upcoming tutorials, but here's a quick
+              glimpse:
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-2 text-sm">
+              <li>
+                <strong class="text-cyan-400">Variables:</strong> Named containers for storing data (e.g.,
+                <code>age = 25</code>, <code>name = "Ada"</code>).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Data Types:</strong> Different kinds of data, like numbers
+                (integers, floats), text (strings), and booleans (True/False).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Operators:</strong> Symbols that perform operations on data
+                (e.g., <code>+</code> for addition, <code>==</code> for comparison).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Control Flow:</strong> Structures that control the order
+                in which instructions are executed (e.g., <code>if</code> statements
+                for decisions, <code>for</code>/<code>while</code> loops for repetition).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Functions:</strong> Reusable blocks of code that perform
+                specific tasks (like <code>print()</code>, or ones you define yourself).
+              </li>
+            </ul>
+            <pre><code class="language-python"># A very simple Python program demonstrating a few concepts:
 name = "Explorer"  # Variable storing a string
 age = 10           # Variable storing an integer
 
@@ -378,19 +337,18 @@ if age < 18:
   print("You are young!")
 else:
   print("You are an adult (or close to it!).")</code></pre>
-      </section>
-    </main>
+          </section>
+        </main>
+      </div>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+      <footer class="footer-8bit">
+        <p>Happy Coding!</p>
+        <p class="mt-2">
+          <a href="../index.html">Back to Main Menu (from Footer)</a>
+        </p>
+      </footer>
+
+    </div>
 
     <script src="../js/main.js" defer></script>
     <script>
