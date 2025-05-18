@@ -4,149 +4,156 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trees (BST) - Python Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="min-h-screen">
+  <body class="">
     <div class="console-screen-border">
-      <nav class="navbar-8bit mb-6">
-        <a href="data-structures.html" class="btn-8bit">&larr; Data Struct.</a>
-        <a href="../index.html" class="btn-8bit">Main Menu</a>
-        <a href="graphs.html" class="btn-8bit">Graphs &rarr;</a>
+      <nav class="navbar-8bit">
+        <a href="data-structures.html" class="btn">
+          &laquo; Data Structures
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="graphs.html" class="btn">
+          Next: Graphs &rarr;
+        </a>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <h1 class="page-title-8bit mb-6">
-          Trees & Binary Search Trees (BST)
-        </h1>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            1. What is a Tree?
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Trees & Binary Search Trees (BST)
           </h2>
-          <p class="mb-4">
-            A tree is a hierarchical data structure that consists of <strong>nodes</strong>
-            connected by <strong>edges</strong>. Unlike linear structures (like lists, stacks,
-            queues), trees represent relationships where items can have multiple
-            successors (children). Think of it like a family tree or an organization
-            chart, where each person can have multiple children or subordinates, creating a branching structure that grows from top to bottom.
+          <p class="text-sm italic mt-1">
+            Understanding hierarchical data structures and efficient searching with binary trees.
           </p>
-          <p class="mb-2">Key Terminology:</p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><strong>Node:</strong> An element in the tree that holds data. Like a person in a family tree who has their own information.</li>
-            <li><strong>Edge:</strong> A connection between two nodes. Like the line connecting a parent to their child in a family tree.</li>
-            <li><strong>Root:</strong> The topmost node in the tree. Like the founding ancestor in a family tree.</li>
-            <li><strong>Parent:</strong> A node that has children. Like a mother or father in a family.</li>
-            <li><strong>Child:</strong> A node connected below its parent. Like sons and daughters in a family.</li>
-            <li><strong>Leaf:</strong> A node with no children. Like a person in the family tree who hasn't had any children yet.</li>
-            <li><strong>Subtree:</strong> A node and all its descendants. Like a branch of the family tree starting from a particular ancestor.</li>
-            <li><strong>Height:</strong> Longest path from root to a leaf. Like counting how many generations deep your family tree goes.</li>
-            <li><strong>Depth:</strong> Path length from root to a node. Like counting how many generations back you need to go to find a common ancestor.</li>
-          </ul>
-        </section>
+        </header>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            2. Why Use Trees?
-          </h2>
-          <p class="mb-2">Trees are used in many areas of computer science:</p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><strong>Representing Hierarchies:</strong> File systems (like folders and files), DOM (like HTML elements). Think of it like a company's organizational chart.</li>
-            <li><strong>Efficient Searching:</strong> Binary Search Trees (BSTs). Like having a well-organized library where books are arranged in a way that makes them easy to find.</li>
-            <li><strong>Sorting:</strong> Heap Sort. Like organizing a pile of papers by importance, where the most important ones are always on top.</li>
-            <li><strong>Decision Making:</strong> Decision trees. Like a flowchart that helps you make choices by following a series of yes/no questions.</li>
-            <li><strong>Database Indexing:</strong> B-trees. Like having a smart filing system that can quickly find any document, no matter how many there are.</li>
-            <li><strong>Network Routing:</strong> Spanning trees. Like having a map of the best routes to connect all cities without any loops.</li>
-          </ul>
-        </section>
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What is a Tree?</h2>
+            <p class="mb-4">
+              A tree is a hierarchical data structure that consists of <strong>nodes</strong>
+              connected by <strong>edges</strong>. Unlike linear structures (like lists, stacks,
+              queues), trees represent relationships where items can have multiple
+              successors (children). Think of it like a family tree or an organization
+              chart, where each person can have multiple children or subordinates, creating a branching structure that grows from top to bottom.
+            </p>
+            <p class="mb-2">Key Terminology:</p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li><strong>Node:</strong> An element in the tree that holds data. Like a person in a family tree who has their own information.</li>
+              <li><strong>Edge:</strong> A connection between two nodes. Like the line connecting a parent to their child in a family tree.</li>
+              <li><strong>Root:</strong> The topmost node in the tree. Like the founding ancestor in a family tree.</li>
+              <li><strong>Parent:</strong> A node that has children. Like a mother or father in a family.</li>
+              <li><strong>Child:</strong> A node connected below its parent. Like sons and daughters in a family.</li>
+              <li><strong>Leaf:</strong> A node with no children. Like a person in the family tree who hasn't had any children yet.</li>
+              <li><strong>Subtree:</strong> A node and all its descendants. Like a branch of the family tree starting from a particular ancestor.</li>
+              <li><strong>Height:</strong> Longest path from root to a leaf. Like counting how many generations deep your family tree goes.</li>
+              <li><strong>Depth:</strong> Path length from root to a node. Like counting how many generations back you need to go to find a common ancestor.</li>
+            </ul>
+          </section>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            3. Binary Trees & Binary Search Trees (BST)
-          </h2>
-          <p class="mb-2">
-            A <strong>Binary Tree</strong> is where each node has at most two children (left and right).
-            Think of it like a family where each person can have at most two children - one on the left and one on the right.
-          </p>
-          <p class="mb-2">
-            A <strong>Binary Search Tree (BST)</strong> has an ordering property:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li>For any node:</li>
-            <li>All values in its <strong>left subtree</strong> are <strong>less than</strong> the node's value. Like having all smaller numbers to the left.</li>
-            <li>All values in its <strong>right subtree</strong> are <strong>greater than</strong> the node's value. Like having all larger numbers to the right.</li>
-            <li>Both subtrees must also be BSTs. Like ensuring that each branch of the tree follows the same rules.</li>
-          </ul>
-          <p class="mt-2">
-            This allows efficient searching, insertion, and deletion. Think of it like having a well-organized filing system where you can quickly find any document by following a simple set of rules - if the number you're looking for is smaller than the current folder, go left; if it's larger, go right.
-          </p>
-          <pre><code class="language-python"># Conceptual structure of a BST node
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Why Use Trees?</h2>
+            <p class="mb-2">Trees are used in many areas of computer science:</p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li><strong>Representing Hierarchies:</strong> File systems (like folders and files), DOM (like HTML elements). Think of it like a company's organizational chart.</li>
+              <li><strong>Efficient Searching:</strong> Binary Search Trees (BSTs). Like having a well-organized library where books are arranged in a way that makes them easy to find.</li>
+              <li><strong>Sorting:</strong> Heap Sort. Like organizing a pile of papers by importance, where the most important ones are always on top.</li>
+              <li><strong>Decision Making:</strong> Decision trees. Like a flowchart that helps you make choices by following a series of yes/no questions.</li>
+              <li><strong>Database Indexing:</strong> B-trees. Like having a smart filing system that can quickly find any document, no matter how many there are.</li>
+              <li><strong>Network Routing:</strong> Spanning trees. Like having a map of the best routes to connect all cities without any loops.</li>
+            </ul>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. Binary Trees & Binary Search Trees (BST)</h2>
+            <p class="mb-2">
+              A <strong>Binary Tree</strong> is where each node has at most two children (left and right).
+              Think of it like a family where each person can have at most two children - one on the left and one on the right.
+            </p>
+            <p class="mb-2">
+              A <strong>Binary Search Tree (BST)</strong> has an ordering property:
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li>For any node:</li>
+              <li>All values in its <strong>left subtree</strong> are <strong>less than</strong> the node's value. Like having all smaller numbers to the left.</li>
+              <li>All values in its <strong>right subtree</strong> are <strong>greater than</strong> the node's value. Like having all larger numbers to the right.</li>
+              <li>Both subtrees must also be BSTs. Like ensuring that each branch of the tree follows the same rules.</li>
+            </ul>
+            <p class="mt-2">
+              This allows efficient searching, insertion, and deletion. Think of it like having a well-organized filing system where you can quickly find any document by following a simple set of rules - if the number you're looking for is smaller than the current folder, go left; if it's larger, go right.
+            </p>
+            <pre><code class="language-python"># Conceptual structure of a BST node
 class TreeNode:
   def __init__(self, key):
     self.key = key      # Value in the node
     self.left = None    # Left child
     self.right = None   # Right child</code></pre>
-        </section>
+          </section>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            4. Visualize a Binary Search Tree (BST)
-          </h2>
-          <p class="mb-4">
-            Enter numbers to insert into a BST. Observe how the structure maintains the BST property. Then, try different tree traversals.
-          </p>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Visualize a Binary Search Tree (BST)</h2>
+            <p class="mb-4">
+              Enter numbers to insert into a BST. Observe how the structure maintains the BST property. Then, try different tree traversals.
+            </p>
 
-          <div class="flex flex-wrap items-center mb-4">
-            <label for="bstValueInput" class="mr-2">Value to Insert:</label>
-            <input
-              type="number"
-              id="bstValueInput"
-              class="input-field"
-              placeholder="e.g., 50"
-            />
-            <button id="insertNodeButton" class="btn btn-8bit">Insert Node</button>
-            <button id="searchNodeButton" class="btn btn-8bit">Search Node</button>
-            <button id="deleteNodeButton" class="btn btn-8bit">Delete Node</button>
-            <button id="resetTreeButton" class="btn btn-8bit">Reset Tree</button>
-          </div>
+            <div class="sub-interactive-box p-4">
+              <div class="flex flex-wrap items-center mb-4">
+                <label for="bstValueInput" class="mr-2">Value to Insert:</label>
+                <input
+                  type="number"
+                  id="bstValueInput"
+                  class="input-field"
+                  placeholder="e.g., 50"
+                />
+                <button id="insertNodeButton" class="btn">Insert Node</button>
+                <button id="searchNodeButton" class="btn">Search Node</button>
+                <button id="deleteNodeButton" class="btn">Delete Node</button>
+                <button id="resetTreeButton" class="btn">Reset Tree</button>
+              </div>
 
-          <h3 class="text-lg font-semibold mt-4 mb-2">Tree Structure:</h3>
-          <div id="treeContainer" class="tree-container min-h-[200px]">
-            <span class="opacity-75 italic">Tree is empty. Insert nodes.</span>
-          </div>
+              <h3 class="text-lg font-semibold mt-4 mb-2">Tree Structure:</h3>
+              <div id="treeContainer" class="tree-container min-h-[200px]">
+                <span class="opacity-75 italic">Tree is empty. Insert nodes.</span>
+              </div>
 
-          <h3 class="text-lg font-semibold mt-6 mb-2">Tree Traversal:</h3>
-          <div class="flex flex-wrap items-center mb-2">
-            <button id="inorderButton" class="btn btn-8bit">In-order</button>
-            <button id="preorderButton" class="btn btn-8bit">Pre-order</button>
-            <button id="postorderButton" class="btn btn-8bit">Post-order</button>
-          </div>
-          <div id="traversalOutput" class="output-display min-h-[50px]">
-            <span class="opacity-75 italic">Traversal result will appear here.</span>
-          </div>
-           <div id="bstMessage" class="message-box mt-3" style="display: none;"></div>
-        </section>
+              <h3 class="text-lg font-semibold mt-6 mb-2">Tree Traversal:</h3>
+              <div class="flex flex-wrap items-center mb-2">
+                <button id="inorderButton" class="btn">In-order</button>
+                <button id="preorderButton" class="btn">Pre-order</button>
+                <button id="postorderButton" class="btn">Post-order</button>
+              </div>
+              <div id="traversalOutput" class="output-display min-h-[50px]">
+                <span class="opacity-75 italic">Traversal result will appear here.</span>
+              </div>
+              <div id="bstMessage" class="message-box mt-3" style="display: none;"></div>
+            </div>
+          </section>
 
-        <!-- Other sections (Operations, Complexity, etc.) would follow a similar structure -->
-        <section class="interactive-section mb-6">
-            <h2 class="text-xl font-semibold mb-3">5. Common BST Operations</h2>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Common BST Operations</h2>
             <ul class="list-disc list-inside ml-4 space-y-2">
-                <li>
-                    <strong>Search:</strong> Start at root. If key matches, found. If key < node, go left. If key > node, go right. Repeat until found or null.
-                    <pre><code class="language-python">def search(root, key):
+              <li>
+                <strong>Search:</strong> Start at root. If key matches, found. If key < node, go left. If key > node, go right. Repeat until found or null.
+                <pre><code class="language-python">def search(root, key):
     if root is None or root.key == key:
         return root
     if key < root.key:
         return search(root.left, key)
     return search(root.right, key)</code></pre>
-                </li>
-                <li>
-                    <strong>Insert:</strong> Search for key. If found, do nothing (or handle duplicates). If null reached, insert new node there, maintaining BST property.
-                    <pre><code class="language-python">def insert(root, key):
+              </li>
+              <li>
+                <strong>Insert:</strong> Search for key. If found, do nothing (or handle duplicates). If null reached, insert new node there, maintaining BST property.
+                <pre><code class="language-python">def insert(root, key):
     if root is None:
         return TreeNode(key)
     if key < root.key:
@@ -154,26 +161,34 @@ class TreeNode:
     elif key > root.key: # Avoid duplicate keys by only inserting if strictly greater
         root.right = insert(root.right, key)
     return root</code></pre>
-                </li>
-                <li>
-                    <strong>Delete:</strong> More complex. Cases: node is a leaf (easy), node has one child (bypass), node has two children (replace with inorder successor/predecessor, then delete that).
-                </li>
+              </li>
+              <li>
+                <strong>Delete:</strong> More complex. Cases: node is a leaf (easy), node has one child (bypass), node has two children (replace with inorder successor/predecessor, then delete that).
+              </li>
             </ul>
-        </section>
+          </section>
 
-        <section class="interactive-section mb-6">
-            <h2 class="text-xl font-semibold mb-3">6. Tree Traversals</h2>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Tree Traversals</h2>
             <p>Common ways to visit all nodes in a tree:</p>
             <ul class="list-disc list-inside ml-4 space-y-1">
-                <li><strong>In-order (Left, Root, Right):</strong> Visits nodes in ascending order for a BST.</li>
-                <li><strong>Pre-order (Root, Left, Right):</strong> Useful for copying trees or prefix expressions.</li>
-                <li><strong>Post-order (Left, Right, Root):</strong> Useful for deleting trees or postfix expressions.</li>
+              <li><strong>In-order (Left, Root, Right):</strong> Visits nodes in ascending order for a BST.</li>
+              <li><strong>Pre-order (Root, Left, Right):</strong> Useful for copying trees or prefix expressions.</li>
+              <li><strong>Post-order (Left, Right, Root):</strong> Useful for deleting trees or postfix expressions.</li>
             </ul>
-        </section>
+          </section>
+        </main>
 
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+        <footer class="footer-8bit">
+          <p>Happy Coding!</p>
+          <p class="mt-2">
+            <a href="../index.html">Back to Main Menu</a>
+          </p>
+        </footer>
+      </div>
+    </div>
 
+    <script src="../js/main.js" defer></script>
     <script>
         // Simplified BST Node and Operations (for visualization)
         class TreeNode {

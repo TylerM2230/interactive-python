@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recursion - Python Guide</title>
+    <title>Recursion in Python</title>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
@@ -13,61 +13,77 @@
   </head>
   <body class="min-h-screen">
     <div class="console-screen-border">
-      <header class="text-center mb-12 md:mb-16">
-        <h1 class="pixel-header">
-          Interactive Python Guide
-        </h1>
-        <p class="pixel-subheader mt-4">
-          Retro Journey into Code!
-        </p>
-      </header>
+      <nav class="navbar-8bit">
+        <a href="file-handling.html" class="btn">
+          &laquo; File Handling
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="data-structures.html" class="btn">
+          Next: Data Structures &rarr;
+        </a>
+      </nav>
 
-      <main class="mx-auto">
-        <h1 class="page-title-8bit">
-          Understanding Recursion
-        </h1>
-
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            1. What is Recursion?
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Recursion
           </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Recursion is like a magical mirror that shows a reflection of itself, which in turn shows another reflection, and so on. In programming, it's when a function looks at itself and says, "I need to do this same task, but with a smaller piece of the problem." It's like a chef who, when asked to make a cake, says, "First, I'll make a smaller cake, and then build upon it."
-            </p>
-            <p>
-              Think of it like a set of Russian nesting dolls (Matryoshka dolls): each doll contains a smaller, identical version of itself, until you reach the smallest doll that cannot be opened further. This smallest doll is like the "base case" in recursion - the point where we stop breaking down the problem and start building back up.
-            </p>
-            <p>A recursive function must have two key components:</p>
-            <ul>
-              <li>
-                <strong>Base Case(s):</strong> This is like the smallest doll in the set - the simplest version of the problem that we can solve directly. It's the "stop sign" that tells our function when to stop calling itself and start returning answers.
-              </li>
-              <li>
-                <strong>Recursive Step (or Recursive Case):</strong> This is like opening each doll to find a smaller one inside. The function calls itself with a smaller piece of the problem, just like each doll contains a smaller version of itself.
-              </li>
-            </ul>
-          </div>
-        </section>
+          <p class="text-sm italic mt-1">
+            Understanding recursive functions and when to use them.
+          </p>
+        </header>
 
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            2. Base Case and Recursive Step: The Factorial Example
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Let's use the factorial problem to understand recursion better. Calculating a factorial is like building a tower of blocks, where each level depends on the one below it. For example, to build a 5-block tower, you need to first build a 4-block tower, and to build that, you need a 3-block tower, and so on.
-            </p>
-            <p>We can define factorial recursively as follows:</p>
-            <ul>
-              <li>
-                <strong>Base Case:</strong> When we reach the ground (n = 0), we know we have 1 block (0! = 1). This is like having a single foundation block that all towers start from.
-              </li>
-              <li>
-                <strong>Recursive Step:</strong> For any other number, we build our tower by adding our current block to the tower below it. So, 5! = 5 * 4!, just like adding the 5th block to a 4-block tower.
-              </li>
-            </ul>
-            <pre><code class="code-block-8bit python">def factorial(n):
+        <main class="mx-auto">
+          <h1 class="page-title-8bit">
+            Understanding Recursion
+          </h1>
+
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              1. What is Recursion?
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Recursion is like a magical mirror that shows a reflection of itself, which in turn shows another reflection, and so on. In programming, it's when a function looks at itself and says, "I need to do this same task, but with a smaller piece of the problem." It's like a chef who, when asked to make a cake, says, "First, I'll make a smaller cake, and then build upon it."
+              </p>
+              <p>
+                Think of it like a set of Russian nesting dolls (Matryoshka dolls): each doll contains a smaller, identical version of itself, until you reach the smallest doll that cannot be opened further. This smallest doll is like the "base case" in recursion - the point where we stop breaking down the problem and start building back up.
+              </p>
+              <p>A recursive function must have two key components:</p>
+              <ul>
+                <li>
+                  <strong>Base Case(s):</strong> This is like the smallest doll in the set - the simplest version of the problem that we can solve directly. It's the "stop sign" that tells our function when to stop calling itself and start returning answers.
+                </li>
+                <li>
+                  <strong>Recursive Step (or Recursive Case):</strong> This is like opening each doll to find a smaller one inside. The function calls itself with a smaller piece of the problem, just like each doll contains a smaller version of itself.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              2. Base Case and Recursive Step: The Factorial Example
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Let's use the factorial problem to understand recursion better. Calculating a factorial is like building a tower of blocks, where each level depends on the one below it. For example, to build a 5-block tower, you need to first build a 4-block tower, and to build that, you need a 3-block tower, and so on.
+              </p>
+              <p>We can define factorial recursively as follows:</p>
+              <ul>
+                <li>
+                  <strong>Base Case:</strong> When we reach the ground (n = 0), we know we have 1 block (0! = 1). This is like having a single foundation block that all towers start from.
+                </li>
+                <li>
+                  <strong>Recursive Step:</strong> For any other number, we build our tower by adding our current block to the tower below it. So, 5! = 5 * 4!, just like adding the 5th block to a 4-block tower.
+                </li>
+              </ul>
+              <pre><code class="code-block-8bit python">def factorial(n):
   print(f"Function call: factorial({n})")
   # Base Case: Stop the recursion
   if n == 0:
@@ -101,110 +117,111 @@ print(f"\nFinal Answer for 3!: {final_answer}")
 #   Returning from factorial(3): calculated 3 * 2 = 6
 # 
 # Final Answer for 3!: 6</code></pre>
-            <div class="message-box-8bit error">
-              <strong>Crucial Point:</strong> A recursive function MUST have a correctly defined base case. Without it, or if the recursive calls don't eventually reach a base case, the function would call itself infinitely (or until system resources are exhausted), leading to a "stack overflow" error.
-            </div>
-          </div>
-        </section>
-
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            3. How Recursion Works: The Call Stack
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              The call stack is like a stack of plates in a restaurant. Each time a function calls itself, it's like adding another plate to the stack. When a function finishes, it's like removing the top plate. This stack helps the computer keep track of where it is in the process of solving the problem.
-            </p>
-            <p>Here's how it works in the context of recursion:</p>
-            <ul>
-              <li>
-                <strong>Pushing to the Stack:</strong> Each function call is like adding a new plate to the stack. The plate contains information about what we're trying to solve. For factorial(3), we first add a plate for 3, then one for 2, then 1, and finally 0.
-              </li>
-              <li>
-                <strong>Reaching the Base Case:</strong> When we reach the base case (like factorial(0)), it's like finding the bottom plate in our stack. We can now start solving the problem by working our way back up.
-              </li>
-              <li>
-                <strong>Popping from the Stack (Unwinding):</strong> As we solve each part, we remove plates from the stack, one by one. Each plate tells us what we need to multiply by to get the next answer. It's like building our tower back up, one block at a time.
-              </li>
-            </ul>
-            <p>
-              Visualizing this stack of function calls growing and shrinking is key to understanding how recursion progresses and eventually terminates to produce the final result.
-            </p>
-          </div>
-        </section>
-
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            4. Interactive Factorial Visualization
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Enter a small non-negative integer (e.g., 0-12, as larger numbers create many calls) to see the factorial calculation steps and a simplified call stack trace.
-            </p>
-            <div class="controls-flex">
-              <label for="factorialInput">Number (n):</label>
-              <input
-                type="number"
-                id="factorialInput"
-                class="input-field-8bit"
-                min="0"
-                max="12"
-                value="4"
-              />
-              <button id="calculateFactorialButton" class="button-8bit">
-                Calculate & Visualize
-              </button>
-            </div>
-            <div class="grid-cols-2-responsive mt-4">
-              <div>
-                <h3 class="section-subtitle-8bit smaller-subtitle">Call Stack Trace:</h3>
-                <div id="callStackOutput" class="output-display-8bit min-h-[200px]"><p><em>Call stack events will appear here.</em></p></div>
-              </div>
-              <div>
-                <h3 class="section-subtitle-8bit smaller-subtitle">Calculation Steps:</h3>
-                <div id="calculationStepsOutput" class="output-display-8bit min-h-[200px]"><p><em>Calculation details will appear here.</em></p></div>
+              <div class="message-box-8bit error">
+                <strong>Crucial Point:</strong> A recursive function MUST have a correctly defined base case. Without it, or if the recursive calls don't eventually reach a base case, the function would call itself infinitely (or until system resources are exhausted), leading to a "stack overflow" error.
               </div>
             </div>
-            <p class="mt-4">
-                <strong>Final Result for n!: <span id="finalResult" class="final-result-text">N/A</span></strong>
-            </p>
-          </div>
-        </section>
+          </section>
 
-        <section class="interactive-section">
+          <section class="interactive-section">
             <h2 class="section-subtitle-8bit">
-                5. When to Use Recursion (and When Not To)
+              3. How Recursion Works: The Call Stack
             </h2>
             <div class="sub-interactive-box">
-                <p>Recursion can be an elegant and intuitive solution for problems that have a naturally recursive structure:</p>
-                <ul>
-                    <li><strong>Tree and Graph Traversals:</strong> Algorithms like Depth-First Search (DFS) for exploring tree or graph nodes are often implemented recursively (e.g., finding files in a directory structure).</li>
-                    <li><strong>Divide and Conquer Algorithms:</strong> Many efficient algorithms, such as Merge Sort and Quick Sort, break the problem into smaller subproblems, solve them recursively, and then combine the results.</li>
-                    <li><strong>Mathematical Problems Defined Recursively:</strong> Problems like the Fibonacci sequence (<code>F(n) = F(n-1) + F(n-2)</code>) or factorial (<code>n! = n * (n-1)!</code>) have direct recursive definitions.</li>
-                    <li><strong>Parsing Hierarchical Data:</strong> Structures like JSON or XML can be parsed recursively, though often, dedicated libraries handle this complexity.</li>
-                </ul>
-                <p>However, recursion is not always the optimal choice and has potential drawbacks:</p>
-                <ul>
-                    <li><strong>Performance Overhead:</strong> Each function call incurs some overhead (e.g., creating a stack frame, passing parameters). For simple iterative problems (like summing elements in a list), a straightforward loop is usually faster and more memory-efficient.</li>
-                    <li><strong>Stack Overflow Risk:</strong> If the recursion is too deep (i.e., too many nested calls without reaching a base case quickly enough), it can exhaust the available space on the call stack, leading to a stack overflow error. This is particularly a concern for problems that might lead to very long chains of recursion. Python has a default recursion limit (which can be checked with <code>sys.getrecursionlimit()</code> and modified with <code>sys.setrecursionlimit()</code>), but relying on increasing this limit is often a sign that an iterative approach might be better suited if the depth is an issue for typical inputs.</li>
-                    <li><strong>Readability and Debugging:</strong> While recursion can be very clear for problems that map directly to a recursive definition, complex recursive logic can sometimes be harder to understand, follow, and debug than an equivalent iterative solution, especially for those less familiar with the concept.</li>
-                </ul>
-                <div class="message-box-8bit info">
-                    It's important to note that any problem solvable with recursion can also be solved using iteration (loops), though the iterative solution might require an explicit data structure (like a stack) to mimic the behavior of the call stack. The choice between recursion and iteration often depends on factors like the clarity of the solution for the specific problem, efficiency considerations, and the potential for stack overflow issues with the expected input sizes.
-                </div>
+              <p>
+                The call stack is like a stack of plates in a restaurant. Each time a function calls itself, it's like adding another plate to the stack. When a function finishes, it's like removing the top plate. This stack helps the computer keep track of where it is in the process of solving the problem.
+              </p>
+              <p>Here's how it works in the context of recursion:</p>
+              <ul>
+                <li>
+                  <strong>Pushing to the Stack:</strong> Each function call is like adding a new plate to the stack. The plate contains information about what we're trying to solve. For factorial(3), we first add a plate for 3, then one for 2, then 1, and finally 0.
+                </li>
+                <li>
+                  <strong>Reaching the Base Case:</strong> When we reach the base case (like factorial(0)), it's like finding the bottom plate in our stack. We can now start solving the problem by working our way back up.
+                </li>
+                <li>
+                  <strong>Popping from the Stack (Unwinding):</strong> As we solve each part, we remove plates from the stack, one by one. Each plate tells us what we need to multiply by to get the next answer. It's like building our tower back up, one block at a time.
+                </li>
+              </ul>
+              <p>
+                Visualizing this stack of function calls growing and shrinking is key to understanding how recursion progresses and eventually terminates to produce the final result.
+              </p>
             </div>
-        </section>
-      </main>
+          </section>
 
-      <footer class="footer-8bit text-center py-6">
-        <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
-        <p class="mt-3 md:mt-4">
-          <a
-            href="../index.html"
-            class="link-8bit"
-            >Back to Main Menu</a>
-        </p>
-      </footer>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              4. Interactive Factorial Visualization
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Enter a small non-negative integer (e.g., 0-12, as larger numbers create many calls) to see the factorial calculation steps and a simplified call stack trace.
+              </p>
+              <div class="controls-flex">
+                <label for="factorialInput">Number (n):</label>
+                <input
+                  type="number"
+                  id="factorialInput"
+                  class="input-field-8bit"
+                  min="0"
+                  max="12"
+                  value="4"
+                />
+                <button id="calculateFactorialButton" class="button-8bit">
+                  Calculate & Visualize
+                </button>
+              </div>
+              <div class="grid-cols-2-responsive mt-4">
+                <div>
+                  <h3 class="section-subtitle-8bit smaller-subtitle">Call Stack Trace:</h3>
+                  <div id="callStackOutput" class="output-display-8bit min-h-[200px]"><p><em>Call stack events will appear here.</em></p></div>
+                </div>
+                <div>
+                  <h3 class="section-subtitle-8bit smaller-subtitle">Calculation Steps:</h3>
+                  <div id="calculationStepsOutput" class="output-display-8bit min-h-[200px]"><p><em>Calculation details will appear here.</em></p></div>
+                </div>
+              </div>
+              <p class="mt-4">
+                  <strong>Final Result for n!: <span id="finalResult" class="final-result-text">N/A</span></strong>
+              </p>
+            </div>
+          </section>
+
+          <section class="interactive-section">
+              <h2 class="section-subtitle-8bit">
+                  5. When to Use Recursion (and When Not To)
+              </h2>
+              <div class="sub-interactive-box">
+                  <p>Recursion can be an elegant and intuitive solution for problems that have a naturally recursive structure:</p>
+                  <ul>
+                      <li><strong>Tree and Graph Traversals:</strong> Algorithms like Depth-First Search (DFS) for exploring tree or graph nodes are often implemented recursively (e.g., finding files in a directory structure).</li>
+                      <li><strong>Divide and Conquer Algorithms:</strong> Many efficient algorithms, such as Merge Sort and Quick Sort, break the problem into smaller subproblems, solve them recursively, and then combine the results.</li>
+                      <li><strong>Mathematical Problems Defined Recursively:</strong> Problems like the Fibonacci sequence (<code>F(n) = F(n-1) + F(n-2)</code>) or factorial (<code>n! = n * (n-1)!</code>) have direct recursive definitions.</li>
+                      <li><strong>Parsing Hierarchical Data:</strong> Structures like JSON or XML can be parsed recursively, though often, dedicated libraries handle this complexity.</li>
+                  </ul>
+                  <p>However, recursion is not always the optimal choice and has potential drawbacks:</p>
+                  <ul>
+                      <li><strong>Performance Overhead:</strong> Each function call incurs some overhead (e.g., creating a stack frame, passing parameters). For simple iterative problems (like summing elements in a list), a straightforward loop is usually faster and more memory-efficient.</li>
+                      <li><strong>Stack Overflow Risk:</strong> If the recursion is too deep (i.e., too many nested calls without reaching a base case quickly enough), it can exhaust the available space on the call stack, leading to a stack overflow error. This is particularly a concern for problems that might lead to very long chains of recursion. Python has a default recursion limit (which can be checked with <code>sys.getrecursionlimit()</code> and modified with <code>sys.setrecursionlimit()</code>), but relying on increasing this limit is often a sign that an iterative approach might be better suited if the depth is an issue for typical inputs.</li>
+                      <li><strong>Readability and Debugging:</strong> While recursion can be very clear for problems that map directly to a recursive definition, complex recursive logic can sometimes be harder to understand, follow, and debug than an equivalent iterative solution, especially for those less familiar with the concept.</li>
+                  </ul>
+                  <div class="message-box-8bit info">
+                      It's important to note that any problem solvable with recursion can also be solved using iteration (loops), though the iterative solution might require an explicit data structure (like a stack) to mimic the behavior of the call stack. The choice between recursion and iteration often depends on factors like the clarity of the solution for the specific problem, efficiency considerations, and the potential for stack overflow issues with the expected input sizes.
+                  </div>
+              </div>
+          </section>
+        </main>
+
+        <footer class="footer-8bit text-center py-6">
+          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+          <p class="mt-3 md:mt-4">
+            <a
+              href="../index.html"
+              class="link-8bit"
+              >Back to Main Menu</a>
+          </p>
+        </footer>
+      </div> <!-- End of content-wrapper-8bit -->
     </div> <!-- End of console-screen-border -->
 
     <script>

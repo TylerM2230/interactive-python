@@ -13,32 +13,42 @@
   </head>
   <body class="min-h-screen">
     <div class="console-screen-border">
-      <header class="text-center mb-12 md:mb-16">
-        <h1 class="pixel-header">
-          Interactive Python Guide
-        </h1>
-        <p class="pixel-subheader mt-4">
-          Retro Journey into Code!
-        </p>
-      </header>
+      <nav class="navbar-8bit">
+        <a href="oop-basics.html" class="btn">
+          &laquo; OOP Basics
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="searching-binary.html" class="btn">
+          Next: Binary Search &rarr;
+        </a>
+      </nav>
 
-      <main class="mx-auto">
-        <h1 class="page-title-8bit">
-          Advanced OOP Concepts
-        </h1>
-
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            1. Inheritance: Reusing Code
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Advanced OOP Concepts
           </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Inheritance is a fundamental concept in Object-Oriented Programming (OOP) that allows a new class (called a <strong>subclass</strong> or <strong>derived class</strong>) to acquire the properties (attributes) and behaviors (methods) of an existing class (called a <strong>superclass</strong> or <strong>base class</strong>). This establishes an "is-a" hierarchical relationship (e.g., a `Dog` is an `Animal`, a `Warrior` is a `Character`). The primary benefit of inheritance is code reusability and the creation of a logical structure. Think of it like a family tree - children inherit traits from their parents but can also have their own unique characteristics.
-            </p>
-            <p>
-              Subclasses can directly use the inherited attributes and methods. They can also add new, specific attributes and methods, or even modify (<strong>override</strong>) inherited methods to provide a more specialized behavior. The <code>super()</code> function is often used within a subclass to call methods of its superclass, especially the <code>__init__()</code> constructor. It's like a child who can use their parent's tools but can also buy new ones or modify the existing ones to better suit their needs.
-            </p>
-            <pre><code class="code-block-8bit python"># Superclass (Base Class)
+          <p class="text-sm italic mt-1">
+            Exploring inheritance, encapsulation, and polymorphism in Python.
+          </p>
+        </header>
+
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. Inheritance: Reusing Code</h2>
+            <div class="sub-interactive-box p-4">
+              <p>
+                Inheritance is a fundamental concept in Object-Oriented Programming (OOP) that allows a new class (called a <strong>subclass</strong> or <strong>derived class</strong>) to acquire the properties (attributes) and behaviors (methods) of an existing class (called a <strong>superclass</strong> or <strong>base class</strong>). This establishes an "is-a" hierarchical relationship (e.g., a `Dog` is an `Animal`, a `Warrior` is a `Character`). The primary benefit of inheritance is code reusability and the creation of a logical structure. Think of it like a family tree - children inherit traits from their parents but can also have their own unique characteristics.
+              </p>
+              <p>
+                Subclasses can directly use the inherited attributes and methods. They can also add new, specific attributes and methods, or even modify (<strong>override</strong>) inherited methods to provide a more specialized behavior. The <code>super()</code> function is often used within a subclass to call methods of its superclass, especially the <code>__init__()</code> constructor. It's like a child who can use their parent's tools but can also buy new ones or modify the existing ones to better suit their needs.
+              </p>
+              <pre><code class="language-python"># Superclass (Base Class)
 class Character:
   def __init__(self, name, health=100):
     self.name = name
@@ -91,28 +101,26 @@ goblin_grunt.attack(hero_pixelot) # Calls Character's generic attack method
 
 hero_pixelot.use_shield_bash(goblin_grunt) # Calls Warrior-specific method
 # Output: Sir Pixelot bashes Goblin Grunt with their shield! THUD!</code></pre>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            2. Encapsulation: Bundling and Hiding
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Encapsulation is the OOP principle of bundling data (attributes) and the methods that operate on that data within a single unit, i.e., an object. A key aspect of encapsulation is <strong>information hiding</strong>, which means restricting direct access to some of an object's internal state or components. This protects the object's integrity and allows the internal implementation to be changed without affecting external code that uses the object. Think of it like a car's engine - you don't need to know how it works internally to drive the car, and the manufacturer can improve the engine without changing how you use the car.
-            </p>
-            <p>
-              In Python, there isn't true "private" in the sense of some other languages (like Java or C++). Instead, Python uses naming conventions to indicate the intended visibility of attributes and methods:
-            </p>
-            <ul>
-              <li><strong>Single Underscore Prefix (e.g., <code>_attribute</code>):</strong> This is a convention indicating that the attribute or method is intended for internal use within the class or by subclasses. It's a hint to developers not to access it directly from outside the class, but it's still accessible. Like a "Staff Only" door - it's not locked, but you should respect the sign.</li>
-              <li><strong>Double Underscore Prefix (e.g., <code>__attribute</code>):</strong> This triggers name mangling. Python changes the name to <code>_ClassName__attribute</code>. This makes it harder to access directly from outside the class, providing a stronger (but still not absolute) form of privacy. It's primarily used to avoid naming conflicts in subclasses. Like a secret compartment in a safe - it's harder to find, but not impossible for someone who knows where to look.</li>
-            </ul>
-            <p>
-              To provide controlled access to an object's data, public methods (often called getters and setters, or accessor and mutator methods) are typically provided.
-            </p>
-            <pre><code class="code-block-8bit python">class TreasureChest:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Encapsulation: Bundling and Hiding</h2>
+            <div class="sub-interactive-box p-4">
+              <p>
+                Encapsulation is the OOP principle of bundling data (attributes) and the methods that operate on that data within a single unit, i.e., an object. A key aspect of encapsulation is <strong>information hiding</strong>, which means restricting direct access to some of an object's internal state or components. This protects the object's integrity and allows the internal implementation to be changed without affecting external code that uses the object. Think of it like a car's engine - you don't need to know how it works internally to drive the car, and the manufacturer can improve the engine without changing how you use the car.
+              </p>
+              <p>
+                In Python, there isn't true "private" in the sense of some other languages (like Java or C++). Instead, Python uses naming conventions to indicate the intended visibility of attributes and methods:
+              </p>
+              <ul>
+                <li><strong>Single Underscore Prefix (e.g., <code>_attribute</code>):</strong> This is a convention indicating that the attribute or method is intended for internal use within the class or by subclasses. It's a hint to developers not to access it directly from outside the class, but it's still accessible. Like a "Staff Only" door - it's not locked, but you should respect the sign.</li>
+                <li><strong>Double Underscore Prefix (e.g., <code>__attribute</code>):</strong> This triggers name mangling. Python changes the name to <code>_ClassName__attribute</code>. This makes it harder to access directly from outside the class, providing a stronger (but still not absolute) form of privacy. It's primarily used to avoid naming conflicts in subclasses. Like a secret compartment in a safe - it's harder to find, but not impossible for someone who knows where to look.</li>
+              </ul>
+              <p>
+                To provide controlled access to an object's data, public methods (often called getters and setters, or accessor and mutator methods) are typically provided.
+              </p>
+              <pre><code class="language-python">class TreasureChest:
   def __init__(self, initial_gold=0):
     self._gold_coins = initial_gold  # Intended for internal use
     self.__secret_item = "Map to Hidden Glade" # Name-mangled attribute
@@ -173,21 +181,19 @@ my_chest.lock_chest() # Chest locked.
 # print(my_chest.__secret_item) # AttributeError
 # Access via mangled name (don't do this in practice):
 # print(my_chest._TreasureChest__secret_item)</code></pre>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            3. Polymorphism: Many Forms
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Polymorphism, meaning "many forms," is an OOP concept that allows objects of different classes to be treated as objects of a common superclass. It typically manifests through method overriding, where different subclasses provide their specific implementations of a method defined in their superclass. When you call this method on an object, Python automatically executes the version of the method that is appropriate for the object's actual class. Think of it like a universal remote control - it can operate different types of devices (TV, DVD player, stereo) in their own specific ways, even though you press the same "power" button for all of them.
-            </p>
-            <p>
-              This enables you to write more generic and flexible code. For instance, you can have a list of objects from different subclasses of a common parent and call the same method on each object, with each object responding in its own unique way. Like having a group of musicians - they all know how to play their instruments (common method), but each one plays in their own unique style (specific implementation).
-            </p>
-            <pre><code class="code-block-8bit python">class GameEntity:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. Polymorphism: Many Forms</h2>
+            <div class="sub-interactive-box p-4">
+              <p>
+                Polymorphism, meaning "many forms," is an OOP concept that allows objects of different classes to be treated as objects of a common superclass. It typically manifests through method overriding, where different subclasses provide their specific implementations of a method defined in their superclass. When you call this method on an object, Python automatically executes the version of the method that is appropriate for the object's actual class. Think of it like a universal remote control - it can operate different types of devices (TV, DVD player, stereo) in their own specific ways, even though you press the same "power" button for all of them.
+              </p>
+              <p>
+                This enables you to write more generic and flexible code. For instance, you can have a list of objects from different subclasses of a common parent and call the same method on each object, with each object responding in its own unique way. Like having a group of musicians - they all know how to play their instruments (common method), but each one plays in their own unique style (specific implementation).
+              </p>
+              <pre><code class="language-python">class GameEntity:
   def __init__(self, name):
     self.name = name
   
@@ -236,29 +242,27 @@ for entity in world_entities:
 # 'Old Man Willow' the Villager says: "The forest remembers ancient secrets..."
 # Upon interacting with the Mystic Shrine: A faint hum emanates from it.
 # The Generic Rock just sits there, an enigmatic presence.</code></pre>
-            <div id="polymorphismDemoContainer" class="mt-4">
-              <h3 class="section-subtitle-8bit smaller-subtitle">JavaScript Polymorphism Demo:</h3>
-              <button id="runPolyDemoButton" class="button-8bit">Run JS Demo</button>
-              <div id="polyOutput" class="output-display-8bit min-h-[100px] mt-2">
-                <p><em>Click button to see JavaScript polymorphism in action.</em></p>
+              <div id="polymorphismDemoContainer" class="mt-4">
+                <h3 class="section-subtitle-8bit smaller-subtitle">JavaScript Polymorphism Demo:</h3>
+                <button id="runPolyDemoButton" class="btn">Run JS Demo</button>
+                <div id="polyOutput" class="output-display min-h-[100px] mt-2">
+                  <p><em>Click button to see JavaScript polymorphism in action.</em></p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
 
-      <footer class="footer-8bit text-center py-6">
-        <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
-        <p class="mt-3 md:mt-4">
-          <a
-            href="../index.html" 
-            class="link-8bit" 
-            >Back to Main Menu</a 
-          >
-        </p>
-      </footer>
-    </div> <!-- End of console-screen-border -->
+        <footer class="footer-8bit">
+          <p>Happy Coding!</p>
+          <p class="mt-2">
+            <a href="../index.html">Back to Main Menu</a>
+          </p>
+        </footer>
+      </div>
+    </div>
 
+    <script src="../js/main.js" defer></script>
     <script>
       // Polymorphism Demo Script (JavaScript)
       const runPolyDemoButton = document.getElementById('runPolyDemoButton');

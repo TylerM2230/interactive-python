@@ -4,51 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OOP Basics - Python Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="min-h-screen">
+  <body class="">
     <div class="console-screen-border">
-      <nav class="navbar-8bit mb-6">
-        <a href="searching-binary.html" class="btn-8bit">&larr; Binary Search</a>
-        <a href="../index.html" class="btn-8bit">Main Menu</a>
-        <a href="oop-advanced.html" class="btn-8bit">OOP Advanced &rarr;</a>
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="oop-advanced.html" class="btn">
+          Next: OOP Advanced &rarr;
+        </a>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <h1 class="page-title-8bit mb-6">
-          OOP Basics: Classes & Objects
-        </h1>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            1. What is Object-Oriented Programming?
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Object-Oriented Programming Basics
           </h2>
-          <p class="mb-4">
-            Object-Oriented Programming (OOP) is a way of programming based on "objects". Objects bundle data (attributes) and code (methods) together. Think of a real-world car: it has attributes (color, model) and methods (start, accelerate). It's like having a blueprint (class) that defines what a car should have and do, and then creating actual cars (objects) from that blueprint.
+          <p class="text-sm italic mt-1">
+            Understanding classes, objects, and the fundamental principles of OOP.
           </p>
-          <p>Key benefits:</p>
-          <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-            <li><strong>Modularity:</strong> Self-contained objects, like LEGO blocks that can be combined to build complex structures.</li>
-            <li><strong>Reusability:</strong> Classes are blueprints that can be used to create multiple objects, like using the same cookie cutter to make many cookies.</li>
-            <li><strong>Maintainability:</strong> Easier updates, like being able to fix a specific part of a machine without affecting the whole system.</li>
-            <li><strong>Real-world Modeling:</strong> Represents complex systems in a way that mirrors how we think about the real world, like modeling a school system with students, teachers, and classrooms.</li>
-          </ul>
-        </section>
+        </header>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            2. Classes and Objects
-          </h2>
-          <ul class="list-disc list-inside ml-4 space-y-2">
-            <li><strong>Class:</strong> A blueprint for creating objects. Defines attributes (data) and methods (behavior). Ex: `Car` blueprint. Think of it like a recipe that defines what ingredients (attributes) and steps (methods) are needed to create a dish.</li>
-            <li><strong>Object (Instance):</strong> A specific creation from a class. Has its own attribute values but shares methods. Ex: `my_red_toyota` is a `Car` object. Like having multiple houses built from the same blueprint - each house has its own color and furniture, but they all have the same basic structure.</li>
-          </ul>
-          <pre><code class="language-python"># Define a simple class (blueprint)
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What is Object-Oriented Programming?</h2>
+            <p class="mb-4">
+              Object-Oriented Programming (OOP) is a way of programming based on "objects". Objects bundle data (attributes) and code (methods) together. Think of a real-world car: it has attributes (color, model) and methods (start, accelerate). It's like having a blueprint (class) that defines what a car should have and do, and then creating actual cars (objects) from that blueprint.
+            </p>
+            <p>Key benefits:</p>
+            <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li><strong>Modularity:</strong> Self-contained objects, like LEGO blocks that can be combined to build complex structures.</li>
+              <li><strong>Reusability:</strong> Classes are blueprints that can be used to create multiple objects, like using the same cookie cutter to make many cookies.</li>
+              <li><strong>Maintainability:</strong> Easier updates, like being able to fix a specific part of a machine without affecting the whole system.</li>
+              <li><strong>Real-world Modeling:</strong> Represents complex systems in a way that mirrors how we think about the real world, like modeling a school system with students, teachers, and classrooms.</li>
+            </ul>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Classes and Objects</h2>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+              <li><strong>Class:</strong> A blueprint for creating objects. Defines attributes (data) and methods (behavior). Ex: `Car` blueprint. Think of it like a recipe that defines what ingredients (attributes) and steps (methods) are needed to create a dish.</li>
+              <li><strong>Object (Instance):</strong> A specific creation from a class. Has its own attribute values but shares methods. Ex: `my_red_toyota` is a `Car` object. Like having multiple houses built from the same blueprint - each house has its own color and furniture, but they all have the same basic structure.</li>
+            </ul>
+            <pre><code class="language-python"># Define a simple class (blueprint)
 class Dog:
   species = "Canis familiaris" # Class attribute (shared)
 
@@ -61,22 +68,20 @@ your_dog = Dog()
 
 print(f"My dog is a {my_dog.species}") # Access attribute
 my_dog.speak() # Call method</code></pre>
-        </section>
+          </section>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            3. The `__init__` Method (Constructor)
-          </h2>
-          <p class="mb-2">
-            The <code>class</code> keyword defines a class. Inside, methods are functions belonging to the class. Think of it like declaring a new type of container that can hold specific types of data and perform specific actions.
-          </p>
-          <p class="mb-2">
-            <code>__init__</code> is a special method (constructor) automatically called when creating a new object. It initializes the object's state (attributes). Like a factory worker who sets up a new product with its initial configuration before it's ready for use.
-          </p>
-          <p class="mb-2">
-            The first parameter of <code>__init__</code> (and instance methods) is always <code>self</code>, referring to the object instance itself. Think of it like a self-reference - when you say "I am doing something," you're referring to yourself. Similarly, `self` refers to the specific object being worked with.
-          </p>
-          <pre><code class="language-python">class Car:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. The `__init__` Method (Constructor)</h2>
+            <p class="mb-2">
+              The <code>class</code> keyword defines a class. Inside, methods are functions belonging to the class. Think of it like declaring a new type of container that can hold specific types of data and perform specific actions.
+            </p>
+            <p class="mb-2">
+              <code>__init__</code> is a special method (constructor) automatically called when creating a new object. It initializes the object's state (attributes). Like a factory worker who sets up a new product with its initial configuration before it's ready for use.
+            </p>
+            <p class="mb-2">
+              The first parameter of <code>__init__</code> (and instance methods) is always <code>self</code>, referring to the object instance itself. Think of it like a self-reference - when you say "I am doing something," you're referring to yourself. Similarly, `self` refers to the specific object being worked with.
+            </p>
+            <pre><code class="language-python">class Car:
   # The constructor method
   def __init__(self, color, model):
     print(f"Creating a {color} {model} car...")
@@ -96,23 +101,21 @@ car2 = Car("Blue", "Honda")
 # Accessing instance attributes
 print(f"Car 1 color: {car1.color}") # Output: Red
 print(f"Car 2 model: {car2.model}") # Output: Honda</code></pre>
-        </section>
+          </section>
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            4. Instance Methods and `self`
-          </h2>
-          <p class="mb-2">
-            Methods are functions defined inside a class that operate on the
-            object's data (its attributes). They always receive the object
-            instance itself as their first argument, conventionally named
-            <code>self</code>. Like having a remote control (method) that can only operate on its specific TV (object) - the remote needs to know which TV it's controlling.
-          </p>
-          <p class="mb-2">
-            Using <code>self</code>, methods can access and modify the object's
-            instance attributes. It's like having a key that can access and modify the contents of a specific locker - the key (method) needs to know which locker (object) it's working with.
-          </p>
-          <pre><code class="language-python">class Car:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Instance Methods and `self`</h2>
+            <p class="mb-2">
+              Methods are functions defined inside a class that operate on the
+              object's data (its attributes). They always receive the object
+              instance itself as their first argument, conventionally named
+              <code>self</code>. Like having a remote control (method) that can only operate on its specific TV (object) - the remote needs to know which TV it's controlling.
+            </p>
+            <p class="mb-2">
+              Using <code>self</code>, methods can access and modify the object's
+              instance attributes. It's like having a key that can access and modify the contents of a specific locker - the key (method) needs to know which locker (object) it's working with.
+            </p>
+            <pre><code class="language-python">class Car:
   def __init__(self, color, model):
     self.color = color
     self.model = model
@@ -138,43 +141,39 @@ my_car = Car("Pixel Green", "Bitmobile")
 my_car.start_engine() # Output: The Pixel Green Bitmobile's engine is now ON.
 my_car.start_engine() # Output: The Pixel Green Bitmobile's engine is already ON.
 my_car.stop_engine()  # Output: The Pixel Green Bitmobile's engine is now OFF.</code></pre>
-        </section>
-        
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            5. Interactive Character Creator
-          </h2>
-          <p class="mb-2">
-            Let's create a simple `Character` class for a game.
-          </p>
-          <div class="sub-interactive-box">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                <div>
-                    <label for="charName" class="block mb-1">Name:</label>
-                    <input type="text" id="charName" class="input-field w-full" value="Glyph">
-                </div>
-                <div>
-                    <label for="charClass" class="block mb-1">Class:</label>
-                    <input type="text" id="charClass" class="input-field w-full" value="Code Wizard">
-                </div>
-            </div>
-            <button id="createCharButton" class="btn btn-8bit mb-3">Create Character</button>
-            <div id="charOutput" class="output-display min-h-[70px]">
-                <span class="placeholder-text">Character details will appear here...</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="interactive-section mb-6">
-            <h2 class="text-xl font-semibold mb-3">
-                Mini-Challenge: Add a `level_up` method
-            </h2>
+          </section>
+          
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Interactive Character Creator</h2>
             <p class="mb-2">
-                Modify the `Character` class in the script below to include a `level_up` method. It should increment a `level` attribute (default to 1 in `__init__`) and print the new level.
+              Let's create a simple `Character` class for a game.
             </p>
-            <div class="sub-interactive-box">
-                <p class="mb-2 text-sm">Simulated `Character` class definition (for practice):</p>
-                <pre><code id="charLevelUpCode" class="language-python">class Character:
+            <div class="sub-interactive-box p-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                <div>
+                  <label for="charName" class="block mb-1">Name:</label>
+                  <input type="text" id="charName" class="input-field w-full" value="Glyph">
+                </div>
+                <div>
+                  <label for="charClass" class="block mb-1">Class:</label>
+                  <input type="text" id="charClass" class="input-field w-full" value="Code Wizard">
+                </div>
+              </div>
+              <button id="createCharButton" class="btn mb-3">Create Character</button>
+              <div id="charOutput" class="output-display min-h-[70px]">
+                <span class="placeholder-text">Character details will appear here...</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Mini-Challenge: Add a `level_up` method</h2>
+            <p class="mb-2">
+              Modify the `Character` class in the script below to include a `level_up` method. It should increment a `level` attribute (default to 1 in `__init__`) and print the new level.
+            </p>
+            <div class="sub-interactive-box p-4">
+              <p class="mb-2 text-sm">Simulated `Character` class definition (for practice):</p>
+              <pre><code id="charLevelUpCode" class="language-python">class Character:
     def __init__(self, name, char_class):
         self.name = name
         self.char_class = char_class
@@ -192,18 +191,24 @@ my_car.stop_engine()  # Output: The Pixel Green Bitmobile's engine is now OFF.</
 # player = Character("Sparky", "Byte Mage")
 # # player.level_up()
 # # print(player.describe())</code></pre>
-                <button id="runLevelUpChallenge" class="btn btn-8bit mt-2">Test Level Up (Simulated)</button>
-                <div id="levelUpOutput" class="output-display min-h-[50px] mt-2">
-                     <span class="placeholder-text">Level up test output...</span>
-                </div>
+              <button id="runLevelUpChallenge" class="btn mt-2">Test Level Up (Simulated)</button>
+              <div id="levelUpOutput" class="output-display min-h-[50px] mt-2">
+                <span class="placeholder-text">Level up test output...</span>
+              </div>
             </div>
-        </section>
-        
-        <!-- Add more sections as needed -->
+          </section>
+        </main>
 
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+        <footer class="footer-8bit">
+          <p>Happy Coding!</p>
+          <p class="mt-2">
+            <a href="../index.html">Back to Main Menu</a>
+          </p>
+        </footer>
+      </div>
+    </div>
 
+    <script src="../js/main.js" defer></script>
     <script>
       // Character Creator
       const charNameInput = document.getElementById('charName');
@@ -262,7 +267,6 @@ my_car.stop_engine()  # Output: The Pixel Green Bitmobile's engine is now OFF.</
             levelUpOutputDiv.textContent = "Error in simulated level_up: " + e.message;
         }
       });
-
     </script>
   </body>
 </html>

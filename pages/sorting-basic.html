@@ -16,149 +16,192 @@
         display: flex;
         align-items: flex-end; /* Align bars at the bottom */
         justify-content: center;
-        min-height: 150px;
-        padding: 10px;
+        min-height: 300px; /* Increased from 150px */
+        padding: 20px; /* Increased padding */
         background-color: #503020; /* Deep Bark */
         border: 3px solid #706050; /* Lighter Bark/Moss */
         border-top-color: #302010;
         border-left-color: #302010;
         border-radius: 6px;
-        margin-bottom: 10px;
+        margin-bottom: 20px; /* Increased margin */
       }
       .sort-bar {
         background-color: #f0c060; /* Sunlight Gold */
-        border: 1px solid #a07030; /* Darker Brownish Gold */
-        margin: 0 2px;
-        width: 20px; /* Adjust as needed */
-        transition: height 0.3s ease, background-color 0.3s ease;
+        border: 2px solid #a07030; /* Darker Brownish Gold - increased border width */
+        margin: 0 4px; /* Increased spacing between bars */
+        width: 40px; /* Increased from 20px */
+        min-height: 20px; /* Added minimum height */
+        transition: all 0.3s ease;
+        position: relative;
       }
       .sort-bar.comparing {
         background-color: #80b0d0; /* Sky Blue */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #80b0d0;
       }
       .sort-bar.swapping {
         background-color: #40a090; /* Mystic Teal */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #40a090;
       }
       .sort-bar.sorted {
         background-color: #60c0b0; /* Lighter Mystic Teal for sorted elements */
       }
-       .sort-bar.minimum { /* For Selection Sort visualization */
+      .sort-bar.minimum { /* For Selection Sort visualization */
         background-color: #f8e8c0; /* Pale Gold for current minimum */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #f8e8c0;
+      }
+      .value-label {
+        color: #f0c060;
+        font-size: 12px;
+        margin-bottom: 4px;
+        font-family: 'Press Start 2P', monospace;
+        transition: all 0.3s ease;
+      }
+      .value-label.comparing {
+        color: #80b0d0;
+        transform: scale(1.1);
+      }
+      .value-label.swapping {
+        color: #40a090;
+        transform: scale(1.1);
+      }
+      .value-label.minimum {
+        color: #f8e8c0;
+        transform: scale(1.1);
       }
     </style>
   </head>
   <body class="min-h-screen">
     <div class="console-screen-border">
-      <header class="text-center mb-12 md:mb-16">
-        <h1 class="pixel-header">
-          Interactive Python Guide
-        </h1>
-        <p class="pixel-subheader mt-4">
-          Retro Journey into Code!
-        </p>
-      </header>
+      <nav class="navbar-8bit">
+        <a href="graphs.html" class="btn">
+          &laquo; Graphs
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="sorting-merge-joke.html" class="btn">
+          Next: Merge Sort & Joke Sorts &rarr;
+        </a>
+      </nav>
 
-      <main class="mx-auto">
-        <h1 class="page-title-8bit">
-          Basic Sorting Algorithms
-        </h1>
-
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            1. What is Sorting?
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Basic Sorting Algorithms
           </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Sorting is the process of arranging items in a collection (like a list or array) into a specific order, which can be numerical (ascending or descending) or lexicographical (alphabetical). It's a fundamental and frequently performed operation in computer science. Think of it like organizing a deck of cards - you can arrange them by suit, by number, or any other rule, but the goal is to have a specific, predictable order.
-            </p>
-            <p>Why is sorting important?</p>
-            <ul>
-              <li><strong>Efficient Searching:</strong> Searching for an item in a sorted collection is significantly faster (e.g., using binary search, which requires sorted data). Like having a phone book - it's much easier to find a number when the names are in alphabetical order.</li>
-              <li><strong>Data Presentation:</strong> Sorted data is often easier for humans to read, understand, and analyze. Like having your music playlist sorted by artist - it's much easier to find your favorite songs.</li>
-              <li><strong>Algorithmic Prerequisite:</strong> Many algorithms require their input data to be sorted to function correctly or efficiently. Like having to arrange puzzle pieces by color before you can start solving the puzzle.</li>
-              <li><strong>Database Operations:</strong> Databases extensively use sorting for indexing and query optimization. Like having a library's card catalog system - it helps you find books quickly because they're organized in a specific way.</li>
-            </ul>
-          </div>
-        </section>
+          <p class="text-sm italic mt-1">
+            Understanding fundamental sorting algorithms: Bubble Sort and Selection Sort.
+          </p>
+        </header>
 
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            2. Bubble Sort
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted. The largest (or smallest, depending on sort order) elements "bubble" to their correct position at the end of the list with each pass. Think of it like bubbles rising in a glass of soda - larger bubbles naturally rise to the top, just as larger numbers "bubble up" to their correct positions in the list.
-            </p>
-            <p><strong>How it works:</strong></p>
-            <ol>
-              <li>Iterate through the list from the first element to the second-to-last. Like checking each pair of students in a line to see if they're in the right order by height.</li>
-              <li>In each iteration, compare the current element with the next element. Like looking at two students standing next to each other.</li>
-              <li>If the current element is greater than the next element (for ascending order), swap them. Like having the taller student step back to let the shorter student move forward.</li>
-              <li>After the first full pass, the largest element will have "bubbled up" to the last position. Like the tallest student ending up at the end of the line after one round of comparisons.</li>
-              <li>Repeat the passes, reducing the range of comparison by one element each time (since the last elements are already in place), until a full pass completes with no swaps. Like continuing to organize the remaining students, but each time you can ignore one more student at the end of the line because they're already in the right place.</li>
-            </ol>
-            <p>
-              Bubble Sort is easy to understand and implement but is generally inefficient for large lists, with an average and worst-case time complexity of O(n²).
-            </p>
+        <main class="mx-auto">
+          <h1 class="page-title-8bit">
+            Basic Sorting Algorithms
+          </h1>
 
-            <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Bubble Sort:</h3>
-            <div class="controls-flex">
-              <button id="runBubbleSortButton" class="button-8bit">Run Bubble Sort</button>
-              <button id="resetBubbleSortButton" class="button-8bit">Reset</button>
-              <label for="bubbleSpeedRange">Speed:</label>
-              <input type="range" id="bubbleSpeedRange" min="50" max="1000" value="300" step="50" class="input-field-8bit range-slider"/>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              1. What is Sorting?
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Sorting is the process of arranging items in a collection (like a list or array) into a specific order, which can be numerical (ascending or descending) or lexicographical (alphabetical). It's a fundamental and frequently performed operation in computer science. Think of it like organizing a deck of cards - you can arrange them by suit, by number, or any other rule, but the goal is to have a specific, predictable order.
+              </p>
+              <p>Why is sorting important?</p>
+              <ul>
+                <li><strong>Efficient Searching:</strong> Searching for an item in a sorted collection is significantly faster (e.g., using binary search, which requires sorted data). Like having a phone book - it's much easier to find a number when the names are in alphabetical order.</li>
+                <li><strong>Data Presentation:</strong> Sorted data is often easier for humans to read, understand, and analyze. Like having your music playlist sorted by artist - it's much easier to find your favorite songs.</li>
+                <li><strong>Algorithmic Prerequisite:</strong> Many algorithms require their input data to be sorted to function correctly or efficiently. Like having to arrange puzzle pieces by color before you can start solving the puzzle.</li>
+                <li><strong>Database Operations:</strong> Databases extensively use sorting for indexing and query optimization. Like having a library's card catalog system - it helps you find books quickly because they're organized in a specific way.</li>
+              </ul>
             </div>
-            <div id="bubbleSortContainer" class="sort-container"></div>
-            <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-            <div id="bubbleSortLog" class="output-display-8bit min-h-[100px]">
-              <p><em>Click 'Run Bubble Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
-            </div>
-            <div id="bubbleSortMessage" class="message-box-8bit" style="display: none;"></div>
-          </div>
-        </section>
+          </section>
 
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">
-            3. Selection Sort
-          </h2>
-          <div class="sub-interactive-box">
-            <p>
-              Selection Sort is another simple, in-place comparison sorting algorithm. It divides the input list into two parts: a sorted sublist (initially empty) which is built up from left to right at the front of the list, and an unsorted sublist which makes up the rest of the list. The algorithm proceeds by finding the smallest (or largest, depending on sort order) element in the unsorted sublist, swapping it with the leftmost unsorted element, and moving the sublist boundaries one element to the right. Think of it like organizing a hand of cards - you look through your cards to find the lowest one, put it at the start, then look through the remaining cards to find the next lowest, and so on.
-            </p>
-            <p><strong>How it works:</strong></p>
-            <ol>
-              <li>Iterate from the first element to the second-to-last element of the list (this loop variable, say `i`, marks the end of the sorted part). Like having a line of students where the first few are already arranged by height.</li>
-              <li>In each iteration, assume the element at the current position `i` is the minimum (or maximum). Like temporarily marking a student as the shortest in the unsorted part of the line.</li>
-              <li>Iterate through the remaining unsorted part of the list (from `i+1` to the end) to find the actual minimum (or maximum) element. Like looking through the rest of the unsorted students to find the shortest one.</li>
-              <li>If a smaller (or larger) element is found, update the record of the minimum (or maximum) element's index. Like finding an even shorter student and updating your mental note of who's the shortest.</li>
-              <li>After scanning the entire unsorted part, if the minimum (or maximum) element found is not at position `i`, swap it with the element at position `i`. Like having the shortest student from the unsorted part swap places with the student at the end of the sorted part.</li>
-              <li>Repeat until the list is sorted. Like continuing this process until all students are arranged by height.</li>
-            </ol>
-            <p>
-              Selection Sort also has a time complexity of O(n²) in all cases (worst, average, and best). While its time complexity is similar to Bubble Sort, it generally performs fewer swaps.
-            </p>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              2. Bubble Sort
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted. The largest (or smallest, depending on sort order) elements "bubble" to their correct position at the end of the list with each pass. Think of it like bubbles rising in a glass of soda - larger bubbles naturally rise to the top, just as larger numbers "bubble up" to their correct positions in the list.
+              </p>
+              <p><strong>How it works:</strong></p>
+              <ol>
+                <li>Iterate through the list from the first element to the second-to-last. Like checking each pair of students in a line to see if they're in the right order by height.</li>
+                <li>In each iteration, compare the current element with the next element. Like looking at two students standing next to each other.</li>
+                <li>If the current element is greater than the next element (for ascending order), swap them. Like having the taller student step back to let the shorter student move forward.</li>
+                <li>After the first full pass, the largest element will have "bubbled up" to the last position. Like the tallest student ending up at the end of the line after one round of comparisons.</li>
+                <li>Repeat the passes, reducing the range of comparison by one element each time (since the last elements are already in place), until a full pass completes with no swaps. Like continuing to organize the remaining students, but each time you can ignore one more student at the end of the line because they're already in the right place.</li>
+              </ol>
+              <p>
+                Bubble Sort is easy to understand and implement but is generally inefficient for large lists, with an average and worst-case time complexity of O(n²).
+              </p>
 
-            <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Selection Sort:</h3>
-            <div class="controls-flex">
-              <button id="runSelectionSortButton" class="button-8bit">Run Selection Sort</button>
-              <button id="resetSelectionSortButton" class="button-8bit">Reset</button>
-              <label for="selectionSpeedRange">Speed:</label>
-              <input type="range" id="selectionSpeedRange" min="50" max="1000" value="400" step="50" class="input-field-8bit range-slider"/>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Bubble Sort:</h3>
+              <div class="controls-flex">
+                <button id="runBubbleSortButton" class="button-8bit">Run Bubble Sort</button>
+                <button id="resetBubbleSortButton" class="button-8bit">Reset</button>
+                <label for="bubbleSpeedRange">Speed:</label>
+                <input type="range" id="bubbleSpeedRange" min="50" max="1000" value="300" step="50" class="input-field-8bit range-slider"/>
+              </div>
+              <div id="bubbleSortContainer" class="sort-container"></div>
+              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
+              <div id="bubbleSortLog" class="output-display-8bit min-h-[100px]">
+                <p><em>Click 'Run Bubble Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
+              </div>
+              <div id="bubbleSortMessage" class="message-box-8bit" style="display: none;"></div>
             </div>
-            <div id="selectionSortContainer" class="sort-container"></div>
-            <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-            <div id="selectionSortLog" class="output-display-8bit min-h-[100px]">
-               <p><em>Click 'Run Selection Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
+          </section>
+
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              3. Selection Sort
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Selection Sort is another simple, in-place comparison sorting algorithm. It divides the input list into two parts: a sorted sublist (initially empty) which is built up from left to right at the front of the list, and an unsorted sublist which makes up the rest of the list. The algorithm proceeds by finding the smallest (or largest, depending on sort order) element in the unsorted sublist, swapping it with the leftmost unsorted element, and moving the sublist boundaries one element to the right. Think of it like organizing a hand of cards - you look through your cards to find the lowest one, put it at the start, then look through the remaining cards to find the next lowest, and so on.
+              </p>
+              <p><strong>How it works:</strong></p>
+              <ol>
+                <li>Iterate from the first element to the second-to-last element of the list (this loop variable, say `i`, marks the end of the sorted part). Like having a line of students where the first few are already arranged by height.</li>
+                <li>In each iteration, assume the element at the current position `i` is the minimum (or maximum). Like temporarily marking a student as the shortest in the unsorted part of the line.</li>
+                <li>Iterate through the remaining unsorted part of the list (from `i+1` to the end) to find the actual minimum (or maximum) element. Like looking through the rest of the unsorted students to find the shortest one.</li>
+                <li>If a smaller (or larger) element is found, update the record of the minimum (or maximum) element's index. Like finding an even shorter student and updating your mental note of who's the shortest.</li>
+                <li>After scanning the entire unsorted part, if the minimum (or maximum) element found is not at position `i`, swap it with the element at position `i`. Like having the shortest student from the unsorted part swap places with the student at the end of the sorted part.</li>
+                <li>Repeat until the list is sorted. Like continuing this process until all students are arranged by height.</li>
+              </ol>
+              <p>
+                Selection Sort also has a time complexity of O(n²) in all cases (worst, average, and best). While its time complexity is similar to Bubble Sort, it generally performs fewer swaps.
+              </p>
+
+              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Selection Sort:</h3>
+              <div class="controls-flex">
+                <button id="runSelectionSortButton" class="button-8bit">Run Selection Sort</button>
+                <button id="resetSelectionSortButton" class="button-8bit">Reset</button>
+                <label for="selectionSpeedRange">Speed:</label>
+                <input type="range" id="selectionSpeedRange" min="50" max="1000" value="400" step="50" class="input-field-8bit range-slider"/>
+              </div>
+              <div id="selectionSortContainer" class="sort-container"></div>
+              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
+              <div id="selectionSortLog" class="output-display-8bit min-h-[100px]">
+                 <p><em>Click 'Run Selection Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
+              </div>
+              <div id="selectionSortMessage" class="message-box-8bit" style="display: none;"></div>
             </div>
-            <div id="selectionSortMessage" class="message-box-8bit" style="display: none;"></div>
-          </div>
-        </section>
-        
-        <section class="interactive-section">
-          <h2 class="section-subtitle-8bit">Code Examples</h2>
-          <div class="sub-interactive-box">
-            <p>Python implementations of Bubble Sort and Selection Sort:</p>
-            <h3 class="section-subtitle-8bit smaller-subtitle">Bubble Sort:</h3>
-            <pre><code class="code-block-8bit python">def bubble_sort(arr):
+          </section>
+          
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">Code Examples</h2>
+            <div class="sub-interactive-box">
+              <p>Python implementations of Bubble Sort and Selection Sort:</p>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Bubble Sort:</h3>
+              <pre><code class="code-block-8bit python">def bubble_sort(arr):
     n = len(arr)
     # Traverse through all array elements
     for i in range(n):
@@ -182,8 +225,8 @@ my_array = [64, 34, 25, 12, 22, 11, 90]
 print(f"Original array: {my_array}")
 bubble_sort(my_array)
 print(f"Sorted array (Bubble Sort): {my_array}")</code></pre>
-            <h3 class="section-subtitle-8bit smaller-subtitle">Selection Sort:</h3>
-            <pre><code class="code-block-8bit python">def selection_sort(arr):
+              <h3 class="section-subtitle-8bit smaller-subtitle">Selection Sort:</h3>
+              <pre><code class="code-block-8bit python">def selection_sort(arr):
     n = len(arr)
     # Traverse through all array elements
     for i in range(n):
@@ -202,20 +245,21 @@ another_array = [64, 25, 12, 22, 11, 50, 90]
 print(f"Original array: {another_array}")
 selection_sort(another_array)
 print(f"Sorted array (Selection Sort): {another_array}")</code></pre>
-          </div>
-        </section>
-      </main>
+            </div>
+          </section>
+        </main>
 
-      <footer class="footer-8bit text-center py-6">
-        <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
-        <p class="mt-3 md:mt-4">
-          <a
-            href="../index.html" 
-            class="link-8bit" 
-            >Back to Main Menu</a 
-          >
-        </p>
-      </footer>
+        <footer class="footer-8bit text-center py-6">
+          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+          <p class="mt-3 md:mt-4">
+            <a
+              href="../index.html" 
+              class="link-8bit" 
+              >Back to Main Menu</a 
+            >
+          </p>
+        </footer>
+      </div> <!-- End of content-wrapper-8bit -->
     </div> <!-- End of console-screen-border -->
 
     <script>
@@ -240,20 +284,42 @@ print(f"Sorted array (Selection Sort): {another_array}")</code></pre>
             container.innerHTML = '';
             const maxValue = specificMaxValue || Math.max(...arr, 10); // Ensure a minimum height
             arr.forEach(value => {
+                const barWrapper = document.createElement('div');
+                barWrapper.style.display = 'flex';
+                barWrapper.style.flexDirection = 'column';
+                barWrapper.style.alignItems = 'center';
+                barWrapper.style.margin = '0 4px';
+
+                const valueLabel = document.createElement('div');
+                valueLabel.textContent = value;
+                valueLabel.classList.add('value-label');
+                valueLabel.dataset.value = value;
+
                 const bar = document.createElement('div');
                 bar.classList.add('sort-bar');
                 const percentageHeight = maxValue === 0 ? 0 : (value / maxValue) * 100;
                 bar.style.height = `${Math.max(percentageHeight, 5)}%`; // Ensure a minimum visible height
                 bar.dataset.value = value;
-                container.appendChild(bar);
+
+                barWrapper.appendChild(valueLabel);
+                barWrapper.appendChild(bar);
+                container.appendChild(barWrapper);
             });
         }
         
         function updateBarClasses(bars, index, action) { // action: 'comparing', 'swapping', 'sorted', 'minimum', 'clear'
             if (!bars || !bars[index]) return;
-            bars[index].classList.remove('comparing', 'swapping', 'sorted', 'minimum');
+            const barWrapper = bars[index];
+            const bar = barWrapper.querySelector('.sort-bar');
+            const label = barWrapper.querySelector('.value-label');
+            
+            // Remove all classes
+            bar.classList.remove('comparing', 'swapping', 'sorted', 'minimum');
+            label.classList.remove('comparing', 'swapping', 'minimum');
+            
             if (action !== 'clear') {
-                bars[index].classList.add(action);
+                bar.classList.add(action);
+                label.classList.add(action);
             }
         }
         

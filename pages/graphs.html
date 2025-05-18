@@ -3,115 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Graph Data Structures</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Graph Data Structures - Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Graph Data Structures
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Representing networks of connected nodes and edges, and exploring their properties and traversal.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="trees.html" class="btn">
+          &laquo; Trees (BST)
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="sorting-basic.html" class="btn">
+          Next: Sorting Algorithms &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a href="trees.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Trees (BST)
-      </a>
-      <a href="sorting-basic.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: Sorting Algorithms (Bubble/Selection) &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Understanding Graph Data Structures
+          </h2>
+          <p class="text-sm italic mt-1">
+            Representing networks of connected nodes and edges, and exploring their properties and traversal.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What are Graphs?
-        </h2>
-        <p class="mb-4">
-          In computer science, a graph is a data structure used to represent
-          relationships or connections between objects. It consists of a set of <strong>vertices</strong>
-          (also called <strong>nodes</strong>) and a set of <strong>edges</strong> that connect pairs of
-          vertices. Unlike trees, graphs can have cycles (paths that start and
-          end at the same vertex) and don't necessarily have a single root node. Think of it like a social network where people (vertices) can be friends with anyone (edges), and these connections can form complex networks of relationships.
-        </p>
-        <p class="mb-2">Key Components:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong>Vertices (Nodes):</strong> Represent the individual items or
-            entities (e.g., cities, people, web pages). Like stops on a subway map or intersections on a road network.
-          </li>
-          <li>
-            <strong>Edges (Links/Arcs):</strong> Represent the connections or
-            relationships between vertices (e.g., roads between cities,
-            friendships, hyperlinks). Like the subway lines connecting stations or the roads connecting intersections.
-          </li>
-        </ul>
-        <p class="mt-2">
-          Graphs are incredibly versatile for modeling networks and
-          interconnected systems.
-        </p>
-      </section>
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What are Graphs?</h2>
+            <p class="mb-4">
+              In computer science, a graph is a data structure used to represent
+              relationships or connections between objects. It consists of a set of <strong>vertices</strong>
+              (also called <strong>nodes</strong>) and a set of <strong>edges</strong> that connect pairs of
+              vertices. Unlike trees, graphs can have cycles (paths that start and
+              end at the same vertex) and don't necessarily have a single root node. Think of it like a social network where people (vertices) can be friends with anyone (edges), and these connections can form complex networks of relationships.
+            </p>
+            <p class="mb-2">Key Components:</p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>Vertices (Nodes):</strong> Represent the individual items or
+                entities (e.g., cities, people, web pages). Like stops on a subway map or intersections on a road network.
+              </li>
+              <li>
+                <strong>Edges (Links/Arcs):</strong> Represent the connections or
+                relationships between vertices (e.g., roads between cities,
+                friendships, hyperlinks). Like the subway lines connecting stations or the roads connecting intersections.
+              </li>
+            </ul>
+            <p class="mt-2">
+              Graphs are incredibly versatile for modeling networks and
+              interconnected systems.
+            </p>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Types of Graphs
-        </h2>
-        <p class="mb-2">Graphs can be classified based on their properties:</p>
-        <ul class="list-disc list-inside ml-4 space-y-2">
-          <li>
-            <strong>Undirected Graph:</strong> Edges have no direction. If
-            there's an edge between A and B, the connection works both ways
-            (like a Facebook friendship). Think of it like a two-way street - you can travel in either direction.
-          </li>
-          <li>
-            <strong>Directed Graph (Digraph):</strong> Edges have a direction.
-            An edge from A to B doesn't necessarily mean there's an edge from B
-            to A (like a one-way street or a Twitter follow). Like a one-way street system where you can only travel in the specified direction.
-          </li>
-          <li>
-            <strong>Weighted Graph:</strong> Edges have an associated weight or
-            cost (e.g., distance between cities, cost of a network connection). Like a road map where each road has a distance or travel time associated with it.
-          </li>
-          <li>
-            <strong>Unweighted Graph:</strong> Edges do not have weights; they
-            simply represent a connection. Like a simple subway map where all connections are treated equally, regardless of distance.
-          </li>
-        </ul>
-        <p class="mt-2">
-          Graphs can also be cyclic (contain cycles) or acyclic (no cycles).
-          Directed Acyclic Graphs (DAGs) are particularly important for tasks
-          like scheduling dependencies.
-        </p>
-      </section>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Types of Graphs</h2>
+            <p class="mb-2">Graphs can be classified based on their properties:</p>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+              <li>
+                <strong>Undirected Graph:</strong> Edges have no direction. If
+                there's an edge between A and B, the connection works both ways
+                (like a Facebook friendship). Think of it like a two-way street - you can travel in either direction.
+              </li>
+              <li>
+                <strong>Directed Graph (Digraph):</strong> Edges have a direction.
+                An edge from A to B doesn't necessarily mean there's an edge from B
+                to A (like a one-way street or a Twitter follow). Like a one-way street system where you can only travel in the specified direction.
+              </li>
+              <li>
+                <strong>Weighted Graph:</strong> Edges have an associated weight or
+                cost (e.g., distance between cities, cost of a network connection). Like a road map where each road has a distance or travel time associated with it.
+              </li>
+              <li>
+                <strong>Unweighted Graph:</strong> Edges do not have weights; they
+                simply represent a connection. Like a simple subway map where all connections are treated equally, regardless of distance.
+              </li>
+            </ul>
+            <p class="mt-2">
+              Graphs can also be cyclic (contain cycles) or acyclic (no cycles).
+              Directed Acyclic Graphs (DAGs) are particularly important for tasks
+              like scheduling dependencies.
+            </p>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Representing Graphs in Code
-        </h2>
-        <p class="mb-2">
-          There are several common ways to represent graphs in code. Two popular methods are:
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adjacency List:</h3>
-        <p class="mb-2">
-          For each vertex, store a list of its adjacent vertices (its neighbors). This is often efficient for sparse graphs (graphs with relatively few edges).
-          In Python, a dictionary can be used where keys are vertices and values are lists of their neighbors. Think of it like a contact list where each person has a list of their friends' phone numbers.
-        </p>
-        <pre><code class="language-python"># Example: An undirected graph
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. Representing Graphs in Code</h2>
+            <p class="mb-2">
+              There are several common ways to represent graphs in code. Two popular methods are:
+            </p>
+            <h3 class="section-subtitle-8bit smaller-subtitle">Adjacency List:</h3>
+            <p class="mb-2">
+              For each vertex, store a list of its adjacent vertices (its neighbors). This is often efficient for sparse graphs (graphs with relatively few edges).
+              In Python, a dictionary can be used where keys are vertices and values are lists of their neighbors. Think of it like a contact list where each person has a list of their friends' phone numbers.
+            </p>
+            <pre><code class="code-block-8bit python"># Example: An undirected graph
 # A -- B
 # |    |
 # C -- D -- E
@@ -125,12 +119,12 @@ graph_adj_list = {
 }
 print(graph_adj_list['A']) # Output: ['B', 'C'] (Neighbors of A)</code></pre>
 
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adjacency Matrix:</h3>
-        <p class="mb-2">
-          A 2D matrix (list of lists) where the entry <code>matrix[i][j]</code> is 1 (or some weight) if there's an edge from vertex <code>i</code> to vertex <code>j</code>, and 0 otherwise.
-          This can be good for dense graphs (many edges) but uses more space for sparse graphs. Think of it like a distance chart in a road atlas, where each cell shows whether there's a direct road between two cities.
-        </p>
-        <pre><code class="language-python"># For the same graph, assuming vertices A=0, B=1, C=2, D=3, E=4
+            <h3 class="section-subtitle-8bit smaller-subtitle">Adjacency Matrix:</h3>
+            <p class="mb-2">
+              A 2D matrix (list of lists) where the entry <code>matrix[i][j]</code> is 1 (or some weight) if there's an edge from vertex <code>i</code> to vertex <code>j</code>, and 0 otherwise.
+              This can be good for dense graphs (many edges) but uses more space for sparse graphs. Think of it like a distance chart in a road atlas, where each cell shows whether there's a direct road between two cities.
+            </p>
+            <pre><code class="code-block-8bit python"># For the same graph, assuming vertices A=0, B=1, C=2, D=3, E=4
 #   A B C D E
 # A 0 1 1 0 0
 # B 1 0 0 1 0
@@ -147,207 +141,201 @@ graph_adj_matrix = [
 ]
 print(graph_adj_matrix[0][1]) # Output: 1 (Edge from A to B)
 print(graph_adj_matrix[0][3]) # Output: 0 (No direct edge from A to E)</code></pre>
-      </section>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Interactive Graph Visualization
-        </h2>
-        <p class="mb-4">
-          Create a simple undirected graph. Add nodes and then add edges between them.
-          Click and drag nodes to rearrange them.
-        </p>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Interactive Graph Visualization</h2>
+            <p class="mb-4">
+              Create a simple undirected graph. Add nodes and then add edges between them.
+              Click and drag nodes to rearrange them.
+            </p>
 
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="nodeNameInput" class="mr-2">Node Name (A-Z):</label>
-          <input
-            type="text"
-            id="nodeNameInput"
-            class="input-field"
-            placeholder="e.g., A"
-            maxlength="1"
-            pattern="[A-Za-z]"
-          />
-          <button id="addNodeButton" class="btn btn-green">Add Node</button>
-        </div>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="edgeNode1Input" class="mr-2">Edge From:</label>
-          <input
-            type="text"
-            id="edgeNode1Input"
-            class="input-field"
-            placeholder="e.g., A"
-            maxlength="1"
-            pattern="[A-Za-z]"
-          />
-          <label for="edgeNode2Input" class="ml-4 mr-2">To:</label>
-          <input
-            type="text"
-            id="edgeNode2Input"
-            class="input-field"
-            placeholder="e.g., B"
-            maxlength="1"
-            pattern="[A-Za-z]"
-          />
-          <button id="addEdgeButton" class="btn">Add Edge</button>
-          <button id="resetGraphButton" class="btn btn-orange">
-            Reset Graph
-          </button>
-        </div>
+            <div class="sub-interactive-box p-4">
+              <div class="flex flex-wrap items-center mb-2">
+                <label for="nodeNameInput" class="mr-2">Node Name (A-Z):</label>
+                <input
+                  type="text"
+                  id="nodeNameInput"
+                  class="input-field"
+                  placeholder="e.g., A"
+                  maxlength="1"
+                  pattern="[A-Za-z]"
+                />
+                <button id="addNodeButton" class="btn btn-green">Add Node</button>
+              </div>
+              <div class="flex flex-wrap items-center mb-2">
+                <label for="edgeNode1Input" class="mr-2">Edge From:</label>
+                <input
+                  type="text"
+                  id="edgeNode1Input"
+                  class="input-field"
+                  placeholder="e.g., A"
+                  maxlength="1"
+                  pattern="[A-Za-z]"
+                />
+                <label for="edgeNode2Input" class="ml-4 mr-2">To:</label>
+                <input
+                  type="text"
+                  id="edgeNode2Input"
+                  class="input-field"
+                  placeholder="e.g., B"
+                  maxlength="1"
+                  pattern="[A-Za-z]"
+                />
+                <button id="addEdgeButton" class="btn">Add Edge</button>
+                <button id="resetGraphButton" class="btn btn-orange">
+                  Reset Graph
+                </button>
+              </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          <div>
-            <h4 class="text-md font-medium mt-3 mb-1">
-              Graph Visualization (Drag Nodes):
-            </h4>
-            <div id="graphVisualization" class="graph-container">
-              <svg width="100%" height="100%"></svg>
-              <span class="text-gray-500 italic">Add nodes and edges.</span>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <div>
+                  <h4 class="text-md font-medium mt-3 mb-1">
+                    Graph Visualization (Drag Nodes):
+                  </h4>
+                  <div id="graphVisualization" class="graph-container">
+                    <svg width="100%" height="100%"></svg>
+                    <span class="text-gray-500 italic">Add nodes and edges.</span>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-md font-medium mt-3 mb-1">Adjacency List:</h4>
+                  <div id="adjacencyListDisplay" class="output-display">{ }</div>
+                </div>
+              </div>
+              <div id="graphMessage" class="message-box mt-2" style="display: none"></div>
             </div>
-          </div>
-          <div>
-            <h4 class="text-md font-medium mt-3 mb-1">Adjacency List:</h4>
-            <div id="adjacencyListDisplay" class="output-display">{ }</div>
-          </div>
-        </div>
-        <div id="graphMessage" class="message-box" style="display: none"></div>
-      </section>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. Common Graph Operations & Algorithms
-        </h2>
-        <p class="mb-2">
-          Graphs are used in a vast array of applications, often involving specific algorithms:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li><strong>Traversal:</strong> Visiting all nodes in a graph.
-            <ul class="list-circle list-inside ml-6 space-y-1">
-                <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking. Often uses a stack. Like exploring a maze by always taking the rightmost path until you hit a dead end, then backtracking.</li>
-                <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbor nodes at the present depth prior to moving on to nodes at the next depth level. Often uses a queue. Like exploring a building floor by floor, checking all rooms on one floor before moving to the next.</li>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Common Graph Operations & Algorithms</h2>
+            <p class="mb-2">
+              Graphs are used in a vast array of applications, often involving specific algorithms:
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li><strong>Traversal:</strong> Visiting all nodes in a graph.
+                <ul class="list-circle list-inside ml-6 space-y-1">
+                    <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking. Often uses a stack. Like exploring a maze by always taking the rightmost path until you hit a dead end, then backtracking.</li>
+                    <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbor nodes at the present depth prior to moving on to nodes at the next depth level. Often uses a queue. Like exploring a building floor by floor, checking all rooms on one floor before moving to the next.</li>
+                </ul>
+              </li>
+              <li><strong>Shortest Path:</strong> Finding the shortest path between two nodes (e.g., Dijkstra's algorithm, Bellman-Ford algorithm). Like using a GPS to find the quickest route between two locations.</li>
+              <li><strong>Minimum Spanning Tree (MST):</strong> Finding a subgraph that connects all vertices with the minimum total edge weight (e.g., Prim's algorithm, Kruskal's algorithm). Like designing a road network that connects all cities with the minimum total road length.</li>
+              <li><strong>Network Flow:</strong> Analyzing the flow of material through a network (e.g., Ford-Fulkerson algorithm). Like analyzing water flow through a system of pipes or traffic flow through a road network.</li>
+              <li><strong>Topological Sort:</strong> For Directed Acyclic Graphs (DAGs), a linear ordering of vertices such that for every directed edge from vertex u to vertex v, u comes before v in the ordering. Like creating a schedule of tasks where some tasks must be completed before others can begin.</li>
             </ul>
-          </li>
-          <li><strong>Shortest Path:</strong> Finding the shortest path between two nodes (e.g., Dijkstra's algorithm, Bellman-Ford algorithm). Like using a GPS to find the quickest route between two locations.</li>
-          <li><strong>Minimum Spanning Tree (MST):</strong> Finding a subgraph that connects all vertices with the minimum total edge weight (e.g., Prim's algorithm, Kruskal's algorithm). Like designing a road network that connects all cities with the minimum total road length.</li>
-          <li><strong>Network Flow:</strong> Analyzing the flow of material through a network (e.g., Ford-Fulkerson algorithm). Like analyzing water flow through a system of pipes or traffic flow through a road network.</li>
-          <li><strong>Topological Sort:</strong> For Directed Acyclic Graphs (DAGs), a linear ordering of vertices such that for every directed edge from vertex u to vertex v, u comes before v in the ordering. Like creating a schedule of tasks where some tasks must be completed before others can begin.</li>
-        </ul>
-      </section>
+          </section>
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive Graph Traversal (DFS & BFS)
-        </h2>
-        <p class="mb-2">
-          Using the graph you created above (or the default example), select a starting node and see how DFS and BFS explore the graph.
-        </p>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="startNodeTraversal" class="mr-2 font-medium">Start Node:</label>
-          <select id="startNodeTraversal" class="input-field"></select>
-          <button id="runDFSTraversal" class="btn btn-green">Run DFS</button>
-          <button id="runBFSTraversal" class="btn btn-green">Run BFS</button>
-          <button id="resetTraversal" class="btn btn-orange">Reset Traversal</button>
-        </div>
-        <div class="mt-2">
-          <h4 class="text-lg font-medium text-cyan-400">Traversal Path:</h4>
-          <div id="traversalPathDisplay" class="output-display min-h-[40px]">
-             <span class="text-gray-500 italic">Select a start node and run a traversal.</span>
-          </div>
-        </div>
-        <div id="traversalMessage" class="message-box mt-2" style="display: none;"></div>
-      </section>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Interactive Graph Traversal</h2>
+            <p class="mb-2">
+              Using the graph you created above (or the default example), select a starting node and see how DFS and BFS explore the graph.
+            </p>
+            <div class="sub-interactive-box p-4">
+              <div class="flex flex-wrap items-center mb-2">
+                <label for="startNodeTraversal" class="mr-2 font-medium">Start Node:</label>
+                <select id="startNodeTraversal" class="input-field"></select>
+                <button id="runDFSTraversal" class="btn btn-green">Run DFS</button>
+                <button id="runBFSTraversal" class="btn btn-green">Run BFS</button>
+                <button id="resetTraversal" class="btn btn-orange">Reset Traversal</button>
+              </div>
+              <div class="mt-2">
+                <h4 class="text-lg font-medium text-cyan-400">Traversal Path:</h4>
+                <div id="traversalPathDisplay" class="output-display min-h-[40px]">
+                   <span class="text-gray-500 italic">Select a start node and run a traversal.</span>
+                </div>
+              </div>
+              <div id="traversalMessage" class="message-box mt-2" style="display: none;"></div>
+            </div>
+          </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">6. Quick Quiz</h2>
-        <p class="mb-4">Test your graph knowledge!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What are the two main components of a graph?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1_graph" value="a" class="mr-1" /> Roots
-            and Leaves</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_graph" value="b" class="mr-1" /> Keys
-            and Values</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_graph" value="c" class="mr-1" />
-            Vertices (Nodes) and Edges</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: In which type of graph do edges have a direction?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_graph" value="a" class="mr-1" />
-            Undirected Graph</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_graph" value="b" class="mr-1" />
-            Weighted Graph</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_graph" value="c" class="mr-1" />
-            Directed Graph (Digraph)</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: An Adjacency List representation typically stores, for each
-            vertex, a list of its...?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_graph" value="a" class="mr-1" /> Edge
-            weights</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_graph" value="b" class="mr-1" />
-            Adjacent vertices (neighbors)</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_graph" value="c" class="mr-1" />
-            Parent nodes</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: Which of these is NOT a typical application of graphs?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_graph" value="a" class="mr-1" />
-            Social Networks</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_graph" value="b" class="mr-1" />
-            Storing a single sequence of ordered, immutable items</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_graph" value="c" class="mr-1" /> Road
-            Maps and Navigation</label
-          >
-        </div>
-        <button id="checkQuizButtonGraph" class="btn">Check Answers</button>
-        <div
-          id="quizResultGraph"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">7. Quick Quiz</h2>
+            <p class="mb-4">Test your graph knowledge!</p>
+            <div class="sub-interactive-box p-4">
+              <div class="quiz-options mb-3">
+                <p class="font-medium mb-1">
+                  Q1: What are the two main components of a graph?
+                </p>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q1_graph" value="a" class="mr-2" />
+                  Roots and Leaves
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q1_graph" value="b" class="mr-2" />
+                  Keys and Values
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q1_graph" value="c" class="mr-2" />
+                  Vertices (Nodes) and Edges
+                </label>
+              </div>
+              <div class="quiz-options mb-3">
+                <p class="font-medium mb-1">
+                  Q2: In which type of graph do edges have a direction?
+                </p>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q2_graph" value="a" class="mr-2" />
+                  Undirected Graph
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q2_graph" value="b" class="mr-2" />
+                  Weighted Graph
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q2_graph" value="c" class="mr-2" />
+                  Directed Graph (Digraph)
+                </label>
+              </div>
+              <div class="quiz-options mb-3">
+                <p class="font-medium mb-1">
+                  Q3: An Adjacency List representation typically stores, for each
+                  vertex, a list of its...?
+                </p>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q3_graph" value="a" class="mr-2" />
+                  Edge weights
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q3_graph" value="b" class="mr-2" />
+                  Adjacent vertices (neighbors)
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q3_graph" value="c" class="mr-2" />
+                  Parent nodes
+                </label>
+              </div>
+              <div class="quiz-options mb-3">
+                <p class="font-medium mb-1">
+                  Q4: Which of these is NOT a typical application of graphs?
+                </p>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q4_graph" value="a" class="mr-2" />
+                  Social Networks
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q4_graph" value="b" class="mr-2" />
+                  Storing a single sequence of ordered, immutable items
+                </label>
+                <label class="quiz-option-label">
+                  <input type="radio" name="q4_graph" value="c" class="mr-2" />
+                  Road Maps and Navigation
+                </label>
+              </div>
+              <button id="checkQuizButtonGraph" class="btn">Check Answers</button>
+              <div id="quizResultGraph" class="message-box mt-4" style="display: none"></div>
+            </div>
+          </section>
+        </main>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+        <footer class="footer-8bit">
+          <p>Happy Coding!</p>
+          <p class="mt-2">
+            <a href="../index.html">Back to Main Menu</a>
+          </p>
+        </footer>
+      </div>
+    </div>
 
     <script src="../js/main.js" defer></script>
     <script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Functions in Python</title>
+    <title>Functions in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
@@ -12,71 +12,63 @@
   </head>
   <body class="">
     <div class="console-screen-border">
-    <header class="text-center mb-8">
-      <h1 class="pixel-header"><a href="../index.html">
-        Interactive Guide to Python
-      </a></h1>
-      <h2 class="pixel-subheader">
-        Learn Functions in Python
-      </h2>
-      <p class="text-xs mt-1 italic">
-        A way to package up code and give it a name.
-      </p>
-    </header>
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="error-handling.html" class="btn">
+          Next: Error Handling &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="mb-6 p-3 flex justify-between items-center"
-    >
-      <a
-        href="string-operations.html"
-        class="btn"
-      >
-        &larr; Previous: String Operations
-      </a>
-      <a
-        href="error-handling.html"
-        class="btn"
-      >
-        Next: Error Handling &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Functions
+          </h2>
+          <p class="text-sm italic mt-1">
+            A way to package up code and give it a name.
+          </p>
+        </header>
 
-    <main class="content-wrapper-8bit">
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          1. What is a Function?
-        </h2>
-        <p class="mb-4">
-          A function is like a recipe in a cookbook - it's a set of instructions that you can follow whenever you need to make a particular dish. Just as you can use the same recipe multiple times to make the same dish, you can call a function multiple times to perform the same task. The recipe (function) has a name, a list of ingredients (parameters), and step-by-step instructions (code). Think of it like a vending machine - you put in the right inputs (arguments), press the button (call the function), and get a consistent output (return value).
-        </p>
-        <p>Functions help you:</p>
-        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-          <li>
-            <strong>Organize Code:</strong> Like organizing a kitchen - each recipe (function) has its own place and purpose. It's similar to how a library organizes books by category, making it easier to find what you need.
-          </li>
-          <li>
-            <strong>Reuse Code:</strong> Like having a recipe card instead of memorizing how to make a dish every time. Think of it like a template or a blueprint that you can use over and over.
-          </li>
-          <li>
-            <strong>Improve Readability:</strong> Like giving clear names to recipes so you know what they make without reading the whole recipe. It's similar to how road signs tell you what's ahead without needing to see the entire road.
-          </li>
-          <li>
-            <strong>Abstract Details:</strong> Like following a recipe without needing to know the chemistry behind why each step works. Think of it like driving a car - you don't need to know how the engine works to use it.
-          </li>
-        </ul>
-      </section>
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            1. What is a Function?
+          </h2>
+          <p class="mb-4">
+            A function is like a recipe in a cookbook - it's a set of instructions that you can follow whenever you need to make a particular dish. Just as you can use the same recipe multiple times to make the same dish, you can call a function multiple times to perform the same task. The recipe (function) has a name, a list of ingredients (parameters), and step-by-step instructions (code). Think of it like a vending machine - you put in the right inputs (arguments), press the button (call the function), and get a consistent output (return value).
+          </p>
+          <p>Functions help you:</p>
+          <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+            <li>
+              <strong>Organize Code:</strong> Like organizing a kitchen - each recipe (function) has its own place and purpose. It's similar to how a library organizes books by category, making it easier to find what you need.
+            </li>
+            <li>
+              <strong>Reuse Code:</strong> Like having a recipe card instead of memorizing how to make a dish every time. Think of it like a template or a blueprint that you can use over and over.
+            </li>
+            <li>
+              <strong>Improve Readability:</strong> Like giving clear names to recipes so you know what they make without reading the whole recipe. It's similar to how road signs tell you what's ahead without needing to see the entire road.
+            </li>
+            <li>
+              <strong>Abstract Details:</strong> Like following a recipe without needing to know the chemistry behind why each step works. Think of it like driving a car - you don't need to know how the engine works to use it.
+            </li>
+          </ul>
+        </section>
 
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          2. Defining and Calling Functions
-        </h2>
-        <p class="mb-2">
-          Defining a function is like writing down a recipe - you give it a name, list what you need (parameters), and write the steps (code). Calling a function is like following the recipe - you gather the ingredients (arguments) and follow the steps. It's similar to how a TV remote control is programmed (defined) once but can be used (called) many times to change channels.
-        </p>
-        <p class="mb-2">
-          The docstring is like the introduction to a recipe - it tells you what the dish will be and any special notes before you start cooking. Think of it like a product manual that explains what something does before you start using it.
-        </p>
-        <pre><code class="language-python"># 1. Define the function
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            2. Defining and Calling Functions
+          </h2>
+          <p class="mb-2">
+            Defining a function is like writing down a recipe - you give it a name, list what you need (parameters), and write the steps (code). Calling a function is like following the recipe - you gather the ingredients (arguments) and follow the steps. It's similar to how a TV remote control is programmed (defined) once but can be used (called) many times to change channels.
+          </p>
+          <p class="mb-2">
+            The docstring is like the introduction to a recipe - it tells you what the dish will be and any special notes before you start cooking. Think of it like a product manual that explains what something does before you start using it.
+          </p>
+          <pre><code class="language-python"># 1. Define the function
 def say_hello():
   """This is a docstring. It explains what the function does."""
   print("Hello from the function!")
@@ -92,24 +84,24 @@ print("Function call finished.")
 # Hello from the function!
 # Nice to meet you.
 # Function call finished.</code></pre>
-        <p class="mt-2 text-sm text-gray-300">
-          The text within triple quotes (<code>"""..."""</code>) right after the
-          <code>def</code> line is called a <strong>docstring</strong>. It's
-          good practice to include one to document what your function does.
-        </p>
-      </section>
+          <p class="mt-2 text-sm text-gray-300">
+            The text within triple quotes (<code>"""..."""</code>) right after the
+            <code>def</code> line is called a <strong>docstring</strong>. It's
+            good practice to include one to document what your function does.
+          </p>
+        </section>
 
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          3. Parameters and Arguments
-        </h2>
-        <p class="mb-2">
-          Parameters are like the ingredient list in a recipe - they're placeholders for what you'll need. Arguments are like the actual ingredients you use when cooking - they're the real values you provide when you follow the recipe. Think of it like a form where the fields (parameters) are empty until you fill them in (arguments).
-        </p>
-        <p class="mb-2">
-          Just as you can make the same recipe with different ingredients (like using chicken instead of beef), you can call the same function with different arguments to get different results. It's similar to how a calculator can perform the same operation (like addition) with different numbers to get different results.
-        </p>
-        <pre><code class="language-python"># 'name' and 'greeting' are parameters
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            3. Parameters and Arguments
+          </h2>
+          <p class="mb-2">
+            Parameters are like the ingredient list in a recipe - they're placeholders for what you'll need. Arguments are like the actual ingredients you use when cooking - they're the real values you provide when you follow the recipe. Think of it like a form where the fields (parameters) are empty until you fill them in (arguments).
+          </p>
+          <p class="mb-2">
+            Just as you can make the same recipe with different ingredients (like using chicken instead of beef), you can call the same function with different arguments to get different results. It's similar to how a calculator can perform the same operation (like addition) with different numbers to get different results.
+          </p>
+          <pre><code class="language-python"># 'name' and 'greeting' are parameters
 def greet_person(name, greeting):
   print(f"{greeting}, {name}!")
 
@@ -118,19 +110,19 @@ greet_person("Alice", "Good morning") # Output: Good morning, Alice!
 
 # "Bob" and "Hi" are arguments for the second call
 greet_person("Bob", "Hi")             # Output: Hi, Bob!</code></pre>
-      </section>
+        </section>
 
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          4. Return Values
-        </h2>
-        <p class="mb-2">
-          Return values are like the finished dish in cooking - they're what you get after following all the steps. When a function returns a value, it's like the recipe telling you "here's your finished dish" instead of just showing you how to make it. Think of it like a vending machine that gives you a product after you put in money and make a selection.
-        </p>
-        <p class="mb-2">
-          If a function doesn't have a return statement, it's like a recipe that shows you how to make something but doesn't tell you what to do with the finished product - you get <code>None</code>, which is like having no specific instructions for what to do next. It's similar to a TV show that entertains you but doesn't give you anything to take away.
-        </p>
-        <pre><code class="language-python"># This function calculates the sum and returns it
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            4. Return Values
+          </h2>
+          <p class="mb-2">
+            Return values are like the finished dish in cooking - they're what you get after following all the steps. When a function returns a value, it's like the recipe telling you "here's your finished dish" instead of just showing you how to make it. Think of it like a vending machine that gives you a product after you put in money and make a selection.
+          </p>
+          <p class="mb-2">
+            If a function doesn't have a return statement, it's like a recipe that shows you how to make something but doesn't tell you what to do with the finished product - you get <code>None</code>, which is like having no specific instructions for what to do next. It's similar to a TV show that entertains you but doesn't give you anything to take away.
+          </p>
+          <pre><code class="language-python"># This function calculates the sum and returns it
 def add_numbers(x, y):
   result = x + y
   return result # Send the calculated result back
@@ -148,8 +140,15 @@ def function_without_explicit_return():
 
 what_is_returned = function_without_explicit_return()
 print(f"Value returned: {what_is_returned}") # Output: Value returned: None</code></pre>
-      </section>
+        </section>
 
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            5. Default Argument Values
+          </h2>
+          <p class="mb-2">
+            Default arguments are like having optional ingredients in a recipe - if you don't specify them, the recipe will use a standard alternative. It's like a recipe that says "use salt to taste" - if you don't specify how much salt, it assumes you'll use a standard amount. Think of it like a car with default settings - if you don't change them, it uses the factory settings.
+          </p>
       <section class="game-section">
         <h2 class="section-title-8bit">
           5. Default Argument Values

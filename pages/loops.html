@@ -4,48 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loops (For & While) in Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="p-4 md:p-8">
+  <body class="">
     <div class="console-screen-border">
-        <nav class="navbar-8bit">
-            <a href="nested-conditionals.html" class="btn btn-8bit">
-                &laquo; Prev: Nested Conditionals
-            </a>
-            <a href="../index.html" class="text-lg"> Home </a>
-            <a href="lists-iteration.html" class="btn btn-8bit">
-                Next: Lists & Iteration &rarr;
-            </a>
-        </nav>
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="lists-iteration.html" class="btn">
+          Next: Lists & Iteration &rarr;
+        </a>
+      </nav>
 
-        <div class="content-wrapper-8bit">
-            <header class="text-center mb-8">
-                <h1 class="page-title-8bit">Loops (For & While)</h1>
-                <p class="text-sm italic mt-1">
-                    Repeating blocks of code efficiently using <code>for</code> and <code>while</code> loops.
-                </p>
-            </header>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Loops (For & While)
+          </h2>
+          <p class="text-sm italic mt-1">
+            Repeating blocks of code efficiently using <code>for</code> and <code>while</code> loops.
+          </p>
+        </header>
 
-            <main>
-                <section class="interactive-section mb-8">
-                    <h2>1. What are Loops?</h2>
-                    <p class="mb-4">
-                        Loops are like a recipe that tells you to repeat certain steps multiple times. Just as a chef might need to stir a sauce 10 times, or a musician might need to practice a scale 5 times, loops help us repeat code without writing it over and over. Python primarily uses two types of loops: <code>for</code> loops and <code>while</code> loops. Think of loops as your personal assistant who can tirelessly repeat tasks without getting bored or making mistakes.
-                    </p>
-                </section>
+        <main>
+          <section class="interactive-section mb-8">
+            <h2>1. What are Loops?</h2>
+            <p class="mb-4">
+              Loops are like a recipe that tells you to repeat certain steps multiple times. Just as a chef might need to stir a sauce 10 times, or a musician might need to practice a scale 5 times, loops help us repeat code without writing it over and over. Python primarily uses two types of loops: <code>for</code> loops and <code>while</code> loops. Think of loops as your personal assistant who can tirelessly repeat tasks without getting bored or making mistakes.
+            </p>
+          </section>
 
-                <section class="interactive-section mb-8">
-                    <h2>2. The <code>for</code> Loop</h2>
-                    <p class="mb-2">
-                        A <code>for</code> loop is like a conveyor belt in a factory - it takes each item from a sequence (like a list, string, or range of numbers) and processes it one at a time. Think of it as a robot that picks up each item, does something with it, and then moves to the next item until there are no more items left. It's similar to how a mail carrier delivers letters to each house on their route, one address at a time.
-                    </p>
-                    <h3 class="text-md mt-3 mb-1">Iterating over a String:</h3>
-                    <pre><code class="language-python"># Each character in the string is processed one by one
+          <section class="interactive-section mb-8">
+            <h2>2. The <code>for</code> Loop</h2>
+            <p class="mb-2">
+              A <code>for</code> loop is like a conveyor belt in a factory - it takes each item from a sequence (like a list, string, or range of numbers) and processes it one at a time. Think of it as a robot that picks up each item, does something with it, and then moves to the next item until there are no more items left. It's similar to how a mail carrier delivers letters to each house on their route, one address at a time.
+            </p>
+            <h3 class="text-md mt-3 mb-1">Iterating over a String:</h3>
+            <pre><code class="language-python"># Each character in the string is processed one by one
 word = "PYTHON"
 for letter in word:
     print(letter)
@@ -56,16 +59,16 @@ for letter in word:
 # H
 # O
 # N</code></pre>
-                    <h3 class="text-md mt-3 mb-1">Using <code>range()</code>:</h3>
-                    <p class="mb-2">
-                        The <code>range()</code> function is like a number line that tells the loop how many steps to take. It's similar to counting steps on a staircase or marking off days on a calendar:
-                        <ul class="list-disc ml-6 mt-2">
-                            <li><code>range(n)</code> is like counting from 0 to n-1 steps, just like counting the floors in a building starting from the ground floor (0)</li>
-                            <li><code>range(start, stop)</code> is like starting at step 'start' and going up to (but not including) step 'stop', similar to counting the hours from 9 AM to 5 PM (but not including 5 PM)</li>
-                            <li><code>range(start, stop, step)</code> is like taking steps of size 'step' from 'start' to 'stop', like counting by twos (2, 4, 6, 8) or counting every third day on a calendar</li>
-                        </ul>
-                    </p>
-                    <pre><code class="language-python"># Print numbers 0 to 4
+            <h3 class="text-md mt-3 mb-1">Using <code>range()</code>:</h3>
+            <p class="mb-2">
+              The <code>range()</code> function is like a number line that tells the loop how many steps to take. It's similar to counting steps on a staircase or marking off days on a calendar:
+              <ul class="list-disc ml-6 mt-2">
+                <li><code>range(n)</code> is like counting from 0 to n-1 steps, just like counting the floors in a building starting from the ground floor (0)</li>
+                <li><code>range(start, stop)</code> is like starting at step 'start' and going up to (but not including) step 'stop', similar to counting the hours from 9 AM to 5 PM (but not including 5 PM)</li>
+                <li><code>range(start, stop, step)</code> is like taking steps of size 'step' from 'start' to 'stop', like counting by twos (2, 4, 6, 8) or counting every third day on a calendar</li>
+              </ul>
+            </p>
+            <pre><code class="language-python"># Print numbers 0 to 4
 for i in range(5):
     print(i)  # Output: 0, 1, 2, 3, 4
 
@@ -77,29 +80,29 @@ for num in range(2, 6):
 for x in range(0, 10, 2):
     print(x)  # Output: 0, 2, 4, 6, 8</code></pre>
 
-                    <div class="sub-interactive-box p-4 mt-4">
-                        <h3>Try It: <code>for</code> Loop with <code>range()</code></h3>
-                        <p class="mb-2 text-sm">
-                            Enter a number to see a <code>for</code> loop count up to it (exclusive).
-                        </p>
-                        <label for="forLoopRangeInput" class="block mb-1">Count up to (exclusive):</label>
-                        <input type="number" id="forLoopRangeInput" class="input-field mb-2" value="5" min="0" max="20">
-                        <button id="runForLoopButton" class="btn">Run For Loop</button>
-                        <div class="mt-3">
-                            <p>Simulated Loop Output:</p>
-                            <div id="forLoopOutput" class="output-display min-h-[50px]">
-                                <span class="placeholder-text">Output will appear here.</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: <code>for</code> Loop with <code>range()</code></h3>
+              <p class="mb-2 text-sm">
+                Enter a number to see a <code>for</code> loop count up to it (exclusive).
+              </p>
+              <label for="forLoopRangeInput" class="block mb-1">Count up to (exclusive):</label>
+              <input type="number" id="forLoopRangeInput" class="input-field mb-2" value="5" min="0" max="20">
+              <button id="runForLoopButton" class="btn">Run For Loop</button>
+              <div class="mt-3">
+                <p>Simulated Loop Output:</p>
+                <div id="forLoopOutput" class="output-display min-h-[50px]">
+                  <span class="placeholder-text">Output will appear here.</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                <section class="interactive-section mb-8">
-                    <h2>3. The <code>while</code> Loop</h2>
-                    <p class="mb-2">
-                        A <code>while</code> loop is like a game of "keep going until..." - it continues running as long as a certain condition is true. Think of it as a security guard who keeps checking if a condition is met before allowing the next iteration. It's particularly useful when you don't know beforehand how many times you need to loop, but you know the condition that should stop the loop. It's similar to a water pump that keeps running until the tank is full, or a car that keeps driving until it reaches its destination.
-                    </p>
-                    <pre><code class="language-python">count = 0
+          <section class="interactive-section mb-8">
+            <h2>3. The <code>while</code> Loop</h2>
+            <p class="mb-2">
+              A <code>while</code> loop is like a game of "keep going until..." - it continues running as long as a certain condition is true. Think of it as a security guard who keeps checking if a condition is met before allowing the next iteration. It's particularly useful when you don't know beforehand how many times you need to loop, but you know the condition that should stop the loop. It's similar to a water pump that keeps running until the tank is full, or a car that keeps driving until it reaches its destination.
+            </p>
+            <pre><code class="language-python">count = 0
 while count < 5:  # Condition: loop as long as count is less than 5
     print(f"Count is: {count}")
     count = count + 1  # Important: Update the variable used in the condition!
@@ -112,180 +115,180 @@ print("Loop finished.")
 # Count is: 3
 # Count is: 4
 # Loop finished.</code></pre>
-                    <p class="mt-3 mb-2">
-                        <strong>Caution:</strong> Be careful with <code>while</code> loops! If the condition never becomes <code>False</code>, you'll create an <strong>infinite loop</strong>, like a car stuck in a roundabout with no exit, or a hamster running endlessly on its wheel. Always ensure there's a way for the condition to eventually become <code>False</code>, just like having a clear exit strategy or a way to stop the process.
-                    </p>
+            <p class="mt-3 mb-2">
+              <strong>Caution:</strong> Be careful with <code>while</code> loops! If the condition never becomes <code>False</code>, you'll create an <strong>infinite loop</strong>, like a car stuck in a roundabout with no exit, or a hamster running endlessly on its wheel. Always ensure there's a way for the condition to eventually become <code>False</code>, just like having a clear exit strategy or a way to stop the process.
+            </p>
 
-                    <div class="sub-interactive-box p-4 mt-4">
-                        <h3>Try It: <code>while</code> Loop Countdown</h3>
-                        <p class="mb-2 text-sm">
-                            Enter a number to countdown from using a <code>while</code> loop.
-                        </p>
-                        <label for="whileLoopStartInput" class="block mb-1">Countdown from:</label>
-                        <input type="number" id="whileLoopStartInput" class="input-field mb-2" value="3" min="1" max="10">
-                        <button id="runWhileLoopButton" class="btn">Start Countdown</button>
-                        <div class="mt-3">
-                            <p>Simulated Loop Output:</p>
-                            <div id="whileLoopOutput" class="output-display min-h-[50px]">
-                                <span class="placeholder-text">Output will appear here.</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: <code>while</code> Loop Countdown</h3>
+              <p class="mb-2 text-sm">
+                Enter a number to countdown from using a <code>while</code> loop.
+              </p>
+              <label for="whileLoopStartInput" class="block mb-1">Countdown from:</label>
+              <input type="number" id="whileLoopStartInput" class="input-field mb-2" value="3" min="1" max="10">
+              <button id="runWhileLoopButton" class="btn">Start Countdown</button>
+              <div class="mt-3">
+                <p>Simulated Loop Output:</p>
+                <div id="whileLoopOutput" class="output-display min-h-[50px]">
+                  <span class="placeholder-text">Output will appear here.</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                <section class="interactive-section mb-8">
-                    <h2>4. Loop Control Statements: <code>break</code> and <code>continue</code></h2>
-                    <p class="mb-2">
-                        Sometimes you need more control over how a loop executes, like having emergency exits or skip buttons. Python provides two statements for this, similar to having both a main door and a fire exit in a building, or having the ability to skip tracks on a music player.
-                    </p>
-                    <h3 class="text-md mt-3 mb-1"><code>break</code> Statement:</h3>
-                    <p class="mb-2">
-                        The <code>break</code> statement is like an emergency exit - it immediately stops the loop and exits it completely. It's useful when you've found what you're looking for and don't need to continue the loop, similar to how you might stop searching for your keys once you've found them.
-                    </p>
-                    <pre><code class="language-python">for i in range(10):
+          <section class="interactive-section mb-8">
+            <h2>4. Loop Control Statements: <code>break</code> and <code>continue</code></h2>
+            <p class="mb-2">
+              Sometimes you need more control over how a loop executes, like having emergency exits or skip buttons. Python provides two statements for this, similar to having both a main door and a fire exit in a building, or having the ability to skip tracks on a music player.
+            </p>
+            <h3 class="text-md mt-3 mb-1"><code>break</code> Statement:</h3>
+            <p class="mb-2">
+              The <code>break</code> statement is like an emergency exit - it immediately stops the loop and exits it completely. It's useful when you've found what you're looking for and don't need to continue the loop, similar to how you might stop searching for your keys once you've found them.
+            </p>
+            <pre><code class="language-python">for i in range(10):
     if i == 5:
         break  # Stop the loop when i is 5
     print(i)
 # Output: 0, 1, 2, 3, 4</code></pre>
 
-                    <h3 class="text-md mt-4 mb-1"><code>continue</code> Statement:</h3>
-                    <p class="mb-2">
-                        The <code>continue</code> statement is like a "skip this one" button - it skips the current iteration and moves to the next one. It's useful when you want to skip certain items but continue with the rest, similar to how you might skip a song you don't like on a playlist but keep listening to the others.
-                    </p>
-                    <pre><code class="language-python">for i in range(5):
+            <h3 class="text-md mt-4 mb-1"><code>continue</code> Statement:</h3>
+            <p class="mb-2">
+              The <code>continue</code> statement is like a "skip this one" button - it skips the current iteration and moves to the next one. It's useful when you want to skip certain items but continue with the rest, similar to how you might skip a song you don't like on a playlist but keep listening to the others.
+            </p>
+            <pre><code class="language-python">for i in range(5):
     if i == 2: 
         continue  # Skip this iteration when i is 2
     print(i)
 # Output: 0, 1, 3, 4 (2 is skipped)</code></pre>
-                </section>
-                
-                <section class="interactive-section mb-8">
-                    <h2>5. Quick Quiz</h2>
-                    <p class="mb-4">Test your knowledge about loops!</p>
-                    <div class="quiz-options mb-3">
-                        <p class="font-medium mb-1">Q1: Which loop is typically used when you know how many times you want to repeat a block of code?</p>
-                        <label class="quiz-option-label"><input type="radio" name="q1_loops" value="a"> <code>while</code> loop</label>
-                        <label class="quiz-option-label"><input type="radio" name="q1_loops" value="b"> <code>for</code> loop</label>
-                    </div>
+          </section>
+          
+          <section class="interactive-section mb-8">
+            <h2>5. Quick Quiz</h2>
+            <p class="mb-4">Test your knowledge about loops!</p>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q1: Which loop is typically used when you know how many times you want to repeat a block of code?</p>
+              <label class="quiz-option-label"><input type="radio" name="q1_loops" value="a"> <code>while</code> loop</label>
+              <label class="quiz-option-label"><input type="radio" name="q1_loops" value="b"> <code>for</code> loop</label>
+            </div>
 
-                    <div class="quiz-options mb-3">
-                        <p class="font-medium mb-1">Q2: What does <code>range(3)</code> generate?</p>
-                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="a"> 1, 2, 3</label>
-                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="b"> 0, 1, 2</label>
-                        <label class="quiz-option-label"><input type="radio" name="q2_loops" value="c"> 0, 1, 2, 3</label>
-                    </div>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q2: What does <code>range(3)</code> generate?</p>
+              <label class="quiz-option-label"><input type="radio" name="q2_loops" value="a"> 1, 2, 3</label>
+              <label class="quiz-option-label"><input type="radio" name="q2_loops" value="b"> 0, 1, 2</label>
+              <label class="quiz-option-label"><input type="radio" name="q2_loops" value="c"> 0, 1, 2, 3</label>
+            </div>
 
-                    <div class="quiz-options mb-3">
-                        <p class="font-medium mb-1">Q3: What is the primary risk with a <code>while</code> loop if not managed correctly?</p>
-                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="a"> It runs too slowly.</label>
-                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="b"> It might not run at all.</label>
-                        <label class="quiz-option-label"><input type="radio" name="q3_loops" value="c"> It can become an infinite loop.</label>
-                    </div>
-                    <div class="quiz-options mb-3">
-                        <p class="font-medium mb-1">Q4: What does the <code>continue</code> statement do in a loop?</p>
-                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="a"> Exits the loop entirely.</label>
-                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="b"> Skips the current iteration and goes to the next.</label>
-                        <label class="quiz-option-label"><input type="radio" name="q4_loops" value="c"> Pauses the loop.</label>
-                    </div>
-                    <button id="checkQuizButtonLoops" class="btn">Check Answers</button>
-                    <div id="quizResultLoops" class="message-box mt-3" style="display: none;"></div>
-                </section>
-            </main>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q3: What is the primary risk with a <code>while</code> loop if not managed correctly?</p>
+              <label class="quiz-option-label"><input type="radio" name="q3_loops" value="a"> It runs too slowly.</label>
+              <label class="quiz-option-label"><input type="radio" name="q3_loops" value="b"> It might not run at all.</label>
+              <label class="quiz-option-label"><input type="radio" name="q3_loops" value="c"> It can become an infinite loop.</label>
+            </div>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q4: What does the <code>continue</code> statement do in a loop?</p>
+              <label class="quiz-option-label"><input type="radio" name="q4_loops" value="a"> Exits the loop entirely.</label>
+              <label class="quiz-option-label"><input type="radio" name="q4_loops" value="b"> Skips the current iteration and goes to the next.</label>
+              <label class="quiz-option-label"><input type="radio" name="q4_loops" value="c"> Pauses the loop.</label>
+            </div>
+            <button id="checkQuizButtonLoops" class="btn">Check Answers</button>
+            <div id="quizResultLoops" class="message-box mt-3" style="display: none;"></div>
+          </section>
+        </main>
 
-            <footer class="text-center mt-12 py-4">
-                <p class="text-sm mb-2">Ready to iterate over data collections?</p>
-                <a href="lists-iteration.html" class="btn btn-8bit">
-                    Next Tutorial: Lists & Iteration &rarr;
-                </a>
-            </footer>
-        </div>
+        <footer class="text-center mt-12 py-4">
+          <p class="text-sm mb-2">Ready to iterate over data collections?</p>
+          <a href="lists-iteration.html" class="btn btn-8bit">
+            Next Tutorial: Lists & Iteration &rarr;
+          </a>
+        </footer>
+      </div>
     </div>
 
     <script>
-        // For Loop Simulator
-        const forLoopRangeInput = document.getElementById('forLoopRangeInput');
-        const runForLoopButton = document.getElementById('runForLoopButton');
-        const forLoopOutput = document.getElementById('forLoopOutput');
+      // For Loop Simulator
+      const forLoopRangeInput = document.getElementById('forLoopRangeInput');
+      const runForLoopButton = document.getElementById('runForLoopButton');
+      const forLoopOutput = document.getElementById('forLoopOutput');
 
-        if (runForLoopButton) {
-            runForLoopButton.addEventListener('click', () => {
-                const countTo = parseInt(forLoopRangeInput.value);
-                let outputHTML = '';
-                if (isNaN(countTo) || countTo < 0) {
-                    forLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid non-negative number.</span>';
-                    return;
-                }
-                for (let i = 0; i < countTo; i++) {
-                    outputHTML += `Iteration: ${i}<br>`;
-                }
-                if (outputHTML === '') outputHTML = '<span class="placeholder-text">Loop did not run (e.g., count to 0).</span>';
-                forLoopOutput.innerHTML = outputHTML;
-            });
-        }
+      if (runForLoopButton) {
+        runForLoopButton.addEventListener('click', () => {
+          const countTo = parseInt(forLoopRangeInput.value);
+          let outputHTML = '';
+          if (isNaN(countTo) || countTo < 0) {
+            forLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid non-negative number.</span>';
+            return;
+          }
+          for (let i = 0; i < countTo; i++) {
+            outputHTML += `Iteration: ${i}<br>`;
+          }
+          if (outputHTML === '') outputHTML = '<span class="placeholder-text">Loop did not run (e.g., count to 0).</span>';
+          forLoopOutput.innerHTML = outputHTML;
+        });
+      }
 
-        // While Loop Simulator
-        const whileLoopStartInput = document.getElementById('whileLoopStartInput');
-        const runWhileLoopButton = document.getElementById('runWhileLoopButton');
-        const whileLoopOutput = document.getElementById('whileLoopOutput');
+      // While Loop Simulator
+      const whileLoopStartInput = document.getElementById('whileLoopStartInput');
+      const runWhileLoopButton = document.getElementById('runWhileLoopButton');
+      const whileLoopOutput = document.getElementById('whileLoopOutput');
 
-        if (runWhileLoopButton) {
-            runWhileLoopButton.addEventListener('click', () => {
-                let countFrom = parseInt(whileLoopStartInput.value);
-                let outputHTML = '';
-                if (isNaN(countFrom) || countFrom < 1) {
-                    whileLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid number greater than 0.</span>';
-                    return;
-                }
-                while (countFrom > 0) {
-                    outputHTML += `Countdown: ${countFrom}<br>`;
-                    countFrom--;
-                }
-                outputHTML += 'Blast off! (Loop finished)<br>';
-                whileLoopOutput.innerHTML = outputHTML;
-            });
-        }
+      if (runWhileLoopButton) {
+        runWhileLoopButton.addEventListener('click', () => {
+          let countFrom = parseInt(whileLoopStartInput.value);
+          let outputHTML = '';
+          if (isNaN(countFrom) || countFrom < 1) {
+            whileLoopOutput.innerHTML = '<span class="placeholder-text">Please enter a valid number greater than 0.</span>';
+            return;
+          }
+          while (countFrom > 0) {
+            outputHTML += `Countdown: ${countFrom}<br>`;
+            countFrom--;
+          }
+          outputHTML += 'Blast off! (Loop finished)<br>';
+          whileLoopOutput.innerHTML = outputHTML;
+        });
+      }
 
-        // Quiz Logic
-        const checkQuizButtonLoops = document.getElementById('checkQuizButtonLoops');
-        const quizResultLoops = document.getElementById('quizResultLoops');
+      // Quiz Logic
+      const checkQuizButtonLoops = document.getElementById('checkQuizButtonLoops');
+      const quizResultLoops = document.getElementById('quizResultLoops');
 
-        if (checkQuizButtonLoops) {
-            checkQuizButtonLoops.addEventListener('click', () => {
-                const answers = { q1_loops: 'b', q2_loops: 'b', q3_loops: 'c', q4_loops: 'b' };
-                let score = 0;
-                let allAnswered = true;
-                let resultHTML = '<h4>Quiz Results:</h4><ul>';
+      if (checkQuizButtonLoops) {
+        checkQuizButtonLoops.addEventListener('click', () => {
+          const answers = { q1_loops: 'b', q2_loops: 'b', q3_loops: 'c', q4_loops: 'b' };
+          let score = 0;
+          let allAnswered = true;
+          let resultHTML = '<h4>Quiz Results:</h4><ul>';
 
-                for (const question in answers) {
-                    const selected = document.querySelector(`input[name="${question}"]:checked`);
-                    if (selected) {
-                        if (selected.value === answers[question]) {
-                            score++;
-                            resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
-                        } else {
-                            resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
-                        }
-                    } else {
-                        allAnswered = false;
-                        break;
-                    }
-                }
+          for (const question in answers) {
+            const selected = document.querySelector(`input[name="${question}"]:checked`);
+            if (selected) {
+              if (selected.value === answers[question]) {
+                score++;
+                resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
+              } else {
+                resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
+              }
+            } else {
+              allAnswered = false;
+              break;
+            }
+          }
 
-                if (!allAnswered) {
-                    quizResultLoops.innerHTML = 'Please answer all questions.';
-                    quizResultLoops.className = 'message-box message-box-info';
-                } else {
-                    resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
-                    quizResultLoops.innerHTML = resultHTML;
-                    if (score === Object.keys(answers).length) {
-                        quizResultLoops.className = 'message-box message-box-success';
-                    } else {
-                        quizResultLoops.className = 'message-box message-box-info';
-                    }
-                }
-                quizResultLoops.style.display = 'block';
-            });
-        }
+          if (!allAnswered) {
+            quizResultLoops.innerHTML = 'Please answer all questions.';
+            quizResultLoops.className = 'message-box message-box-info';
+          } else {
+            resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
+            quizResultLoops.innerHTML = resultHTML;
+            if (score === Object.keys(answers).length) {
+              quizResultLoops.className = 'message-box message-box-success';
+            } else {
+              quizResultLoops.className = 'message-box message-box-info';
+            }
+          }
+          quizResultLoops.style.display = 'block';
+        });
+      }
     </script>
   </body>
 </html>
