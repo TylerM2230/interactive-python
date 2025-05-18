@@ -6,162 +6,54 @@
     <title>Learn Nested Conditionals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative; /* Needed for absolute positioning of line numbers if added */
-      }
-      code {
-        font-family: monospace;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover {
-        background-color: #16a34a; /* green-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-      }
-      /* Styling for conditional code highlight */
-      .code-line {
-        display: block; /* Ensure each span takes full width */
-        padding: 0.1rem 0.5rem;
-        border-radius: 0.25rem;
-        transition: background-color 0.5s ease;
-        min-height: 1.2em; /* Ensure empty lines have height */
-      }
-      .code-line.highlight {
-        background-color: #fef9c3; /* yellow-100 */
-        font-weight: bold;
-      }
-      /* Indentation simulation for code display */
-      .indent-1 {
-        padding-left: 2rem;
-      }
-      .indent-2 {
-        padding-left: 4rem;
-      }
-      .indent-3 {
-        padding-left: 6rem;
-      } /* If needed */
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding Nested Conditionals
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Using if/elif/else statements within other conditional blocks to handle complex decision-making.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
         href="booleans-conditionals.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: Booleans & Conditionals
+        &larr; Previous: Booleans & Conditionals
       </a>
       <a
         href="loops.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Loops &rarr;
+        Next: Loops (For & While) &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What are Nested Conditionals?
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Nested conditionals occur when you place an <code>if</code>,
           <code>elif</code>, or <code>else</code> statement inside another
           <code>if</code>, <code>elif</code>, or <code>else</code> block. This
           allows you to check for more complex conditions where one decision
           depends on the outcome of a previous decision.
         </p>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-400">
           Imagine you need to check multiple criteria. For example, to qualify
           for a specific discount, a customer might need to be a member AND be
           over a certain age.
@@ -184,7 +76,7 @@ else:  # Outer else: If not a member
 # Output for the values above:
 # Customer is a member.
 # Eligible for Senior Member Discount!</code></pre>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-sm text-gray-400">
           Notice the indentation! The inner <code>if/else</code> block is
           indented further, showing it's contained within the outer
           <code>if</code> block.
@@ -192,10 +84,10 @@ else:  # Outer else: If not a member
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Why Use Nested Conditionals?
         </h2>
-        <ul class="list-disc list-inside mb-4 space-y-2">
+        <ul class="list-disc list-inside mb-4 space-y-2 text-gray-300">
           <li>
             <strong>Handling Complex Logic:</strong> They allow you to model
             situations where criteria depend on each other. The logic flows
@@ -214,7 +106,7 @@ else:  # Outer else: If not a member
             sequence of checks.
           </li>
         </ul>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-400">
           <strong>Caution:</strong> While useful, deeply nested conditionals
           (more than 2-3 levels) can become hard to read and debug. Sometimes,
           breaking the logic into separate functions or using other techniques
@@ -223,29 +115,29 @@ else:  # Outer else: If not a member
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. See Nested Conditionals in Action
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Let's simulate checking access permissions. Access might depend on
           being logged in and having a specific role (e.g., 'admin' or
           'editor'). Select the status and role below.
         </p>
         <div class="mb-4 flex flex-wrap items-center space-x-4">
           <div>
-            <label for="loginStatus" class="block font-medium mb-1"
+            <label for="loginStatus" class="block font-medium mb-1 text-gray-200"
               >Login Status:</label
             >
-            <select id="loginStatus" class="select-field">
+            <select id="loginStatus" class="select-field bg-blue-900 text-gray-200 border-yellow-500">
               <option value="True">Logged In</option>
               <option value="False">Not Logged In</option>
             </select>
           </div>
           <div>
-            <label for="userRole" class="block font-medium mb-1"
+            <label for="userRole" class="block font-medium mb-1 text-gray-200"
               >User Role:</label
             >
-            <select id="userRole" class="select-field">
+            <select id="userRole" class="select-field bg-blue-900 text-gray-200 border-yellow-500">
               <option value="admin">Admin</option>
               <option value="editor">Editor</option>
               <option value="viewer">Viewer</option>
@@ -259,8 +151,8 @@ else:  # Outer else: If not a member
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
-            <h3 class="text-lg font-medium mb-2">Conditional Code:</h3>
-            <pre id="nestedCodeDisplay"><code class="language-python">
+            <h3 class="text-lg font-medium mb-2 text-cyan-400">Conditional Code:</h3>
+            <pre id="nestedCodeDisplay" class="bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">
 <span class="code-line" data-line="1">logged_in = ? # Your selection</span>
 <span class="code-line" data-line="2">role = ?      # Your selection</span>
 <span class="code-line" data-line="3"></span>
@@ -282,9 +174,9 @@ else:  # Outer else: If not a member
                     </code></pre>
           </div>
           <div>
-            <h3 class="text-lg font-medium mb-2">Execution Result & Output:</h3>
-            <div id="nestedResultDisplay" class="output-display">
-              <span class="text-gray-500 italic"
+            <h3 class="text-lg font-medium mb-2 text-cyan-400">Execution Result & Output:</h3>
+            <div id="nestedResultDisplay" class="output-display bg-blue-900 border-yellow-500 text-gray-200">
+              <span class="text-gray-400 italic"
                 >Select status/role and click 'Check Access'.</span
               >
             </div>
@@ -294,27 +186,27 @@ else:  # Outer else: If not a member
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">4. Quick Quiz</h2>
+        <p class="mb-4 text-gray-300">Test your understanding!</p>
         <div class="mb-3">
-          <p class="font-medium mb-1">Q1: What defines a nested conditional?</p>
-          <label class="block"
+          <p class="font-medium mb-1 text-gray-200">Q1: What defines a nested conditional?</p>
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_nested" value="a" class="mr-1" />
             Using <code>and</code>/<code>or</code> operators</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_nested" value="b" class="mr-1" /> An
             <code>if</code>/<code>elif</code>/<code>else</code> inside another
             <code>if</code>/<code>elif</code>/<code>else</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_nested" value="c" class="mr-1" />
             Having multiple <code>elif</code> statements</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">Q2: Consider the code:</p>
-          <pre class="text-xs"><code class="language-python">x = 10
+          <p class="font-medium mb-1 text-gray-200">Q2: Consider the code:</p>
+          <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">x = 10
 if x > 5:
   if x < 15:
     print("A")
@@ -322,34 +214,34 @@ if x > 5:
     print("B")
 else:
   print("C")</code></pre>
-          <p class="font-medium mt-1">What will be printed?</p>
-          <label class="block"
+          <p class="font-medium mt-1 text-gray-200">What will be printed?</p>
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_nested" value="a" class="mr-1" />
             A</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_nested" value="b" class="mr-1" />
             B</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_nested" value="c" class="mr-1" />
             C</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q3: What is a potential downside of using too many levels of
             nesting?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_nested" value="a" class="mr-1" /> It
             makes the code run faster</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_nested" value="b" class="mr-1" /> It
             can make the code harder to read and debug</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_nested" value="c" class="mr-1" /> It
             uses more memory</label
           >
@@ -363,8 +255,15 @@ else:
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
     <script>

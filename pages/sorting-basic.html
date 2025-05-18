@@ -3,194 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Sorting Algorithms</title>
+    <title>Learn Basic Sorting Algorithms</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-orange {
-        background-color: #f97316; /* orange-500 */
-      }
-      .btn-orange:hover:not(:disabled) {
-        background-color: #ea580c; /* orange-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 80px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 300px;
-        overflow-y: auto;
-      }
-      /* Sorting Visualization Styles */
-      .sort-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-        min-height: 150px; /* Ensure space for bars */
-        display: flex;
-        align-items: flex-end; /* Align bars at the bottom */
-        justify-content: center;
-        gap: 2px; /* Space between bars */
-        border: 1px solid #e5e7eb; /* gray-200 */
-      }
-      .sort-bar {
-        background-color: #60a5fa; /* blue-400 */
-        width: 15px; /* Adjust width as needed */
-        border-radius: 3px 3px 0 0; /* Rounded top */
-        transition: height 0.3s ease, background-color 0.3s ease;
-        position: relative; /* For pseudo-elements if needed */
-        text-align: center;
-        color: white;
-        font-size: 0.7rem;
-        padding-top: 2px;
-      }
-      /* Bar States */
-      .sort-bar.comparing {
-        background-color: #fcd34d;
-      } /* amber-300 */
-      .sort-bar.swapping {
-        background-color: #f87171;
-      } /* red-400 */
-      .sort-bar.sorted {
-        background-color: #34d399;
-      } /* emerald-400 */
-      .sort-bar.min-val {
-        background-color: #a78bfa;
-      } /* violet-400 */
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Understanding Sorting Algorithms
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Understanding Basic Sorting Algorithms
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Learning fundamental algorithms like Bubble Sort and Selection Sort to arrange items in order.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="graphs.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Previous Tutorial: Graphs
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
+      <a href="graphs.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: Graphs
       </a>
-      <a
-        href="sorting-merge-joke.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Sorting & Joke Algorithms&rarr;
+      <a href="sorting-merge-joke.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: Merge Sort & Joke Sorts &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What is Sorting?
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Sorting is the process of arranging items in a collection (like a list
           or array) into a specific order, typically numerical or alphabetical
           order (ascending or descending). It's one of the most fundamental
@@ -224,10 +75,10 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Bubble Sort
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           Bubble Sort is one of the simplest sorting algorithms. It repeatedly
           steps through the list, compares adjacent elements, and swaps them if
           they are in the wrong order. Passes through the list are repeated
@@ -254,7 +105,7 @@
           </li>
           <li>Stop when a full pass through the list requires no swaps.</li>
         </ol>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-sm text-gray-300">
           Bubble Sort is easy to understand but generally inefficient for large
           lists (O(n²) time complexity in the average and worst cases).
         </p>
@@ -293,10 +144,10 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. Selection Sort
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           Selection Sort works by repeatedly finding the minimum element from
           the unsorted part of the list and putting it at the beginning (or the
           next available position in the sorted part).
@@ -322,7 +173,7 @@
           </li>
           <li>Repeat steps 1-5 until the entire list is sorted.</li>
         </ol>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-sm text-gray-300">
           Selection Sort is also relatively simple but generally inefficient for
           large lists (O(n²) time complexity), though it performs fewer swaps
           than Bubble Sort.
@@ -364,7 +215,7 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           4. Python's Built-in Sorting
         </h2>
         <p class="mb-2">
@@ -409,72 +260,72 @@ print(f"\nSorted descending: {sorted_desc}") # Output: [5, 4, 3, 1]</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
+        <p class="mb-4 text-gray-300">Test your understanding!</p>
         <div class="mb-3">
-          <p class="font-medium mb-1">Q1: What is the main goal of sorting?</p>
-          <label class="block"
+          <p class="font-medium mb-1 text-gray-200">Q1: What is the main goal of sorting?</p>
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_sort" value="a" class="mr-1" /> To
             make a list take up less memory</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_sort" value="b" class="mr-1" /> To
             arrange items in a specific order</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_sort" value="c" class="mr-1" /> To
             find the largest element quickly</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q2: How does Bubble Sort primarily work?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_sort" value="a" class="mr-1" /> By
             finding the minimum element and placing it first</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_sort" value="b" class="mr-1" /> By
             repeatedly comparing and swapping adjacent elements</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_sort" value="c" class="mr-1" /> By
             dividing the list into smaller sub-lists</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q3: Which Python method sorts a list in-place (modifies the
             original)?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_sort" value="a" class="mr-1" />
             <code>sorted(my_list)</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_sort" value="b" class="mr-1" />
             <code>my_list.sort()</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_sort" value="c" class="mr-1" />
             <code>my_list.sorted()</code></label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q4: Why are Python's built-in sorting methods generally preferred
             over simple algorithms like Bubble Sort for large datasets?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_sort" value="a" class="mr-1" /> They
             are easier to write</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_sort" value="b" class="mr-1" /> They
             use less memory</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_sort" value="c" class="mr-1" /> They
             are significantly faster (better time complexity)</label
           >
@@ -486,23 +337,21 @@ print(f"\nSorted descending: {sorted_desc}") # Output: [5, 4, 3, 1]</code></pre>
           style="display: none"
         ></div>
       </section>
+
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
-
       // --- DOM Elements & Shared State ---
       const bubbleSortContainer = document.getElementById(
         "bubbleSortContainer"
@@ -891,5 +740,6 @@ print(f"\nSorted descending: {sorted_desc}") # Output: [5, 4, 3, 1]</code></pre>
         renderBars(selectionSortContainer, selectionArray);
       };
     </script>
+    <script src="../js/main.js" defer></script>
   </body>
 </html>

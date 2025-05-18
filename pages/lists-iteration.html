@@ -6,183 +6,45 @@
     <title>Learn Lists & Iteration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      /* Style for code blocks */
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-      }
-      code {
-        font-family: monospace;
-        /* Subtle background for inline code */
-        background-color: rgba(229, 231, 235, 0.5); /* gray-200 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Reset for code inside pre */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      /* Style for list visualization */
-      .list-item-vis {
-        border: 2px solid #60a5fa; /* blue-400 */
-        background-color: #dbeafe; /* blue-100 */
-        color: #1e40af; /* blue-800 */
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        margin: 0.25rem; /* m-1 */
-        border-radius: 0.375rem; /* rounded-md */
-        display: inline-block;
-        min-width: 40px;
-        text-align: center;
-        transition: background-color 0.3s ease, border-color 0.3s ease,
-          transform 0.2s ease;
-        position: relative; /* For index labels */
-      }
-      .list-item-vis.highlight {
-        background-color: #fcd34d; /* amber-300 */
-        border-color: #f59e0b; /* amber-500 */
-        transform: scale(1.1);
-        z-index: 10;
-      }
-      /* Style for index labels */
-      .index-label {
-        position: absolute;
-        bottom: -1.4em; /* Position below the item */
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 0.7rem; /* Smaller font */
-        color: #6b7280; /* gray-500 */
-      }
-      /* Style for interactive sections */
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      /* Button styling */
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin */
-      }
-      .btn:hover {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn-secondary {
-        background-color: #ef4444; /* red-500 */
-      }
-      .btn-secondary:hover {
-        background-color: #dc2626; /* red-600 */
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover {
-        background-color: #16a34a; /* green-600 */
-      }
-      /* Input field styling */
-      .input-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin */
-      }
-      .input-field-small {
-        width: 80px;
-      }
-      /* Message box styling */
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 40px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding Lists and Iteration
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        How to store ordered collections of items and process them one by one.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
-        href="variables-types.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        href="loops.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: Variables & Types
+        &larr; Previous: Loops (For & While)
       </a>
       <a
-        href="booleans-conditionals.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        href="nested-loops.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Booleans & Conditionals &rarr;
+        Next: Nested Loops &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. What is a List?
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          1. Python Lists: Ordered and Mutable
         </h2>
         <p class="mb-4">
           A list is a fundamental data structure used to store an ordered
@@ -210,7 +72,7 @@ mixed_list = [10, "hello", 3.14, True]</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Accessing Elements: Indexing
         </h2>
         <p class="mb-2">
@@ -271,7 +133,7 @@ print(f"Index -1: {last_item}")</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. Playing with Lists (Operations)
         </h2>
         <p class="mb-4">
@@ -313,7 +175,7 @@ print(f"Index -1: {last_item}")</code></pre>
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           4. What is Iteration?
         </h2>
         <p class="mb-4">
@@ -345,7 +207,7 @@ for fruit in fruits:
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           5. See Iteration in Action
         </h2>
         <p class="mb-4">
@@ -382,7 +244,7 @@ for fruit in fruits:
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">6. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">6. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -440,10 +302,18 @@ for fruit in fruits:
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
       // --- State ---
       let userList = ["apple", "banana"]; // Initial list for the operations section
@@ -484,23 +354,6 @@ for fruit in fruits:
       const quizResult = document.getElementById("quizResult");
 
       // --- Utility Functions ---
-      function showMessage(element, message, type = "success") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`; // Reset classes and add new ones
-        element.style.display = "block";
-        // Hide message after 3 seconds
-        const autoHide = type === "success" || type === "error";
-        if (autoHide) {
-          setTimeout(() => {
-            if (element.textContent === message) {
-              // Only hide if message hasn't changed
-              element.style.display = "none";
-            }
-          }, 3000);
-        }
-      }
-
-      // --- List Visualization (Generic) ---
       function renderListVisual(list, containerElement, showIndices = false) {
         containerElement.innerHTML = ""; // Clear previous items
         if (list.length === 0) {
@@ -798,11 +651,9 @@ for fruit in fruits:
       checkQuizButton.addEventListener("click", checkQuiz);
 
       // --- Initial Setup ---
-      window.onload = () => {
-        renderListVisual(userList, listVisualizer, false); // Render initial user list (no indices)
-        renderListVisual(indexingExampleList, indexingListVisualizer, true); // Render indexing list (with indices)
-        prepareIteration(); // Prepare the iteration section with the initial list
-      };
+      renderListVisual(userList, listVisualizer);
+      renderListVisual(indexingExampleList, indexingListVisualizer, true);
+      prepareIteration(); // Set up the iteration visualizer with a default or user list
     </script>
   </body>
 </html>

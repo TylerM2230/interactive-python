@@ -3,177 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn File Handling</title>
+    <title>Learn File Handling in Python</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-orange {
-        background-color: #f97316; /* orange-500 */
-      }
-      .btn-orange:hover:not(:disabled) {
-        background-color: #ea580c; /* orange-600 */
-      }
-      .input-field,
-      .select-field,
-      .textarea-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-        font-family: inherit; /* Use body font */
-      }
-      .textarea-field {
-        width: 100%;
-        min-height: 100px;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 200px;
-        overflow-y: auto;
-      }
-      .file-sim {
-        border: 2px dashed #9ca3af; /* gray-400 */
-        padding: 1rem;
-        background-color: #f9fafb; /* gray-50 */
-        border-radius: 0.375rem;
-        margin-top: 0.5rem;
-        min-height: 120px;
-      }
-      .file-sim-label {
-        font-weight: 500;
-        color: #4b5563; /* gray-600 */
-        font-size: 0.875rem; /* text-sm */
-        margin-bottom: 0.25rem;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Understanding File Handling
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Understanding File Handling in Python
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Reading from and writing to files to persistently store and retrieve data.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
         href="error-handling.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: Error Handling
+        &larr; Previous: Error Handling
       </a>
       <a
         href="random-module.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Random Module &rarr;
+        Next: Random Module &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. Why Handle Files?
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          1. Why File Handling?
         </h2>
         <p class="mb-4">
           Programs often need to read data from files (like configuration files,
@@ -193,98 +64,8 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Opening Files: The `open()` Function
-        </h2>
-        <p class="mb-2">
-          The first step is to open a file using the built-in
-          <code>open()</code> function. It requires the file path and an
-          optional mode.
-        </p>
-        <p class="mb-2">
-          <code>file_object = open("filename.txt", "mode")</code>
-        </p>
-        <p class="mb-2">Common modes include:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <code>'r'</code>: Read (Default mode). Opens the file for reading.
-            Raises an error if the file doesn't exist.
-          </li>
-          <li>
-            <code>'w'</code>: Write. Opens the file for writing. **Creates the
-            file if it doesn't exist, or truncates (empties) the file if it does
-            exist.**
-          </li>
-          <li>
-            <code>'a'</code>: Append. Opens the file for appending. Creates the
-            file if it doesn't exist. New data is added to the end of the file.
-          </li>
-          <li>
-            <code>'r+'</code>: Read and Write. Opens for both reading and
-            writing.
-          </li>
-          <li>
-            <code>'b'</code>: Binary mode (e.g., <code>'rb'</code>,
-            <code>'wb'</code>). Used for non-text files like images or
-            executables.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Open for reading (assuming 'data.txt' exists)
-# f_read = open('data.txt', 'r')
-
-# Open for writing (will create or overwrite 'output.txt')
-# f_write = open('output.txt', 'w')
-
-# Open for appending (will create or add to 'log.txt')
-# f_append = open('log.txt', 'a')</code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
-          Closing Files: `close()`
-        </h3>
-        <p class="mb-2">
-          After you're finished with a file, it's crucial to close it using the
-          <code>.close()</code> method. This frees up system resources and
-          ensures that any buffered data (especially when writing) is flushed to
-          the disk.
-        </p>
-        <pre><code class="language-python"># f = open('myfile.txt', 'w')
-# # ... do operations ...
-# f.close() # Don't forget this!</code></pre>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. The Preferred Way: `with open(...)`
-        </h2>
-        <p class="mb-2">
-          Manually calling <code>.close()</code> can be error-prone (e.g., if an
-          exception occurs before <code>.close()</code> is reached). The
-          recommended way to work with files in Python is using the
-          <code>with</code> statement.
-        </p>
-        <p class="mb-2">
-          The <code>with</code> statement automatically takes care of closing
-          the file, even if errors occur within the block.
-        </p>
-        <pre><code class="language-python"># Recommended way to open and work with files
-with open('example.txt', 'r') as f:
-  # File is open within this indented block
-  content = f.read()
-  print("Reading content inside 'with' block...")
-  # print(content) # Process the content
-
-# File is automatically closed here, outside the 'with' block
-print("File is now automatically closed.")</code></pre>
-        <p class="mt-2">
-          <strong
-            >Always prefer using the <code>with</code> statement for file
-            operations.</strong
-          >
-        </p>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          4. Reading from Files
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          2. Reading from Files
         </h2>
         <p class="mb-2">
           Once a file is opened in read mode (<code>'r'</code> or
@@ -326,8 +107,8 @@ with open('myfile.txt', 'r') as f:
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          5. Writing to Files
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          3. Writing to Files
         </h2>
         <p class="mb-2">
           To write data, open the file in write (<code>'w'</code>) or append
@@ -355,9 +136,53 @@ with open('output.txt', 'a') as f:
   f.write("\nThis line is appended.") # Add newline before appending</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          6. Try File Handling (Simulation)
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          4. Appending to Files
+        </h2>
+        <p class="mb-2">
+          Appending data to a file is useful for adding new information without
+          overwriting existing content.
+        </p>
+        <pre><code class="language-python"># Using 'a' mode (appends to existing file or creates new)
+with open('output.txt', 'a') as f:
+  f.write("\nThis line is appended.") # Add newline before appending</code></pre>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          5. The <code>with</code> Statement (Best Practice)
+        </h2>
+        <p class="mb-2">
+          Manually calling <code>.close()</code> can be error-prone (e.g., if an
+          exception occurs before <code>.close()</code> is reached). The
+          recommended way to work with files in Python is using the
+          <code>with</code> statement.
+        </p>
+        <p class="mb-2">
+          The <code>with</code> statement automatically takes care of closing
+          the file, even if errors occur within the block.
+        </p>
+        <pre><code class="language-python"># Recommended way to open and work with files
+with open('example.txt', 'r') as f:
+  # File is open within this indented block
+  content = f.read()
+  print("Reading content inside 'with' block...")
+  # print(content) # Process the content
+
+# File is automatically closed here, outside the 'with' block
+print("File is now automatically closed.")</code></pre>
+        <p class="mt-2">
+          <strong
+            >Always prefer using the <code>with</code> statement for file
+            operations.</strong
+          >
+        </p>
+      </section>
+
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive File Operations
         </h2>
         <p class="mb-4">
           Simulate reading from and writing to a file using the text areas
@@ -451,7 +276,7 @@ Line 3: End of file.</textarea
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">7. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">7. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -533,20 +358,20 @@ Line 3: End of file.</textarea
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const readFileContent = document.getElementById("readFileContent");

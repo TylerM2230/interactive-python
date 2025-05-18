@@ -3,182 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Random Number Generation</title>
+    <title>Learn Python's Random Module</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .input-field-small {
-        width: 80px; /* Slightly wider for ranges */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 40px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-      }
-      /* Styling for sequence visualization */
-      .sequence-item {
-        display: inline-block;
-        border: 1px solid #d1d5db; /* gray-300 */
-        background-color: #fff;
-        padding: 0.3rem 0.6rem;
-        margin: 2px;
-        border-radius: 3px;
-        font-family: monospace;
-        min-width: 30px;
-        text-align: center;
-        transition: background-color 0.3s ease, border-color 0.3s ease,
-          transform 0.2s ease;
-      }
-      .sequence-item.highlight {
-        background-color: #fcd34d; /* amber-300 */
-        border-color: #f59e0b; /* amber-500 */
-        font-weight: bold;
-        transform: scale(1.1);
-        z-index: 10;
-      }
-      .sequence-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 0.5rem;
-        border-radius: 0.375rem;
-        margin-top: 0.5rem;
-        overflow-x: auto; /* Allow horizontal scroll */
-        white-space: nowrap; /* Prevent wrapping */
-        min-height: 40px; /* Ensure container has height */
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Understanding Random Number Generation
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Understanding Python's Random Module
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide using Python's `random` Module
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Generating pseudo-random numbers and making random choices for simulations, games, and sampling.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
         href="file-handling.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: File Handling
+        &larr; Previous: File Handling
       </a>
       <a
-        href="2d-lists.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        href="recursion.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: 2-D Lists &rarr;
+        Next: Recursion &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. Why Use Random Numbers?
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Random numbers are essential in many programming tasks, including
           simulations, games (e.g., shuffling cards, dice rolls), statistical
           sampling, cryptography, and generating unique identifiers. Python
@@ -194,26 +62,26 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Importing the `random` Module
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          2. Importing the <code>random</code> Module
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           To use the functions for generating random numbers, you first need to
           import the <code>random</code> module.
         </p>
         <pre><code class="language-python">import random</code></pre>
-        <p class="mt-2">
+        <p class="mt-2 text-gray-300">
           Once imported, you can access the functions using dot notation, like
           <code>random.random()</code>.
         </p>
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. Common Functions in the `random` Module
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          3. Common Functions in the <code>random</code> Module
         </h2>
-        <p class="mb-2">Here are some of the most frequently used functions:</p>
-        <ul class="list-disc list-inside ml-4 space-y-2">
+        <p class="mb-2 text-gray-300">Here are some of the most frequently used functions:</p>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
           <li>
             <strong><code>random.random()</code></strong
             >: Returns a random floating-point number in the range [0.0, 1.0)
@@ -262,30 +130,30 @@ print(random.random()) # Will always produce the same second number...</code></p
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           4. Try Generating Random Values
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Click the buttons below to simulate calls to different `random`
           functions.
         </p>
 
-        <div class="mb-4 p-4 border border-gray-200 rounded-md">
-          <p class="font-medium">
+        <div class="mb-4 p-4 border border-blue-500 rounded-md bg-blue-900">
+          <p class="font-medium text-cyan-400">
             Generate Float (0.0 to < 1.0): <code>random.random()</code>
           </p>
           <button id="genRandomFloatButton" class="btn btn-green">
             Generate
           </button>
-          <div id="randomFloatOutput" class="output-display"></div>
+          <div id="randomFloatOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200"></div>
         </div>
 
-        <div class="mb-4 p-4 border border-gray-200 rounded-md">
-          <p class="font-medium">
+        <div class="mb-4 p-4 border border-blue-500 rounded-md bg-blue-900">
+          <p class="font-medium text-cyan-400">
             Generate Float in Range: <code>random.uniform(a, b)</code>
           </p>
           <div class="flex flex-wrap items-center">
-            <label for="uniformMinInput" class="mr-2">Min (a):</label>
+            <label for="uniformMinInput" class="mr-2 text-gray-300">Min (a):</label>
             <input
               type="number"
               id="uniformMinInput"
@@ -293,7 +161,7 @@ print(random.random()) # Will always produce the same second number...</code></p
               class="input-field input-field-small"
               value="1.0"
             />
-            <label for="uniformMaxInput" class="ml-4 mr-2">Max (b):</label>
+            <label for="uniformMaxInput" class="ml-4 mr-2 text-gray-300">Max (b):</label>
             <input
               type="number"
               id="uniformMaxInput"
@@ -305,22 +173,22 @@ print(random.random()) # Will always produce the same second number...</code></p
               Generate
             </button>
           </div>
-          <div id="uniformOutput" class="output-display"></div>
+          <div id="uniformOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200"></div>
         </div>
 
-        <div class="mb-4 p-4 border border-gray-200 rounded-md">
-          <p class="font-medium">
+        <div class="mb-4 p-4 border border-blue-500 rounded-md bg-blue-900">
+          <p class="font-medium text-cyan-400">
             Generate Integer in Range: <code>random.randint(a, b)</code>
           </p>
           <div class="flex flex-wrap items-center">
-            <label for="randintMinInput" class="mr-2">Min (a):</label>
+            <label for="randintMinInput" class="mr-2 text-gray-300">Min (a):</label>
             <input
               type="number"
               id="randintMinInput"
               class="input-field input-field-small"
               value="1"
             />
-            <label for="randintMaxInput" class="ml-4 mr-2">Max (b):</label>
+            <label for="randintMaxInput" class="ml-4 mr-2 text-gray-300">Max (b):</label>
             <input
               type="number"
               id="randintMaxInput"
@@ -331,28 +199,28 @@ print(random.random()) # Will always produce the same second number...</code></p
               Generate
             </button>
           </div>
-          <div id="randintOutput" class="output-display"></div>
+          <div id="randintOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200"></div>
         </div>
 
-        <div class="mb-4 p-4 border border-gray-200 rounded-md">
-          <p class="font-medium">
+        <div class="mb-4 p-4 border border-blue-500 rounded-md bg-blue-900">
+          <p class="font-medium text-cyan-400">
             Choose from Sequence: <code>random.choice(sequence)</code>
           </p>
-          <p class="text-sm text-gray-600 mb-2">
+          <p class="text-sm text-gray-400 mb-2">
             Sequence: <code>["apple", "banana", "cherry", "date"]</code>
           </p>
           <button id="genChoiceButton" class="btn btn-green">Choose</button>
-          <div id="choiceOutput" class="output-display"></div>
+          <div id="choiceOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200"></div>
         </div>
 
-        <div class="p-4 border border-gray-200 rounded-md">
-          <p class="font-medium">
+        <div class="p-4 border border-blue-500 rounded-md bg-blue-900">
+          <p class="font-medium text-cyan-400">
             Shuffle List: <code>random.shuffle(list)</code>
           </p>
-          <p class="text-sm text-gray-600">Original List:</p>
+          <p class="text-sm text-gray-400">Original List:</p>
           <div id="shuffleOriginalList" class="sequence-container mb-2"></div>
           <button id="shuffleButton" class="btn btn-green">Shuffle</button>
-          <p class="text-sm text-gray-600 mt-3">Shuffled List:</p>
+          <p class="text-sm text-gray-400 mt-3">Shuffled List:</p>
           <div id="shuffleOutputList" class="sequence-container"></div>
         </div>
 
@@ -360,73 +228,73 @@ print(random.random()) # Will always produce the same second number...</code></p
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
+        <p class="mb-4 text-gray-300">Test your understanding!</p>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q1: Which function generates a random floating-point number between
             0.0 (inclusive) and 1.0 (exclusive)?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_random" value="a" class="mr-1" />
             <code>random.randint(0, 1)</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_random" value="b" class="mr-1" />
             <code>random.random()</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q1_random" value="c" class="mr-1" />
             <code>random.uniform(0, 1)</code></label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q2: To get a random integer representing a standard 6-sided die
             roll, which function call is most appropriate?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_random" value="a" class="mr-1" />
             <code>random.random() * 6</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_random" value="b" class="mr-1" />
             <code>random.randint(1, 6)</code></label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q2_random" value="c" class="mr-1" />
             <code>random.choice([1, 2, 3, 4, 5, 6])</code></label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q3: What does `random.shuffle(my_list)` do?
           </p>
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_random" value="a" class="mr-1" />
             Returns a new list with elements shuffled</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_random" value="b" class="mr-1" />
             Modifies the original `my_list` in-place</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q3_random" value="c" class="mr-1" />
             Returns a random element from `my_list`</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">Q4: Why might you use `random.seed()`?</p>
-          <label class="block"
+          <p class="font-medium mb-1 text-gray-200">Q4: Why might you use `random.seed()`?</p>
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_random" value="a" class="mr-1" /> To
             make random numbers more random</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_random" value="b" class="mr-1" /> To
             get the same sequence of "random" numbers every time for
             testing</label
           >
-          <label class="block"
+          <label class="block text-gray-300"
             ><input type="radio" name="q4_random" value="c" class="mr-1" /> To
             choose a random seed for planting</label
           >
@@ -440,20 +308,15 @@ print(random.random()) # Will always produce the same second number...</code></p
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">
+        &copy; 2024 Interactive Guide to Python. Happy Coding!
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const genRandomFloatButton = document.getElementById(

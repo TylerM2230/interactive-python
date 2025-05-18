@@ -3,171 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Recursion</title>
+    <title>Learn Recursion in Python</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 100px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 400px; /* Allow more height for recursion trace */
-        overflow-y: auto;
-      }
-      /* Styling for recursion visualization */
-      .call-level {
-        padding-left: var(--level, 0); /* Indentation based on level */
-        margin-bottom: 2px;
-        border-left: 2px solid transparent;
-        padding-top: 1px;
-        padding-bottom: 1px;
-      }
-      .call-level.calling {
-        border-left-color: #fbbf24;
-        background-color: #fefce8;
-      } /* amber */
-      .call-level.returning {
-        border-left-color: #34d399;
-        background-color: #f0fdfa;
-      } /* emerald */
-      .call-level.base-case {
-        border-left-color: #a78bfa;
-        background-color: #f5f3ff;
-      } /* violet */
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Understanding Recursion
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Understanding Recursion in Python
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Solving problems by defining functions that call themselves with simpler inputs until a base case is reached.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="oop-advanced.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; OOP (Advanced)
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
+      <a href="random-module.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: Random Module
       </a>
-      <a
-        href="index.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Return Home &rarr;
+      <a href="2d-lists.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: 2D Lists &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What is Recursion?
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           Recursion is a programming technique where a function calls itself in
           order to solve a problem. Instead of using loops (like
           <code>for</code> or <code>while</code>) to repeat steps, a recursive
@@ -181,7 +55,7 @@
           opened further.
         </p>
         <p class="mt-2">A recursive function typically has two main parts:</p>
-        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+        <ul class="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-300">
           <li>
             <strong>Base Case:</strong> The simplest version of the problem that
             can be solved directly, without making another recursive call. This
@@ -195,18 +69,18 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Base Case and Recursive Step: The Factorial Example
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           Calculating the factorial of a non-negative integer `n` (denoted as
           `n!`) is a classic example.
           <code>n! = n * (n-1) * (n-2) * ... * 1</code>. For example,
           <code>5! = 5 * 4 * 3 * 2 * 1 = 120</code>. Also, <code>0!</code> is
           defined as 1.
         </p>
-        <p class="mb-2">We can define factorial recursively:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
+        <p class="mb-2 text-gray-300">We can define factorial recursively:</p>
+        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
           <li>
             <strong>Base Case:</strong> If <code>n</code> is 0, the factorial is
             1. (<code>factorial(0) = 1</code>)
@@ -234,17 +108,17 @@
 print("Calculating 3!:")
 final_answer = factorial(3)
 print(f"\nFinal Answer for 3!: {final_answer}") # Output: 6</code></pre>
-        <p class="mt-2 text-red-600 font-medium">
+        <p class="mt-2 text-red-400 font-medium">
           <strong>Crucial:</strong> Without a base case, a recursive function
           would call itself infinitely, leading to a "stack overflow" error.
         </p>
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. How Recursion Works: The Call Stack
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           When a function calls another function (or itself), the system uses a
           structure called the <strong>call stack</strong> to keep track of
           where it is. Each time a function is called, a new "frame" is added to
@@ -252,7 +126,7 @@ print(f"\nFinal Answer for 3!: {final_answer}") # Output: 6</code></pre>
           (like its local variables).
         </p>
         <p class="mb-2">In recursion:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
+        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
           <li>
             Each recursive call adds a new frame to the stack (e.g.,
             <code>factorial(3)</code> calls <code>factorial(2)</code>, which
@@ -278,9 +152,33 @@ print(f"\nFinal Answer for 3!: {final_answer}") # Output: 6</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          4. Visualize Recursion: Factorial
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          4. Interactive Factorial Visualization
         </h2>
+        <p class="mb-4 text-gray-300">
+          Enter a small non-negative integer (e.g., 0-10) to see the factorial
+          calculation and the call stack trace. Large numbers can cause too many
+          calls and slow down the browser.
+        </p>
+        <div class="flex flex-wrap items-center mb-4">
+          <label for="factorialInput" class="mr-2 text-gray-200"
+            >Number (n):</label
+          >
+          <input
+            type="number"
+            id="factorialInput"
+            class="input-field"
+            min="0"
+            max="20"
+            value="4"
+          />
+          <button id="calculateFactorialButton" class="btn btn-green">
+            Calculate & Visualize
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Python Code:</h3>
         <p class="mb-4">
           Enter a small non-negative integer (e.g., 3, 4, 5) to see a
           step-by-step simulation of the recursive factorial calculation.
@@ -456,16 +354,9 @@ def factorial(n):
       <p>Happy Learning!</p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const factorialInput = document.getElementById("factorialInput");

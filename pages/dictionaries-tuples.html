@@ -6,209 +6,41 @@
     <title>Learn Dictionaries & Tuples</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-red {
-        background-color: #ef4444; /* red-500 */
-      }
-      .btn-red:hover:not(:disabled) {
-        background-color: #dc2626; /* red-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .input-field-small {
-        width: 60px;
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 250px;
-        overflow-y: auto;
-      }
-      /* Styling for tuple/list visualization */
-      .sequence-item {
-        display: inline-block;
-        border: 1px solid #d1d5db; /* gray-300 */
-        background-color: #fff;
-        padding: 0.3rem 0.6rem;
-        margin: 2px;
-        border-radius: 3px;
-        font-family: monospace;
-        min-width: 30px;
-        text-align: center;
-        transition: background-color 0.3s ease, border-color 0.3s ease,
-          transform 0.2s ease;
-      }
-      .sequence-item.highlight {
-        background-color: #fcd34d; /* amber-300 */
-        border-color: #f59e0b; /* amber-500 */
-        font-weight: bold;
-        transform: scale(1.1);
-        z-index: 10;
-      }
-      .sequence-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 0.5rem;
-        border-radius: 0.375rem;
-        margin-top: 0.5rem;
-        overflow-x: auto; /* Allow horizontal scroll */
-        white-space: nowrap; /* Prevent wrapping */
-      }
-      .tuple-container::before {
-        content: "(";
-        margin-right: 2px;
-      }
-      .tuple-container::after {
-        content: ")";
-        margin-left: 2px;
-      }
-
-      /* Dictionary display */
-      .dict-entry {
-        margin-bottom: 0.25rem;
-      }
-      .dict-key {
-        font-weight: 500;
-        color: #1d4ed8; /* blue-700 */
-      }
-      .dict-value {
-        color: #059669; /* emerald-600 */
-      }
-      .dict-value.highlight {
-        background-color: #fcd34d;
-        padding: 0 2px;
-        border-radius: 2px;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding Dictionaries & Tuples
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Storing key-value pairs with dictionaries and ordered, immutable sequences with tuples.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
-      <a
-        href="2d-lists.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Previous Tutorial: 2-D Lists
+      <a href="2d-lists.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: 2D Lists
       </a>
-      <a
-        href="data-structures.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Data Structures &rarr;
+      <a href="data-structures.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: Data Structures Overview &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. Dictionaries (dict)
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          1. Dictionaries (<code>dict</code>): Key-Value Stores
         </h2>
         <p class="mb-4">
           A dictionary is a collection of <strong>key-value pairs</strong>. Each
@@ -242,7 +74,7 @@
             cannot be keys.
           </li>
         </ul>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Creating Dictionaries:
         </h3>
         <pre><code class="language-python"># Creating an empty dictionary
@@ -257,7 +89,7 @@ student = {
 }
 print(student)
 print(type(student)) # Output: <class 'dict'></code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Accessing Values:
         </h3>
         <p class="mb-2">
@@ -273,7 +105,7 @@ print(student["gpa"])   # Output: 3.8
 # Safer access using .get(key, default_value)
 age = student.get("age", "N/A") # Returns 'N/A' if 'age' key doesn't exist
 print(f"Age: {age}") # Output: Age: N/A</code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Adding/Updating Items:
         </h3>
         <pre><code class="language-python"># Add a new key-value pair
@@ -283,7 +115,7 @@ print(student) # 'year': 3 is added
 # Update an existing value
 student["gpa"] = 3.9
 print(student) # 'gpa' value is updated</code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">Iterating:</h3>
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">Iterating:</h3>
         <pre><code class="language-python"># Iterate through keys (default)
 print("\nKeys:")
 for key in student:
@@ -300,46 +132,11 @@ for key, value in student.items():
   print(f"  {key}: {value}")</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Try Dictionaries
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive Dictionary Operations
         </h2>
-        <p class="mb-4">
-          Interact with a sample dictionary. Add/update key-value pairs or
-          access a value by its key.
-        </p>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="dictKeyInput" class="mr-2">Key:</label>
-          <input
-            type="text"
-            id="dictKeyInput"
-            class="input-field"
-            placeholder="e.g., city"
-          />
-          <label for="dictValueInput" class="ml-4 mr-2">Value:</label>
-          <input
-            type="text"
-            id="dictValueInput"
-            class="input-field"
-            placeholder="e.g., London"
-          />
-          <button id="addUpdateButton" class="btn">Add/Update Item</button>
-        </div>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="accessKeyInput" class="mr-2">Key to Access:</label>
-          <input
-            type="text"
-            id="accessKeyInput"
-            class="input-field"
-            placeholder="e.g., name"
-          />
-          <button id="accessValueButton" class="btn btn-green">
-            Access Value
-          </button>
-          <button id="removeKeyButton" class="btn btn-red">Remove Key</button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <h3 class="text-lg font-medium mb-2">Current Dictionary:</h3>
             <div id="dictDisplay" class="output-display">{ }</div>
@@ -355,8 +152,8 @@ for key, value in student.items():
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. Tuples (tuple)
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          2. Tuples (<code>tuple</code>): Immutable Sequences
         </h2>
         <p class="mb-4">
           A tuple is an <strong>ordered, immutable sequence</strong> of items.
@@ -379,7 +176,7 @@ for key, value in student.items():
             types.
           </li>
         </ul>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Creating Tuples:
         </h3>
         <p class="mb-2">
@@ -402,7 +199,7 @@ print(point)
 print(type(point)) # Output: <class 'tuple'>
 print(type(single_item_tuple)) # Output: <class 'tuple'>
 print(type(not_a_tuple)) # Output: <class 'int'></code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Accessing Elements:
         </h3>
         <p class="mb-2">
@@ -415,14 +212,14 @@ print(colors[-1]) # Output: blue
 
 # Slicing also works
 print(colors[0:2]) # Output: ('red', 'green')</code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Immutability:
         </h3>
         <p class="mb-2">
           Trying to change an element will result in a <code>TypeError</code>.
         </p>
         <pre><code class="language-python"># colors[0] = "yellow" # This would raise a TypeError</code></pre>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-gray-300 mb-1 mt-3">
           Packing and Unpacking:
         </h3>
         <p class="mb-2">
@@ -436,16 +233,17 @@ print(f"x coordinate: {x}") # Output: 10
 print(f"y coordinate: {y}") # Output: 20</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Try Tuples</h2>
-        <p class="mb-4">
-          Access elements from a sample tuple using their index (0-based).
-        </p>
-        <h3 class="text-lg font-medium mb-2">Sample Tuple:</h3>
-        <div
-          id="tupleVisualizer"
-          class="sequence-container tuple-container mb-4"
-        ></div>
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive Tuple Operations
+        </h2>
+        <div class="mb-4">
+          <h3 class="text-lg font-medium mb-2">Sample Tuple:</h3>
+          <div
+            id="tupleVisualizer"
+            class="sequence-container tuple-container mb-4"
+          ></div>
+        </div>
         <div class="flex flex-wrap items-center mb-2">
           <label for="tupleIndexInput" class="mr-2">Index to Access:</label>
           <input
@@ -468,7 +266,7 @@ print(f"y coordinate: {y}") # Output: 20</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -544,20 +342,20 @@ print(f"y coordinate: {y}") # Output: 20</code></pre>
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const dictKeyInput = document.getElementById("dictKeyInput");

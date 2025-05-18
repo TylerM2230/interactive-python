@@ -3,229 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Data Structures</title>
+    <title>Data Structures Overview (Sets, Stacks, Queues)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-red {
-        background-color: #ef4444; /* red-500 */
-      }
-      .btn-red:hover:not(:disabled) {
-        background-color: #dc2626; /* red-600 */
-      }
-      .btn-purple {
-        background-color: #8b5cf6; /* violet-500 */
-      }
-      .btn-purple:hover:not(:disabled) {
-        background-color: #7c3aed; /* violet-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 250px;
-        overflow-y: auto;
-      }
-      /* Visualization Styles */
-      .data-structure-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-        min-height: 60px;
-        display: flex;
-        gap: 4px; /* Space between items */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        flex-wrap: wrap;
-        align-items: center; /* Center items vertically */
-      }
-      .ds-item {
-        /* Generic item style */
-        border: 1px solid #9ca3af; /* gray-400 */
-        background-color: #fff; /* white */
-        color: #374151; /* gray-700 */
-        padding: 0.5rem 0.8rem;
-        margin: 2px;
-        border-radius: 4px;
-        font-family: monospace;
-        min-width: 35px;
-        text-align: center;
-        transition: background-color 0.3s ease, border-color 0.3s ease,
-          transform 0.2s ease, opacity 0.3s ease;
-      }
-      /* Stack specific */
-      .stack-container {
-        flex-direction: column-reverse; /* Stack grows upwards */
-        align-items: center;
-        min-width: 80px; /* Ensure some width */
-        min-height: 150px;
-        justify-content: flex-start; /* Align items at the bottom */
-      }
-      .stack-item {
-        width: 80%;
-        margin-bottom: 4px;
-      } /* Stack items wider */
-      .stack-item.top {
-        border: 2px solid #fbbf24; /* amber-400 */
-        font-weight: bold;
-      }
-
-      /* Queue specific */
-      .queue-container {
-        justify-content: flex-start; /* Align items to the left */
-        align-items: center;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      .queue-item.front {
-        border: 2px solid #fbbf24; /* amber-400 */
-        font-weight: bold;
-      }
-      .queue-item.rear {
-        border: 2px solid #a78bfa; /* violet-400 */
-        font-weight: bold;
-      }
-
-      /* Set specific */
-      .set-container {
-        justify-content: center;
-      }
-      .set-item.highlight {
-        background-color: #fcd34d;
-        border-color: #f59e0b;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Understanding Data Structures
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Data Structures Overview (Sets, Stacks, Queues)
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Overview (Sets, Stacks, Queues, and more)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Exploring fundamental ways to organize and store data, including Sets, Stacks, and Queues.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
-      <a
-        href="dictionaries-tuples.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Previous Tutorial: Dictionaries & Tuples
+      <a href="dictionaries-tuples.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: Dictionaries & Tuples
       </a>
-      <a
-        href="trees.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Trees &rarr;
+      <a href="trees.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: Trees (BST) &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. What are Data Structures?
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          1. Why Data Structures?
         </h2>
         <p class="mb-4">
           Data structures are specialized formats for **organizing, processing,
@@ -256,39 +71,9 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Common Built-in Structures (Recap)
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          2. Sets: Unordered Collections of Unique Items
         </h2>
-        <p class="mb-2">
-          Python comes with several powerful built-in data structures that we've
-          explored previously:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-          <li>
-            <strong>Lists (<code>list</code>):</strong> Ordered, mutable
-            (changeable) sequences. Great for collections where order matters
-            and items might change. Accessed by index.
-          </li>
-          <li>
-            <strong>Tuples (<code>tuple</code>):</strong> Ordered, immutable
-            (unchangeable) sequences. Useful for fixed collections of related
-            items, like coordinates. Accessed by index.
-          </li>
-          <li>
-            <strong>Dictionaries (<code>dict</code>):</strong> Unordered
-            (historically) collections of key-value pairs. Mutable. Excellent
-            for lookups when you have a unique key associated with a value.
-            Accessed by key.
-          </li>
-        </ul>
-        <p class="mt-2 text-sm text-gray-600">
-          Refer back to the specific tutorials for detailed interactive examples
-          of these.
-        </p>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">3. Sets (set)</h2>
         <p class="mb-2">
           A set is an **unordered collection of unique items**. Think of it like
           a mathematical set.
@@ -313,52 +98,55 @@
             operator).
           </li>
         </ul>
-        <pre><code class="language-python"># Create a set (duplicates are removed)
-my_set = {1, 2, 3, 2, 4, 1}
-print(my_set) # Output: {1, 2, 3, 4} (order may vary)
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Common Set Operations:</h3>
+        <pre><code class="language-python">set1 = {1, 2, 3}
+set2 = {3, 4, 5}
 
-# Add an element
-my_set.add(5)
-print(my_set) # Output: {1, 2, 3, 4, 5}
+# Union: items present in either set
+print(f"Union: {set1 | set2}") # Output: {1, 2, 3, 4, 5}
 
-# Remove an element
-my_set.remove(3) # Raises KeyError if item not found
-# my_set.discard(10) # Doesn't raise error if item not found
-print(my_set) # Output: {1, 2, 4, 5}
+# Intersection: items present in both sets
+print(f"Intersection: {set1 & set2}") # Output: {3}
 
-# Check membership
-print(4 in my_set) # Output: True
-print(10 in my_set) # Output: False</code></pre>
+# Difference: items in set1 but not in set2
+print(f"Difference (set1 - set2): {set1 - set2}") # Output: {1, 2}
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try Set Operations:</h3>
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="setItemInput" class="mr-2">Item:</label>
-          <input
-            type="text"
-            id="setItemInput"
-            class="input-field"
-            placeholder="e.g., apple"
-          />
-          <button id="addToSetButton" class="btn btn-green">Add to Set</button>
-          <button id="removeFromSetButton" class="btn btn-red">
-            Remove from Set
-          </button>
-          <button id="checkInSetButton" class="btn">Check if In Set</button>
-        </div>
-        <h4 class="text-md font-medium mt-3 mb-1">Current Set:</h4>
-        <div
-          id="setContainer"
-          class="data-structure-container set-container"
-        ></div>
-        <div id="setResultDisplay" class="output-display">
-          <span class="text-gray-500 italic">Perform an operation.</span>
-        </div>
-        <div id="setMessage" class="message-box" style="display: none"></div>
+# Symmetric Difference: items in either set, but not both
+print(f"Symmetric Difference: {set1 ^ set2}") # Output: {1, 2, 4, 5}</code></pre>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          4. Stacks (LIFO)
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive: Try Set Operations
+        </h2>
+        <p class="mb-2">Enter comma-separated numbers for two sets (e.g., 1,2,3).</p>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="setInput1" class="mr-2">Set 1:</label>
+          <input
+            type="text"
+            id="setInput1"
+            class="input-field"
+            placeholder="e.g., 1,2,3"
+          />
+        </div>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="setInput2" class="mr-2">Set 2:</label>
+          <input
+            type="text"
+            id="setInput2"
+            class="input-field"
+            placeholder="e.g., 3,4,5"
+          />
+        </div>
+        <button id="calculateSetOperationsButton" class="btn btn-green">Calculate Operations</button>
+        <div id="setOperationsResult" class="output-display">
+          <span class="text-gray-500 italic">Results will appear here.</span>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          3. Stacks: Last-In, First-Out (LIFO)
         </h2>
         <p class="mb-2">
           A stack is a linear data structure that follows the **Last-In,
@@ -398,9 +186,13 @@ print(f"Top item (peek): {top_item}") # Output: C
 removed_item = my_stack.pop()
 print(f"Popped item: {removed_item}") # Output: C
 print(f"Stack after pop: {my_stack}") # Output: ['A', 'B']</code></pre>
+      </section>
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try Stack Operations:</h3>
-        <div class="flex flex-wrap items-center mb-2">
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive: Stack Simulation (LIFO)
+        </h2>
+        <div class="flex flex-wrap items-center gap-2 mb-4">
           <label for="stackItemInput" class="mr-2">Item to Push:</label>
           <input
             type="text"
@@ -425,9 +217,9 @@ print(f"Stack after pop: {my_stack}") # Output: ['A', 'B']</code></pre>
         <div id="stackMessage" class="message-box" style="display: none"></div>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          5. Queues (FIFO)
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          4. Queues: First-In, First-Out (FIFO)
         </h2>
         <p class="mb-2">
           A queue is a linear data structure that follows the **First-In,
@@ -456,27 +248,32 @@ print(f"Stack after pop: {my_stack}") # Output: ['A', 'B']</code></pre>
           fast appends and pops from both ends, making it ideal for implementing
           queues.
         </p>
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Implementing a Queue with `collections.deque`:</h3>
         <pre><code class="language-python">from collections import deque
 
 my_queue = deque()
 
-# Enqueue items
-my_queue.append('Task 1') # Add to the right (rear)
-my_queue.append('Task 2')
-my_queue.append('Task 3')
-print(f"Queue after enqueues: {my_queue}") # Output: deque(['Task 1', 'Task 2', 'Task 3'])
+# Enqueue (add to the right)
+my_queue.append("Alice")
+my_queue.append("Bob")
+my_queue.append("Charlie")
+print(f"Queue after enqueuing: {my_queue}")
 
-# Peek (view front item)
-front_item = my_queue[0]
-print(f"Front item (peek): {front_item}") # Output: Task 1
+# Dequeue (remove from the left)
+first_person = my_queue.popleft()
+print(f"Dequeued: {first_person}")
+print(f"Queue after dequeuing: {my_queue}")
 
-# Dequeue item
-removed_item = my_queue.popleft() # Remove from the left (front)
-print(f"Dequeued item: {removed_item}") # Output: Task 1
-print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])</code></pre>
+# Peek (view the front element)
+if my_queue:
+  print(f"Front of queue: {my_queue[0]}")</code></pre>
+      </section>
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try Queue Operations:</h3>
-        <div class="flex flex-wrap items-center mb-2">
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive: Queue Simulation (FIFO)
+        </h2>
+        <div class="flex flex-wrap items-center gap-2 mb-4">
           <label for="queueItemInput" class="mr-2">Item to Enqueue:</label>
           <input
             type="text"
@@ -506,8 +303,8 @@ print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])<
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          6. Other Important Data Structures (Briefly)
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          5. Other Important Data Structures (Briefly)
         </h2>
         <p class="mb-2">Beyond the basics, other important structures exist:</p>
         <ul class="list-disc list-inside ml-4 space-y-2 text-sm">
@@ -536,7 +333,7 @@ print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])<
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">7. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">7. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -617,31 +414,26 @@ print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])<
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
-      const setItemInput = document.getElementById("setItemInput");
-      const addToSetButton = document.getElementById("addToSetButton");
-      const removeFromSetButton = document.getElementById(
-        "removeFromSetButton"
-      );
-      const checkInSetButton = document.getElementById("checkInSetButton");
-      const setContainer = document.getElementById("setContainer");
-      const setResultDisplay = document.getElementById("setResultDisplay");
-      const setMessage = document.getElementById("setMessage");
+      const setInput1 = document.getElementById("setInput1");
+      const setInput2 = document.getElementById("setInput2");
+      const calculateSetOperationsButton = document.getElementById("calculateSetOperationsButton");
+      const setOperationsResult = document.getElementById("setOperationsResult");
 
       const stackItemInput = document.getElementById("stackItemInput");
       const pushButton = document.getElementById("pushButton");
@@ -683,62 +475,21 @@ print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])<
         });
       }
 
-      addToSetButton.addEventListener("click", () => {
-        const item = setItemInput.value.trim();
-        if (!item) {
-          showMessage(setMessage, "Please enter an item to add.", "error");
-          return;
-        }
-        const added = !interactiveSet.has(item); // Check if it's already there
-        interactiveSet.add(item);
-        renderSet();
-        setResultDisplay.textContent = `Added "${item}". ${
-          added ? "" : "(Item was already in set)"
-        }`;
-        setItemInput.value = "";
-        showMessage(
-          setMessage,
-          `Item "${item}" added (or already present).`,
-          "success"
-        );
-      });
+      calculateSetOperationsButton.addEventListener("click", () => {
+        const set1 = new Set(setInput1.value.split(",").map(Number));
+        const set2 = new Set(setInput2.value.split(",").map(Number));
 
-      removeFromSetButton.addEventListener("click", () => {
-        const item = setItemInput.value.trim();
-        if (!item) {
-          showMessage(setMessage, "Please enter an item to remove.", "error");
-          return;
-        }
-        const removed = interactiveSet.delete(item); // delete returns true if item was present
-        renderSet();
-        if (removed) {
-          setResultDisplay.textContent = `Removed "${item}".`;
-          showMessage(setMessage, `Item "${item}" removed.`, "success");
-        } else {
-          setResultDisplay.textContent = `Item "${item}" not found in set.`;
-          showMessage(setMessage, `Item "${item}" not found.`, "error");
-        }
-        setItemInput.value = "";
-      });
+        const union = new Set([...set1, ...set2]);
+        const intersection = new Set([...set1].filter(x => set2.has(x)));
+        const difference = new Set([...set1].filter(x => !set2.has(x)));
+        const symmetricDifference = new Set([...set1, ...set2].filter(x => !intersection.has(x)));
 
-      checkInSetButton.addEventListener("click", () => {
-        const item = setItemInput.value.trim();
-        if (!item) {
-          showMessage(setMessage, "Please enter an item to check.", "error");
-          return;
-        }
-        const isInSet = interactiveSet.has(item);
-        renderSet(); // Re-render to clear previous highlights
-        setResultDisplay.textContent = `Is "${item}" in the set? ${isInSet}`;
-        // Highlight if found
-        if (isInSet) {
-          setContainer.querySelectorAll(".set-item").forEach((span) => {
-            if (span.textContent === item) {
-              span.classList.add("highlight");
-            }
-          });
-        }
-        showMessage(setMessage, `Checked for "${item}".`, "info");
+        setOperationsResult.textContent = `
+          Union: ${Array.from(union).join(", ")}
+          Intersection: ${Array.from(intersection).join(", ")}
+          Difference (set1 - set2): ${Array.from(difference).join(", ")}
+          Symmetric Difference: ${Array.from(symmetricDifference).join(", ")}
+        `;
       });
 
       // --- Stack Logic ---
@@ -920,11 +671,9 @@ print(f"Queue after dequeue: {my_queue}") # Output: deque(['Task 2', 'Task 3'])<
       checkQuizButtonDS.addEventListener("click", checkDSQuiz);
 
       // --- Initial Setup ---
-      window.onload = () => {
-        renderSet();
-        renderStack();
-        renderQueue();
-      };
+      // renderSet(); // No longer have setContainer, this was for a different set example
+      renderStack();
+      renderQueue();
     </script>
   </body>
 </html>

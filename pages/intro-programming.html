@@ -3,188 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Intro to Programming & Python</title>
+    <title>Introduction to Programming & Python</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 200px;
-        overflow-y: auto;
-      }
-      .concept-box {
-        background-color: #fefce8; /* yellow-50 */
-        border: 1px solid #fef08a; /* yellow-200 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Introduction to Programming & Python
       </h1>
-      <p class="text-lg text-gray-600 mt-2">An Interactive Overview</p>
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Understanding the basics of giving computers instructions and why Python is a popular choice to start.
+      </p>
     </header>
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-end items-center"
     >
       <a
-        href="index.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Back to Home
-      </a>
-      <a
         href="variables-types.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Variables & Types &rarr;
+        Next Tutorial: Variables & Data Types &rarr;
       </a>
     </nav>
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What is Programming?
         </h2>
         <p class="mb-4">
-          At its core, **programming** is the process of writing instructions
-          that a computer can understand and execute to perform a specific task
-          or solve a problem. Think of it like writing a very detailed recipe
-          for a computer to follow.
+          At its core, **programming** is the process of giving a computer a set of precise instructions
+          to perform a specific task or solve a problem. Think of it like writing a very detailed recipe
+          for a computer to follow. These instructions are written in a **programming language**.
         </p>
         <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
           <li>
-            <strong>Instructions:</strong> Computers need precise, step-by-step
-            instructions because they can't "think" or make assumptions like
+            <strong>Instructions:</strong> Computers need exact, step-by-step
+            commands because they cannot infer meaning or make assumptions like
             humans do.
           </li>
           <li>
             <strong>Programming Languages:</strong> We use special languages
-            (like Python, Java, C++, JavaScript) with strict rules (syntax) to
-            write these instructions.
+            (like Python, Java, C++, JavaScript) with strict grammatical rules (syntax) to
+            write these instructions. Each language has its own strengths.
           </li>
           <li>
-            <strong>The Goal:</strong> Programmers write code to create
-            software, automate tasks, analyze data, build websites, develop
-            games, and much more.
+            <strong>The Goal:</strong> Programmers write code (sequences of instructions) to create
+            software applications, automate repetitive tasks, analyze data, build websites, develop
+            games, power artificial intelligence, and much more.
           </li>
         </ul>
 
         <div class="concept-box interactive-section">
-          <h3 class="text-lg font-medium mb-2">
+          <h3 class="text-lg font-medium text-cyan-400 mb-2">
             Mini-Challenge: Instructions vs. Goal
           </h3>
           <p class="mb-3 text-sm">
             Consider making a cup of tea. Which of these is an **instruction** a
-            computer (or robot) could follow directly?
+            computer (or a simple robot) could follow directly?
           </p>
           <div class="space-y-2">
             <label
-              class="block p-2 border rounded-md hover:bg-gray-100 cursor-pointer"
+              class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
             >
               <input
                 type="radio"
@@ -195,7 +82,7 @@
               Make a nice cup of tea. (The Goal)
             </label>
             <label
-              class="block p-2 border rounded-md hover:bg-gray-100 cursor-pointer"
+              class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
             >
               <input
                 type="radio"
@@ -218,41 +105,50 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. What is Python?
         </h2>
         <p class="mb-4">
-          **Python** is a specific, popular, and powerful programming language
-          created by Guido van Rossum. It's widely used across many industries
-          due to its versatility and readability.
+          **Python** is a popular, high-level, general-purpose programming language
+          created by Guido van Rossum and first released in 1991. It's widely used across many industries
+          due to its versatility, extensive libraries, and notably, its readability.
         </p>
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-3">
+        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-3">
           Key Characteristics:
         </h3>
         <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
           <li>
-            <strong>High-Level:</strong> Syntax is closer to human language,
-            easier to learn.
+            <strong>High-Level:</strong> Its syntax is designed to be closer to human language
+            than to machine code, making it generally easier to learn and write.
           </li>
           <li>
-            <strong>Interpreted:</strong> Code executed line by line, often
-            faster development.
+            <strong>Interpreted:</strong> Python code is typically executed line by line by an interpreter.
+            This often leads to a faster development cycle (write, test, debug) as you don't usually
+            need a separate compilation step like in languages such as C++ or Java.
           </li>
           <li>
-            <strong>General-Purpose:</strong> Versatile, used for many different
-            applications.
+            <strong>General-Purpose:</strong> It's not specialized for one type of task. Python is
+            versatile and used for web development, data science, artificial intelligence,
+            automation, scientific computing, and much more.
           </li>
           <li>
-            <strong>Readable Syntax:</strong> Uses indentation for code blocks,
-            emphasizing clarity.
+            <strong>Readable and Clean Syntax:</strong> Python emphasizes code readability. It uses
+            indentation (whitespace) to define code blocks (like loops or functions) rather
+            than curly braces or keywords, which enforces a clean and uncluttered style.
+            This is often summarized by the Zen of Python's "Readability counts."
           </li>
           <li>
-            <strong>Large Standard Library:</strong> Many built-in tools for
-            common tasks.
+            <strong>Large Standard Library:</strong> Python comes with a vast collection of pre-built
+            modules and functions that provide tools for many common tasks, so you don't
+            have to write everything from scratch.
           </li>
           <li>
-            <strong>Strong Community:</strong> Lots of support, tutorials, and
-            third-party libraries.
+            <strong>Dynamically Typed:</strong> You don't need to declare the type of a variable
+            (e.g., integer, string) explicitly. Python figures it out at runtime.
+          </li>
+          <li>
+            <strong>Cross-Platform:</strong> Python code can run on various operating systems
+            (Windows, macOS, Linux) without significant modifications.
           </li>
         </ul>
 
@@ -280,7 +176,7 @@
           ></div>
         </div>
 
-        <h3 class="text-lg font-medium text-gray-600 mb-1 mt-5">
+        <h3 class="text-lg font-medium text-cyan-400 mb-1 mt-5">
           Common Uses for Python:
         </h3>
         <ul class="list-disc list-inside ml-4 space-y-1">
@@ -294,7 +190,7 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. Why Learn Python?
         </h2>
         <p class="mb-2">
@@ -322,7 +218,7 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">4. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">4. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -382,27 +278,122 @@
           style="display: none"
         ></div>
       </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          5. Why Learn Python?
+        </h2>
+        <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
+          <li>
+            <strong>Beginner-Friendly:</strong> Its simple syntax makes it one of
+            the easiest languages to start with.
+          </li>
+          <li>
+            <strong>Versatile:</strong> Applicable in web development, data science,
+            AI, machine learning, automation, and more.
+          </li>
+          <li>
+            <strong>Large Community:</strong> Abundant resources, tutorials, and
+            support available.
+          </li>
+          <li>
+            <strong>High Demand:</strong> Python developers are in high demand in
+            the job market.
+          </li>
+          <li>
+            <strong>Extensive Libraries:</strong> A vast ecosystem of third-party
+            packages (like NumPy for numerical computing, Pandas for data
+            analysis, Django/Flask for web development) that extend its
+            capabilities.
+          </li>
+        </ul>
+      </section>
+
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          6. Your First Interactive Python "Code"
+        </h2>
+        <p class="mb-3">
+          Let's try a very simple interaction. This isn't running Python code
+          directly in your browser in a full sense, but it simulates how Python
+          might respond.
+        </p>
+        <div class="mb-3">
+          <label for="userNameInput" class="block mb-1 font-medium"
+            >Enter Your Name:</label
+          >
+          <input
+            type="text"
+            id="userNameInput"
+            class="input-field w-full md:w-1/2"
+            placeholder="e.g., Alex"
+          />
+        </div>
+        <button id="greetUserButton" class="btn btn-green">Greet Me!</button>
+        <div id="greetingOutput" class="output-display mt-3">
+          <span class="text-gray-500 italic"
+            >Output will appear here...</span
+          >
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          7. Basic Python Concepts (A Sneak Peek)
+        </h2>
+        <p class="mb-4">
+          You'll learn these in detail in upcoming tutorials, but here's a quick
+          glimpse:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-sm">
+          <li>
+            <strong class="text-cyan-400">Variables:</strong> Named containers for storing data (e.g.,
+            <code>age = 25</code>, <code>name = "Ada"</code>).
+          </li>
+          <li>
+            <strong class="text-cyan-400">Data Types:</strong> Different kinds of data, like numbers
+            (integers, floats), text (strings), and booleans (True/False).
+          </li>
+          <li>
+            <strong class="text-cyan-400">Operators:</strong> Symbols that perform operations on data
+            (e.g., <code>+</code> for addition, <code>==</code> for comparison).
+          </li>
+          <li>
+            <strong class="text-cyan-400">Control Flow:</strong> Structures that control the order
+            in which instructions are executed (e.g., <code>if</code> statements
+            for decisions, <code>for</code>/<code>while</code> loops for repetition).
+          </li>
+          <li>
+            <strong class="text-cyan-400">Functions:</strong> Reusable blocks of code that perform
+            specific tasks (like <code>print()</code>, or ones you define yourself).
+          </li>
+        </ul>
+        <pre><code class="language-python"># A very simple Python program demonstrating a few concepts:
+name = "Explorer"  # Variable storing a string
+age = 10           # Variable storing an integer
+
+print(f"Hello, {name}!") # Using an f-string to include a variable in text
+
+if age < 18:
+  print("You are young!")
+else:
+  print("You are an adult (or close to it!).")</code></pre>
+      </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Coding!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        // Auto-hide for success/error, keep info longer? No, 3s is fine.
-        const autoHide = type === "success" || type === "error";
-        if (autoHide) {
-          setTimeout(() => {
-            element.style.display = "none";
-          }, 3000);
-        }
-      }
-
       // --- DOM Elements ---
       const checkInstructionButton = document.getElementById(
         "checkInstructionButton"
@@ -417,6 +408,9 @@
         "checkQuizButtonIntro"
       );
       const quizResultIntro = document.getElementById("quizResultIntro");
+
+      const greetUserButton = document.getElementById("greetUserButton");
+      const greetingOutput = document.getElementById("greetingOutput");
 
       // --- Interactive Logic ---
 
@@ -512,10 +506,26 @@
       // --- Event Listeners ---
       checkQuizButtonIntro.addEventListener("click", checkIntroQuiz);
 
-      // --- Initial Setup ---
-      window.onload = () => {
-        // No specific setup needed initially
-      };
+      // Initial greeting setup - This should be specific to this page
+      const userNameInput = document.getElementById("userNameInput"); // Need this for the greeting logic
+      const initialGreetingName = "Learner";
+      if (greetingOutput) { // Ensure greetingOutput exists
+           greetingOutput.textContent = `Python says: Hello, ${initialGreetingName}!`;
+      }
+      
+      // Event listener for Greet Me button
+      if (greetUserButton && userNameInput && greetingOutput) {
+        greetUserButton.addEventListener("click", () => {
+          const userName = userNameInput.value.trim();
+          if (userName) {
+            greetingOutput.textContent = `Python says: Hello, ${userName}!`;
+            // Optionally, show a success message using the shared function
+            // showMessage(someElementForStatus, "Greeting updated!", "success");
+          } else {
+            greetingOutput.textContent = `Python says: Hello, Anonymous! Please enter a name.`;
+          }
+        });
+      }
     </script>
   </body>
 </html>

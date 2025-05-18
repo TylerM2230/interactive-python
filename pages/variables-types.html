@@ -3,21 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Variables & Data Types</title>
+    <title>Learn Variables and Data Types</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Custom styles (similar to the previous tutorial) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      /* Style for code blocks */
+      /* Custom styles (consistent with 8bit theme) */
+      /* body font-family is now in shared-styles.css */
       pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
+        background-color: #1e3a8a; /* blue-900 */
+        border: 1px solid #3b82f6; /* blue-500 */
+        color: #d1d5db; /* gray-200 */
         border-radius: 0.375rem; /* rounded-md */
         padding: 1rem; /* p-4 */
         overflow-x: auto;
@@ -25,23 +24,30 @@
         font-size: 0.875rem; /* text-sm */
         margin-top: 0.5rem; /* mt-2 */
         margin-bottom: 1rem; /* mb-4 */
+        position: relative;
       }
       code {
         font-family: monospace;
+        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity - adjusted for 8bit */
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
       }
-      /* Style for interactive sections */
+      pre code {
+        /* Don't style code inside pre differently */
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
       .interactive-section {
-        background-color: #ffffff; /* white */
+        background-color: #1e40af; /* blue-800 */
         padding: 1.5rem; /* p-6 */
         border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+        box-shadow: 0 4px 6px -1px rgba(234, 179, 8, 0.3), 0 2px 4px -1px rgba(234, 179, 8, 0.18); /* shadow-yellow-500/30 */
         margin-bottom: 1.5rem; /* mb-6 */
       }
-      /* Button styling */
       .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
+        background-color: #f59e0b; /* yellow-500 */
+        color: #1e3a8a; /* blue-900 */
         padding: 0.5rem 1rem; /* py-2 px-4 */
         border-radius: 0.375rem; /* rounded-md */
         font-weight: 500; /* font-medium */
@@ -49,25 +55,33 @@
         transition: background-color 0.2s ease;
         border: none;
         margin-right: 0.5rem; /* mr-2 */
+        margin-top: 0.5rem; /* Add some top margin for buttons */
       }
-      .btn:hover {
-        background-color: #2563eb; /* blue-600 */
+      .btn:hover:not(:disabled) {
+        background-color: #ca8a04; /* yellow-600 */
+      }
+      .btn:disabled {
+        background-color: #9ca3af; /* gray-400 */
+        cursor: not-allowed;
       }
       .btn-green {
         background-color: #22c55e; /* green-500 */
+        color: #000000; /* black */
       }
-      .btn-green:hover {
-        background-color: #16a34a; /* green-600 */
+      .btn-green:hover:not(:disabled) {
+        background-color: #4ade80; /* green-400 */
       }
-      /* Input field styling */
-      .input-field {
-        border: 1px solid #d1d5db; /* gray-300 */
+      .input-field,
+      .select-field {
+        border: 1px solid #f59e0b; /* yellow-500 */
+        background-color: #1e3a8a; /* blue-900 */
+        color: #d1d5db; /* gray-200 */
         padding: 0.5rem; /* p-2 */
         border-radius: 0.375rem; /* rounded-md */
         margin-right: 0.5rem; /* mr-2 */
-        min-width: 150px; /* Ensure input is not too small */
+        margin-top: 0.25rem; /* mt-1 */
+        margin-bottom: 0.5rem; /* mb-2 */
       }
-      /* Message box styling */
       .message-box {
         margin-top: 1rem; /* mt-4 */
         padding: 0.75rem; /* p-3 */
@@ -75,63 +89,76 @@
         font-size: 0.875rem; /* text-sm */
       }
       .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
+        background-color: #15803d; /* green-700 */
+        color: #ffffff; /* white */
+        border: 1px solid #22c55e; /* green-500 */
       }
       .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
+        background-color: #b91c1c; /* red-700 */
+        color: #ffffff; /* white */
+        border: 1px solid #ef4444; /* red-500 */
       }
       .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
+        background-color: #0e7490; /* cyan-700 */
+        color: #ffffff; /* white */
+        border: 1px solid #22d3ee; /* cyan-500 */
       }
-      /* Output display styling */
       .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
+        background-color: #1e3a8a; /* blue-900 */
+        border: 1px dashed #f59e0b; /* yellow-500 */
+        color: #d1d5db; /* gray-200 */
         padding: 1rem; /* p-4 */
         border-radius: 0.375rem; /* rounded-md */
         min-height: 50px;
         font-family: monospace;
         white-space: pre-wrap; /* Keep formatting */
+        margin-top: 0.5rem; /* mt-2 */
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .concept-box {
+        background-color: #1e40af; /* blue-800 - match interactive section */
+        border: 1px solid #3b82f6; /* blue-500 */
+        padding: 1rem;
+        border-radius: 0.375rem;
+        margin-top: 1rem;
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding Variables & Data Types
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Storing and managing different kinds of information like numbers, text, and booleans using variables.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
         href="intro-programming.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: Intro to Programming
+        &larr; Previous: Introduction to Programming & Python
       </a>
       <a
-        href="lists-iteration.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        href="booleans-conditionals.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Lists & Iteration &rarr;
+        Next: Booleans & Conditionals &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. What is a Variable?
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          1. What are Variables?
         </h2>
         <p class="mb-4">
           Think of a variable as a labeled container or box where you can store
@@ -157,7 +184,7 @@ print(count)    # Output: 10
 # You can also change the value stored in a variable
 count = count + 5
 print(count)    # Output: 15</code></pre>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-sm text-gray-300">
           Variable names should be descriptive (e.g.,
           <code>user_name</code> instead of <code>x</code>) and follow naming
           rules (usually start with a letter or underscore, contain letters,
@@ -166,8 +193,8 @@ print(count)    # Output: 15</code></pre>
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Common Data Types
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          2. Common Data Types in Python
         </h2>
         <p class="mb-4">
           The "type" of data stored in a variable determines what kind of
@@ -213,8 +240,8 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. Try Assigning a Variable
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive: Assign and Check Variable Type
         </h2>
         <p class="mb-4">
           Enter a value below. We'll assign it to a variable called
@@ -247,7 +274,7 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           4. Check Data Type
         </h2>
         <p class="mb-4">
@@ -278,7 +305,7 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
@@ -360,10 +387,20 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">
+        &copy; 2024 Interactive Guide to Python. Happy Coding!
+      </p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
       // --- DOM Elements ---
       const varValueInput = document.getElementById("varValueInput");
@@ -382,44 +419,7 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       const quizResultVars = document.getElementById("quizResultVars");
 
       // --- Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`; // Reset classes and add new ones
-        element.style.display = "block";
-        // Hide message after 3 seconds for success/error, keep info longer? No, 3s is fine.
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
-
-      /**
-       * Tries to infer the data type of a string value, simulating Python types.
-       * @param {string} value - The input value as a string.
-       * @returns {string} - The inferred data type ('int', 'float', 'bool', 'str').
-       */
-      function inferDataType(value) {
-        if (value === null || value === undefined || value.trim() === "") {
-          return "NoneType"; // Representing None
-        }
-        // Check for Boolean (case-insensitive match for 'true' or 'false')
-        if (value.toLowerCase() === "true" || value.toLowerCase() === "false") {
-          return "bool";
-        }
-        // Check if it's a valid number
-        const num = Number(value);
-        if (!isNaN(num) && isFinite(num) && value.trim() !== "") {
-          // Check if it's an integer (no decimal or .0)
-          // Use Number.isInteger or check remainder
-          if (Number.isInteger(num) && !value.includes(".")) {
-            // Handle cases like "5." which Number() makes 5 but isn't typically int input
-            return "int";
-          } else {
-            return "float"; // It's a number, but not a simple integer
-          }
-        }
-        // If none of the above, assume it's a string
-        return "str";
-      }
+      // showMessage and inferDataType are now in js/main.js
 
       // --- Interactive Variable Assignment Logic ---
       function handleAssignVariable() {
@@ -469,7 +469,7 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       }
 
       // --- Quiz Logic ---
-      function checkVariablesQuiz() {
+      function checkVarsQuiz() {
         const answers = {
           q1_vars: "b", // store data
           q2_vars: "c", // float
@@ -524,24 +524,15 @@ print(type(is_student))# Output: <class 'bool'></code></pre>
       }
 
       // --- Event Listeners ---
-      assignVarButton.addEventListener("click", handleAssignVariable);
-      varValueInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-          handleAssignVariable();
-        }
-      });
-
-      checkTypeButton.addEventListener("click", handleCheckType);
-      typeCheckInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-          handleCheckType();
-        }
-      });
-
-      checkQuizButtonVars.addEventListener("click", checkVariablesQuiz);
-
-      // --- Initial Setup ---
-      // No specific initial setup needed beyond HTML rendering for this one.
+      if (assignVarButton) {
+        assignVarButton.addEventListener("click", handleAssignVariable);
+      }
+      if (checkTypeButton) {
+        checkTypeButton.addEventListener("click", handleCheckType);
+      }
+      if (checkQuizButtonVars) {
+        checkQuizButtonVars.addEventListener("click", checkVarsQuiz);
+      }
     </script>
   </body>
 </html>

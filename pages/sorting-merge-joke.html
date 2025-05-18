@@ -6,233 +6,42 @@
     <title>Learn Merge Sort & Joke Sorts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-orange {
-        background-color: #f97316; /* orange-500 */
-      }
-      .btn-orange:hover:not(:disabled) {
-        background-color: #ea580c; /* orange-600 */
-      }
-      .btn-red {
-        background-color: #ef4444; /* red-500 */
-      }
-      .btn-red:hover:not(:disabled) {
-        background-color: #dc2626; /* red-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .message-box-warning {
-        background-color: #fefce8; /* yellow-50 */
-        color: #854d0e; /* yellow-800 */
-        border: 1px solid #fef08a; /* yellow-200 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 80px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 350px;
-        overflow-y: auto;
-      }
-      /* Sorting Visualization Styles */
-      .sort-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-        min-height: 150px; /* Ensure space for bars */
-        display: flex;
-        align-items: flex-end; /* Align bars at the bottom */
-        justify-content: center;
-        gap: 2px; /* Space between bars */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        position: relative; /* For relative positioning of subarrays */
-        flex-wrap: wrap; /* Allow subarrays to wrap if needed */
-        transition: background-color 0.5s ease;
-      }
-      .sort-bar {
-        background-color: #60a5fa; /* blue-400 */
-        width: 15px; /* Adjust width as needed */
-        border-radius: 3px 3px 0 0; /* Rounded top */
-        transition: height 0.3s ease, background-color 0.3s ease,
-          transform 0.3s ease;
-        position: relative;
-        text-align: center;
-        color: white;
-        font-size: 0.7rem;
-        padding-top: 2px;
-        margin: 0 1px; /* Ensure some space */
-      }
-      /* Bar States */
-      .sort-bar.comparing {
-        background-color: #fcd34d;
-      } /* amber-300 */
-      .sort-bar.merging {
-        background-color: #a78bfa;
-      } /* violet-400 */
-      .sort-bar.sorted {
-        background-color: #34d399;
-      } /* emerald-400 */
-      .sort-bar.shuffled {
-        background-color: #fb7185;
-      } /* rose-400 */
-
-      /* Merge Sort Specific */
-      .sub-array-container {
-        /* Used conceptually in JS, not directly in HTML */
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        /* border: 1px dashed #cbd5e1; coolGray-300 */
-        padding: 5px;
-        margin: 5px;
-        min-height: 100px; /* Ensure subarrays have some height */
-      }
-      .bogo-status {
-        font-weight: bold;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        margin-top: 0.5rem;
-        display: inline-block;
-      }
-      .bogo-status.sorted {
-        background-color: #dcfce7;
-        color: #166534;
-      } /* green */
-      .bogo-status.not-sorted {
-        background-color: #fee2e2;
-        color: #991b1b;
-      } /* red */
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
-        Merge Sort & Joke Sorts
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
+        Understanding Merge Sort & "Joke" Sorts
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Understanding the efficient Merge Sort algorithm and exploring some humorous, impractical sorting methods.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="sorting-basic.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Previous Tutorial: Sorting Basics
-      <a
-        href="searching-binary.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Searching & Binary Search &rarr;
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
+      <a href="sorting-basic.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: Sorting Algorithms (Bubble/Selection)
+      </a>
+      <a href="searching-binary.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: Searching (Binary Search) &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. Merge Sort: Divide and Conquer
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           Merge Sort is an efficient, comparison-based sorting algorithm that
           uses a **Divide and Conquer** strategy. It's known for its reliable
           performance.
@@ -256,7 +65,7 @@
             exhausted, then appending the rest of the other half.
           </li>
         </ol>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-sm text-gray-300">
           Merge Sort has a time complexity of O(n log n) in all cases (worst,
           average, best), making it very efficient for large datasets. Its main
           drawback is that it requires additional space (O(n)) to store the
@@ -297,10 +106,10 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-red-600 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Joke Sorting Algorithms
         </h2>
-        <p class="mb-4">
+        <p class="mb-4 text-gray-300">
           While algorithms like Merge Sort are practical and efficient, computer
           science also has some notoriously inefficient or purely theoretical
           "joke" algorithms. These are primarily used for educational purposes
@@ -309,10 +118,10 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2a. Bogo Sort
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           Bogo Sort is famous for its extreme inefficiency. It's based purely on
           chance.
         </p>
@@ -358,10 +167,10 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2b. Quantum Tunneling Sort (Theoretical Joke)
         </h2>
-        <p class="mb-2">
+        <p class="mb-2 text-gray-300">
           This is a purely theoretical joke algorithm based on a
           misunderstanding or humorous application of quantum mechanics.
         </p>
@@ -388,74 +197,54 @@
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">3. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">3. Quick Quiz</h2>
+        <p class="mb-4 text-gray-300">Test your understanding!</p>
         <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What is the main strategy used by Merge Sort?
+          <p class="font-medium mb-1 text-gray-200">
+            Q1: What is the primary strategy used by Merge Sort?
           </p>
-          <label class="block"
-            ><input type="radio" name="q1_merge" value="a" class="mr-1" />
-            Random Shuffling</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q1_merge" value="a" class="mr-1" /> Iterative
+            swapping</label
           >
-          <label class="block"
-            ><input type="radio" name="q1_merge" value="b" class="mr-1" />
-            Divide and Conquer</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q1_merge" value="b" class="mr-1" /> Divide
+            and Conquer</label
           >
-          <label class="block"
-            ><input type="radio" name="q1_merge" value="c" class="mr-1" />
-            Comparing adjacent elements repeatedly</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q1_merge" value="c" class="mr-1" /> Random
+            shuffling</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
+          <p class="font-medium mb-1 text-gray-200">
             Q2: What is the typical time complexity of Merge Sort?
           </p>
-          <label class="block"
-            ><input type="radio" name="q2_merge" value="a" class="mr-1" />
-            O(n²)</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q2_merge" value="a" class="mr-1" /> O(n<sup>2</sup>)</label
           >
-          <label class="block"
-            ><input type="radio" name="q2_merge" value="b" class="mr-1" /> O(n
-            log n)</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q2_merge" value="b" class="mr-1" /> O(n log n)</label
           >
-          <label class="block"
-            ><input type="radio" name="q2_merge" value="c" class="mr-1" />
-            O(n!)</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q2_merge" value="c" class="mr-1" /> O(n!)</label
           >
         </div>
         <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: How does Bogo Sort attempt to sort a list?
+          <p class="font-medium mb-1 text-gray-200">
+            Q3: What is a notable characteristic of Bogo Sort?
           </p>
-          <label class="block"
-            ><input type="radio" name="q3_merge" value="a" class="mr-1" /> By
-            merging sorted halves</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q3_merge" value="a" class="mr-1" /> It's
+            very memory efficient.</label
           >
-          <label class="block"
-            ><input type="radio" name="q3_merge" value="b" class="mr-1" /> By
-            finding the minimum element repeatedly</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q3_merge" value="b" class="mr-1" /> It has
+            no worst-case scenario.</label
           >
-          <label class="block"
-            ><input type="radio" name="q3_merge" value="c" class="mr-1" /> By
-            randomly shuffling until sorted by chance</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: Why is Bogo Sort considered a "joke" algorithm?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_merge" value="a" class="mr-1" /> It's
-            the fastest known sorting algorithm</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_merge" value="b" class="mr-1" /> It is
-            extremely inefficient and impractical</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_merge" value="c" class="mr-1" /> It
-            only works on quantum computers</label
+          <label class="block text-gray-300"
+            ><input type="radio" name="q3_merge" value="c" class="mr-1" /> It's
+            extremely inefficient and relies on chance.</label
           >
         </div>
         <button id="checkQuizButtonMerge" class="btn">Check Answers</button>
@@ -467,21 +256,14 @@
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">
+        &copy; 2024 Interactive Guide to Python. Happy Coding!
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
-
       // --- DOM Elements & Shared State ---
       const mergeSortContainer = document.getElementById("mergeSortContainer");
       const runMergeSortButton = document.getElementById("runMergeSortButton");
@@ -833,7 +615,6 @@
           q1_merge: "b", // Divide and Conquer
           q2_merge: "b", // O(n log n)
           q3_merge: "c", // Randomly shuffling
-          q4_merge: "b", // Extremely inefficient
         };
         let score = 0;
         let resultsHTML = "<ul>";

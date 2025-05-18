@@ -6,198 +6,48 @@
     <title>Learn Graph Data Structures</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .btn-orange {
-        background-color: #f97316; /* orange-500 */
-      }
-      .btn-orange:hover:not(:disabled) {
-        background-color: #ea580c; /* orange-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 100px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 300px;
-        overflow-y: auto;
-      }
-      /* Graph Visualization Styles */
-      .graph-container {
-        background-color: #f9fafb; /* gray-50 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-        min-height: 200px;
-        border: 1px dashed #d1d5db; /* gray-300 */
-        position: relative; /* Needed for absolute positioning of nodes/edges */
-        overflow: auto; /* In case graph gets large */
-      }
-      .graph-node {
-        position: absolute; /* Allow placing nodes manually */
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background-color: #60a5fa; /* blue-400 */
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        font-family: monospace;
-        border: 2px solid #3b82f6; /* blue-500 */
-        cursor: grab;
-        user-select: none; /* Prevent text selection during drag */
-        z-index: 10;
-      }
-      #graphVisualization svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none; /* Allow interaction with nodes below */
-        z-index: 5;
-      }
-      #graphVisualization svg line {
-        stroke: #6b7280; /* gray-500 */
-        stroke-width: 2;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding Graph Data Structures
       </h1>
-      <p class="text-lg text-gray-600 mt-2">An Interactive Overview</p>
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Representing networks of connected nodes and edges, and exploring their properties and traversal.
+      </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
-      <a
-        href="trees.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        &larr; Previous Tutorial: Trees
+      <a href="trees.html"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        &larr; Previous: Trees (BST)
       </a>
-      <a
-        href="sorting-basic.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-      >
-        Next Tutorial: Sorting Basic &rarr;
+      <a href="sorting-basic.html"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Next: Sorting Algorithms (Bubble/Selection) &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What are Graphs?
         </h2>
         <p class="mb-4">
           In computer science, a graph is a data structure used to represent
-          relationships between objects. It consists of a set of **vertices**
-          (also called **nodes**) and a set of **edges** that connect pairs of
+          relationships or connections between objects. It consists of a set of <strong>vertices</strong>
+          (also called <strong>nodes</strong>) and a set of <strong>edges</strong> that connect pairs of
           vertices. Unlike trees, graphs can have cycles (paths that start and
-          end at the same vertex) and don't necessarily have a root node.
+          end at the same vertex) and don't necessarily have a single root node.
         </p>
         <p class="mb-2">Key Components:</p>
         <ul class="list-disc list-inside ml-4 space-y-1">
@@ -218,10 +68,10 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Types of Graphs
         </h2>
-        <p class="mb-2">Graphs can be classified based on their edges:</p>
+        <p class="mb-2">Graphs can be classified based on their properties:</p>
         <ul class="list-disc list-inside ml-4 space-y-2">
           <li>
             <strong>Undirected Graph:</strong> Edges have no direction. If
@@ -250,90 +100,62 @@
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           3. Representing Graphs in Code
         </h2>
         <p class="mb-2">
-          Two common ways to represent graphs programmatically are:
+          There are several common ways to represent graphs in code. Two popular methods are:
         </p>
-        <ul class="list-disc list-inside ml-4 space-y-2">
-          <li>
-            <strong>Adjacency List:</strong> For each vertex, store a list (or
-            set) of its adjacent vertices (the vertices it's directly connected
-            to). This is often efficient for sparse graphs (graphs with
-            relatively few edges). In Python, a dictionary where keys are
-            vertices and values are lists/sets of neighbors is common.
-            <pre><code class="language-python"># Adjacency List for an undirected graph: A-B, A-C, B-C
-graph = {
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adjacency List:</h3>
+        <p class="mb-2">
+          For each vertex, store a list of its adjacent vertices (its neighbors). This is often efficient for sparse graphs (graphs with relatively few edges).
+          In Python, a dictionary can be used where keys are vertices and values are lists of their neighbors.
+        </p>
+        <pre><code class="language-python"># Example: An undirected graph
+# A -- B
+# |    |
+# C -- D -- E
+
+graph_adj_list = {
   'A': ['B', 'C'],
-  'B': ['A', 'C'],
-  'C': ['A', 'B']
-}</code></pre>
-          </li>
-          <li>
-            <strong>Adjacency Matrix:</strong> A 2D matrix (like a list of
-            lists) where the value at `matrix[i][j]` is 1 (or the edge weight)
-            if there's an edge from vertex `i` to vertex `j`, and 0 otherwise.
-            This can be efficient for dense graphs (many edges) but uses more
-            space for sparse graphs.
-            <pre><code class="language-python"># Adjacency Matrix for the same graph (assuming A=0, B=1, C=2)
-#   A B C
-# A[0,1,1]
-# B[1,0,1]
-# C[1,1,0]
-matrix = [
-  [0, 1, 1],
-  [1, 0, 1],
-  [1, 1, 0]
-]</code></pre>
-          </li>
-        </ul>
+  'B': ['A', 'D'],
+  'C': ['A', 'D'],
+  'D': ['B', 'C', 'E'],
+  'E': ['D']
+}
+print(graph_adj_list['A']) # Output: ['B', 'C'] (Neighbors of A)</code></pre>
+
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adjacency Matrix:</h3>
+        <p class="mb-2">
+          A 2D matrix (list of lists) where the entry <code>matrix[i][j]</code> is 1 (or some weight) if there's an edge from vertex <code>i</code> to vertex <code>j</code>, and 0 otherwise.
+          This can be good for dense graphs (many edges) but uses more space for sparse graphs.
+        </p>
+        <pre><code class="language-python"># For the same graph, assuming vertices A=0, B=1, C=2, D=3, E=4
+#   A B C D E
+# A 0 1 1 0 0
+# B 1 0 0 1 0
+# C 1 0 0 1 0
+# D 0 1 1 0 1
+# E 0 0 0 1 0
+
+graph_adj_matrix = [
+  [0, 1, 1, 0, 0], # A
+  [1, 0, 0, 1, 0], # B
+  [1, 0, 0, 1, 0], # C
+  [0, 1, 1, 0, 1], # D
+  [0, 0, 0, 1, 0]  # E
+]
+print(graph_adj_matrix[0][1]) # Output: 1 (Edge from A to B)
+print(graph_adj_matrix[0][3]) # Output: 0 (No direct edge from A to E)</code></pre>
       </section>
 
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          4. Common Use Cases for Graphs
-        </h2>
-        <p class="mb-2">
-          Graphs model relationships, making them suitable for:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong>Social Networks:</strong> Representing users (vertices) and
-            friendships/follows (edges).
-          </li>
-          <li>
-            <strong>Mapping & Navigation:</strong> Representing locations
-            (vertices) and roads/routes (edges), often weighted by distance or
-            time (e.g., GPS navigation, Google Maps).
-          </li>
-          <li>
-            <strong>The World Wide Web:</strong> Representing web pages
-            (vertices) and hyperlinks (edges).
-          </li>
-          <li>
-            <strong>Recommendation Systems:</strong> Modeling users and items,
-            with edges representing interactions or preferences.
-          </li>
-          <li>
-            <strong>Network Analysis:</strong> Computer networks, biological
-            networks, dependency graphs in project management.
-          </li>
-          <li>
-            <strong>Circuit Design:</strong> Representing components and
-            connections.
-          </li>
-        </ul>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          5. Build a Simple Graph
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          4. Interactive Graph Visualization
         </h2>
         <p class="mb-4">
-          Add nodes (vertices) and edges to create a simple undirected graph.
-          The visualization and adjacency list will update. (Node names should
-          be single uppercase letters for this simple example).
+          Create a simple undirected graph. Add nodes and then add edges between them.
+          Click and drag nodes to rearrange them.
         </p>
 
         <div class="flex flex-wrap items-center mb-2">
@@ -391,9 +213,53 @@ matrix = [
         <div id="graphMessage" class="message-box" style="display: none"></div>
       </section>
 
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          5. Common Graph Operations & Algorithms
+        </h2>
+        <p class="mb-2">
+          Graphs are used in a vast array of applications, often involving specific algorithms:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+          <li><strong>Traversal:</strong> Visiting all nodes in a graph.
+            <ul class="list-circle list-inside ml-6 space-y-1">
+                <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking. Often uses a stack.</li>
+                <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbor nodes at the present depth prior to moving on to nodes at the next depth level. Often uses a queue.</li>
+            </ul>
+          </li>
+          <li><strong>Shortest Path:</strong> Finding the shortest path between two nodes (e.g., Dijkstra's algorithm, Bellman-Ford algorithm).</li>
+          <li><strong>Minimum Spanning Tree (MST):</strong> Finding a subgraph that connects all vertices with the minimum total edge weight (e.g., Prim's algorithm, Kruskal's algorithm).</li>
+          <li><strong>Network Flow:</strong> Analyzing the flow of material through a network (e.g., Ford-Fulkerson algorithm).</li>
+          <li><strong>Topological Sort:</strong> For Directed Acyclic Graphs (DAGs), a linear ordering of vertices such that for every directed edge from vertex u to vertex v, u comes before v in the ordering.</li>
+        </ul>
+      </section>
+
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive Graph Traversal (DFS & BFS)
+        </h2>
+        <p class="mb-2">
+          Using the graph you created above (or the default example), select a starting node and see how DFS and BFS explore the graph.
+        </p>
+        <div class="flex flex-wrap items-center mb-2">
+          <label for="startNodeTraversal" class="mr-2 font-medium">Start Node:</label>
+          <select id="startNodeTraversal" class="input-field"></select>
+          <button id="runDFSTraversal" class="btn btn-green">Run DFS</button>
+          <button id="runBFSTraversal" class="btn btn-green">Run BFS</button>
+          <button id="resetTraversal" class="btn btn-orange">Reset Traversal</button>
+        </div>
+        <div class="mt-2">
+          <h4 class="text-lg font-medium text-cyan-400">Traversal Path:</h4>
+          <div id="traversalPathDisplay" class="output-display min-h-[40px]">
+             <span class="text-gray-500 italic">Select a start node and run a traversal.</span>
+          </div>
+        </div>
+        <div id="traversalMessage" class="message-box mt-2" style="display: none;"></div>
+      </section>
+
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">6. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">6. Quick Quiz</h2>
+        <p class="mb-4">Test your graph knowledge!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
             Q1: What are the two main components of a graph?
@@ -472,20 +338,20 @@ matrix = [
       </section>
     </main>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
+    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
+      <p class="text-sm text-cyan-300">Happy Coding!</p>
+      <p class="mt-2">
+        <a
+          href="../index.html"
+          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
+          >Back to Main Menu</a
+        >
+      </p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const nodeNameInput = document.getElementById("nodeNameInput");
@@ -559,8 +425,8 @@ matrix = [
             line.setAttribute("y1", y1);
             line.setAttribute("x2", x2);
             line.setAttribute("y2", y2);
-            line.setAttribute("stroke", "#6b7280"); // gray-500
-            line.setAttribute("stroke-width", "2");
+            line.setAttribute("stroke", "#f59e0b"); // yellow-500
+            line.setAttribute("stroke-width", "3");
             svgContainer.appendChild(line);
           }
         });
@@ -802,9 +668,10 @@ matrix = [
       checkQuizButtonGraph.addEventListener("click", checkGraphQuiz);
 
       // --- Initial Setup ---
-      window.onload = () => {
-        renderAdjacencyList(); // Display empty list initially
-      };
+      // Initialize SVG container size (can be dynamic based on graphVisualization size)
+      svgContainer.setAttribute("width", graphVisualization.clientWidth);
+      svgContainer.setAttribute("height", graphVisualization.clientHeight);
+      renderAdjacencyList(); // Show empty list initially
     </script>
   </body>
 </html>

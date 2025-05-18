@@ -6,217 +6,92 @@
     <title>Learn String Operations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* Custom styles (consistent with previous tutorials) */
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      pre {
-        background-color: #f3f4f6; /* gray-100 */
-        border: 1px solid #e5e7eb; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #ffffff; /* white */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-          0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #3b82f6; /* blue-500 */
-        color: white;
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #2563eb; /* blue-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #16a34a; /* green-600 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #d1d5db; /* gray-300 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .input-field-small {
-        width: 60px;
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #dcfce7; /* green-100 */
-        color: #166534; /* green-800 */
-        border: 1px solid #86efac; /* green-300 */
-      }
-      .message-box-error {
-        background-color: #fee2e2; /* red-100 */
-        color: #991b1b; /* red-800 */
-        border: 1px solid #fecaca; /* red-300 */
-      }
-      .message-box-info {
-        background-color: #e0f2fe; /* sky-100 */
-        color: #075985; /* sky-800 */
-        border: 1px solid #bae6fd; /* sky-300 */
-      }
-      .output-display {
-        background-color: #f9fafb; /* gray-50 */
-        border: 1px dashed #d1d5db; /* gray-300 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 200px;
-        overflow-y: auto;
-      }
-      /* Styling for string visualization */
-      .string-char {
-        display: inline-block;
-        border: 1px solid #d1d5db; /* gray-300 */
-        background-color: #fff;
-        padding: 0.3rem 0.5rem;
-        margin: 1px;
-        border-radius: 3px;
-        font-family: monospace;
-        min-width: 25px;
-        text-align: center;
-        transition: background-color 0.3s ease, border-color 0.3s ease,
-          transform 0.2s ease;
-      }
-      .string-char.highlight {
-        background-color: #fcd34d; /* amber-300 */
-        border-color: #f59e0b; /* amber-500 */
-        font-weight: bold;
-        transform: scale(1.1);
-        z-index: 10;
-      }
-      .string-vis-container {
-        background-color: #f3f4f6; /* gray-100 */
-        padding: 0.5rem;
-        border-radius: 0.375rem;
-        margin-top: 0.5rem;
-        overflow-x: auto; /* Allow horizontal scroll for long strings */
-        white-space: nowrap; /* Prevent wrapping */
-      }
-    </style>
+    <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-600">
+      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
+        Interactive Guide to Python
+      </a>
+      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
         Understanding String Operations
       </h1>
-      <p class="text-lg text-gray-600 mt-2">
-        An Interactive Guide (using Python examples)
+      <p class="text-xs text-cyan-500 mt-1 italic">
+        Manipulating text data using various built-in methods for formatting, searching, and modification.
       </p>
     </header>
 
     <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-white rounded-lg shadow-md flex justify-between items-center"
+      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
     >
       <a
         href="nested-loops.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        &larr; Previous Tutorial: Nested Loops
+        &larr; Previous: Nested Loops
       </a>
       <a
         href="functions.html"
-        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
       >
-        Next Tutorial: Functions &rarr;
+        Next: Functions &rarr;
       </a>
     </nav>
 
     <main class="max-w-4xl mx-auto">
       <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           1. What are Strings?
         </h2>
         <p class="mb-4">
-          A string (<code>str</code> in Python) is a sequence of characters.
-          Think of it as text data. Strings are enclosed in either single quotes
-          (<code>'...'</code>) or double quotes (<code>"..."</code>). They are
-          immutable, meaning once a string is created, its contents cannot be
-          directly changed (though you can create new strings based on existing
-          ones).
+          A string (<code>str</code> in Python) is a sequence of characters used to represent text.
+          Strings are enclosed in either single quotes (<code>'...'</code>), double quotes (<code>"..."</code>),
+          or triple quotes (<code>'''...'''</code> or <code>"""..."""</code> for multi-line strings).
+          An important property of Python strings is that they are **immutable**, meaning once a string
+          is created, its contents cannot be directly changed. Operations that seem to modify a string
+          actually create a new string.
         </p>
-        <pre><code class="language-python">greeting = "Hello, World!"
-name = 'Alice'
+        <pre><code class="language-python">greeting = "Hello, Python!"  # Using double quotes
+name = 'Alice'            # Using single quotes
 empty_string = ""
+multiline_string = """
+This is a
+multi-line string.
+"""
 
 print(greeting)
-print(type(name)) # Output: <class 'str'></code></pre>
+print(type(name)) # Output: <class 'str'>
+print(multiline_string)</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           2. Combining & Repeating Strings
         </h2>
         <p class="mb-2">
-          You can easily combine (concatenate) strings using the
-          <code>+</code> operator and repeat strings using the
-          <code>*</code> operator.
+          You can combine (concatenate) strings using the <code>+</code> operator and repeat strings using the <code>*</code> operator.
         </p>
-        <pre><code class="language-python">first = "Hello"
-second = " "
-third = "There"
+        <pre><code class="language-python">first_name = "Ada"
+last_name = "Lovelace"
 
 # Concatenation
-full_greeting = first + second + third
-print(full_greeting) # Output: Hello There
+full_name = first_name + " " + last_name
+print(full_name)  # Output: Ada Lovelace
 
 # Repetition
-repeated_laugh = "Ha" * 3
-print(repeated_laugh) # Output: HaHaHa</code></pre>
+separator = "-" * 10
+print(separator)  # Output: ----------
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try it:</h3>
+# Combining with other types (requires conversion to string)
+age = 30
+# print("Age: " + age) # This would cause a TypeError
+print("Age: " + str(age)) # Correct: Age: 30
+print(f"Age: {age}")      # Using an f-string (preferred for readability)</code></pre>
+
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-2">Try it:</h3>
         <div class="flex flex-wrap items-center mb-2">
           <input
             type="text"
@@ -268,57 +143,47 @@ print(repeated_laugh) # Output: HaHaHa</code></pre>
       </section>
 
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. Accessing Parts of Strings
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          3. String Indexing and Slicing
         </h2>
         <p class="mb-2">
-          Since strings are sequences, you can access individual characters
-          using indexing (starting from 0) and extract substrings using slicing.
+          Since strings are sequences, you can access individual characters using an **index** (position) and
+          extract substrings using **slicing**.
         </p>
-        <ul class="list-disc list-inside mb-3 space-y-1">
-          <li>
-            <strong>Indexing <code>[index]</code>:</strong> Gets the character
-            at a specific position. Negative indices count from the end (<code
-              >-1</code
-            >
-            is the last character).
-          </li>
-          <li>
-            <strong>Slicing <code>[start:stop:step]</code>:</strong> Extracts a
-            portion of the string.
-            <ul>
-              <li>
-                <code>start</code>: The index to begin extraction (inclusive,
-                defaults to 0).
-              </li>
-              <li>
-                <code>stop</code>: The index to end extraction (exclusive,
-                defaults to end of string).
-              </li>
-              <li>
-                <code>step</code>: The amount to jump between characters
-                (defaults to 1).
-              </li>
-            </ul>
-          </li>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><strong>Indexing:</strong> Access a single character. Python uses 0-based indexing (the first character is at index 0).
+                Negative indexing starts from the end (-1 is the last character).</li>
+            <li><strong>Slicing:</strong> Extract a portion of the string. Syntax: <code>my_string[start:stop:step]</code>.
+                <ul>
+                    <li><code>start</code>: The index to begin the slice (inclusive). Defaults to 0.</li>
+                    <li><code>stop</code>: The index to end the slice (exclusive). Defaults to the end of the string.</li>
+                    <li><code>step</code>: The amount to increment by (e.g., 2 for every other character). Defaults to 1.</li>
+                </ul>
+            </li>
         </ul>
-        <pre><code class="language-python">text = "Python"
-
+        <pre><code class="language-python">text = "Python Fun"
 # Indexing
-print(text[0])    # Output: P (First character)
-print(text[2])    # Output: t
-print(text[-1])   # Output: n (Last character)
+print(f"First char: {text[0]}")   # Output: P
+print(f"Last char: {text[-1]}")  # Output: n
+# print(text[10]) # IndexError: string index out of range
 
 # Slicing
-print(text[0:3])  # Output: Pyt (Chars at index 0, 1, 2)
-print(text[2:])   # Output: thon (From index 2 to the end)
-print(text[:4])   # Output: Pyth (From start up to index 4)
-print(text[::2])  # Output: Pto (Every second character)
-print(text[::-1]) # Output: nohtyP (Reverse the string)</code></pre>
+print(f"Slice [0:6]: {text[0:6]}") # Output: Python
+print(f"Slice [:6]: {text[:6]}")   # Output: Python (from start up to, not including, index 6)
+print(f"Slice [7:]: {text[7:]}")   # Output: Fun (from index 7 to the end)
+print(f"Slice [::-1]: {text[::-1]}") # Output: nuF nohtyP (reverses the string)
+print(f"Slice [::2]: {text[::2]}")  # Output: Pto u (every other character)
+</code></pre>
+      </section>
 
-        <h3 class="text-lg font-medium mt-4 mb-2">
-          Try it with "Programming":
-        </h3>
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive String Indexing & Slicing
+        </h2>
+        <p class="mb-4">
+          Enter a string and indices to see indexing and slicing in action.
+          The example string is "PixelWorld".
+        </p>
         <div id="accessStringVis" class="string-vis-container mb-4"></div>
         <div class="flex flex-wrap items-center mb-2">
           <label for="accessIndexInput" class="mr-2">Index:</label>
@@ -367,55 +232,54 @@ print(text[::-1]) # Output: nohtyP (Reverse the string)</code></pre>
         ></div>
       </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
           4. Common String Methods
         </h2>
         <p class="mb-2">
-          Strings have many useful built-in methods (functions attached to the
-          string object) that return *new* strings (remember, strings are
-          immutable).
+          Python strings come with many built-in **methods** (functions associated with an object)
+          that perform common operations. Remember, these methods return new strings; they don't
+          modify the original string due to immutability.
         </p>
-        <ul class="list-disc list-inside mb-3 space-y-1 text-sm">
-          <li>
-            <code>.upper()</code>: Returns a copy with all characters uppercase.
-          </li>
-          <li>
-            <code>.lower()</code>: Returns a copy with all characters lowercase.
-          </li>
-          <li>
-            <code>.strip()</code>: Returns a copy with leading/trailing
-            whitespace removed.
-          </li>
-          <li>
-            <code>.replace(old, new)</code>: Returns a copy with all occurrences
-            of <code>old</code> replaced by <code>new</code>.
-          </li>
-          <li>
-            <code>.find(substring)</code>: Returns the starting index of the
-            first occurrence of <code>substring</code> (or -1 if not found).
-          </li>
-          <li>
-            <code>.split(separator)</code>: Returns a list of substrings split
-            by the <code>separator</code> (defaults to whitespace).
-          </li>
-          <li>
-            <code>len(string)</code>: (This is a function, not a method) Returns
-            the number of characters in the string.
-          </li>
+        <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
+          <li><code>len(my_string)</code>: (Not a method, but a built-in function) Returns the length of the string.</li>
+          <li><code>.lower()</code>: Converts all characters to lowercase.</li>
+          <li><code>.upper()</code>: Converts all characters to uppercase.</li>
+          <li><code>.strip()</code>: Removes leading and trailing whitespace (spaces, tabs, newlines). <code>.lstrip()</code> and <code>.rstrip()</code> remove only from left/right.</li>
+          <li><code>.replace(old, new)</code>: Replaces all occurrences of <code>old</code> substring with <code>new</code>.</li>
+          <li><code>.split(separator)</code>: Splits the string into a list of substrings based on the <code>separator</code>. If no separator is given, splits by whitespace.</li>
+          <li><code>.join(iterable)</code>: Joins elements of an iterable (like a list of strings) into a single string, with the original string as a separator.</li>
+          <li><code>.startswith(prefix)</code>: Returns <code>True</code> if the string starts with <code>prefix</code>.</li>
+          <li><code>.endswith(suffix)</code>: Returns <code>True</code> if the string ends with <code>suffix</code>.</li>
+          <li><code>.find(substring)</code>: Returns the starting index of the first occurrence of <code>substring</code>. Returns -1 if not found. <code>.rfind()</code> finds from the right.</li>
+          <li><code>.count(substring)</code>: Returns the number of non-overlapping occurrences of <code>substring</code>.</li>
+          <li><code>.isdigit()</code>, <code>.isalpha()</code>, <code>.isalnum()</code>, <code>.isspace()</code>: Check if characters are digits, alphabetic, alphanumeric, or whitespace.</li>
         </ul>
-        <pre><code class="language-python">sentence = "  Hello Python World!  "
+        <pre><code class="language-python">text = "  Hello, Python World!  "
 
-print(f"Original: '{sentence}'")
-print(f"Length: {len(sentence)}")
-print(f".upper(): '{sentence.upper()}'")
-print(f".lower(): '{sentence.lower()}'")
-print(f".strip(): '{sentence.strip()}'")
-print(f".replace('o', '0'): '{sentence.replace('o', '0')}'")
-print(f".find('Python'): {sentence.find('Python')}") # Index where 'Python' starts
-print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
+print(f"Length: {len(text)}")
+print(f"Lowercase: '{text.lower()}'")
+print(f"Uppercase: '{text.upper()}'")
+print(f"Stripped: '{text.strip()}'")
+print(f"Replaced: '{text.replace("Python", "User")}'")
+print(f"Split by ',': {text.split(',')}")
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try String Methods:</h3>
+words = ["Python", "is", "fun"]
+print(f"Joined: '{'-'.join(words)}'") # Output: Python-is-fun
+
+print(f"Starts with '  H': {text.startswith('  H')}")
+print(f"Ends with '!  ': {text.endswith('!  ')}")
+print(f"Find 'Python': {text.find('Python')}")
+print(f"Count 'o': {text.count('o')}")</code></pre>
+      </section>
+
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive String Methods
+        </h2>
+        <p class="mb-4">
+          Try some common string methods with your own input string.
+        </p>
         <div class="mb-2">
           <label for="methodStrInput" class="block font-medium"
             >Input String:</label
@@ -452,80 +316,192 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
         <div id="methodMessage" class="message-box" style="display: none"></div>
       </section>
 
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          5. String Formatting
+        </h2>
+        <p class="mb-2">
+          Often, you need to embed variables or expressions within strings. Python offers several ways to do this:
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><strong>f-strings (Formatted String Literals - Recommended):</strong> Introduced in Python 3.6, f-strings provide a concise and readable way to embed expressions inside string literals. Prefix the string with <code>f</code> or <code>F</code> and enclose expressions in curly braces <code>{}</code>.</li>
+            <li><code>.format()</code> method: A versatile method available in older Python versions too. Uses curly braces as placeholders.</li>
+            <li>Older <code>%</code> operator (C-style formatting): Less common in modern Python code but you might encounter it.</li>
+        </ul>
+        <pre><code class="language-python">name = "Alice"
+age = 30
+
+# f-string (preferred)
+formatted_f = f"My name is {name} and I am {age} years old."
+print(formatted_f)
+
+# .format() method
+formatted_dot = "My name is {} and I am {} years old.".format(name, age)
+print(formatted_dot)
+
+formatted_dot_named = "My name is {n} and I am {a} years old.".format(n=name, a=age)
+print(formatted_dot_named)
+
+# % operator (older style)
+formatted_percent = "My name is %s and I am %d years old." % (name, age)
+print(formatted_percent)</code></pre>
+        <p class="mt-2 text-sm text-cyan-300">
+            F-strings also support formatting specifiers within the curly braces, e.g., <code>{value:.2f}</code> to format a float to 2 decimal places.
+        </p>
+      </section>
+
+      <section class="interactive-section mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          Interactive: String Formatting (f-string)
+        </h2>
+        <p class="mb-4">Enter a name and an item to create a personalized message using an f-string.</p>
+        <div class="mb-2">
+          <label for="nameInput" class="block font-medium">Name:</label>
+          <input
+            type="text"
+            id="nameInput"
+            class="input-field w-full"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="itemInput" class="block font-medium">Item:</label>
+          <input
+            type="text"
+            id="itemInput"
+            class="input-field w-full"
+            placeholder="Enter an item"
+          />
+        </div>
+        <button id="formatButton" class="btn">Format</button>
+        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+        <div id="formattedMessage" class="output-display">
+          <span class="text-gray-500 italic"
+            >Enter a name and an item to see a personalized message.</span
+          >
+        </div>
+        <div id="formatMessage" class="message-box" style="display: none"></div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          6. Escape Characters
+        </h2>
+        <p class="mb-2">
+          Sometimes you need to include characters in a string that have special meaning, like a newline,
+          a tab, or a quote character itself. This is done using **escape characters**, which start with a
+          backslash <code>\</code>.
+        </p>
+        <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><code>\n</code>: Newline</li>
+            <li><code>\t</code>: Tab</li>
+            <li><code>\'</code>: Single quote</li>
+            <li><code>\"</code>: Double quote</li>
+            <li><code>\\</code>: Backslash</li>
+        </ul>
+        <pre><code class="language-python">print("This is line one.\nThis is line two.")
+# Output:
+# This is line one.
+# This is line two.
+
+print("She said: \"Hello!\"") # Output: She said: "Hello!"
+print('It\'s a sunny day.') # Output: It's a sunny day.
+print("Path: C:\\Users\\Name") # Output: Path: C:\Users\Name</code></pre>
+        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Raw Strings:</h3>
+        <p class="mb-2">
+          If you have many backslashes (e.g., in file paths or regular expressions), you can use a
+          <strong>raw string</strong> by prefixing the string literal with <code>r</code>. In raw strings,
+          backslashes are treated as literal characters.
+        </p>
+        <pre><code class="language-python"># Regular string, needs double backslashes for path
+path1 = "C:\\new_folder\\text_file.txt"
+print(f"Regular path: {path1}")
+
+# Raw string, backslashes are literal
+path2 = r"C:\new_folder\text_file.txt"
+print(f"Raw path: {path2}")
+# Note: A raw string cannot end in an odd number of backslashes.</code></pre>
+      </section>
+
       <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">5. Quick Quiz</h2>
+        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
+          8. Quick Quiz
+        </h2>
         <p class="mb-4">Test your understanding!</p>
         <div class="mb-3">
           <p class="font-medium mb-1">
-            Q1: What is the result of <code>"Py" + "thon"</code>?
+            Q1: Which operator is used for string concatenation in Python?
           </p>
-          <label class="block"
-            ><input type="radio" name="q1_string" value="a" class="mr-1" />
-            <code>"Python"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q1_str" value="a" class="mr-1" />
+            <code>&</code></label
           >
-          <label class="block"
-            ><input type="radio" name="q1_string" value="b" class="mr-1" />
-            <code>"Py thon"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q1_str" value="b" class="mr-1" />
+            <code>+</code></label
           >
-          <label class="block"
-            ><input type="radio" name="q1_string" value="c" class="mr-1" />
-            Error</label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q1_str" value="c" class="mr-1" />
+            <code>.concat()</code></label
           >
         </div>
         <div class="mb-3">
           <p class="font-medium mb-1">
-            Q2: If <code>s = "abcde"</code>, what is <code>s[1:4]</code>?
+            Q2: Which of the following is the correct way to access the first character of a string?
           </p>
-          <label class="block"
-            ><input type="radio" name="q2_string" value="a" class="mr-1" />
-            <code>"abcd"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q2_str" value="a" class="mr-1" />
+            <code>my_string[0]</code></label
           >
-          <label class="block"
-            ><input type="radio" name="q2_string" value="b" class="mr-1" />
-            <code>"bcde"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q2_str" value="b" class="mr-1" />
+            <code>my_string.first()</code></label
           >
-          <label class="block"
-            ><input type="radio" name="q2_string" value="c" class="mr-1" />
-            <code>"bcd"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q2_str" value="c" class="mr-1" />
+            <code>my_string(0)</code></label
           >
         </div>
         <div class="mb-3">
           <p class="font-medium mb-1">
-            Q3: Which method removes whitespace from *both* ends of a string?
+            Q3: Which of the following is true about the .upper() method?
           </p>
-          <label class="block"
-            ><input type="radio" name="q3_string" value="a" class="mr-1" />
-            <code>.trim()</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q3_str" value="a" class="mr-1" /> It
+            modifies the original string to be all uppercase.</label
           >
-          <label class="block"
-            ><input type="radio" name="q3_string" value="b" class="mr-1" />
-            <code>.strip()</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q3_str" value="b" class="mr-1" /> It
+            returns a new string with all characters in uppercase.</label
           >
-          <label class="block"
-            ><input type="radio" name="q3_string" value="c" class="mr-1" />
-            <code>.clean()</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q3_str" value="c" class="mr-1" /> It
+            checks if the string is already uppercase.</label
           >
         </div>
         <div class="mb-3">
           <p class="font-medium mb-1">
-            Q4: What does <code>"Test".lower()</code> return?
+            Q4: Which of the following is the correct way to format a string with variables?
           </p>
-          <label class="block"
-            ><input type="radio" name="q4_string" value="a" class="mr-1" />
-            <code>"Test"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q4_str" value="a" class="mr-1" />
+            <code>print("Name: " + name + ", Age: " + age)</code></label
           >
-          <label class="block"
-            ><input type="radio" name="q4_string" value="b" class="mr-1" />
-            <code>"test"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q4_str" value="b" class="mr-1" />
+            <code>print(f"Name: {name}, Age: {age}")</code></f-string></label
           >
-          <label class="block"
-            ><input type="radio" name="q4_string" value="c" class="mr-1" />
-            <code>"TEST"</code></label
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
+            ><input type="radio" name="q4_str" value="c" class="mr-1" />
+            <code>print("Name: {0}, Age: {1}".format(name, age))</code></f-string></label
           >
+          <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer">
+            <input type="radio" name="q4_str" value="d" class="mr-1" />
+            Both b and c are recommended and correct ways.</label>
         </div>
-        <button id="checkQuizButtonString" class="btn">Check Answers</button>
+        <button id="checkQuizButtonStr" class="btn">Check Answers</button>
         <div
-          id="quizResultString"
+          id="quizResultStr"
           class="message-box mt-4"
           style="display: none"
         ></div>
@@ -536,16 +512,9 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
       <p>Happy Learning!</p>
     </footer>
 
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // showMessage is now in js/main.js
 
       // --- DOM Elements ---
       const str1Input = document.getElementById("str1Input");
@@ -570,7 +539,7 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
         "accessResultDisplay"
       );
       const accessStrMessage = document.getElementById("accessStrMessage");
-      const accessExampleString = "Programming";
+      const accessExampleString = "PixelWorld";
 
       const methodStrInput = document.getElementById("methodStrInput");
       const methodSelect = document.getElementById("methodSelect");
@@ -583,10 +552,10 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
       );
       const methodMessage = document.getElementById("methodMessage");
 
-      const checkQuizButtonString = document.getElementById(
-        "checkQuizButtonString"
+      const checkQuizButtonStr = document.getElementById(
+        "checkQuizButtonStr"
       );
-      const quizResultString = document.getElementById("quizResultString");
+      const quizResultStr = document.getElementById("quizResultStr");
 
       // --- Concatenation & Repetition Logic ---
       concatButton.addEventListener("click", () => {
@@ -879,12 +848,12 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
       });
 
       // --- Quiz Logic ---
-      function checkStringQuiz() {
+      function checkStringsQuiz() {
         const answers = {
-          q1_string: "a", // "Python"
-          q2_string: "c", // "bcd" (index 1, 2, 3)
-          q3_string: "b", // .strip()
-          q4_string: "b", // "test"
+          q1_str: "b", // "+"
+          q2_str: "a", // "my_string[0]"
+          q3_str: "b", // ".upper() returns a new string with all characters in uppercase"
+          q4_str: "b", // "print(f"Name: {name}, Age: {age}")"
         };
         let score = 0;
         let resultsHTML = "<ul>";
@@ -912,10 +881,10 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
         }
 
         if (!allAnswered) {
-          quizResultString.textContent =
+          quizResultStr.textContent =
             "Please answer all questions before checking.";
-          quizResultString.className = "message-box message-box-error";
-          quizResultString.style.display = "block";
+          quizResultStr.className = "message-box message-box-error";
+          quizResultStr.style.display = "block";
           return;
         }
 
@@ -925,22 +894,20 @@ print(f".split(' '): {sentence.split()}") # Splits by spaces</code></pre>
             Object.keys(answers).length
           }.</p>` + resultsHTML;
 
-        quizResultString.innerHTML = resultsHTML;
-        quizResultString.className =
+        quizResultStr.innerHTML = resultsHTML;
+        quizResultStr.className =
           score === Object.keys(answers).length
             ? "message-box message-box-success"
             : "message-box message-box-error";
-        quizResultString.style.display = "block";
+        quizResultStr.style.display = "block";
       }
 
       // --- Event Listeners ---
-      checkQuizButtonString.addEventListener("click", checkStringQuiz);
+      checkQuizButtonStr.addEventListener("click", checkStringsQuiz);
 
       // --- Initial Setup ---
-      window.onload = () => {
-        renderStringVisual(accessStringVis, accessExampleString);
-        updateMethodArgs(); // Setup initial args for default method
-      };
+      renderStringVisual(accessStringVis, accessExampleString);
+      updateMethodArgs(); // Set initial argument fields for default method
     </script>
   </body>
 </html>
