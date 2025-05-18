@@ -3,576 +3,232 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Error Handling (Try/Except)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Error Handling in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Error Handling (Try/Except)
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Managing and responding to errors gracefully during program execution.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="file-handling.html" class="btn">
+          Next: File Handling &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="functions.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Functions
-      </a>
-      <a
-        href="file-handling.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: File Handling &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Error Handling
+          </h2>
+          <p class="text-sm italic mt-1">
+            Handling errors and exceptions in Python programs.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What are Errors in Programming?
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Errors are problems that occur during the execution of a program,
-          causing it to stop unexpectedly. Python distinguishes between two main
-          types:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong>Syntax Errors:</strong> Errors in the structure or grammar
-            of your code (like typos, missing colons, incorrect indentation).
-            Python detects these *before* running the code. You must fix them
-            for the program to start.
-          </li>
-          <li>
-            <strong>Exceptions:</strong> Errors that occur *during* the
-            execution of the program, even if the syntax is correct. Examples
-            include trying to divide by zero (<code>ZeroDivisionError</code>),
-            accessing a non-existent list index (<code>IndexError</code>), or
-            trying to convert invalid input to a number
-            (<code>ValueError</code>).
-          </li>
-        </ul>
-        <p class="mt-2 text-gray-300">
-          This tutorial focuses on handling <strong>Exceptions</strong> using
-          the <code>try...except</code> mechanism.
-        </p>
-      </section>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            1. What are Errors?
+          </h2>
+          <p class="mb-4">
+            Errors in programming are like roadblocks in a journey. They can stop your program in its tracks, but understanding them helps you navigate around them. There are two main types:
+          </p>
+          <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><strong>Syntax Errors:</strong> Like grammar mistakes in a recipe - Python catches these before even starting to cook (run the program). Think of it like a GPS that won't start the journey because the destination address is written incorrectly.</li>
+            <li><strong>Exceptions:</strong> Like unexpected problems while cooking - the recipe is correct, but something goes wrong during execution (e.g., missing ingredients, wrong temperature). It's similar to how a car might break down during a trip even though the route was planned correctly.</li>
+          </ul>
+          <p class="mt-2">
+            We handle <strong>Exceptions</strong> with <code>try...except</code>, like having a backup plan when cooking goes wrong. Think of it like having a spare tire in your car - you hope you don't need it, but it's there if something goes wrong.
+          </p>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Handling Exceptions: `try` and `except`
-        </h2>
-        <p class="mb-2 text-gray-300">
-          To prevent exceptions from crashing your program, you can use a
-          <code>try...except</code> block.
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            The code that might potentially raise an exception is placed inside
-            the <code>try</code> block.
-          </li>
-          <li>
-            If an exception occurs within the <code>try</code> block, Python
-            immediately jumps to the corresponding <code>except</code> block.
-          </li>
-          <li>
-            The code inside the <code>except</code> block is executed only if an
-            exception occurred in the <code>try</code> block.
-          </li>
-          <li>
-            If no exception occurs in the <code>try</code> block, the
-            <code>except</code> block is skipped entirely.
-          </li>
-        </ul>
-        <pre><code class="language-python">try:
-  # Code that might cause an error
-  numerator = 10
-  denominator = int(input("Enter a number to divide by: ")) # Potential ValueError or ZeroDivisionError
-  result = numerator / denominator
-  print(f"The result is: {result}")
-
-except: # This catches *any* exception (generally not recommended, be specific!)
-  print("An error occurred! Maybe invalid input or division by zero?")
-
-print("Program continues after try-except block...")</code></pre>
-        <p class="mt-2 text-gray-300">
-          This allows your program to handle the error gracefully (e.g., print a
-          message, log the error) and continue running instead of crashing.
-        </p>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Handling Specific Exceptions
-        </h2>
-        <p class="mb-2 text-gray-300">
-          It's usually better to catch specific types of exceptions rather than
-          using a generic <code>except:</code> block. This allows you to handle
-          different errors in different ways. You can have multiple
-          <code>except</code> blocks for a single <code>try</code>.
-        </p>
-        <pre><code class="language-python">try:
-  number_str = input("Enter a number: ")
-  number = int(number_str) # Potential ValueError
-  result = 100 / number      # Potential ZeroDivisionError
-  print(f"100 divided by {number} is {result}")
-
-except ValueError:
-  print(f"Invalid input: '{number_str}' is not a valid integer.")
-except ZeroDivisionError:
-  print("Error: Cannot divide by zero!")
-except Exception as e: # Catch any other unexpected exceptions
-    print(f"An unexpected error occurred: {e}")
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            2. Basic `try` and `except`
+          </h2>
+          <p class="mb-2">
+            Think of <code>try</code> and <code>except</code> like a safety net in a circus act. The <code>try</code> block is where the performer attempts a risky trick, and the <code>except</code> block is the safety net that catches them if they fall. If the trick succeeds, the safety net isn't needed. It's similar to how a pilot has emergency procedures - they hope they won't need them, but they're ready if something goes wrong.
+          </p>
+          <pre><code class="language-python">try:
+  # Risky code: dividing by user input
+  value = int(input("Enter a number to divide 10 by: "))
+  result = 10 / value
+  print(f"10 / {value} = {result}")
+except:
+  print("Oops! A glitch in the matrix (an error occurred).")
 
 print("Program continues...")</code></pre>
-        <p class="mt-2 text-gray-400">
-          Python checks the <code>except</code> blocks in order. The first one
-          that matches the type of exception raised is executed, and the rest
-          are skipped.
-        </p>
-      </section>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. The `else` and `finally` Clauses
-        </h2>
-        <h3 class="text-xl font-semibold text-cyan-400 mb-1">`else` Clause</h3>
-        <p class="mb-2 text-gray-300">
-          You can add an optional <code>else</code> block after all the
-          <code>except</code> blocks. The code in the <code>else</code> block is
-          executed <strong>only if no exceptions were raised</strong> in the
-          <code>try</code> block.
-        </p>
-        <h3 class="text-xl font-semibold text-cyan-400 mt-4 mb-1">`finally` Clause</h3>
-        <p class="mb-2 text-gray-300">
-          An optional <code>finally</code> block can also be added. The code in
-          the <code>finally</code> block is <strong>always executed</strong>, regardless
-          of whether an exception occurred or not. This is useful for cleanup
-          actions, like closing a file or releasing a resource.
-        </p>
-        <pre><code class="language-python">file = None # Initialize file to None
-try:
-  file_path = "data.txt"
-  file = open(file_path, "r") # Potential FileNotFoundError
-  content = file.read()
-  print("File content:")
-  print(content)
-  # num = int(content) # Potential ValueError if content is not a number
-
-except FileNotFoundError:
-  print(f"Error: File '{file_path}' not found.")
-
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            3. Handling Specific Exceptions
+          </h2>
+          <p class="mb-2">
+            Handling specific exceptions is like having different first-aid kits for different types of injuries. Instead of using a generic bandage for everything, you have specific treatments for burns, cuts, or sprains. Each <code>except</code> block is like a specialized first-aid kit for a specific type of problem. Think of it like a car's warning system - different lights come on for different problems (low fuel, engine trouble, flat tire), and each requires a different response.
+          </p>
+          <pre><code class="language-python">try:
+  item_level_str = input("Enter item level (1-100): ")
+  level = int(item_level_str) # Potential ValueError
+  power = 1000 / level      # Potential ZeroDivisionError (if level 0 allowed)
+  print(f"Item power at level {level}: {power}")
 except ValueError:
-  print("Error: File content is not a valid number.")
+  print(f"Invalid level: '{item_level_str}' is not a number.")
+except ZeroDivisionError:
+  print("Error: Level cannot be zero for power calculation!")
+except Exception as e: # Catch any other unexpected errors
+  print(f"An unknown enchantment failed: {e}")
 
-except Exception as e:
-  print(f"An unexpected error occurred: {e}")
+print("Forge continues its work...")</code></pre>
+        </section>
 
-else: # Executed if no exceptions in try block
-  print("File read successfully, no errors in try block.")
-
-finally: # Always executed
-  if file: # Check if file was successfully opened
-    file.close()
-    print("File closed in finally block.")
-  else:
-    print("File was not opened, nothing to close in finally block.")
-
-print("End of program.")</code></pre>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. Interactive Error Handling Demo
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Try different inputs to see how the `try-except-else-finally` blocks
-          work. The code below attempts to open a file (simulated) and convert its content to a number.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-          <div>
-            <label for="fileNameInput" class="block mb-1 font-medium text-gray-200">Simulated File Name:</label>
-            <input type="text" id="fileNameInput" class="input-field w-full" value="test.txt">
-            <p class="text-xs text-gray-400">Try "test.txt", "numbers.txt", "empty.txt", or "missing.txt"</p>
-          </div>
-          <div>
-            <label for="fileContentInput" class="block mb-1 font-medium text-gray-200">Simulated File Content (if found):</label>
-            <input type="text" id="fileContentInput" class="input-field w-full" value="123">
-             <p class="text-xs text-gray-400">Try numbers like "456", text like "hello", or leave empty.</p>
-          </div>
-        </div>
-        
-        <button id="runErrorDemoButton" class="btn btn-green">Run Demo</button>
-
-        <h4 class="text-lg font-medium mt-4 mb-1 text-cyan-400">Python-like Code Structure:</h4>
-        <pre id="errorDemoCodeDisplay" class="bg-blue-900 border-blue-500 text-gray-200">
-<span class="code-line" data-block="try">try:</span>
-<span class="code-line indent-1" data-block="try">  print("Attempting to open file...")</span>
-<span class="code-line indent-1" data-block="try">  # Simulate file opening & reading (based on input)</span>
-<span class="code-line indent-1" data-block="try">  print("File opened. Reading content...")</span>
-<span class="code-line indent-1" data-block="try">  print("Attempting to convert content to number...")</span>
-<span class="code-line" data-block="except">except FileNotFoundError:</span>
-<span class="code-line indent-1" data-block="except">  print("Error: File was not found!")</span>
-<span class="code-line" data-block="except">except ValueError:</span>
-<span class="code-line indent-1" data-block="except">  print("Error: File content is not a valid number.")</span>
-<span class="code-line" data-block="else">else:</span>
-<span class="code-line indent-1" data-block="else">  print("Success: No errors in try block. Converted to number.")</span>
-<span class="code-line" data-block="finally">finally:</span>
-<span class="code-line indent-1" data-block="finally">  print("Cleanup: 'finally' block executed (e.g., file closed).")</span>
-        </pre>
-
-        <h4 class="text-lg font-medium mt-4 mb-1 text-cyan-400">Execution Log:</h4>
-        <div id="errorDemoOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200">
-          <span class="text-gray-400 italic">Click "Run Demo" to see the output.</span>
-        </div>
-        <div id="errorDemoMessage" class="message-box" style="display: none"></div>
-      </section>
-      
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          6. Raising Exceptions Manually
-        </h2>
-        <p class="mb-2 text-gray-300">
-          You can also deliberately raise an exception using the <code>raise</code>
-          statement. This is useful when you detect a condition that makes
-          further execution of your function impossible or incorrect, even if it's
-          not a standard Python error.
-        </p>
-        <pre><code class="language-python">def set_age(age):
-  if not isinstance(age, int):
-    raise TypeError("Age must be an integer.")
-  if age < 0 or age > 120: # Custom validation
-    raise ValueError("Age must be between 0 and 120.")
-  print(f"Age set to: {age}")
-
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            4. `else` and `finally` Clauses
+          </h2>
+          <p class="mb-2">
+            <strong><code>else</code> Clause:</strong> Like a victory celebration after successfully completing a mission - it only happens if everything went perfectly in the <code>try</code> block. Think of it like getting a bonus at work - you only get it if you've done everything right.
+          </p>
+          <p class="mb-2">
+            <strong><code>finally</code> Clause:</strong> Like cleaning up after a party - whether the party was a success or a disaster, you still need to clean up. It's the code that must run no matter what happens in the <code>try</code> block. Think of it like locking your house when you leave - you do it whether you had a good day or a bad day.
+          </p>
+          <pre><code class="language-python">ancient_scroll = None
 try:
-  set_age(25)
-  set_age(-5) # This will raise ValueError
-except ValueError as e:
-  print(f"ValueError: {e}")
-except TypeError as e:
-  print(f"TypeError: {e}")</code></pre>
-      </section>
+  scroll_name = "scroll_of_wisdom.txt"
+  # ancient_scroll = open(scroll_name, "r") # This would be real file IO
+  print(f"Attempting to read '{scroll_name}'...")
+  # content = ancient_scroll.read() # Simulate reading
+  # print(f"Scroll says: {content}") 
+  # For demo, let's assume it can succeed or fail randomly
+  if input("Does reading the scroll succeed? (yes/no): ").lower() != "yes":
+      raise ValueError("The runes are illegible!")
+except FileNotFoundError: # Example if open() was real
+  print(f"Error: Scroll '{scroll_name}' not found in library.")
+except ValueError as ve:
+  print(f"ValueError: {ve}")
+else:
+  print("Scroll deciphered successfully! No errors in try block.")
+finally:
+  # if ancient_scroll: ancient_scroll.close()
+  print("The scholar leaves the library (finally block executed).")
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">7. Quick Quiz</h2>
-        <p class="mb-4 text-gray-300">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q1: What is the primary purpose of a <code>try...except</code> block?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_error" value="a" class="mr-1" /> To make code
-            run faster</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_error" value="b" class="mr-1" /> To handle
-            exceptions gracefully and prevent program crashes</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_error" value="c" class="mr-1" /> To fix syntax
-            errors automatically</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q2: When is the code inside an <code>else</code> block (in a
-            <code>try...except...else</code> structure) executed?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_error" value="a" class="mr-1" /> Always</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_error" value="b" class="mr-1" /> Only if an
-            exception occurs in the <code>try</code> block</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_error" value="c" class="mr-1" /> Only if no
-            exceptions occur in the <code>try</code> block</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q3: When is the code inside a <code>finally</code> block executed?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_error" value="a" class="mr-1" /> Only if an
-            exception occurs</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_error" value="b" class="mr-1" /> Only if no
-            exceptions occur</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_error" value="c" class="mr-1" /> Always,
-            regardless of exceptions</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q4: Which keyword is used to manually trigger an exception?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_error" value="a" class="mr-1" />
-            <code>throw</code></label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_error" value="b" class="mr-1" />
-            <code>raise</code></label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_error" value="c" class="mr-1" />
-            <code>error</code></label
-          >
-        </div>
-        <button id="checkQuizButtonError" class="btn">Check Answers</button>
-        <div
-          id="quizResultError"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+print("The day ends.")</code></pre>
+        </section>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">Interactive Potion Brewing</h2>
+          <p class="mb-2">
+            Let's practice error handling with a fun potion-brewing game! Just like a real alchemist, you'll need to handle unexpected reactions and ingredient problems. Each error is like a different type of magical mishap that needs its own special handling. Think of it like being a chef in a kitchen - you need to know how to handle different types of cooking disasters, from burnt food to missing ingredients.
+          </p>
+          <div class="sub-interactive-box">
+            <label for="ingredient1Input" class="block mb-1 font-semibold">Ingredient 1 (e.g., 'Dragon Scale', 'number'):</label>
+            <input type="text" id="ingredient1Input" class="input-field w-full mb-2" value="Dragon Scale">
+            
+            <label for="ingredient2Input" class="block mb-1 font-semibold">Ingredient 2 (e.g., 'number', 'Phoenix Tear'):</label>
+            <input type="text" id="ingredient2Input" class="input-field w-full mb-2" value="10">
+            
+            <button id="brewPotionButton" class="btn btn-8bit">Brew Potion</button>
+            
+            <div id="potionResult" class="output-display min-h-[50px] mt-2">
+              <span class="placeholder-text">Potion results will appear here...</span>
+            </div>
+             <div id="errorHandlingMessage" class="message-box mt-3" style="display: none;"></div>
+          </div>
+        </section>
 
-    <script src="../js/main.js" defer></script>
+      </div> <!-- End of content-wrapper-8bit -->
+    </div> <!-- End of console-screen-border -->
+
     <script>
-      // showMessage is now in js/main.js
+      const ingredient1Input = document.getElementById('ingredient1Input');
+      const ingredient2Input = document.getElementById('ingredient2Input');
+      const brewPotionButton = document.getElementById('brewPotionButton');
+      const potionResultDiv = document.getElementById('potionResult');
+      const messageBox = document.getElementById('errorHandlingMessage');
 
-      // --- DOM Elements ---
-      const errorInput = document.getElementById("errorInput");
-      const runTryExceptButton = document.getElementById("runTryExceptButton");
-      const errorHandlingLog = document.getElementById("errorHandlingLog");
-      const errorHandlingMessage = document.getElementById(
-        "errorHandlingMessage"
-      );
-      const codeLines = document.querySelectorAll(
-        "#errorHandlerCodeDisplay .code-line"
-      );
-
-      const checkQuizButtonError = document.getElementById(
-        "checkQuizButtonError"
-      );
-      const quizResultError = document.getElementById("quizResultError");
-
-      // --- Interactive Error Handling Logic ---
-      function highlightCode(lineNumbers, className) {
-        // Clear previous highlights of *any* type first
-        codeLines.forEach((line) =>
-          line.classList.remove(
-            "highlight-try",
-            "highlight-except",
-            "highlight-else",
-            "highlight-finally"
-          )
-        );
-        if (!Array.isArray(lineNumbers)) lineNumbers = [lineNumbers]; // Ensure it's an array
-
-        lineNumbers.forEach((ln) => {
-          const lineElement = document.querySelector(
-            `.code-line[data-line="${ln}"]`
-          );
-          if (lineElement) lineElement.classList.add(className);
-        });
+      function showBrewMessage(msg, type = 'info') {
+        messageBox.textContent = msg;
+        messageBox.className = `message-box message-box-${type}`;
+        messageBox.style.display = 'block';
+        setTimeout(() => { messageBox.style.display = 'none'; }, 3000);
       }
 
-      function simulateExecution() {
-        const userInput = errorInput.value;
-        errorHandlingLog.innerHTML = ""; // Clear previous log
-        highlightCode([], ""); // Clear highlights
+      brewPotionButton.addEventListener('click', () => {
+        const ing1 = ingredient1Input.value;
+        const ing2 = ingredient2Input.value;
+        let potionLog = "Starting to brew...\n";
 
-        let log = "";
-        let errorOccurred = null; // To track which error, if any
-        let result = null;
-
-        const appendLog = (lineNum, message, highlightClass) => {
-          log += message + "\n";
-          errorHandlingLog.innerHTML = log;
-          errorHandlingLog.scrollTop = errorHandlingLog.scrollHeight;
-          highlightCode(lineNum, highlightClass);
-        };
-
-        // Simulate line 1
-        appendLog(1, "Starting execution...", "");
-
-        // Simulate entering TRY block (line 2, 3)
-        appendLog([2, 3], "  Inside TRY block...", "highlight-try");
-
-        // Simulate getting input (line 4) - conceptual
-        appendLog(4, `    (Input provided: "${userInput}")`, "highlight-try");
-
-        // --- Actual TRY logic ---
         try {
-          // Simulate line 5: int conversion
-          appendLog(
-            5,
-            `    Attempting int("${userInput}")...`,
-            "highlight-try"
-          );
-          const number = parseInt(userInput);
-          if (isNaN(number) || number.toString() !== userInput.trim()) {
-            // Stricter check than just isNaN
-            throw new Error("ValueError"); // Simulate ValueError
+          potionLog += `Adding '${ing1}' to the cauldron.\n`;
+          
+          // Simulate potential errors
+          if (ing1.toLowerCase() === 'number' || ing2.toLowerCase() === 'number') {
+            // Try to convert second ingredient to a number, if first is 'number'
+            // or if second one is explicitly 'number'. This is a common source of ValueError.
+            let quantity = 0;
+            if (ing1.toLowerCase() === 'number'){
+                potionLog += "Expecting second ingredient to be a quantity (number).\n";
+                quantity = parseInt(ing2); 
+                 if (isNaN(quantity)) {
+                    throw new Error('ValueError_Num: Second ingredient is not a valid number for quantity.');
+                }
+            } else if (ing2.toLowerCase() === 'number') {
+                 potionLog += "Expecting first ingredient to be a quantity (number).\n";
+                quantity = parseInt(ing1); 
+                 if (isNaN(quantity)) {
+                    throw new Error('ValueError_Num: First ingredient is not a valid number for quantity.');
+                }
+            } else {
+                quantity = 1; // Default quantity if not expecting a number
+            }
+            
+            potionLog += `Successfully added quantity: ${quantity}.\n`;
           }
 
-          // Simulate line 6: Division
-          appendLog(6, `    Attempting 10 / ${number}...`, "highlight-try");
-          if (number === 0) {
-            throw new Error("ZeroDivisionError"); // Simulate ZeroDivisionError
+          if (ing1.toLowerCase() === 'dragon scale' && parseInt(ing2) === 0) {
+            throw new Error('ZeroDivisionError_Sim: Cannot divide by zero scales! Potion unstable.');
           }
-          result = 10 / number;
+          
+          if (ing1.toLowerCase() === 'griffin feather' && ing2.toLowerCase() === 'lead') {
+              throw new Error('TypeError_Sim: Cannot mix feathers with heavy metals! Alchemy fail.');
+          }
 
-          // Simulate line 7: Success print
-          appendLog(7, `    Calculation result: ${result}`, "highlight-try");
-        } catch (e) {
-          errorOccurred = e.message; // Store the type of error
-        }
+          // Success
+          potionLog += `Successfully brewed a Potion of 8-Bit Wonder with '${ing1}' and '${ing2}'!\n`;
+          potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
+          showBrewMessage('Potion brewed successfully!', 'success');
 
-        // --- EXCEPT, ELSE, FINALLY ---
-        if (errorOccurred) {
-          if (errorOccurred === "ValueError") {
-            // Simulate line 8, 9
-            appendLog(
-              [8, 9],
-              "  Inside ValueError EXCEPT block.",
-              "highlight-except"
-            );
-          } else if (errorOccurred === "ZeroDivisionError") {
-            // Simulate line 10, 11
-            appendLog(
-              [10, 11],
-              "  Inside ZeroDivisionError EXCEPT block.",
-              "highlight-except"
-            );
+        } catch (error) {
+          potionLog += `Error during brewing: ${error.message}\n`;
+          if (error.message.startsWith('ValueError_Num')) {
+            potionLog += "Hint: Ensure numeric ingredients are valid numbers.\n";
+             showBrewMessage('Invalid number for ingredient quantity!', 'error');
+          } else if (error.message.startsWith('ZeroDivisionError_Sim')) {
+            potionLog += "Hint: Dragon scales are potent, don't use zero!\n";
+            showBrewMessage('Potion unstable due to zero quantity!', 'error');
+          } else if (error.message.startsWith('TypeError_Sim')) {
+            potionLog += "Hint: Some ingredients just don\'t mix!\n";
+            showBrewMessage('Ingredient mismatch! Alchemy explosion!', 'error');
           } else {
-            // Generic catch simulation (though our example is specific)
-            appendLog(
-              [],
-              `  An unexpected error occurred: ${errorOccurred}`,
-              "highlight-except"
-            );
+             showBrewMessage('An unexpected brewing error occurred!', 'error');
           }
-        } else {
-          // No error occurred, simulate ELSE block (line 12, 13)
-          appendLog(
-            [12, 13],
-            "  Inside ELSE block (no exceptions).",
-            "highlight-else"
-          );
-        }
-
-        // Simulate FINALLY block (line 14, 15) - always runs
-        appendLog(
-          [14, 15],
-          "  Inside FINALLY block (always runs).",
-          "highlight-finally"
-        );
-
-        // Simulate line 16
-        appendLog(16, "Execution finished.", "");
-
-        showMessage(
-          errorHandlingMessage,
-          `Execution simulation complete. ${
-            errorOccurred ? "An error was handled." : "No errors occurred."
-          }`,
-          errorOccurred ? "error" : "success"
-        );
-
-        // Clear highlights after a short delay
-        setTimeout(() => highlightCode([], ""), 1500);
-      }
-
-      runTryExceptButton.addEventListener("click", simulateExecution);
-
-      // --- Quiz Logic ---
-      function checkErrorQuiz() {
-        const answers = {
-          q1_error: "b", // Enclose code that might raise exception
-          q2_error: "c", // Matching except block
-          q3_error: "c", // Only if NO exception occurs
-          q4_error: "b", // raise
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
+          potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
+        } finally {
+          potionLog += "Cleaning the cauldron (finally block executed).\n";
+          // Update one last time to include finally message if not already error-outed
+          if (!potionResultDiv.innerHTML.includes("Cleaning the cauldron")){
+             potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
           }
         }
-
-        if (!allAnswered) {
-          quizResultError.textContent =
-            "Please answer all questions before checking.";
-          quizResultError.className = "message-box message-box-error";
-          quizResultError.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultError.innerHTML = resultsHTML;
-        quizResultError.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultError.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonError.addEventListener("click", checkErrorQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        // No specific setup needed initially
-      };
+      });
     </script>
   </body>
 </html>

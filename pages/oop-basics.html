@@ -3,138 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Object-Oriented Programming (OOP)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>OOP Basics - Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Object-Oriented Programming (OOP) Basics
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Organizing code using classes and objects to model real-world entities and their interactions.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="oop-advanced.html" class="btn">
+          Next: OOP Advanced &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
-      <a href="searching-binary.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Searching (Binary Search)
-      </a>
-      <a href="oop-advanced.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: OOP Advanced &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Object-Oriented Programming Basics
+          </h2>
+          <p class="text-sm italic mt-1">
+            Understanding classes, objects, and the fundamental principles of OOP.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          1. What is Object-Oriented Programming?
-        </h2>
-        <p class="mb-4">
-          Object-Oriented Programming (OOP) is a programming paradigm based on
-          the concept of "objects". Objects bundle data (attributes) and code
-          (methods) that operate on that data together. Think of real-world
-          objects: a car has attributes (color, model, speed) and methods (start
-          engine, accelerate, brake). OOP helps model real-world entities and
-          their interactions in code.
-        </p>
-        <p>Key benefits include:</p>
-        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-          <li>
-            <strong>Modularity:</strong> Objects are self-contained units,
-            making code easier to manage and update.
-          </li>
-          <li>
-            <strong>Reusability:</strong> Classes (blueprints for objects) can
-            be reused to create multiple objects or inherited from to create
-            specialized classes.
-          </li>
-          <li>
-            <strong>Maintainability:</strong> Changes within one object are less
-            likely to affect others, simplifying debugging and maintenance.
-          </li>
-          <li>
-            <strong>Real-world Modeling:</strong> Easier to represent complex
-            systems by modeling them as interacting objects.
-          </li>
-        </ul>
-      </section>
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What is Object-Oriented Programming?</h2>
+            <p class="mb-4">
+              Object-Oriented Programming (OOP) is a way of programming based on "objects". Objects bundle data (attributes) and code (methods) together. Think of a real-world car: it has attributes (color, model) and methods (start, accelerate). It's like having a blueprint (class) that defines what a car should have and do, and then creating actual cars (objects) from that blueprint.
+            </p>
+            <p>Key benefits:</p>
+            <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li><strong>Modularity:</strong> Self-contained objects, like LEGO blocks that can be combined to build complex structures.</li>
+              <li><strong>Reusability:</strong> Classes are blueprints that can be used to create multiple objects, like using the same cookie cutter to make many cookies.</li>
+              <li><strong>Maintainability:</strong> Easier updates, like being able to fix a specific part of a machine without affecting the whole system.</li>
+              <li><strong>Real-world Modeling:</strong> Represents complex systems in a way that mirrors how we think about the real world, like modeling a school system with students, teachers, and classrooms.</li>
+            </ul>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          2. Classes and Objects: The Core Concepts
-        </h2>
-        <ul class="list-disc list-inside ml-4 space-y-2">
-          <li>
-            <strong>Class:</strong> A blueprint or template for creating
-            objects. It defines the attributes (data) and methods
-            (functions/behavior) that all objects of that class will have.
-            Example: The blueprint for a `Car`.
-          </li>
-          <li>
-            <strong>Object (Instance):</strong> A specific instance created from
-            a class. Each object has its own set of attribute values but shares
-            the methods defined by the class. Example: `my_red_toyota` is an
-            object created from the `Car` class. `your_blue_honda` is another
-            object of the same class.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Define a simple class (blueprint)
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Classes and Objects</h2>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+              <li><strong>Class:</strong> A blueprint for creating objects. Defines attributes (data) and methods (behavior). Ex: `Car` blueprint. Think of it like a recipe that defines what ingredients (attributes) and steps (methods) are needed to create a dish.</li>
+              <li><strong>Object (Instance):</strong> A specific creation from a class. Has its own attribute values but shares methods. Ex: `my_red_toyota` is a `Car` object. Like having multiple houses built from the same blueprint - each house has its own color and furniture, but they all have the same basic structure.</li>
+            </ul>
+            <pre><code class="language-python"># Define a simple class (blueprint)
 class Dog:
-  # Class attribute (shared by all dogs)
-  species = "Canis familiaris"
+  species = "Canis familiaris" # Class attribute (shared)
 
-  # Method (behavior)
-  def speak(self):
+  def speak(self): # Method (behavior)
     print("Woof!")
 
-# Create objects (instances) from the class
+# Create objects (instances)
 my_dog = Dog()
 your_dog = Dog()
 
-# Access class attribute
-print(f"My dog's species: {my_dog.species}")   # Output: Canis familiaris
-print(f"Your dog's species: {your_dog.species}") # Output: Canis familiaris
+print(f"My dog is a {my_dog.species}") # Access attribute
+my_dog.speak() # Call method</code></pre>
+          </section>
 
-# Call method on objects
-my_dog.speak()   # Output: Woof!
-your_dog.speak() # Output: Woof!</code></pre>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          3. Defining Classes and the `__init__` Method
-        </h2>
-        <p class="mb-2">
-          You define a class using the <code>class</code> keyword. Inside the
-          class, you define methods, which are like functions but belong to the
-          class.
-        </p>
-        <p class="mb-2">
-          A special method called <code>__init__</code> (short for "initialize",
-          pronounced "dunder init" for double underscores) acts as the
-          <strong>constructor</strong>. It's automatically called when you
-          create a new object from the class. Its primary purpose is to set up
-          the initial state (attributes) of the object.
-        </p>
-        <p class="mb-2">
-          The first parameter of <code>__init__</code> (and most other instance
-          methods) is always <code>self</code>. This parameter refers to the
-          specific object instance being created or worked on. Python passes
-          this automatically when you call methods on an object.
-        </p>
-        <pre><code class="language-python">class Car:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. The `__init__` Method (Constructor)</h2>
+            <p class="mb-2">
+              The <code>class</code> keyword defines a class. Inside, methods are functions belonging to the class. Think of it like declaring a new type of container that can hold specific types of data and perform specific actions.
+            </p>
+            <p class="mb-2">
+              <code>__init__</code> is a special method (constructor) automatically called when creating a new object. It initializes the object's state (attributes). Like a factory worker who sets up a new product with its initial configuration before it's ready for use.
+            </p>
+            <p class="mb-2">
+              The first parameter of <code>__init__</code> (and instance methods) is always <code>self</code>, referring to the object instance itself. Think of it like a self-reference - when you say "I am doing something," you're referring to yourself. Similarly, `self` refers to the specific object being worked with.
+            </p>
+            <pre><code class="language-python">class Car:
   # The constructor method
   def __init__(self, color, model):
     print(f"Creating a {color} {model} car...")
@@ -154,399 +101,172 @@ car2 = Car("Blue", "Honda")
 # Accessing instance attributes
 print(f"Car 1 color: {car1.color}") # Output: Red
 print(f"Car 2 model: {car2.model}") # Output: Honda</code></pre>
-        <p class="mt-2">
-          Attributes defined using
-          <code>self.attribute_name = value</code> inside
-          <code>__init__</code> (or other methods) are called
-          <strong>instance attributes</strong>. Each object gets its own copy of
-          these attributes.
-        </p>
-      </section>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          4. Instance Methods and `self`
-        </h2>
-        <p class="mb-2">
-          Methods are functions defined inside a class that operate on the
-          object's data (its attributes). They always receive the object
-          instance itself as their first argument, conventionally named
-          <code>self</code>.
-        </p>
-        <p class="mb-2">
-          Using <code>self</code>, methods can access and modify the object's
-          instance attributes.
-        </p>
-        <pre><code class="language-python">class Car:
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Instance Methods and `self`</h2>
+            <p class="mb-2">
+              Methods are functions defined inside a class that operate on the
+              object's data (its attributes). They always receive the object
+              instance itself as their first argument, conventionally named
+              <code>self</code>. Like having a remote control (method) that can only operate on its specific TV (object) - the remote needs to know which TV it's controlling.
+            </p>
+            <p class="mb-2">
+              Using <code>self</code>, methods can access and modify the object's
+              instance attributes. It's like having a key that can access and modify the contents of a specific locker - the key (method) needs to know which locker (object) it's working with.
+            </p>
+            <pre><code class="language-python">class Car:
   def __init__(self, color, model):
     self.color = color
     self.model = model
     self.is_engine_on = False
 
-  # An instance method
+  # Instance method to start the engine
   def start_engine(self):
-    if not self.is_engine_on: # Access attribute using self
-      print(f"Starting the {self.color} {self.model}'s engine... Vroom!")
-      self.is_engine_on = True # Modify attribute using self
+    if not self.is_engine_on:
+      self.is_engine_on = True
+      print(f"The {self.color} {self.model}'s engine is now ON.")
     else:
-      print("Engine is already running.")
+      print(f"The {self.color} {self.model}'s engine is already ON.")
 
-  # Another instance method
+  # Instance method to stop the engine
   def stop_engine(self):
     if self.is_engine_on:
-      print(f"Stopping the {self.color} {self.model}'s engine.")
       self.is_engine_on = False
+      print(f"The {self.color} {self.model}'s engine is now OFF.")
     else:
-      print("Engine is already off.")
+      print(f"The {self.color} {self.model}'s engine is already OFF.")
 
-# Create a car object
-my_car = Car("Silver", "Tesla")
-
-# Call methods on the object
-# Python automatically passes 'my_car' as the 'self' argument
-my_car.start_engine() # Output: Starting the Silver Tesla's engine... Vroom!
-my_car.start_engine() # Output: Engine is already running.
-my_car.stop_engine()  # Output: Stopping the Silver Tesla's engine.</code></pre>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          5. Try Creating and Using Objects
-        </h2>
-        <p class="mb-4">
-          Let's use a `Pet` class. Enter a name and type for your pet to create
-          an object (instance). Then, you can make it speak!
-        </p>
-        <div class="mb-4">
-          <h4 class="text-md font-medium mb-1">Class Definition:</h4>
-          <pre><code class="language-python">
-class Pet:
-  def __init__(self, name, animal_type):
-    self.name = name
-    self.animal_type = animal_type
-    print(f"Created a {self.animal_type} named {self.name}!")
-
-  def speak(self):
-    sound = "..." # Default sound
-    if self.animal_type.lower() == "dog":
-      sound = "Woof!"
-    elif self.animal_type.lower() == "cat":
-      sound = "Meow!"
-    elif self.animal_type.lower() == "bird":
-      sound = "Chirp!"
-    print(f"{self.name} says: {sound}")
-                </code></pre>
-        </div>
-
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="petNameInput" class="mr-2">Pet Name:</label>
-          <input
-            type="text"
-            id="petNameInput"
-            class="input-field w-full"
-            placeholder="e.g., Buddy"
-          />
-          <label for="petTypeInput" class="ml-4 mr-2">Pet Type:</label>
-          <input
-            type="text"
-            id="petTypeInput"
-            class="input-field w-full"
-            placeholder="e.g., Dog, Cat, Bird"
-          />
-          <button id="createPetButton" class="btn btn-green">
-            Create Pet Object
-          </button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          <div>
-            <h3 class="text-lg font-medium mb-2">Current Pet Object:</h3>
-            <div id="objectDisplay" class="object-display">
-              <span class="text-gray-500 italic">No pet created yet.</span>
+my_car = Car("Pixel Green", "Bitmobile")
+my_car.start_engine() # Output: The Pixel Green Bitmobile's engine is now ON.
+my_car.start_engine() # Output: The Pixel Green Bitmobile's engine is already ON.
+my_car.stop_engine()  # Output: The Pixel Green Bitmobile's engine is now OFF.</code></pre>
+          </section>
+          
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Interactive Character Creator</h2>
+            <p class="mb-2">
+              Let's create a simple `Character` class for a game.
+            </p>
+            <div class="sub-interactive-box p-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                <div>
+                  <label for="charName" class="block mb-1">Name:</label>
+                  <input type="text" id="charName" class="input-field w-full" value="Glyph">
+                </div>
+                <div>
+                  <label for="charClass" class="block mb-1">Class:</label>
+                  <input type="text" id="charClass" class="input-field w-full" value="Code Wizard">
+                </div>
+              </div>
+              <button id="createCharButton" class="btn mb-3">Create Character</button>
+              <div id="charOutput" class="output-display min-h-[70px]">
+                <span class="placeholder-text">Character details will appear here...</span>
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 class="text-lg font-medium mb-2">Actions & Output:</h3>
-            <button id="speakButton" class="btn" disabled>
-              Make Pet Speak
-            </button>
-            <div id="actionOutputDisplay" class="output-display">
-              <span class="text-gray-500 italic">Create a pet first.</span>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Mini-Challenge: Add a `level_up` method</h2>
+            <p class="mb-2">
+              Modify the `Character` class in the script below to include a `level_up` method. It should increment a `level` attribute (default to 1 in `__init__`) and print the new level.
+            </p>
+            <div class="sub-interactive-box p-4">
+              <p class="mb-2 text-sm">Simulated `Character` class definition (for practice):</p>
+              <pre><code id="charLevelUpCode" class="language-python">class Character:
+    def __init__(self, name, char_class):
+        self.name = name
+        self.char_class = char_class
+        self.level = 1 # Default level
+        print(f"{self.name} the {self.char_class} (Lvl {self.level}) has entered the game!")
+
+    def describe(self):
+        return f"Name: {self.name}\nClass: {self.char_class}\nLevel: {self.level}"
+
+    # TODO: Add your level_up method here
+    # def level_up(self):
+    #   pass # Replace this
+
+# --- Example Usage (simulation) ---
+# player = Character("Sparky", "Byte Mage")
+# # player.level_up()
+# # print(player.describe())</code></pre>
+              <button id="runLevelUpChallenge" class="btn mt-2">Test Level Up (Simulated)</button>
+              <div id="levelUpOutput" class="output-display min-h-[50px] mt-2">
+                <span class="placeholder-text">Level up test output...</span>
+              </div>
             </div>
-          </div>
-        </div>
-        <div id="oopMessage" class="message-box" style="display: none"></div>
-      </section>
+          </section>
+        </main>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">
-          6. Further OOP Concepts (Briefly)
-        </h2>
-        <p class="mb-2">OOP includes other important concepts:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-          <li>
-            <strong>Inheritance:</strong> Allows a new class (subclass or
-            derived class) to inherit attributes and methods from an existing
-            class (superclass or base class). This promotes code reuse and
-            establishes an "is-a" relationship (e.g., a `Poodle` is a `Dog`).
-          </li>
-          <li>
-            <strong>Encapsulation:</strong> Bundling data (attributes) and
-            methods that operate on the data within a single unit (the object).
-            It often involves controlling access to internal data (e.g., using
-            private attributes, though Python's approach is based on
-            convention).
-          </li>
-          <li>
-            <strong>Polymorphism:</strong> Allows objects of different classes
-            to respond to the same method call in their own specific ways.
-            (e.g., both a `Dog` object and a `Cat` object might have a `speak()`
-            method, but they produce different sounds).
-          </li>
-        </ul>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-3">7. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">Q1: What is a "Class" in OOP?</p>
-          <label class="block"
-            ><input type="radio" name="q1_oop" value="a" class="mr-1" /> A
-            specific instance with data</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_oop" value="b" class="mr-1" /> A
-            blueprint or template for creating objects</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_oop" value="c" class="mr-1" /> A
-            function defined inside a class</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: What is the special method `__init__` used for?
+        <footer class="footer-8bit">
+          <p>Happy Coding!</p>
+          <p class="mt-2">
+            <a href="../index.html">Back to Main Menu</a>
           </p>
-          <label class="block"
-            ><input type="radio" name="q2_oop" value="a" class="mr-1" /> To
-            destroy an object</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_oop" value="b" class="mr-1" /> To
-            define the main behavior of an object</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_oop" value="c" class="mr-1" /> To
-            initialize the attributes of a newly created object</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What does the `self` parameter represent in an instance method?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_oop" value="a" class="mr-1" /> The
-            class itself</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_oop" value="b" class="mr-1" /> The
-            specific object instance the method is called on</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_oop" value="c" class="mr-1" /> A
-            global variable</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: Data associated with a specific object instance is called
-            a(n)...
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_oop" value="a" class="mr-1" />
-            Method</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_oop" value="b" class="mr-1" /> Class
-            Attribute</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_oop" value="c" class="mr-1" />
-            Instance Attribute</label
-          >
-        </div>
-        <button id="checkQuizButtonOOP" class="btn">Check Answers</button>
-        <div
-          id="quizResultOOP"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+        </footer>
+      </div>
+    </div>
 
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-      <p>Happy Learning!</p>
-    </footer>
-
+    <script src="../js/main.js" defer></script>
     <script>
-      // --- Shared Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`;
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
+      // Character Creator
+      const charNameInput = document.getElementById('charName');
+      const charClassInput = document.getElementById('charClass');
+      const createCharButton = document.getElementById('createCharButton');
+      const charOutputDiv = document.getElementById('charOutput');
 
-      // --- DOM Elements ---
-      const petNameInput = document.getElementById("petNameInput");
-      const petTypeInput = document.getElementById("petTypeInput");
-      const createPetButton = document.getElementById("createPetButton");
-      const objectDisplay = document.getElementById("objectDisplay");
-      const speakButton = document.getElementById("speakButton");
-      const actionOutputDisplay = document.getElementById(
-        "actionOutputDisplay"
-      );
-      const oopMessage = document.getElementById("oopMessage");
-
-      const checkQuizButtonOOP = document.getElementById("checkQuizButtonOOP");
-      const quizResultOOP = document.getElementById("quizResultOOP");
-
-      // --- State ---
-      let currentPet = null; // Holds the simulated pet object
-
-      // --- Simulate the Pet Class ---
-      class Pet {
-        constructor(name, animal_type) {
+      class Character {
+        constructor(name, charClass) {
           this.name = name;
-          this.animal_type = animal_type;
-          // Simulate the print statement from __init__
-          actionOutputDisplay.innerHTML = `Created a ${this.animal_type} named ${this.name}!\n`;
+          this.char_class = charClass;
+          this.level = 1; // Default level
+          // Simulate the Python __init__ print
+          this.log = `${this.name} the ${this.char_class} (Lvl ${this.level}) has entered the game!\n`;
         }
 
-        speak() {
-          let sound = "..."; // Default sound
-          if (this.animal_type.toLowerCase() === "dog") {
-            sound = "Woof!";
-          } else if (this.animal_type.toLowerCase() === "cat") {
-            sound = "Meow!";
-          } else if (this.animal_type.toLowerCase() === "bird") {
-            sound = "Chirp!";
-          }
-          // Append to the action output
-          actionOutputDisplay.innerHTML += `${this.name} says: ${sound}\n`;
-          actionOutputDisplay.scrollTop = actionOutputDisplay.scrollHeight; // Scroll to bottom
+        describe() {
+          return `Name: ${this.name}\nClass: ${this.char_class}\nLevel: ${this.level}`;
+        }
+        
+        // Corresponds to the mini-challenge
+        level_up() {
+            this.level++;
+            this.log += `${this.name} leveled up to Level ${this.level}!\n`;
+            console.log(`${this.name} leveled up to Level ${this.level}!`); // For console
         }
       }
 
-      // --- Interactive Logic ---
-      function displayObject(obj) {
-        if (!obj) {
-          objectDisplay.innerHTML =
-            '<span class="text-gray-500 italic">No pet created yet.</span>';
-          return;
-        }
-        let html = `<strong>Object Type:</strong> Pet<br>`;
-        for (const attr in obj) {
-          // Only display own properties (attributes)
-          if (obj.hasOwnProperty(attr)) {
-            html += `<span class="object-attribute">${attr}</span>: <span class="object-value">"${obj[attr]}"</span><br>`;
-          }
-        }
-        objectDisplay.innerHTML = html;
-      }
-
-      createPetButton.addEventListener("click", () => {
-        const name = petNameInput.value.trim();
-        const type = petTypeInput.value.trim();
-
-        if (!name || !type) {
-          showMessage(oopMessage, "Please enter both name and type.", "error");
-          return;
-        }
-
-        actionOutputDisplay.innerHTML = ""; // Clear previous action output
-        currentPet = new Pet(name, type); // Create the simulated object
-        displayObject(currentPet);
-        speakButton.disabled = false; // Enable the speak button
-        showMessage(oopMessage, `Pet object '${name}' created.`, "success");
+      createCharButton.addEventListener('click', () => {
+        const name = charNameInput.value || "Mystero";
+        const charClass = charClassInput.value || "Unknown";
+        const newChar = new Character(name, charClass);
+        charOutputDiv.innerHTML = newChar.log.replace(/\n/g, '<br>') + newChar.describe().replace(/\n/g, '<br>');
       });
 
-      speakButton.addEventListener("click", () => {
-        if (currentPet && typeof currentPet.speak === "function") {
-          currentPet.speak(); // Call the method on the simulated object
-          showMessage(oopMessage, `${currentPet.name} spoke!`, "info");
-        } else {
-          showMessage(oopMessage, "Create a pet object first.", "error");
+      // Mini-Challenge: level_up
+      const runLevelUpChallengeButton = document.getElementById('runLevelUpChallenge');
+      const levelUpOutputDiv = document.getElementById('levelUpOutput');
+
+      runLevelUpChallengeButton.addEventListener('click', () => {
+        // Simulate the Character class with level_up for testing
+        // This is a simplified simulation in JS
+        let outputLog = "Simulating Character creation and level_up...\n";
+        try {
+            const testChar = new Character("Challenger", "Test Subject");
+            outputLog += testChar.log; // Initial creation message
+            
+            // Simulate calling level_up
+            testChar.level_up(); // Call the JS version
+            outputLog += testChar.log.substring(testChar.log.lastIndexOf("Challenger leveled up")); // Get the level up message
+
+            outputLog += "Character description after level up:\n";
+            outputLog += testChar.describe();
+            levelUpOutputDiv.innerHTML = outputLog.replace(/\n/g, '<br>');
+        } catch (e) {
+            levelUpOutputDiv.textContent = "Error in simulated level_up: " + e.message;
         }
       });
-
-      // --- Quiz Logic ---
-      function checkOOPQuiz() {
-        const answers = {
-          q1_oop: "b", // Blueprint
-          q2_oop: "c", // Initialize attributes
-          q3_oop: "b", // Specific object instance
-          q4_oop: "c", // Instance Attribute
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultOOP.textContent =
-            "Please answer all questions before checking.";
-          quizResultOOP.className = "message-box message-box-error";
-          quizResultOOP.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultOOP.innerHTML = resultsHTML;
-        quizResultOOP.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultOOP.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonOOP.addEventListener("click", checkOOPQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        displayObject(null); // Show initial empty state
-        actionOutputDisplay.innerHTML =
-          '<span class="text-gray-500 italic">Create a pet first.</span>';
-      };
     </script>
   </body>
 </html>

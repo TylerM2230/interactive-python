@@ -3,59 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Nested Loops</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Nested Loops in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Nested Loops
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Using loops inside other loops to process multi-dimensional data or generate combinations.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="string-operations.html" class="btn">
+          Next: String Operations &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="lists-iteration.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Lists & Iteration
-      </a>
-      <a
-        href="string-operations.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: String Operations &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Nested Loops
+          </h2>
+          <p class="text-sm italic mt-1">
+            Using loops inside other loops to process multi-dimensional data or generate combinations.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What are Nested Loops?
-        </h2>
-        <p class="mb-4 text-gray-300">
-          A nested loop is simply a loop placed inside another loop. The
-          structure consists of an "outer loop" and one or more "inner loops".
-        </p>
-        <p class="mb-2 text-gray-300">
-          The key concept is how they execute: For
-          <strong>each single iteration</strong> of the outer loop, the
-          <strong>entire inner loop</strong> completes all of its iterations.
-        </p>
-        <pre><code class="language-python"># Basic structure (for loop inside a for loop)
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            1. What are Nested Loops?
+          </h2>
+          <p class="mb-4 text-gray-300">
+            Nested loops are like a clock with two hands - the hour hand (outer loop) moves slowly, and for each position of the hour hand, the minute hand (inner loop) makes a complete circle. Just as the minute hand completes its full rotation for each hour, the inner loop completes all its iterations for each single iteration of the outer loop. Think of it like a Russian nesting doll - each doll contains another doll inside, and you need to open each outer doll to access the inner ones.
+          </p>
+          <p class="mb-2 text-gray-300">
+            Think of it like a game of chess: for each move of the white pieces (outer loop), black gets to make all their possible moves (inner loop). The key concept is that for <strong>each single iteration</strong> of the outer loop, the <strong>entire inner loop</strong> completes all of its iterations. It's similar to how a teacher might check each student's homework (outer loop), and for each student, they need to check every question (inner loop).
+          </p>
+          <pre><code class="language-python"># Basic structure (for loop inside a for loop)
 for i in range(3):  # Outer loop (runs 3 times: i=0, i=1, i=2)
   print(f"Outer loop iteration: i = {i}")
   for j in range(2):  # Inner loop (runs 2 times for EACH outer iteration: j=0, j=1)
@@ -75,44 +64,35 @@ for i in range(3):  # Outer loop (runs 3 times: i=0, i=1, i=2)
 #   Inner loop iteration: j = 0
 #   Inner loop iteration: j = 1
 # ----------</code></pre>
-        <p class="mt-2 text-gray-300">
-          You can nest any type of loop inside another (e.g., a
-          <code>while</code> loop inside a <code>for</code> loop), but nested
-          <code>for</code> loops are very common.
-        </p>
-      </section>
+          <p class="mt-2 text-gray-300">
+            You can nest any type of loop inside another (e.g., a
+            <code>while</code> loop inside a <code>for</code> loop), but nested
+            <code>for</code> loops are very common.
+          </p>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Common Use Cases
-        </h2>
-        <p class="mb-2 text-gray-300">
-          Nested loops are powerful for tasks that involve multi-dimensional
-          structures or combinations:
-        </p>
-        <ul class="list-disc list-inside mb-4 space-y-2 text-gray-300">
-          <li>
-            <strong>Working with Grids or 2D Arrays:</strong> Iterating through
-            rows (outer loop) and then columns within each row (inner loop) to
-            access or modify elements in a grid.
-          </li>
-          <li>
-            <strong>Generating Combinations or Pairs:</strong> Creating all
-            possible pairs from two lists, or combinations of elements within a
-            single list.
-          </li>
-          <li>
-            <strong>Creating Patterns:</strong> Printing patterns like triangles
-            or squares using characters, where the outer loop controls rows and
-            the inner loop controls columns or elements per row.
-          </li>
-          <li>
-            <strong>Processing Multi-level Data:</strong> Handling data
-            structures like lists of lists, where the outer loop processes the
-            main list and the inner loop processes the sub-lists.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Example: Generating coordinate pairs (like a grid)
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            2. Common Use Cases
+          </h2>
+          <p class="mb-2 text-gray-300">
+            Nested loops are like having a map of a city - you need to visit each street (outer loop) and then check each house on that street (inner loop). They're powerful for tasks that involve multi-dimensional structures or combinations. Think of it like a treasure hunt where you need to check each room in a house (outer loop), and within each room, you need to look in every possible hiding spot (inner loop).
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2 text-gray-300">
+            <li>
+              <strong>Working with Grids or 2D Arrays:</strong> Like reading a spreadsheet - you go through each row (outer loop) and then check each column in that row (inner loop). It's similar to how you might read a book - first you pick a page (row), then you read each word on that page (column). Think of it like a farmer plowing a field - they need to plow each row (outer loop), and within each row, they need to plow every inch (inner loop).
+            </li>
+            <li>
+              <strong>Generating Combinations or Pairs:</strong> Like making all possible outfits from your wardrobe - for each shirt (outer loop), you try it with every pair of pants (inner loop). It's like a restaurant menu where each main course can be paired with any side dish. Think of it like a dance competition where each dancer (outer loop) needs to perform with every possible partner (inner loop).
+            </li>
+            <li>
+              <strong>Creating Patterns:</strong> Like building with blocks - you place blocks in rows (outer loop) and then fill each row with the right number of blocks (inner loop). It's similar to how you might color in a grid - first you choose a row, then you color each cell in that row. Think of it like knitting a sweater - you need to knit each row (outer loop), and within each row, you need to make every stitch (inner loop).
+            </li>
+            <li>
+              <strong>Processing Multi-level Data:</strong> Like organizing a library - you go through each bookshelf (outer loop) and then look at each book on that shelf (inner loop). It's like how you might clean a house - first you pick a room, then you clean each item in that room. Think of it like a family tree - you need to check each generation (outer loop), and within each generation, you need to look at every family member (inner loop).
+            </li>
+          </ul>
+          <pre><code class="language-python"># Example: Generating coordinate pairs (like a grid)
 rows = 3
 cols = 2
 coordinates = []
@@ -123,44 +103,41 @@ for r in range(rows): # Outer loop for rows
 
 print(coordinates)
 # Output: [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1)]</code></pre>
-      </section>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. See Nested Loops in Action (Generating Coordinates)
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Click the button to visualize a nested <code>for</code> loop
-          generating coordinate pairs (row, column) for a small grid (3 rows, 2
-          columns). Observe how the inner loop completes for each outer loop
-          iteration.
-        </p>
-        <div class="mb-4">
-          <button id="runNestedLoopButton" class="btn btn-green">
-            Run Nested Loop
-          </button>
-          <button id="resetNestedLoopButton" class="btn">Reset</button>
-        </div>
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">
+            3. See Nested Loops in Action (Generating Coordinates)
+          </h2>
+          <p class="mb-4 text-gray-300">
+            Let's watch our clock in action! We'll generate coordinate pairs for a small grid, where the hour hand (outer loop) represents rows and the minute hand (inner loop) represents columns. Each time the hour hand moves, the minute hand will make a complete circle, just like how each row will be paired with every possible column. Think of it like a game of Battleship - you need to check each row (outer loop), and within each row, you need to check every column position (inner loop) to find the ships.
+          </p>
+          <div class="mb-4">
+            <button id="runNestedLoopButton" class="btn btn-green">
+              Run Nested Loop
+            </button>
+            <button id="resetNestedLoopButton" class="btn">Reset</button>
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-medium mb-2 text-cyan-400">Loop State:</h3>
-            <div class="bg-blue-900 p-4 rounded-md">
-              <p class="text-gray-300">
-                Outer Loop (<code class="font-semibold text-yellow-300">i</code>):
-                <span id="outerLoopCounter" class="loop-counter outer-loop"
-                  >-</span
-                >
-              </p>
-              <p class="text-gray-300">
-                Inner Loop (<code class="font-semibold text-yellow-300">j</code>):
-                <span id="innerLoopCounter" class="loop-counter inner-loop"
-                  >-</span
-                >
-              </p>
-            </div>
-            <h4 class="text-md font-medium mt-4 mb-1 text-cyan-400">Code Snippet:</h4>
-            <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-medium mb-2 text-cyan-400">Loop State:</h3>
+              <div class="bg-blue-900 p-4 rounded-md">
+                <p class="text-gray-300">
+                  Outer Loop (<code class="font-semibold text-yellow-300">i</code>):
+                  <span id="outerLoopCounter" class="loop-counter outer-loop"
+                    >-</span
+                  >
+                </p>
+                <p class="text-gray-300">
+                  Inner Loop (<code class="font-semibold text-yellow-300">j</code>):
+                  <span id="innerLoopCounter" class="loop-counter inner-loop"
+                    >-</span
+                  >
+                </p>
+              </div>
+              <h4 class="text-md font-medium mt-4 mb-1 text-cyan-400">Code Snippet:</h4>
+              <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">
 <span class="code-line" data-line="1">for i in range(3): # Outer</span>
 <span class="code-line indent-1" data-line="2">  # Outer loop body starts</span>
 <span class="code-line indent-1" data-line="3">  for j in range(2): # Inner</span>
@@ -170,114 +147,114 @@ print(coordinates)
 <span class="code-line indent-1" data-line="7">  # Inner loop finishes</span>
 <span class="code-line indent-1" data-line="8"> # Outer loop body ends</span>
 <span class="code-line" data-line="9"># Outer loop finishes</span>
-                    </code></pre>
-          </div>
+                      </code></pre>
+            </div>
 
-          <div>
-            <h3 class="text-lg font-medium mb-2 text-cyan-400">Generated Output:</h3>
-            <div id="nestedLoopOutput" class="output-display bg-blue-900 border-yellow-500 text-gray-200">
-              <span class="text-gray-400 italic"
-                >Click "Run Nested Loop" to start.</span
-              >
+            <div>
+              <h3 class="text-lg font-medium mb-2 text-cyan-400">Generated Output:</h3>
+              <div id="nestedLoopOutput" class="output-display bg-blue-900 border-yellow-500 text-gray-200">
+                <span class="text-gray-400 italic"
+                  >Click "Run Nested Loop" to start.</span
+                >
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          id="nestedLoopMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+          <div
+            id="nestedLoopMessage"
+            class="message-box"
+            style="display: none"
+          ></div>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">4. Quick Quiz</h2>
-        <p class="mb-4 text-gray-300">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q1: If an outer loop runs 3 times and an inner loop runs 4 times for
-            each outer iteration, how many times does the innermost code block
-            execute in total?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_nestedloop" value="a" class="mr-1" />
-            3 times</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_nestedloop" value="b" class="mr-1" />
-            4 times</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_nestedloop" value="c" class="mr-1" />
-            7 times</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_nestedloop" value="d" class="mr-1" />
-            12 times</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">Q2: Consider the code:</p>
-          <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">count = 0
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">4. Quick Quiz</h2>
+          <p class="mb-4 text-gray-300">Test your understanding!</p>
+          <div class="mb-3">
+            <p class="font-medium mb-1 text-gray-200">
+              Q1: If an outer loop runs 3 times and an inner loop runs 4 times for
+              each outer iteration, how many times does the innermost code block
+              execute in total?
+            </p>
+            <label class="block text-gray-300"
+              ><input type="radio" name="q1_nestedloop" value="a" class="mr-1" />
+              3 times</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q1_nestedloop" value="b" class="mr-1" />
+              4 times</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q1_nestedloop" value="c" class="mr-1" />
+              7 times</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q1_nestedloop" value="d" class="mr-1" />
+              12 times</label
+            >
+          </div>
+          <div class="mb-3">
+            <p class="font-medium mb-1 text-gray-200">Q2: Consider the code:</p>
+            <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">count = 0
 for x in range(2):
   for y in range(2):
     count = count + 1
 print(count)</code></pre>
-          <p class="font-medium mt-1 text-gray-200">What will be printed?</p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_nestedloop" value="a" class="mr-1" />
-            2</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_nestedloop" value="b" class="mr-1" />
-            3</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_nestedloop" value="c" class="mr-1" />
-            4</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_nestedloop" value="d" class="mr-1" />
-            1</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q3: Which use case is NOT a typical application of nested loops?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_nestedloop" value="a" class="mr-1" />
-            Iterating through a simple list (1D)</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_nestedloop" value="b" class="mr-1" />
-            Processing pixels in an image (grid)</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_nestedloop" value="c" class="mr-1" />
-            Generating all possible pairs of players from two teams</label
-          >
-        </div>
-        <button id="checkQuizButtonNestedLoop" class="btn">
-          Check Answers
-        </button>
-        <div
-          id="quizResultNestedLoop"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+            <p class="font-medium mt-1 text-gray-200">What will be printed?</p>
+            <label class="block text-gray-300"
+              ><input type="radio" name="q2_nestedloop" value="a" class="mr-1" />
+              2</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q2_nestedloop" value="b" class="mr-1" />
+              3</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q2_nestedloop" value="c" class="mr-1" />
+              4</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q2_nestedloop" value="d" class="mr-1" />
+              1</label
+            >
+          </div>
+          <div class="mb-3">
+            <p class="font-medium mb-1 text-gray-200">
+              Q3: Which use case is NOT a typical application of nested loops?
+            </p>
+            <label class="block text-gray-300"
+              ><input type="radio" name="q3_nestedloop" value="a" class="mr-1" />
+              Iterating through a simple list (1D)</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q3_nestedloop" value="b" class="mr-1" />
+              Processing pixels in an image (grid)</label
+            >
+            <label class="block text-gray-300"
+              ><input type="radio" name="q3_nestedloop" value="c" class="mr-1" />
+              Generating all possible pairs of players from two teams</label
+            >
+          </div>
+          <button id="checkQuizButtonNestedLoop" class="btn">
+            Check Answers
+          </button>
+          <div
+            id="quizResultNestedLoop"
+            class="message-box mt-4"
+            style="display: none"
+          ></div>
+        </section>
+      </div>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+      <footer class="footer-8bit">
+        <p>Happy Coding!</p>
+        <p class="mt-2">
+          <a
+            href="../index.html"
+            >Back to Main Menu</a
+          >
+        </p>
+      </footer>
+    </div>
 
     <script src="../js/main.js" defer></script>
     <script>

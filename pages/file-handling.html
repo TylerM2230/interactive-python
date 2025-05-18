@@ -3,579 +3,222 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn File Handling in Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>File Handling in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding File Handling in Python
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Reading from and writing to files to persistently store and retrieve data.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="random-module.html" class="btn">
+          Next: Random Module &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="error-handling.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Error Handling
-      </a>
-      <a
-        href="random-module.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: Random Module &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            File Handling
+          </h2>
+          <p class="text-sm italic mt-1">
+            Reading from and writing to files in Python.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. Why File Handling?
-        </h2>
-        <p class="mb-4">
-          Programs often need to read data from files (like configuration files,
-          user data, input datasets) or write data to files (like logs, results,
-          saved progress). File handling allows your Python programs to interact
-          with the computer's file system to store and retrieve data
-          persistently, meaning the data remains even after the program finishes
-          running.
-        </p>
-        <p class="text-sm text-orange-600 bg-orange-100 p-3 rounded-md">
-          <strong>Note:</strong> The interactive examples on this page
-          *simulate* file operations using text areas for security reasons. Web
-          browsers cannot directly access your local files through simple
-          HTML/JavaScript like this. The Python code shown works with real files
-          on your computer when run in a Python environment.
-        </p>
-      </section>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            1. Why File Handling?
+          </h2>
+          <p class="mb-4">
+            Think of file handling like a library system. Just as a library stores books that can be read and written to, programs need to store and retrieve data from files. Whether it's saving your game progress, reading configuration settings, or logging important events, file handling is like having a permanent memory for your program.
+          </p>
+          <p class="text-sm p-3 rounded-md message-box message-box-warning">
+            <strong>Note:</strong> Interactive examples here *simulate* file operations for security. Web browsers can't directly access local files this way. The Python code shown works with real files in a Python environment.
+          </p>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Reading from Files
-        </h2>
-        <p class="mb-2">
-          Once a file is opened in read mode (<code>'r'</code> or
-          <code>'r+'</code>), you can read its contents using several methods:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <code>.read()</code>: Reads the entire content of the file into a
-            single string. Be careful with very large files.
-          </li>
-          <li>
-            <code>.readline()</code>: Reads a single line from the file,
-            including the newline character (<code>\n</code>) at the end.
-            Returns an empty string at the end of the file.
-          </li>
-          <li>
-            <code>.readlines()</code>: Reads all lines from the file and returns
-            them as a list of strings, where each string is a line including the
-            newline character.
-          </li>
-          <li>
-            Iterating directly over the file object (e.g.,
-            <code>for line in f:</code>): This is often the most
-            memory-efficient way to read a file line by line.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Assuming 'myfile.txt' contains:
-# Line 1
-# Line 2
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            2. Opening Files & Modes
+          </h2>
+          <p class="mb-2">
+            Opening a file is like choosing how to interact with a book in a library. The mode you choose determines what you can do:
+          </p>
+          <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><code>'r'</code>: Like checking out a book to read - you can only read it, and it must exist.</li>
+            <li><code>'w'</code>: Like getting a blank notebook - you can write anything, but it erases any existing content.</li>
+            <li><code>'a'</code>: Like adding to your diary - you can write at the end without affecting what's already there.</li>
+            <li><code>'r+'</code>: Like having a notebook with both reading and writing permissions.</li>
+            <li>Binary modes (<code>'b'</code>): Like handling special books that aren't just text (images, music, etc.).</li>
+          </ul>
+        </section>
+        
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            3. Reading from Files
+          </h2>
+          <p class="mb-2">
+            Reading from files is like different ways of reading a book:
+          </p>
+          <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><code>.read()</code>: Like reading the entire book at once.</li>
+            <li><code>.readline()</code>: Like reading one page at a time.</li>
+            <li><code>.readlines()</code>: Like making a list of all pages to read later.</li>
+            <li><code>for line in file_object:</code>: Like reading the book page by page, efficiently.</li>
+          </ul>
+          <pre><code class="language-python"># Assuming 'scroll.txt' contains:
+# Ancient wisdom...
+# More secrets...
 
-with open('myfile.txt', 'r') as f:
-  # content = f.read() # Reads "Line 1\nLine 2"
-  # first_line = f.readline() # Reads "Line 1\n"
-  # all_lines = f.readlines() # Reads ["Line 1\n", "Line 2"]
+with open('scroll.txt', 'r') as f:
+  for line in f:
+    print(line.strip()) # strip() removes newline</code></pre>
+        </section>
 
-  print("Reading line by line:")
-  for line in f: # Efficient way
-    print(f"  Read: {line.strip()}") # .strip() removes leading/trailing whitespace including \n</code></pre>
-      </section>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            4. Writing and Appending to Files
+          </h2>
+          <p class="mb-2">
+            Writing to files is like different ways of writing in a notebook:
+          </p>
+          <ul class="list-disc list-inside ml-4 space-y-1">
+            <li><code>.write(string)</code>: Like writing a single sentence - you need to add your own line breaks.</li>
+            <li><code>.writelines(list_of_strings)</code>: Like writing multiple sentences at once from a list.</li>
+          </ul>
+          <pre><code class="language-python"># 'w' mode overwrites or creates
+with open('logbook.txt', 'w') as f:
+  f.write("Chapter 1: The Quest Begins\n")
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Writing to Files
-        </h2>
-        <p class="mb-2">
-          To write data, open the file in write (<code>'w'</code>) or append
-          (<code>'a'</code>) mode.
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <code>.write(string)</code>: Writes the given string to the file. It
-            does *not* automatically add a newline character, so you often need
-            to add <code>\n</code> manually if you want lines separated.
-          </li>
-          <li>
-            <code>.writelines(list_of_strings)</code>: Writes each string from
-            the list to the file. Like <code>.write()</code>, it does *not* add
-            newline characters automatically.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Using 'w' mode (overwrites existing file or creates new)
-with open('output.txt', 'w') as f:
-  f.write("This is the first line.\n") # Add newline manually
-  f.write("This is the second line.")
+# 'a' mode appends or creates
+with open('logbook.txt', 'a') as f:
+  f.write("Chapter 2: The Forest Path\n")</code></pre>
+        </section>
 
-# Using 'a' mode (appends to existing file or creates new)
-with open('output.txt', 'a') as f:
-  f.write("\nThis line is appended.") # Add newline before appending</code></pre>
-      </section>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            5. The <code>with</code> Statement (Best Practice)
+          </h2>
+          <p class="mb-2">
+            The <code>with</code> statement is like having a responsible librarian. When you're done with a book, the librarian automatically puts it back on the shelf. Similarly, <code>with</code> automatically closes your file when you're done, even if something goes wrong.
+          </p>
+          <pre><code class="language-python">with open('treasure_map.txt', 'r') as map_file:
+  instructions = map_file.read()
+  # map_file is automatically closed after this block
+print("Map read and closed!")</code></pre>
+        </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Appending to Files
-        </h2>
-        <p class="mb-2">
-          Appending data to a file is useful for adding new information without
-          overwriting existing content.
-        </p>
-        <pre><code class="language-python"># Using 'a' mode (appends to existing file or creates new)
-with open('output.txt', 'a') as f:
-  f.write("\nThis line is appended.") # Add newline before appending</code></pre>
-      </section>
+        <section class="interactive-section mb-6">
+          <h2 class="text-xl font-semibold mb-3">
+            Interactive File Simulation
+          </h2>
+          <p class="mb-4">
+            Let's practice file handling with a magical adventure! You'll be working with an ancient scroll and a logbook, just like a wizard managing their spell books and research notes.
+          </p>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. The <code>with</code> Statement (Best Practice)
-        </h2>
-        <p class="mb-2">
-          Manually calling <code>.close()</code> can be error-prone (e.g., if an
-          exception occurs before <code>.close()</code> is reached). The
-          recommended way to work with files in Python is using the
-          <code>with</code> statement.
-        </p>
-        <p class="mb-2">
-          The <code>with</code> statement automatically takes care of closing
-          the file, even if errors occur within the block.
-        </p>
-        <pre><code class="language-python"># Recommended way to open and work with files
-with open('example.txt', 'r') as f:
-  # File is open within this indented block
-  content = f.read()
-  print("Reading content inside 'with' block...")
-  # print(content) # Process the content
-
-# File is automatically closed here, outside the 'with' block
-print("File is now automatically closed.")</code></pre>
-        <p class="mt-2">
-          <strong
-            >Always prefer using the <code>with</code> statement for file
-            operations.</strong
-          >
-        </p>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive File Operations
-        </h2>
-        <p class="mb-4">
-          Simulate reading from and writing to a file using the text areas
-          below. Remember, this doesn't affect your actual computer files.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-medium mb-2">Read Simulation</h3>
-            <div class="file-sim mb-4">
-              <label class="file-sim-label"
-                >Simulated File Content ('sim_read.txt'):</label
-              >
-              <textarea
-                id="readFileContent"
-                class="textarea-field bg-gray-100"
-                rows="5"
-                readonly
-              >
-Line 1: Hello from the simulated file!
-Line 2: This is the second line.
-Line 3: End of file.</textarea
-              >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Read Simulation -->
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Read from Virtual Scroll</h3>
+              <div class="sub-interactive-box mb-4">
+                <label class="block mb-1 font-semibold">Virtual Scroll Content ('virtual_scroll.txt'):</label>
+                <textarea id="readFileContent" class="input-field w-full h-24 font-mono text-sm p-2" readonly>The ancient runes whisper of a hidden treasure.
+Follow the path marked by the three great oaks.
+Beware the sleeping guardian of the Forest Glade.</textarea>
+              </div>
+              <button id="simulateReadButton" class="btn btn-8bit">Read Entire Scroll</button>
+              <button id="simulateReadLineButton" class="btn btn-8bit">Read Next Line</button>
+              <div id="readOutput" class="output-display min-h-[50px] mt-2"></div>
             </div>
-            <button id="readAllButton" class="btn">Read All (.read)</button>
-            <button id="readLineButton" class="btn">
-              Read Line (.readline)
-            </button>
-            <button id="readLinesButton" class="btn">
-              Read Lines (.readlines)
-            </button>
-            <button id="readIterButton" class="btn">Iterate Lines</button>
-            <button id="resetReadButton" class="btn btn-orange">
-              Reset Read
-            </button>
-            <h4 class="text-md font-medium mt-3 mb-1">Read Output:</h4>
-            <div id="readOutputDisplay" class="output-display">
-              <span class="text-gray-500 italic">Click a read button.</span>
+
+            <!-- Write/Append Simulation -->
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Write to Virtual Logbook</h3>
+              <div class="sub-interactive-box mb-4">
+                <label class="block mb-1 font-semibold">Content to Write/Append:</label>
+                <input type="text" id="writeFileContentInput" class="input-field w-full mb-2" value="Encountered a friendly sprite.">
+                <label class="block mb-1 font-semibold">Current Logbook ('virtual_logbook.txt'):</label>
+                <textarea id="logbookDisplay" class="input-field w-full h-24 font-mono text-sm p-2" readonly></textarea>
+              </div>
+              <button id="simulateWriteButton" class="btn btn-8bit">Write (Overwrite)</button>
+              <button id="simulateAppendButton" class="btn btn-8bit">Append to Logbook</button>
+               <button id="clearLogbookButton" class="btn btn-8bit btn-8bit-alt">Clear Logbook</button>
             </div>
           </div>
+          <div id="fileOpMessage" class="message-box mt-3" style="display:none;"></div>
+        </section>
 
-          <div>
-            <h3 class="text-lg font-medium mb-2">Write Simulation</h3>
-            <div class="file-sim mb-4">
-              <label class="file-sim-label"
-                >Simulated File ('sim_write.txt'):</label
-              >
-              <textarea
-                id="writeFileContent"
-                class="textarea-field bg-gray-100"
-                rows="5"
-                readonly
-              ></textarea>
-            </div>
-            <div class="mb-2">
-              <label for="writeTextInput" class="block font-medium"
-                >Text to Write:</label
-              >
-              <input
-                type="text"
-                id="writeTextInput"
-                class="input-field w-full"
-                placeholder="Enter text here..."
-              />
-            </div>
-            <div class="mb-2">
-              <label for="writeModeSelect" class="mr-2">Mode:</label>
-              <select id="writeModeSelect" class="select-field">
-                <option value="w">Write ('w') - Overwrite</option>
-                <option value="a">Append ('a') - Add to end</option>
-              </select>
-            </div>
-            <div class="flex items-center mb-2">
-              <button id="writeToFileButton" class="btn btn-green">
-                Write to File
-              </button>
-              <button id="clearWriteFileButton" class="btn btn-orange">
-                Clear File
-              </button>
-            </div>
+      </div> <!-- End of content-wrapper-8bit -->
+    </div> <!-- End of console-screen-border -->
 
-            <h4 class="text-md font-medium mt-3 mb-1">Write Log:</h4>
-            <div id="writeLogDisplay" class="output-display">
-              <span class="text-gray-500 italic"
-                >Enter text and click 'Write'.</span
-              >
-            </div>
-          </div>
-        </div>
-        <div id="fileMessage" class="message-box" style="display: none"></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">7. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: Which mode is used to open a file for writing, creating it if it
-            doesn't exist and emptying it if it does?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1_file" value="a" class="mr-1" />
-            <code>'r'</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_file" value="b" class="mr-1" />
-            <code>'a'</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_file" value="c" class="mr-1" />
-            <code>'w'</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: What is the main advantage of using `with open(...)`?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_file" value="a" class="mr-1" /> It
-            reads the file faster</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_file" value="b" class="mr-1" /> It
-            automatically closes the file</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_file" value="c" class="mr-1" /> It
-            prevents all file-related errors</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: Which method reads the entire content of a file into a single
-            string?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_file" value="a" class="mr-1" />
-            <code>.readline()</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_file" value="b" class="mr-1" />
-            <code>.readlines()</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_file" value="c" class="mr-1" />
-            <code>.read()</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: If you open a file in `'a'` mode and write to it, where will the
-            new content be added?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_file" value="a" class="mr-1" /> At the
-            beginning of the file</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_file" value="b" class="mr-1" /> At the
-            end of the file</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_file" value="c" class="mr-1" /> It
-            will overwrite the existing content</label
-          >
-        </div>
-        <button id="checkQuizButtonFile" class="btn">Check Answers</button>
-        <div
-          id="quizResultFile"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
-
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
-
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+      const readFileContentEl = document.getElementById('readFileContent');
+      const readOutputEl = document.getElementById('readOutput');
+      const simulateReadButton = document.getElementById('simulateReadButton');
+      const simulateReadLineButton = document.getElementById('simulateReadLineButton');
+      
+      const writeFileContentInputEl = document.getElementById('writeFileContentInput');
+      const logbookDisplayEl = document.getElementById('logbookDisplay');
+      const simulateWriteButton = document.getElementById('simulateWriteButton');
+      const simulateAppendButton = document.getElementById('simulateAppendButton');
+      const clearLogbookButton = document.getElementById('clearLogbookButton');
 
-      // --- DOM Elements ---
-      const readFileContent = document.getElementById("readFileContent");
-      const readAllButton = document.getElementById("readAllButton");
-      const readLineButton = document.getElementById("readLineButton");
-      const readLinesButton = document.getElementById("readLinesButton");
-      const readIterButton = document.getElementById("readIterButton");
-      const resetReadButton = document.getElementById("resetReadButton");
-      const readOutputDisplay = document.getElementById("readOutputDisplay");
+      const messageBox = document.getElementById('fileOpMessage');
+      let currentReadLineIndex = 0;
 
-      const writeFileContent = document.getElementById("writeFileContent");
-      const writeTextInput = document.getElementById("writeTextInput");
-      const writeModeSelect = document.getElementById("writeModeSelect");
-      const writeToFileButton = document.getElementById("writeToFileButton");
-      const clearWriteFileButton = document.getElementById(
-        "clearWriteFileButton"
-      );
-      const writeLogDisplay = document.getElementById("writeLogDisplay");
-
-      const fileMessage = document.getElementById("fileMessage"); // Shared message box
-
-      const checkQuizButtonFile = document.getElementById(
-        "checkQuizButtonFile"
-      );
-      const quizResultFile = document.getElementById("quizResultFile");
-
-      // --- State for Read Simulation ---
-      let readPointer = 0; // Simulates the file read cursor position
-      const originalReadFileContent = readFileContent.value; // Store initial content
-
-      // --- Read Simulation Logic ---
-      function resetReadSimulation() {
-        readPointer = 0;
-        readFileContent.value = originalReadFileContent; // Restore original content if needed
-        readOutputDisplay.innerHTML =
-          '<span class="text-gray-500 italic">Read simulation reset.</span>';
-        showMessage(fileMessage, "Read simulation reset.", "info");
+      function showFileMessage(msg, type = 'info') {
+        messageBox.textContent = msg;
+        messageBox.className = `message-box message-box-${type}`;
+        messageBox.style.display = 'block';
+        setTimeout(() => { messageBox.style.display = 'none'; }, 2500);
       }
 
-      readAllButton.addEventListener("click", () => {
-        const content = readFileContent.value;
-        readOutputDisplay.textContent = `--- Read All ---\n"${content}"`;
-        readPointer = content.length; // Move pointer to end
-        showMessage(fileMessage, "Simulated .read()", "success");
+      // Read Simulation
+      simulateReadButton.addEventListener('click', () => {
+        readOutputEl.textContent = readFileContentEl.value;
+        currentReadLineIndex = 0; // Reset for readline
+        showFileMessage('Virtual scroll content read.', 'success');
       });
 
-      readLineButton.addEventListener("click", () => {
-        const content = readFileContent.value;
-        const remainingContent = content.substring(readPointer);
-        const newlineIndex = remainingContent.indexOf("\n");
-        let line;
-
-        if (remainingContent === "") {
-          line = ""; // End of file
-          readOutputDisplay.textContent = `--- Read Line ---\n(End Of File Reached)`;
-        } else if (newlineIndex !== -1) {
-          line = remainingContent.substring(0, newlineIndex + 1); // Include newline
-          readPointer += line.length;
-          readOutputDisplay.textContent = `--- Read Line ---\n"${line}"`;
+      simulateReadLineButton.addEventListener('click', () => {
+        const lines = readFileContentEl.value.split('\n');
+        if (currentReadLineIndex < lines.length) {
+          readOutputEl.textContent = lines[currentReadLineIndex];
+          currentReadLineIndex++;
+          showFileMessage('Next line from virtual scroll read.', 'info');
         } else {
-          line = remainingContent; // Last line without newline
-          readPointer = content.length;
-          readOutputDisplay.textContent = `--- Read Line ---\n"${line}"`;
+          readOutputEl.textContent = '(End of Scroll)';
+          showFileMessage('Reached the end of the virtual scroll.', 'warning');
         }
-        showMessage(fileMessage, "Simulated .readline()", "success");
       });
 
-      readLinesButton.addEventListener("click", () => {
-        const content = readFileContent.value;
-        const lines = content.split("\n").map((line, index, arr) => {
-          // Add back newline except for the very last line if file doesn't end with one
-          return index < arr.length - 1 || content.endsWith("\n")
-            ? line + "\n"
-            : line;
-        });
-        // Handle case where file is empty or only has empty lines correctly
-        if (content === "") {
-          readOutputDisplay.textContent = `--- Read Lines ---\n[]`;
-        } else {
-          const formattedLines =
-            "[" + lines.map((l) => `"${l}"`).join(", ") + "]";
-          readOutputDisplay.textContent = `--- Read Lines ---\n${formattedLines}`;
-        }
-        readPointer = content.length; // Move pointer to end
-        showMessage(fileMessage, "Simulated .readlines()", "success");
+      // Write/Append Simulation
+      simulateWriteButton.addEventListener('click', () => {
+        const contentToWrite = writeFileContentInputEl.value;
+        logbookDisplayEl.value = contentToWrite + "\n"; 
+        showFileMessage('Virtual logbook overwritten.', 'success');
       });
 
-      readIterButton.addEventListener("click", () => {
-        const content = readFileContent.value;
-        const lines = content.split("\n");
-        readOutputDisplay.textContent = "--- Iterating Lines ---\n";
-        lines.forEach((line) => {
-          readOutputDisplay.textContent += `Read: "${line}"\n`;
-        });
-        readPointer = content.length; // Move pointer to end
-        showMessage(
-          fileMessage,
-          "Simulated iteration over file object.",
-          "success"
-        );
+      simulateAppendButton.addEventListener('click', () => {
+        const contentToAppend = writeFileContentInputEl.value;
+        logbookDisplayEl.value += contentToAppend + "\n";
+        showFileMessage('Content appended to virtual logbook.', 'info');
+      });
+      
+      clearLogbookButton.addEventListener('click', () => {
+          logbookDisplayEl.value = '';
+          showFileMessage('Virtual logbook cleared.', 'info');
       });
 
-      resetReadButton.addEventListener("click", resetReadSimulation);
-
-      // --- Write Simulation Logic ---
-      clearWriteFileButton.addEventListener("click", () => {
-        writeFileContent.value = "";
-        writeLogDisplay.textContent = "Simulated file cleared.";
-        showMessage(fileMessage, "Simulated file cleared.", "info");
-      });
-
-      writeToFileButton.addEventListener("click", () => {
-        const textToWrite = writeTextInput.value;
-        const mode = writeModeSelect.value;
-        let logMessage = "";
-
-        if (mode === "w") {
-          writeFileContent.value = textToWrite; // Overwrite
-          logMessage = `Mode 'w': Wrote "${textToWrite}". File content overwritten.`;
-        } else {
-          // mode === 'a'
-          // Add newline before appending if file not empty and doesn't end with newline
-          if (
-            writeFileContent.value.length > 0 &&
-            !writeFileContent.value.endsWith("\n")
-          ) {
-            writeFileContent.value += "\n";
-          }
-          writeFileContent.value += textToWrite; // Append
-          logMessage = `Mode 'a': Appended "${textToWrite}".`;
-        }
-
-        writeLogDisplay.textContent = logMessage;
-        writeTextInput.value = ""; // Clear input after writing
-        showMessage(
-          fileMessage,
-          "Simulated write operation complete.",
-          "success"
-        );
-      });
-
-      // --- Quiz Logic ---
-      function checkFileQuiz() {
-        const answers = {
-          q1_file: "c", // 'w'
-          q2_file: "b", // Automatically closes
-          q3_file: "c", // .read()
-          q4_file: "b", // At the end
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultFile.textContent =
-            "Please answer all questions before checking.";
-          quizResultFile.className = "message-box message-box-error";
-          quizResultFile.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultFile.innerHTML = resultsHTML;
-        quizResultFile.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultFile.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonFile.addEventListener("click", checkFileQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        resetReadSimulation(); // Set initial read state
-        // Initial write state is empty textarea
-      };
     </script>
   </body>
 </html>

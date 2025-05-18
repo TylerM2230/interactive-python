@@ -3,582 +3,397 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Binary Search</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Binary Search - Python Guide</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Styles for search visualization - preserved as they use theme colors */
+      .search-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap if not enough space */
+        align-items: center;
+        justify-content: center;
+        min-height: 80px;
+        padding: 10px;
+        background-color: #503020; /* Deep Bark */
+        border: 3px solid #706050; /* Lighter Bark/Moss */
+        border-top-color: #302010;
+        border-left-color: #302010;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+      .search-item {
+        background-color: #f0c060; /* Sunlight Gold */
+        color: #503020; /* Deep Bark text */
+        border: 2px solid #a07030; /* Darker Brownish Gold */
+        padding: 8px 12px;
+        margin: 4px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        text-align: center;
+        min-width: 40px;
+        transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+      }
+      .search-item.low, .search-item.high {
+        border-color: #80b0d0; /* Sky Blue for low/high pointers */
+        box-shadow: 0 0 5px #80b0d0;
+      }
+      .search-item.mid {
+        background-color: #40a090; /* Mystic Teal for mid pointer */
+        color: #f0e0c0; /* Cream text */
+        transform: scale(1.1);
+        border-color: #208070;
+      }
+      .search-item.found {
+        background-color: #60c0b0; /* Lighter Mystic Teal for found */
+        color: #224022; /* Forest Green text */
+        transform: scale(1.2);
+        border-color: #224022;
+      }
+      .search-item.discarded {
+        opacity: 0.4;
+        background-color: #706050; /* Lighter Bark/Moss for discarded items */
+        border-color: #503020;
+      }
+    </style>
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Binary Search
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Efficiently finding items in a sorted collection by repeatedly dividing the search interval in half.
-      </p>
-    </header>
+  <body class="min-h-screen">
+    <div class="console-screen-border">
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Binary Search
+          </h2>
+          <p class="text-sm italic mt-1">
+            Understanding efficient searching algorithms and the divide-and-conquer approach.
+          </p>
+        </header>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
-      <a href="sorting-merge-joke.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Merge Sort & Joke Sorts
-      </a>
-      <a href="oop-basics.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: OOP Basics (Classes & Objects) &rarr;
-      </a>
-    </nav>
+        <main class="mx-auto">
+          <h1 class="page-title-8bit">
+            Binary Search
+          </h1>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What is Searching?
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Searching is the process of finding a specific item (the "target")
-          within a collection of items (like a list, array, or database). It's a
-          fundamental operation used constantly in computing – finding a file,
-          looking up a contact, checking if a username exists, etc.
-        </p>
-        <p class="mb-2 text-gray-300">The simplest search method is **Linear Search**:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>Start at the beginning of the collection.</li>
-          <li>Compare each item one by one with the target value.</li>
-          <li>
-            If a match is found, return the item's position (or indicate
-            success).
-          </li>
-          <li>
-            If the end of the collection is reached without finding the target,
-            indicate failure.
-          </li>
-        </ul>
-        <p class="mt-2 text-gray-400">
-          Linear search works on any list, sorted or unsorted, but it can be
-          slow for large collections because, in the worst case, you might have
-          to check every single item (O(n) time complexity).
-        </p>
-      </section>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              1. What is Searching?
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Searching is the process of finding a specific item, often called a target or key, within a collection of items (like a list, array, or database). Linear search is a basic method where you check items one by one from the beginning until the target is found or the list ends. It has a time complexity of O(n) in the worst case and works on any list, sorted or unsorted. Think of it like looking for a specific book in a library by checking each shelf one at a time - it works but can be time-consuming if the library is large.
+              </p>
+            </div>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Binary Search: Efficient Searching
-        </h2>
-        <p class="mb-2 text-gray-300">
-          Binary Search is a much faster searching algorithm, but it has one
-          crucial requirement: **the collection must be sorted.**
-        </p>
-        <p class="mb-2 text-gray-300">It works using a **Divide and Conquer** strategy:</p>
-        <ol class="list-decimal list-inside ml-4 space-y-1 text-sm">
-          <li>Start with the entire sorted list as the search range.</li>
-          <li>Find the middle element of the current search range.</li>
-          <li>
-            Compare the middle element with the target value:
-            <ul>
-              <li>
-                If they match, you've found the item! Return its position.
-              </li>
-              <li>
-                If the target is *less than* the middle element, discard the
-                right half of the search range (including the middle element).
-                The target can only be in the left half.
-              </li>
-              <li>
-                If the target is *greater than* the middle element, discard the
-                left half of the search range (including the middle element).
-                The target can only be in the right half.
-              </li>
-            </ul>
-          </li>
-          <li>
-            Repeat steps 2 and 3 with the new, smaller search range until the
-            item is found or the search range becomes empty (meaning the item is
-            not in the list).
-          </li>
-        </ol>
-        <p class="mt-2 text-gray-400">
-          Because Binary Search eliminates half of the remaining search space
-          with each comparison, it's significantly faster than linear search for
-          large lists (O(log n) time complexity).
-        </p>
-      </section>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              2. Binary Search: Efficient Searching
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Binary Search is a much faster searching algorithm, but it has a crucial prerequisite: the collection (e.g., list or array) must be **sorted**. It works based on a **Divide and Conquer** strategy. Think of it like looking up a word in a dictionary - you don't start from the first page and read through each word. Instead, you open to the middle, check if your word is before or after that point, and then focus on the relevant half, repeating this process until you find your word.
+              </p>
+              <ol>
+                <li>Start with the entire sorted list (or a sub-list). Like opening a dictionary to its middle page.</li>
+                <li>Find the middle element of the current search range. This is like checking the word at the top of the page you opened to.</li>
+                <li>Compare this middle element with the target value:</li>
+                <ul>
+                    <li>If the middle element is equal to the target, the item is found! Like finding your word exactly where you looked.</li>
+                    <li>If the target is less than the middle element, the target must be in the left half of the current range (if it exists at all). So, discard the right half and repeat the search on the left half. Like knowing your word must be in the first half of the dictionary.</li>
+                    <li>If the target is greater than the middle element, the target must be in the right half. Discard the left half and repeat the search on the right half. Like knowing your word must be in the second half of the dictionary.</li>
+                </ul>
+                <li>Continue this process, narrowing down the search range by half each time, until the target is found or the search range becomes empty (indicating the target is not in the list). Each step is like tearing the dictionary in half and focusing on the half that must contain your word.</li>
+              </ol>
+              <p>
+                Because Binary Search halves the search space with each comparison, it is very efficient, with a time complexity of O(log n). This makes it ideal for searching in large sorted datasets. It's like having a smart GPS that can instantly eliminate half of the possible locations with each check, rather than having to visit each location one by one.
+              </p>
+            </div>
+          </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Interactive Binary Search Visualization
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Enter a sorted list of numbers (comma-separated) and a target value to
-          see Binary Search in action.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label for="binarySearchList" class="block mb-1 font-medium text-gray-200"
-              >Sorted List (comma-separated):</label
-            >
-            <input
-              type="text"
-              id="binarySearchList"
-              class="input-field w-full"
-              value="2,5,7,8,11,12,15,18,20,23,25,28,30,33,37"
-            />
-          </div>
-          <div>
-            <label for="binarySearchTarget" class="block mb-1 font-medium text-gray-200"
-              >Target Value:</label
-            >
-            <input
-              type="number"
-              id="binarySearchTarget"
-              class="input-field w-full"
-              value="23"
-            />
-          </div>
-        </div>
-         <div class="flex flex-wrap items-center mb-4">
-            <label for="binarySearchSpeed" class="mr-2 text-gray-200">Speed:</label>
-            <input type="range" id="binarySearchSpeed" min="100" max="2000" value="700" class="mr-2">
-            <span id="binarySearchSpeedValue" class="text-gray-200">700 ms</span>
-        </div>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              3. Interactive Binary Search Visualization
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Enter a sorted list of numbers (comma-separated) and a target value to see Binary Search in action.
+              </p>
+              <div class="controls-grid">
+                <div>
+                  <label for="binarySearchList">Sorted List:</label>
+                  <input
+                    type="text"
+                    id="binarySearchList"
+                    class="input-field-8bit"
+                    value="2,5,7,8,11,12,15,18,20,23,25,28,30,33,37"
+                  />
+                </div>
+                <div>
+                  <label for="binarySearchTarget">Target Value:</label>
+                  <input type="number" id="binarySearchTarget" class="input-field-8bit" value="23" />
+                </div>
+              </div>
+               <div class="controls-flex">
+                <label for="binarySearchSpeed">Speed:</label>
+                <input type="range" id="binarySearchSpeed" min="100" max="2000" value="700" class="input-field-8bit range-slider" style="padding:0; border-width:2px;">
+                <span id="binarySearchSpeedValue">700 ms</span>
+              </div>
 
-        <button id="startBinarySearch" class="btn btn-green">Start Binary Search</button>
-        <button id="resetBinarySearch" class="btn btn-orange">Reset</button>
+              <button id="startBinarySearch" class="button-8bit">Start Search</button>
+              <button id="resetBinarySearch" class="button-8bit">Reset</button>
 
-        <p class="mt-4 mb-1 font-medium text-cyan-400">Array Visualization:</p>
-        <div id="binarySearchContainer" class="search-container bg-blue-900 border-blue-500">
-          <!-- Items will be generated here by JS -->
-        </div>
-        <p class="mt-3 mb-1 font-medium text-cyan-400">Log / Steps:</p>
-        <div id="binarySearchOutput" class="output-display bg-blue-800 border-yellow-500 text-gray-200"></div>
-        <div id="binarySearchMessage" class="message-box" style="display: none"></div>
-      </section>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Array Visualization:</h3>
+              <div id="binarySearchContainer" class="search-container">
+                <!-- Items will be generated here by JS -->
+              </div>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Log / Steps:</h3>
+              <div id="binarySearchLog" class="output-display-8bit min-h-[100px]"></div>
+              <div id="binarySearchMessage" class="message-box-8bit mt-3" style="display: none"></div>
+            </div>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Python Implementation of Binary Search
-        </h2>
-        <p class="mb-2 text-gray-300">Here's an iterative Python function for Binary Search:</p>
-        <pre><code class="language-python">def binary_search(arr, target):
-  """
-  Performs binary search on a sorted list.
-
-  Args:
-    arr: A sorted list of items.
-    target: The item to search for.
-
-  Returns:
-    The index of the target if found, otherwise -1.
-  """
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              4. Python Implementation
+            </h2>
+            <pre><code class="code-block-8bit python">def binary_search(arr, target):
   low = 0
   high = len(arr) - 1
 
   while low <= high:
-    mid = (low + high) // 2 # Calculate middle index (integer division)
+    mid = (low + high) // 2 # Calculate middle index
 
     if arr[mid] == target:
-      return mid # Target found!
+      return mid # Target found at mid index
     elif target < arr[mid]:
       high = mid - 1 # Target is in the left half
     else: # target > arr[mid]
-      low = mid + 1 # Target is in the right half
-
-  return -1 # Target not found in the list
+      low = mid + 1  # Target is in the right half
+  
+  return -1 # Target not found
 
 # Example usage:
-my_sorted_list = [10, 20, 30, 40, 50, 60, 70]
-target_value = 30
+my_sorted_list = [2, 5, 7, 8, 11, 12, 15, 18, 20, 23, 25, 28, 30, 33, 37]
+target_value = 23
 index = binary_search(my_sorted_list, target_value)
 
 if index != -1:
   print(f"Target {target_value} found at index: {index}")
 else:
-  print(f"Target {target_value} not found.")</code></pre>
-        <p class="mb-2 text-gray-300">And a recursive version:</p>
-        <pre><code class="language-python">def binary_search_recursive(arr, target, low, high):
-  """
-  Performs binary search on a sorted list using recursion.
+  print(f"Target {target_value} not found in the list.")
 
-  Args:
-    arr: A sorted list of items.
-    target: The item to search for.
-    low: The starting index of the search range.
-    high: The ending index of the search range.
-
-  Returns:
-    The index of the target if found, otherwise -1.
-  """
-  if low > high:
-    return -1 # Target not found in the list
-
-  mid = (low + high) // 2 # Calculate middle index (integer division)
-
-  if arr[mid] == target:
-    return mid # Target found!
-  elif target < arr[mid]:
-    return binary_search_recursive(arr, target, low, mid - 1) # Target is in the left half
-  else: # target > arr[mid]
-    return binary_search_recursive(arr, target, mid + 1, high) # Target is in the right half
-
-# Example usage:
-my_sorted_list = [10, 20, 30, 40, 50, 60, 70]
-target_value = 30
-index = binary_search_recursive(my_sorted_list, target_value, 0, len(my_sorted_list) - 1)
-
-if index != -1:
-  print(f"Target {target_value} found at index: {index}")
+target_value_absent = 10
+index_absent = binary_search(my_sorted_list, target_value_absent)
+if index_absent != -1:
+  print(f"Target {target_value_absent} found at index: {index_absent}")
 else:
-  print(f"Target {target_value} not found.")</code></pre>
-      </section>
+  print(f"Target {target_value_absent} not found in the list.")</code></pre>
+          </section>
+        </main>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4 text-gray-300">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q1: What is the main prerequisite for using Binary Search?
+        <footer class="footer-8bit text-center py-6">
+          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+          <p class="mt-3 md:mt-4">
+            <a
+              href="../index.html" 
+              class="link-8bit" 
+              >Back to Main Menu</a 
+            >
           </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_binary" value="a" class="mr-1" /> The list
-            must contain only numbers.</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_binary" value="b" class="mr-1" /> The list
-            must be sorted.</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_binary" value="c" class="mr-1" /> The list
-            must be small.</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q2: How does Binary Search reduce the search space in each step?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_binary" value="a" class="mr-1" /> By checking
-            two elements at a time.</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_binary" value="b" class="mr-1" /> By dividing
-            the search space in half.</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_binary" value="c" class="mr-1" /> By randomly
-            picking an element.</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q3: What is the time complexity of Binary Search in the worst case?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_binary" value="a" class="mr-1" /> O(n)</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_binary" value="b" class="mr-1" /> O(log n)</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_binary" value="c" class="mr-1" /> O(n<sup>2</sup>)</label
-          >
-        </div>
-        <button id="checkQuizButtonBinary" class="btn">Check Answers</button>
-        <div
-          id="quizResultBinary"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+        </footer>
+      </div> <!-- End of content-wrapper-8bit -->
+    </div> <!-- End of console-screen-border -->
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">
-        &copy; 2024 Interactive Guide to Python. Happy Coding!
-      </p>
-    </footer>
-
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js. The rest of the script (DOM elements, visualization functions, simulation logic, event listeners, etc.) should remain as it was.
+        const listInput = document.getElementById('binarySearchList');
+        const targetInput = document.getElementById('binarySearchTarget');
+        const startButton = document.getElementById('startBinarySearch');
+        const resetButton = document.getElementById('resetBinarySearch');
+        const container = document.getElementById('binarySearchContainer');
+        const logOutput = document.getElementById('binarySearchLog');
+        const messageBox = document.getElementById('binarySearchMessage');
+        const speedSlider = document.getElementById('binarySearchSpeed');
+        const speedValueDisplay = document.getElementById('binarySearchSpeedValue');
 
-      // --- DOM Elements & State ---
-      const binarySearchContainer = document.getElementById("binarySearchContainer"); // Correct ID for this page
-      const binarySearchTarget = document.getElementById("binarySearchTarget"); // Correct ID
-      const startBinarySearchButton = document.getElementById("startBinarySearch"); // Correct ID
-      const resetBinarySearchButton = document.getElementById("resetBinarySearch"); // Correct ID
-      const binarySearchOutput = document.getElementById("binarySearchOutput"); // Correct ID
-      const binarySearchMessage = document.getElementById("binarySearchMessage"); // Correct ID
-      const binarySearchSpeed = document.getElementById("binarySearchSpeed"); // Correct ID
-      const binarySearchSpeedValue = document.getElementById("binarySearchSpeedValue"); // Added for speed display
-      const binarySearchList = document.getElementById("binarySearchList"); // Added for list input
+        let currentArray = [];
+        let animationSpeed = 700;
+        let animationTimeout = null;
 
-      const checkQuizButtonSearch = document.getElementById(
-        "checkQuizButtonSearch"
-      );
-      const quizResultSearch = document.getElementById("quizResultSearch");
-
-      let currentSearchItems = []; // To store the list from input
-      let searchTimeoutId = null; // Renamed from searchTimeout for clarity
-
-      // --- Visualization Functions ---
-      function renderArrayInContainer(container, array) {
-        container.innerHTML = ""; // Clear previous
-        if (!Array.isArray(array)) return;
-        array.forEach((value, index) => {
-          const itemDiv = document.createElement("div");
-          itemDiv.className = "search-item"; // Assuming this class is styled in shared-styles or page CSS
-          itemDiv.textContent = value;
-          itemDiv.dataset.index = index;
-          itemDiv.dataset.value = value;
-          container.appendChild(itemDiv);
-        });
-      }
-
-      function highlightVisualizationState(
-        container,
-        low,
-        high,
-        mid = -1,
-        foundIndex = -1,
-        isNotFound = false
-      ) {
-        const items = container.querySelectorAll(".search-item");
-        items.forEach((item, index) => {
-          item.classList.remove("active-range", "mid", "found", "discarded");
-
-          if (isNotFound) {
-            item.classList.add("discarded");
-          } else if (foundIndex === index) {
-            item.classList.add("found");
-          } else if (index >= low && index <= high) {
-            item.classList.add("active-range");
-            if (index === mid) {
-              item.classList.add("mid");
+        speedSlider.addEventListener('input', (e) => {
+            animationSpeed = parseInt(e.target.value);
+            speedValueDisplay.textContent = `${animationSpeed} ms`;
+            // If an animation is running, clear it to avoid speed issues until next step
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
             }
-          } else {
-            item.classList.add("discarded");
-          }
         });
-      }
 
-      // --- Binary Search Simulation ---
-      async function simulateBinarySearchVisualization() {
-        startBinarySearchButton.disabled = true;
-        resetBinarySearchButton.disabled = true;
-        binarySearchList.disabled = true;
-        binarySearchTarget.disabled = true;
+        function displayArray(arr, low = -1, high = -1, mid = -1, foundIdx = -1, discardedIndices = []) {
+            container.innerHTML = '';
+            arr.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.classList.add('search-item');
+                div.textContent = item;
 
-        binarySearchOutput.innerHTML = ""; // Clear log
-        binarySearchMessage.style.display = "none";
-
-        const listStr = binarySearchList.value.trim();
-        const targetStr = binarySearchTarget.value.trim();
-
-        if (!listStr || !targetStr) {
-          showMessage(binarySearchMessage, "Please provide the sorted list and target value.", "error");
-          startBinarySearchButton.disabled = false;
-          resetBinarySearchButton.disabled = false;
-          binarySearchList.disabled = false;
-          binarySearchTarget.disabled = false;
-          return;
+                if (index === mid) {
+                    div.classList.add('mid');
+                } else if (index === low) {
+                    div.classList.add('low');
+                } else if (index === high) {
+                    div.classList.add('high');
+                }
+                
+                if (index === foundIdx) {
+                    div.classList.add('found');
+                } else if (discardedIndices.includes(index)) {
+                    div.classList.add('discarded');
+                }
+                container.appendChild(div);
+            });
         }
 
-        currentSearchItems = listStr.split(",").map(s => parseInt(s.trim()));
-        const target = parseInt(targetStr, 10);
+        function logStep(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            logOutput.appendChild(p);
+            logOutput.scrollTop = logOutput.scrollHeight; // Scroll to bottom
+        }
 
-        if (currentSearchItems.some(isNaN) || isNaN(target)) {
-          showMessage(binarySearchMessage, "Invalid input. Ensure list contains numbers and target is a number.", "error");
-          startBinarySearchButton.disabled = false;
-          resetBinarySearchButton.disabled = false;
-          binarySearchList.disabled = false;
-          binarySearchTarget.disabled = false;
-          return;
+        function showMessage(text, type = 'info') {
+            messageBox.textContent = text;
+            messageBox.className = 'message-box-8bit'; // Reset classes
+            if (type === 'success') {
+                messageBox.classList.add('success');
+            } else if (type === 'error') {
+                messageBox.classList.add('error');
+            }
+            messageBox.style.display = 'block';
         }
         
-        // Verify sorted
-        for (let i = 0; i < currentSearchItems.length - 1; i++) {
-            if (currentSearchItems[i] > currentSearchItems[i+1]) {
-                showMessage(binarySearchMessage, "The provided list is not sorted. Binary search requires a sorted list.", "error");
-                startBinarySearchButton.disabled = false;
-                resetBinarySearchButton.disabled = false;
-                binarySearchList.disabled = false;
-                binarySearchTarget.disabled = false;
+        function hideMessage() {
+            messageBox.style.display = 'none';
+        }
+
+        async function performBinarySearch() {
+            startButton.disabled = true;
+            resetButton.disabled = true;
+            hideMessage();
+            logOutput.innerHTML = '';
+
+            const listStr = listInput.value.trim();
+            const targetVal = parseInt(targetInput.value);
+
+            if (!listStr) {
+                showMessage('Error: List cannot be empty.', 'error');
+                startButton.disabled = false;
+                resetButton.disabled = false;
                 return;
             }
+            if (isNaN(targetVal)) {
+                showMessage('Error: Target value must be a number.', 'error');
+                startButton.disabled = false;
+                resetButton.disabled = false;
+                return;
+            }
+
+            currentArray = listStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+
+            // Validate if sorted
+            let isSorted = true;
+            for (let i = 0; i < currentArray.length - 1; i++) {
+                if (currentArray[i] > currentArray[i+1]) {
+                    isSorted = false;
+                    break;
+                }
+            }
+            if (!isSorted) {
+                showMessage('Error: The input list must be sorted for Binary Search.', 'error');
+                displayArray(currentArray); // Display unsorted array for user to see
+                startButton.disabled = false;
+                resetButton.disabled = false;
+                return;
+            }
+
+
+            let low = 0;
+            let high = currentArray.length - 1;
+            let found = false;
+            let discardedIndices = [];
+
+            logStep(`Initial array: [${currentArray.join(', ')}], Target: ${targetVal}`);
+            displayArray(currentArray, low, high);
+            await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
+
+            while (low <= high) {
+                let mid = Math.floor((low + high) / 2);
+                logStep(`Searching between index ${low} (value ${currentArray[low]}) and ${high} (value ${currentArray[high]}). Middle index: ${mid} (value ${currentArray[mid]}).`);
+                displayArray(currentArray, low, high, mid, -1, discardedIndices);
+                await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
+
+                if (currentArray[mid] === targetVal) {
+                    logStep(`Target ${targetVal} found at index ${mid}.`);
+                    displayArray(currentArray, low, high, mid, mid, discardedIndices);
+                    showMessage(`Target ${targetVal} found at index ${mid}!`, 'success');
+                    found = true;
+                    break;
+                } else if (targetVal < currentArray[mid]) {
+                    logStep(`Target ${targetVal} < ${currentArray[mid]}. Discarding right half. New high: ${mid - 1}.`);
+                    // Mark elements from mid to high as discarded
+                    for(let i = mid; i <= high; i++) {
+                        if (!discardedIndices.includes(i)) discardedIndices.push(i);
+                    }
+                    high = mid - 1;
+                } else { // target > arr[mid]
+                    logStep(`Target ${targetVal} > ${currentArray[mid]}. Discarding left half. New low: ${mid + 1}.`);
+                    // Mark elements from low to mid as discarded
+                    for(let i = low; i <= mid; i++) {
+                        if (!discardedIndices.includes(i)) discardedIndices.push(i);
+                    }
+                    low = mid + 1;
+                }
+                displayArray(currentArray, low, high, -1, -1, discardedIndices); // Show updated low/high and discarded
+                if (low <= high) { // only pause if there's more to do
+                   await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
+                }
+            }
+
+            if (!found) {
+                logStep(`Target ${targetVal} not found in the list.`);
+                showMessage(`Target ${targetVal} not found.`, 'info');
+                // Mark all remaining elements as discarded if range is valid
+                 for(let i = 0; i < currentArray.length; i++) {
+                    if (!discardedIndices.includes(i)) discardedIndices.push(i);
+                }
+                displayArray(currentArray, -1, -1, -1, -1, discardedIndices);
+            }
+            startButton.disabled = false;
+            resetButton.disabled = false;
         }
 
-        renderArrayInContainer(binarySearchContainer, currentSearchItems);
-
-        let low = 0;
-        let high = currentSearchItems.length - 1;
-        let found = false;
-        let foundIdx = -1;
-        const speed = () => 2100 - parseInt(binarySearchSpeed.value, 10);
-
-        const log = (message) => {
-          binarySearchOutput.innerHTML += message + "\n";
-          binarySearchOutput.scrollTop = binarySearchOutput.scrollHeight;
-        };
-
-        log(`Starting Binary Search for target: ${target}`);
-        log(`List: [${currentSearchItems.join(", ")}]`);
-        log(`Initial range: low=${low}, high=${high}`);
-        highlightVisualizationState(binarySearchContainer, low, high);
-        if (searchTimeoutId) clearTimeout(searchTimeoutId);
-        await new Promise((resolve) => searchTimeoutId = setTimeout(resolve, speed()));
-
-        while (low <= high) {
-          let mid = Math.floor((low + high) / 2);
-          let midValue = currentSearchItems[mid];
-
-          log(`\nChecking middle index: ${mid} (value: ${midValue})`);
-          highlightVisualizationState(binarySearchContainer, low, high, mid);
-          if (searchTimeoutId) clearTimeout(searchTimeoutId);
-          await new Promise((resolve) => searchTimeoutId = setTimeout(resolve, speed()));
-
-          if (midValue === target) {
-            log(`Target ${target} FOUND at index ${mid}!`);
-            highlightVisualizationState(binarySearchContainer, low, high, mid, mid);
-            found = true;
-            foundIdx = mid;
-            break;
-          } else if (target < midValue) {
-            log(`Target ${target} < ${midValue}. Discarding right half.`);
-            high = mid - 1;
-            log(`New range: low=${low}, high=${high}`);
-            highlightVisualizationState(binarySearchContainer, low, high);
-            if (searchTimeoutId) clearTimeout(searchTimeoutId);
-            if (low <= high) await new Promise((resolve) => searchTimeoutId = setTimeout(resolve, speed()));
-          } else {
-            log(`Target ${target} > ${midValue}. Discarding left half.`);
-            low = mid + 1;
-            log(`New range: low=${low}, high=${high}`);
-            highlightVisualizationState(binarySearchContainer, low, high);
-            if (searchTimeoutId) clearTimeout(searchTimeoutId);
-            if (low <= high) await new Promise((resolve) => searchTimeoutId = setTimeout(resolve, speed()));
-          }
+        function resetSearch() {
+            if(animationTimeout) clearTimeout(animationTimeout);
+            listInput.value = "2,5,7,8,11,12,15,18,20,23,25,28,30,33,37";
+            targetInput.value = "23";
+            currentArray = listInput.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+            logOutput.innerHTML = '';
+            hideMessage();
+            displayArray(currentArray);
+            startButton.disabled = false;
+            resetButton.disabled = false;
         }
 
-        if (!found) {
-          log(`\nTarget ${target} NOT FOUND in the list.`);
-          highlightVisualizationState(binarySearchContainer, low, high, -1, -1, true);
-          showMessage(binarySearchMessage, `Target ${target} not found.`, "error");
-        } else {
-          showMessage(binarySearchMessage, `Target ${target} found at index ${foundIdx}.`, "success");
-        }
+        startButton.addEventListener('click', performBinarySearch);
+        resetButton.addEventListener('click', resetSearch);
 
-        startBinarySearchButton.disabled = false;
-        resetBinarySearchButton.disabled = false;
-        binarySearchList.disabled = false;
-        binarySearchTarget.disabled = false;
-      }
-
-      // --- Reset Function ---
-      function resetBinarySearchVisualization() {
-        if (searchTimeoutId) {
-          clearTimeout(searchTimeoutId);
-          searchTimeoutId = null;
-        }
-        binarySearchList.disabled = false;
-        binarySearchTarget.disabled = false;
-        startBinarySearchButton.disabled = false;
-        resetBinarySearchButton.disabled = false;
-        
-        // Reset input fields to default or last valid values if desired
-        // binarySearchList.value = "2,5,7,8,11,12,15,18,20,23,25,28,30,33,37";
-        // binarySearchTarget.value = "23";
-        
-        const initialItems = binarySearchList.value.trim().split(",").map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-        currentSearchItems = initialItems.length > 0 ? initialItems : [2,5,7,8,11,12,15,18,20,23,25,28,30,33,37]; // Default if empty
-        if (binarySearchList.value.trim() === "") binarySearchList.value = currentSearchItems.join(", ");
-
-        renderArrayInContainer(binarySearchContainer, currentSearchItems);
-        binarySearchOutput.innerHTML = '<span class="text-gray-500 italic">Enter a sorted list and target, then click Start.</span>';
-        binarySearchMessage.style.display = "none";
-        highlightVisualizationState(binarySearchContainer, 0, currentSearchItems.length -1); // Reset highlights
-      }
-      
-      function updateSpeedDisplay() {
-          if (binarySearchSpeedValue && binarySearchSpeed) {
-            binarySearchSpeedValue.textContent = `${binarySearchSpeed.value} ms`;
-          }
-      }
-
-      // --- Quiz Logic ---
-      function checkSearchQuiz() {
-        const answers = {
-          q1_search: "b", // List must be sorted
-          q2_search: "b", // Eliminating half
-          q3_search: "b", // Right half
-          q4_search: "c", // O(log n)
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2 // Corrected to get the question number properly
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          // Using global showMessage for quiz feedback too, but quizResultSearch is a dedicated element for detailed results.
-          showMessage(quizResultSearch, "Please answer all questions before checking.", "error");
-          // quizResultSearch.textContent = "Please answer all questions before checking.";
-          // quizResultSearch.className = "message-box message-box-error";
-          // quizResultSearch.style.display = "block"; 
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultSearch.innerHTML = resultsHTML;
-        // Determine class based on score for quizResultSearch, showMessage handles its own styling.
-        quizResultSearch.className = 
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultSearch.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      if(startBinarySearchButton) startBinarySearchButton.addEventListener("click", simulateBinarySearchVisualization);
-      if(resetBinarySearchButton) resetBinarySearchButton.addEventListener("click", resetBinarySearchVisualization);
-      if(checkQuizButtonSearch) checkQuizButtonSearch.addEventListener("click", checkSearchQuiz);
-      if(binarySearchSpeed) binarySearchSpeed.addEventListener("input", updateSpeedDisplay);
-
-      // --- Initial Setup ---
-      // window.onload is not strictly necessary if script is deferred, but good practice.
-      // The initial setup can be run directly.
-      updateSpeedDisplay(); // Initial call for speed display
-      resetBinarySearchVisualization(); // Set up the initial state of the visualization
-      
+        // Initial display
+        resetSearch();
     </script>
   </body>
 </html>

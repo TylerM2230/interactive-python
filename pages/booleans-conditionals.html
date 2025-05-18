@@ -3,642 +3,401 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Booleans & Conditionals</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Booleans & Conditionals in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Booleans & Conditional Logic in Python
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Using True/False values and if/elif/else statements to control program flow based on conditions.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="nested-conditionals.html" class="btn">
+          Next: Nested Conditionals &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="variables-types.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Variables & Data Types
-      </a>
-      <a
-        href="nested-conditionals.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: Nested Conditionals &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Booleans & Conditionals
+          </h2>
+          <p class="text-sm italic mt-1">
+            Making decisions in your code with <code>True</code>, <code>False</code>, and <code>if</code> statements.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What are Booleans?
-        </h2>
-        <p class="mb-4">
-          A boolean is a data type that can only have one of two possible
-          values: <code>True</code> or <code>False</code>. Think of them as
-          answers to yes/no questions. Booleans are fundamental in programming
-          for making decisions and controlling the flow of execution.
-        </p>
-        <pre><code class="language-python">is_active = True
-has_permission = False
+        <main>
+          <section class="interactive-section mb-8">
+            <h2>1. What are Booleans?</h2>
+            <p class="mb-4">
+              A <strong>boolean</strong> is a data type that can only have one of two values: <code>True</code> or <code>False</code>.
+              As we touched upon when discussing data types, booleans are like simple light switches: they can only be in one of two positions, ON (<code>True</code>) or OFF (<code>False</code>).
+              They are fundamental for controlling the flow of a program by allowing you to make decisions. Think of them as answers to yes/no questions.
+            </p>
+            <pre><code class="language-python">is_game_over = False
+has_permission = True
 
-print(is_active)       # Output: True
-print(type(is_active)) # Output: <class 'bool'></code></pre>
-        <p class="mt-2">Booleans often result from comparisons:</p>
-        <pre><code class="language-python">age = 20
-is_adult = age >= 18  # The result of the comparison (True) is stored
+print(is_game_over)  # Output: False
+print(type(has_permission)) # Output: <class 'bool'></code></pre>
+          </section>
 
-print(is_adult)        # Output: True</code></pre>
-      </section>
+          <section class="interactive-section mb-8">
+            <h2>2. Comparison Operators</h2>
+            <p class="mb-4">
+              Comparison operators are used to compare two values. The result of a comparison is always a boolean value (<code>True</code> or <code>False</code>).
+              Think of them as asking specific questions about the relationship between two values; the answer you get back is always a simple `True` or `False`.
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-2 mb-2">
+              <li><code>==</code> : Equal to (e.g., <code>5 == 5</code> is <code>True</code>) - Are these two values *exactly the same*?</li>
+              <li><code>!=</code> : Not equal to (e.g., <code>5 != 3</code> is <code>True</code>) - Are these two values *different*?</li>
+              <li><code>&gt;</code> : Greater than (e.g., <code>10 &gt; 5</code> is <code>True</code>) - Is the first value *more* than the second?</li>
+              <li><code>&lt;</code> : Less than (e.g., <code>3 &lt; 7</code> is <code>True</code>) - Is the first value *less* than the second?</li>
+              <li><code>&gt;=</code> : Greater than or equal to (e.g., <code>5 &gt;= 5</code> is <code>True</code>) - Is the first value *more than or the same as* the second?</li>
+              <li><code>&lt;=</code> : Less than or equal to (e.g., <code>4 &lt;= 5</code> is <code>True</code>) - Is the first value *less than or the same as* the second?</li>
+            </ul>
+            <pre><code class="language-python">age = 18
+required_age = 21
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Comparison Operators
-        </h2>
-        <p class="mb-2">
-          We use operators to create boolean values or combine them:
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">
-          Comparison Operators:
-        </h3>
-        <ul class="list-disc list-inside mb-3 space-y-1">
-          <li><code>==</code> : Equal to</li>
-          <li><code>!=</code> : Not equal to</li>
-          <li><code>&gt;</code> : Greater than</li>
-          <li><code>&lt;</code> : Less than</li>
-          <li><code>&gt;=</code> : Greater than or equal to</li>
-          <li><code>&lt;=</code> : Less than or equal to</li>
-        </ul>
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">
-          Logical Operators:
-        </h3>
-        <ul class="list-disc list-inside mb-3 space-y-1">
-          <li>
-            <code>and</code> : Returns <code>True</code> if BOTH sides are true.
-          </li>
-          <li>
-            <code>or</code> : Returns <code>True</code> if AT LEAST ONE side is
-            true.
-          </li>
-          <li>
-            <code>not</code> : Reverses the boolean value (<code>True</code>
-            becomes <code>False</code>, <code>False</code> becomes
-            <code>True</code>).
-          </li>
-        </ul>
-        <pre><code class="language-python">x = 10
-y = 5
+can_enter_club = age &gt;= required_age  # This will be False
+print(can_enter_club)
 
-print(x > y)        # True (Comparison)
-print(x == 10)      # True (Comparison)
-print(x != y)       # True (Comparison)
-
-has_key = True
-is_admin = False
-
-print(has_key and is_admin) # False (Logical AND)
-print(has_key or is_admin)  # True (Logical OR)
-print(not is_admin)         # True (Logical NOT)</code></pre>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Try Comparison Operators
-        </h2>
-        <p class="mb-4">
-          Select values and a comparison operator to see the result.
-        </p>
-        <div class="flex flex-wrap items-center mb-4 space-x-2">
-          <select id="compareVal1" class="select-field">
-            <option value="10">10</option>
-            <option value="5">5</option>
-          </select>
-          <select id="compareOp" class="select-field">
-            <option value="==">==</option>
-            <option value="!=">!=</option>
-            <option value=">">></option>
-            <option value="<"><</option>
-            <option value=">=">="</option>
-            <option value="<="><=</option>
-          </select>
-          <select id="compareVal2" class="select-field">
-            <option value="10">10</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-        <button id="compareButton" class="btn btn-green">Compare</button>
-        <button id="compareClearButton" class="btn">Clear Output</button>
-        <h3 class="text-lg font-medium mt-4 mb-2">Result:</h3>
-        <div id="compareOutput" class="output-display">
-          <span class="text-gray-500 italic"
-            >Select values and click 'Compare'.</span
-          >
-        </div>
-        <div id="compareError" class="message-box message-box-error" style="display: none;"></div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Logical Operators (and, or, not)
-        </h2>
-        <p class="mb-2">
-          Logical operators allow you to combine boolean values and create more complex conditions.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">
-          Truth Tables:
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-blue-800 p-3 rounded shadow">
-            <h4 class="font-semibold text-yellow-400 mb-1 text-center">AND (<code>and</code>)</h4>
-            <pre class="text-xs whitespace-pre-wrap">A     | B     | A and B
-------+-------+--------
-True  | True  | True
-True  | False | False
-False | True  | False
-False | False | False</pre>
-          </div>
-          <div class="bg-blue-800 p-3 rounded shadow">
-            <h4 class="font-semibold text-yellow-400 mb-1 text-center">OR (<code>or</code>)</h4>
-            <pre class="text-xs whitespace-pre-wrap">A    | B     | A or B
------+-------+--------
-True | True  | True
-True | False | True
-False| True  | True
-False| False | False</pre>
-          </div>
-          <div class="bg-blue-800 p-3 rounded shadow">
-            <h4 class="font-semibold text-yellow-400 mb-1 text-center">NOT (<code>not</code>)</h4>
-            <pre class="text-xs whitespace-pre-wrap">A     | not A
-------+-------
-True  | False
-False | True</pre>
-          </div>
-        </div>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Try Logical Operators
-        </h2>
-        <div class="flex flex-wrap items-center mb-2">
-          <select id="logicValA" class="select-field">
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-          <select id="logicOp" class="select-field">
-            <option value="and">AND</option>
-            <option value="or">OR</option>
-          </select>
-          <select id="logicValB" class="select-field">
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-          <button id="evalLogicButton" class="btn btn-green">Evaluate</button>
-        </div>
-        <div class="flex items-center mb-4">
-          <span class="mr-2 text-gray-300">Not:</span> 
-          <select id="logicNotVal" class="select-field">
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-          <button id="evalNotButton" class="btn btn-green">Evaluate NOT</button>
-        </div>
-        <div id="logicOutput" class="output-display"></div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Conditional Statements: <code>if</code>, <code>elif</code>, <code>else</code>
-        </h2>
-        <p class="mb-4">
-          Conditional statements allow your program to make decisions and
-          execute different blocks of code based on whether a condition (a
-          boolean expression) is <code>True</code> or <code>False</code>. The
-          primary structure in Python is <code>if</code>,
-          <code>elif</code> (else if), and <code>else</code>.
-        </p>
-        <ul class="list-disc list-inside mb-3 space-y-1">
-          <li>
-            <code>if</code>: Executes the block below it ONLY if its condition
-            is <code>True</code>.
-          </li>
-          <li>
-            <code>elif</code>: (Optional) Checked ONLY if the preceding
-            <code>if</code> (and any previous <code>elif</code>) conditions were
-            <code>False</code>. Executes its block if its condition is
-            <code>True</code>. You can have multiple
-            <code>elif</code> statements.
-          </li>
-          <li>
-            <code>else</code>: (Optional) Executes its block ONLY if ALL
-            preceding <code>if</code> and <code>elif</code> conditions were
-            <code>False</code>.
-          </li>
-        </ul>
-        <pre><code class="language-python">temperature = 25
-
-if temperature > 30:
-  print("It's hot outside!")
-elif temperature > 20: # Checked only if temperature is NOT > 30
-  print("It's warm outside.")
-elif temperature > 10: # Checked only if temp is NOT > 30 AND NOT > 20
-  print("It's cool outside.")
-else: # Executes if none of the above were True (temp <= 10)
-  print("It's cold outside!")
-
-# In this case, the output will be: "It's warm outside."</code></pre>
-        <p class="mt-2 text-sm text-gray-300">
-          Indentation (the spaces before <code>print</code>) is crucial in
-          Python. It defines which lines belong to the <code>if</code>,
-          <code>elif</code>, or <code>else</code> block.
-        </p>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Test Conditionals
-        </h2>
-        <p class="mb-4">
-          Enter a numerical grade (0-100) and see which part of the conditional
-          logic runs.
-        </p>
-        <div class="mb-4 flex items-center flex-wrap">
-          <label for="gradeInput" class="mr-2 font-medium">Enter Grade:</label>
-          <input
-            type="number"
-            id="gradeInput"
-            class="input-field"
-            placeholder="e.g., 75"
-            min="0"
-            max="100"
-          />
-          <button id="checkGradeButton" class="btn btn-green">
-            Check Grade
-          </button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h3 class="text-lg font-medium mb-2">Conditional Code:</h3>
-            <pre id="conditionalCodeDisplay"><code class="language-python">
-<span class="code-line" data-line="1">grade = ? # Your input</span>
-
-<span class="code-line" data-line="2">if grade >= 90:</span>
-<span class="code-line" data-line="3">  result = "Grade: A"</span>
-<span class="code-line" data-line="4">elif grade >= 80:</span>
-<span class="code-line" data-line="5">  result = "Grade: B"</span>
-<span class="code-line" data-line="6">elif grade >= 70:</span>
-<span class="code-line" data-line="7">  result = "Grade: C"</span>
-<span class="code-line" data-line="8">elif grade >= 60:</span>
-<span class="code-line" data-line="9">  result = "Grade: D"</span>
-<span class="code-line" data-line="10">else:</span>
-<span class="code-line" data-line="11"> result = "Grade: F"</span>
-
-<span class="code-line" data-line="12">print(result)</span></code></pre>
-          </div>
-          <div>
-            <h3 class="text-lg font-medium mb-2">Execution Result:</h3>
-            <div id="conditionalResultDisplay" class="output-display">
-              <span class="text-gray-500 italic"
-                >Enter a grade and click 'Check Grade'.</span
-              >
+score = 100
+target_score = 100
+is_target_reached = score == target_score # This will be True
+print(is_target_reached)</code></pre>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: Comparisons</h3>
+              <p class="mb-2 text-sm">
+                Enter two numbers and choose a comparison operator. See the boolean result.
+              </p>
+              <div class="flex flex-wrap items-center mb-2">
+                <input type="number" id="compVal1" class="input-field mr-2" value="10" />
+                <select id="compOperator" class="select-field mr-2">
+                  <option value="==">== (Equal)</option>
+                  <option value="!=">!= (Not Equal)</option>
+                  <option value="&gt;">&gt; (Greater)</option>
+                  <option value="&lt;">&lt; (Less)</option>
+                  <option value="&gt;=">&gt;= (Greater/Equal)</option>
+                  <option value="&lt;=">&lt;= (Less/Equal)</option>
+                </select>
+                <input type="number" id="compVal2" class="input-field" value="5" />
+              </div>
+              <button id="runComparisonButton" class="btn">Compare</button>
+              <div id="comparisonOutput" class="output-display mt-2">
+                <span class="placeholder-text">Result will appear here.</span>
+              </div>
             </div>
-          </div>
-        </div>
-        <div
-          id="conditionalMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+          </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">6. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What is the result of <code>True and False</code>?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1_bool" value="a" class="mr-1" />
-            <code>True</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_bool" value="b" class="mr-1" />
-            <code>False</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: What is the result of <code>not False</code>?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_bool" value="a" class="mr-1" />
-            <code>True</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_bool" value="b" class="mr-1" />
-            <code>False</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: Which comparison operator checks for equality?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_bool" value="a" class="mr-1" />
-            <code>=</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_bool" value="b" class="mr-1" />
-            <code>==</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_bool" value="c" class="mr-1" />
-            <code>!=</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: In an <code>if/elif/else</code> structure, when does the
-            <code>else</code> block run?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_bool" value="a" class="mr-1" />
-            Always</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_bool" value="b" class="mr-1" /> Only
-            if the <code>if</code> condition is true</label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_bool" value="c" class="mr-1" /> Only
-            if all preceding <code>if</code> and <code>elif</code> conditions
-            are false</label
-          >
-        </div>
-        <button id="checkQuizButtonBool" class="btn">Check Answers</button>
-        <div
-          id="quizResultBool"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+          <section class="interactive-section mb-8">
+            <h2>3. Conditional Statements: <code>if</code>, <code>elif</code>, <code>else</code></h2>
+            <p class="mb-4">
+              Conditional statements allow you to execute certain blocks of code only if a specific condition is met (i.e., evaluates to <code>True</code>).
+              These are like choosing different paths on a journey based on signs you encounter. The <code>if</code>, <code>elif</code>, and <code>else</code> keywords are your signposts, guiding the flow of your program.
+            </p>
+            <h3 class="text-md mt-3 mb-1">The <code>if</code> Statement:</h3>
+            <p class="mb-2">The simplest conditional. The code inside an <code>if</code> block only runs if the condition is <code>True</code>.
+              It's like a gate with a condition (e.g., 'Is the player's score above 1000?'). If the answer is <code>True</code>, the gate opens, and the program executes the code inside. If <code>False</code>, that code block is skipped.
+            </p>
+            <pre><code class="language-python">temperature = 30
+if temperature &gt; 25: # Sign: 'If temperature is above 25'
+    print("It's a hot day!") # Action: Announce hot day.
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+if temperature &lt; 10:
+    print("It's a cold day!") # This condition is False, so this is skipped.</code></pre>
+
+            <h3 class="text-md mt-4 mb-1">The <code>else</code> Statement:</h3>
+            <p class="mb-2">Used with <code>if</code> to provide an alternative block of code to execute if the <code>if</code> condition is <code>False</code>.
+              It's like a default path. 'If you have a VIP pass (<code>if</code> condition), enter the VIP area. *Else* (if you don't), proceed to the general admission area.'
+            </p>
+            <pre><code class="language-python">player_score = 500
+if player_score &gt;= 1000:
+    print("You reached the high score!") # This condition is False
+else:
+    print("Keep trying to reach 1000 points.") # So, this alternative is executed.</code></pre>
+
+            <h3 class="text-md mt-4 mb-1">The <code>elif</code> (Else If) Statement:</h3>
+            <p class="mb-2">Allows you to check multiple conditions in sequence. If an <code>if</code> or <code>elif</code> condition is <code>True</code>, its block is executed, and the rest are skipped. An <code>else</code> block at the end is optional and runs if none of the preceding <code>if</code> or <code>elif</code> conditions were <code>True</code>.
+              Think of it as sorting items into different bins based on criteria. Once an item fits a criterion and is placed in a bin, you don't check the other bins for that item.
+            </p>
+            <pre><code class="language-python">grade = 85
+
+if grade &gt;= 90: # Check for 'A' bin
+    print("Grade: A")
+elif grade &gt;= 80: # Not an 'A', so check for 'B' bin. This is True.
+    print("Grade: B") # Item placed in 'B' bin. Subsequent checks are skipped.
+elif grade &gt;= 70: # Skipped
+    print("Grade: C")
+else: # Skipped
+    print("Grade: Needs Improvement")</code></pre>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: Basic Conditional Logic</h3>
+              <p class="mb-2 text-sm">
+Enter an age to check if it meets the criteria for different movie ratings (simplified).
+              </p>
+              <label for="ageInputConditional" class="block mb-1">Enter Age:</label>
+              <input type="number" id="ageInputConditional" class="input-field mb-2" value="16" />
+              <button id="checkRatingButton" class="btn">Check Movie Rating</button>
+              <div id="ratingOutput" class="output-display mt-2">
+                <span class="placeholder-text">Movie rating advice will appear here.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>4. Logical Operators: <code>and</code>, <code>or</code>, <code>not</code></h2>
+            <p class="mb-4">
+              Logical operators are used to combine or modify boolean expressions, allowing for more complex decision-making.
+              They help you set up more detailed rules for your conditional paths.
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-2 mb-2">
+              <li><strong><code>and</code></strong>: Returns <code>True</code> if both conditions are <code>True</code>.
+                Think of this like needing multiple specific keys to open a treasure chest. If you need a 'blue key' (Condition 1) AND a 'square key' (Condition 2), having only one won't open it. Both must be true.
+                (e.g., <code>(5 &gt; 3) and (10 == 10)</code> is <code>True</code> because both <code>5 &gt; 3</code> is true and <code>10 == 10</code> is true)</li>
+              <li><strong><code>or</code></strong>: Returns <code>True</code> if at least one of the conditions is <code>True</code>.
+                This is like a door that can be opened by one of several keys. If you have a 'master key' (Condition 1) OR a 'room-specific key' (Condition 2), either one (or both) will grant access.
+                (e.g., <code>(5 &lt; 3) or (10 == 10)</code> is <code>True</code> because <code>5 &lt; 3</code> is false, but <code>10 == 10</code> is true)</li>
+              <li><strong><code>not</code></strong>: Reverses the boolean value.
+                It's like a flip switch for truth. If a condition is <code>True</code>, <code>not</code> makes it <code>False</code>. If it's <code>False</code>, <code>not</code> makes it <code>True</code>. So, <code>not True</code> is <code>False</code>, and <code>not False</code> is <code>True</code>.
+                (e.g., <code>not (5 &gt; 3)</code> is <code>False</code> because <code>5 &gt; 3</code> is normally <code>True</code>)</li>
+            </ul>
+            <pre><code class="language-python">age = 25
+has_ticket = True
+
+# Using 'and'
+if age &gt;= 18 and has_ticket:
+    print("Welcome to the event!") # This will be printed
+else:
+    print("Access denied.")
+
+# Using 'or'
+is_weekend = True
+is_holiday = False
+if is_weekend or is_holiday:
+    print("Enjoy your day off!") # This will be printed
+
+# Using 'not'
+is_raining = False
+if not is_raining:
+    print("It's a sunny day!") # This will be printed</code></pre>
+
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Truth Table Explorer</h3>
+              <p class="mb-2 text-sm">
+                Select boolean values for A and B, choose a logical operator, and see the result.
+              </p>
+              <div class="flex flex-wrap items-center mb-2">
+                <label class="mr-2">A:</label>
+                <select id="valA" class="select-field mr-4">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+                <label class="mr-2">Operator:</label>
+                <select id="logicalOp" class="select-field mr-4">
+                  <option value="and">AND</option>
+                  <option value="or">OR</option>
+                </select>
+                <label class="mr-2">B:</label>
+                <select id="valB" class="select-field">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+              <button id="evalLogicButton" class="btn">Evaluate</button>
+               <p class="mt-2 text-sm">For <code>NOT</code> operator (applied to A):</p>
+                <button id="evalNotAButton" class="btn">Evaluate NOT A</button>
+              <div id="logicResultOutput" class="output-display mt-2">
+                <span class="placeholder-text">Boolean logic result will appear here.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>5. Quick Quiz</h2>
+            <p class="mb-4">Test your understanding of booleans and conditionals!</p>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q1: What will <code>print(10 != 10)</code> output?</p>
+              <label class="quiz-option-label"><input type="radio" name="q1_bool" value="a" class="mr-1" /> <code>True</code></label>
+              <label class="quiz-option-label"><input type="radio" name="q1_bool" value="b" class="mr-1" /> <code>False</code></label>
+              <label class="quiz-option-label"><input type="radio" name="q1_bool" value="c" class="mr-1" /> <code>Error</code></label>
+            </div>
+
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q2: In an <code>if-elif-else</code> structure, how many blocks of code can be executed at most?</p>
+              <label class="quiz-option-label"><input type="radio" name="q2_bool" value="a" class="mr-1" /> Zero</label>
+              <label class="quiz-option-label"><input type="radio" name="q2_bool" value="b" class="mr-1" /> One</label>
+              <label class="quiz-option-label"><input type="radio" name="q2_bool" value="c" class="mr-1" /> All of them if conditions are met</label>
+            </div>
+
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q3: What is the result of <code>(True and False) or (not False)</code>?</p>
+              <label class="quiz-option-label"><input type="radio" name="q3_bool" value="a" class="mr-1" /> <code>True</code></label>
+              <label class="quiz-option-label"><input type="radio" name="q3_bool" value="b" class="mr-1" /> <code>False</code></label>
+            </div>
+            
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">Q4: If <code>x = 5</code>, which of these conditions is <code>False</code>?</p>
+              <label class="quiz-option-label"><input type="radio" name="q4_bool" value="a" class="mr-1" /> <code>x &lt; 10</code></label>
+              <label class="quiz-option-label"><input type="radio" name="q4_bool" value="b" class="mr-1" /> <code>x == 5</code></label>
+              <label class="quiz-option-label"><input type="radio" name="q4_bool" value="c" class="mr-1" /> <code>x &gt; 5</code></label>
+            </div>
+
+            <button id="checkQuizButtonBool" class="btn">Check Answers</button>
+            <div id="quizResultBool" class="message-box mt-3" style="display: none;"></div>
+          </section>
+        </main>
+
+        <footer class="text-center mt-12 py-4">
+          <p class="text-sm mb-2">Ready to build more complex decisions?</p>
+          <a href="nested-conditionals.html" class="btn btn-8bit">
+            Next Tutorial: Nested Conditionals &rarr;
+          </a>
+        </footer>
+      </div>
+    </div>
 
     <script>
-      // --- DOM Elements ---
-      const compareVal1 = document.getElementById("compareVal1");
-      const compareOp = document.getElementById("compareOp");
-      const compareVal2 = document.getElementById("compareVal2");
-      const compareButton = document.getElementById("compareButton");
-      const compareClearButton = document.getElementById("compareClearButton");
-      const compareOutput = document.getElementById("compareOutput");
-      const compareError = document.getElementById("compareError");
+      // --- Comparison Simulator ---
+      const compVal1 = document.getElementById('compVal1');
+      const compOperator = document.getElementById('compOperator');
+      const compVal2 = document.getElementById('compVal2');
+      const runComparisonButton = document.getElementById('runComparisonButton');
+      const comparisonOutput = document.getElementById('comparisonOutput');
 
-      const gradeInput = document.getElementById("gradeInput");
-      const checkGradeButton = document.getElementById("checkGradeButton");
-      const conditionalCodeDisplay = document.getElementById(
-        "conditionalCodeDisplay"
-      );
-      const conditionalResultDisplay = document.getElementById(
-        "conditionalResultDisplay"
-      );
-      const conditionalMessage = document.getElementById("conditionalMessage");
-
-      const checkQuizButtonBool = document.getElementById(
-        "checkQuizButtonBool"
-      );
-      const quizResultBool = document.getElementById("quizResultBool");
-
-      // --- Utility Functions ---
-      function showMessage(element, message, type = "info") {
-        element.textContent = message;
-        element.className = `message-box message-box-${type}`; // Reset classes and add new ones
-        element.style.display = "block";
-        setTimeout(() => {
-          element.style.display = "none";
-        }, 3000);
-      }
-
-      // Parse string 'True'/'False' to actual boolean
-      function parseBool(str) {
-        return str === "True";
-      }
-
-      // --- Interactive Comparison Logic ---
-      function handleCompare() {
-        const val1Str = compareVal1.value;
-        const op = compareOp.value;
-        const val2Str = compareVal2.value;
-
-        let result;
-        let expression;
-
-        const val1 = parseBool(val1Str);
-        const val2 = parseBool(val2Str);
-        expression = `${val1Str} ${op} ${val2Str}`;
-
-        if (op === "==") {
-          result = val1 === val2;
-        } else if (op === "!=") {
-          result = val1 !== val2;
-        } else if (op === ">") {
-          result = val1 > val2;
-        } else if (op === "<") {
-          result = val1 < val2;
-        } else if (op === ">=") {
-          result = val1 >= val2;
-        } else {
-          // op === "<="
-          result = val1 <= val2;
-        }
-
-        // Display result (capitalize boolean like Python)
-        const resultStr =
-          result.toString().charAt(0).toUpperCase() +
-          result.toString().slice(1);
-        compareOutput.textContent = `${expression}  =>  ${resultStr}`;
-      }
-
-      // --- Interactive Conditional Logic ---
-      function highlightCodeLine(lineNumber) {
-        // Remove previous highlights
-        conditionalCodeDisplay
-          .querySelectorAll(".code-line.highlight")
-          .forEach((el) => {
-            el.classList.remove("highlight");
-          });
-        // Highlight the new line
-        const lineElement = conditionalCodeDisplay.querySelector(
-          `.code-line[data-line="${lineNumber}"]`
-        );
-        if (lineElement) {
-          lineElement.classList.add("highlight");
-        }
-      }
-
-      function handleCheckGrade() {
-        const gradeStr = gradeInput.value;
-        if (gradeStr === "") {
-          showMessage(conditionalMessage, "Please enter a grade.", "error");
-          return;
-        }
-
-        const grade = parseInt(gradeStr, 10);
-
-        if (isNaN(grade) || grade < 0 || grade > 100) {
-          showMessage(
-            conditionalMessage,
-            "Please enter a valid grade between 0 and 100.",
-            "error"
-          );
-          return;
-        }
-
-        let resultText = "";
-        let executedLines = [1]; // Line 1 (assignment) always runs conceptually
-
-        // Clear previous highlights
-        conditionalCodeDisplay
-          .querySelectorAll(".code-line.highlight")
-          .forEach((el) => el.classList.remove("highlight"));
-
-        // Simulate the if/elif/else flow and highlight
-        if (grade >= 90) {
-          executedLines.push(2, 3); // if condition, if block
-          resultText = "Grade: A";
-        } else if (grade >= 80) {
-          executedLines.push(2, 4, 5); // if condition (false), elif condition, elif block
-          resultText = "Grade: B";
-        } else if (grade >= 70) {
-          executedLines.push(2, 4, 6, 7); // if, elif (false), elif condition, elif block
-          resultText = "Grade: C";
-        } else if (grade >= 60) {
-          executedLines.push(2, 4, 6, 8, 9); // if, elif, elif (false), elif condition, elif block
-          resultText = "Grade: D";
-        } else {
-          executedLines.push(2, 4, 6, 8, 10, 11); // All conditions false, else block
-          resultText = "Grade: F";
-        }
-        executedLines.push(12); // Final print line
-
-        // Apply highlights sequentially with a small delay for visual effect
-        let delay = 0;
-        executedLines.forEach((lineNum) => {
-          setTimeout(() => highlightCodeLine(lineNum), delay);
-          delay += 250; // 250ms delay between highlighting lines
+      if (runComparisonButton) {
+        runComparisonButton.addEventListener('click', () => {
+          const val1 = parseFloat(compVal1.value);
+          const op = compOperator.value;
+          const val2 = parseFloat(compVal2.value);
+          let result;
+          if (isNaN(val1) || isNaN(val2)) {
+            comparisonOutput.innerHTML = '<span class="placeholder-text">Please enter valid numbers.</span>';
+            return;
+          }
+          switch (op) {
+            case '==': result = val1 == val2; break;
+            case '!=': result = val1 != val2; break;
+            case '&gt;': result = val1 > val2; break;
+            case '&lt;': result = val1 < val2; break;
+            case '&gt;=': result = val1 >= val2; break;
+            case '&lt;=': result = val1 <= val2; break;
+            default: result = 'Invalid operator';
+          }
+          comparisonOutput.innerHTML = `Expression: <code>${val1} ${op.replace('<', '&lt;').replace('>', '&gt;')} ${val2}</code><br>Result: <strong>${result}</strong>`;
         });
-
-        // Update the result display after the animation finishes
-        setTimeout(() => {
-          conditionalResultDisplay.textContent = `Input grade: ${grade}\n${resultText}`;
-          showMessage(
-            conditionalMessage,
-            "Conditional logic executed.",
-            "success"
-          );
-        }, delay); // Show result after last highlight
       }
+
+      // --- Movie Rating Simulator ---
+      const ageInputConditional = document.getElementById('ageInputConditional');
+      const checkRatingButton = document.getElementById('checkRatingButton');
+      const ratingOutput = document.getElementById('ratingOutput');
+      
+      if (checkRatingButton) {
+        checkRatingButton.addEventListener('click', () => {
+            const age = parseInt(ageInputConditional.value);
+            let message = '';
+            if (isNaN(age) || age < 0) {
+                message = 'Please enter a valid age.';
+                ratingOutput.className = 'output-display message-box-error';
+            } else if (age >= 18) {
+                message = 'You can watch R-rated movies and below.';
+                ratingOutput.className = 'output-display message-box-success';
+            } else if (age >= 13) {
+                message = 'You can watch PG-13 movies and below.';
+                ratingOutput.className = 'output-display message-box-info';
+            } else if (age >= 7) {
+                message = 'You can watch G and PG movies.';
+                ratingOutput.className = 'output-display message-box-info';
+            } else {
+                message = 'Stick to G-rated movies for now!';
+                ratingOutput.className = 'output-display message-box-info';
+            }
+            ratingOutput.innerHTML = message;
+        });
+      }
+
+      // --- Logical Operator Explorer ---
+      const valASelect = document.getElementById('valA');
+      const valBSelect = document.getElementById('valB');
+      const logicalOpSelect = document.getElementById('logicalOp');
+      const evalLogicButton = document.getElementById('evalLogicButton');
+      const evalNotAButton = document.getElementById('evalNotAButton');
+      const logicResultOutput = document.getElementById('logicResultOutput');
+
+      function evaluateLogic() {
+        const a = valASelect.value === 'true';
+        const b = valBSelect.value === 'true';
+        const op = logicalOpSelect.value;
+        let result;
+        let expression = '';
+
+        if (op === 'and') {
+          result = a && b;
+          expression = `<code>${a} AND ${b}</code>`;
+        } else if (op === 'or') {
+          result = a || b;
+          expression = `<code>${a} OR ${b}</code>`;
+        }
+        logicResultOutput.innerHTML = `Expression: ${expression}<br>Result: <strong>${result}</strong>`;
+      }
+      
+      function evaluateNotA() {
+        const a = valASelect.value === 'true';
+        const result = !a;
+        logicResultOutput.innerHTML = `Expression: <code>NOT ${a}</code><br>Result: <strong>${result}</strong>`;
+      }
+
+      if (evalLogicButton) evalLogicButton.addEventListener('click', evaluateLogic);
+      if (evalNotAButton) evalNotAButton.addEventListener('click', evaluateNotA);
 
       // --- Quiz Logic ---
-      function checkBooleansQuiz() {
-        const answers = {
-          q1_bool: "b", // False
-          q2_bool: "a", // True
-          q3_bool: "b", // ==
-          q4_bool: "c", // All preceding false
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
+      const checkQuizButtonBool = document.getElementById('checkQuizButtonBool');
+      const quizResultBool = document.getElementById('quizResultBool');
 
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
+      if (checkQuizButtonBool) {
+        checkQuizButtonBool.addEventListener('click', () => {
+          const answers = { q1_bool: 'b', q2_bool: 'b', q3_bool: 'a', q4_bool: 'c' };
+          let score = 0;
+          let allAnswered = true;
+          let resultHTML = '<h4>Quiz Results:</h4><ul>';
+
+          for (const question in answers) {
+            const selected = document.querySelector(`input[name="${question}"]:checked`);
+            if (selected) {
+              if (selected.value === answers[question]) {
+                score++;
+                resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
+              } else {
+                resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
+              }
+            } else {
+              allAnswered = false;
+              break;
+            }
           }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
+
+          if (!allAnswered) {
+            quizResultBool.innerHTML = 'Please answer all questions.';
+            quizResultBool.className = 'message-box message-box-info';
           } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
+            resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
+            quizResultBool.innerHTML = resultHTML;
+            if (score === Object.keys(answers).length) {
+                quizResultBool.className = 'message-box message-box-success';
+            } else {
+                quizResultBool.className = 'message-box message-box-info';
+            }
           }
-        }
-
-        if (!allAnswered) {
-          quizResultBool.textContent =
-            "Please answer all questions before checking.";
-          quizResultBool.className = "message-box message-box-error";
-          quizResultBool.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultBool.innerHTML = resultsHTML;
-        quizResultBool.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultBool.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      compareButton.addEventListener("click", handleCompare);
-      compareClearButton.addEventListener("click", () => {
-        compareOutput.textContent = "";
-        compareError.textContent = "";
-      });
-      checkGradeButton.addEventListener("click", handleCheckGrade);
-      gradeInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-          handleCheckGrade();
-        }
-      });
-      checkQuizButtonBool.addEventListener("click", checkBooleansQuiz);
-
-      // --- Initial Setup ---
-      // Initial call to set disabled state based on default 'not' value
-      if (notVal.value !== "None") {
-        boolVal1.disabled = true;
-        logicalOp.disabled = true;
-        boolVal2.disabled = true;
+          quizResultBool.style.display = 'block';
+        });
       }
     </script>
   </body>

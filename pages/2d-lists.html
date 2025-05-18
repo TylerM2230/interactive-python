@@ -3,617 +3,415 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn 2D Lists (Lists of Lists)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>2D Lists (Lists of Lists) - Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding 2D Lists (Lists of Lists)
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Working with grid-like structures by using lists that contain other lists as their elements.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="functions.html" class="btn">
+          Next: Functions &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a href="recursion.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Recursion
-      </a>
-      <a href="dictionaries-tuples.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: Dictionaries & Tuples &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            2D Lists (Lists of Lists / Matrices)
+          </h2>
+          <p class="text-sm italic mt-1">
+            Learn how to work with two-dimensional data structures in Python, from game boards to data tables.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What is a 2D List?
-        </h2>
-        <p class="mb-4">
-          A 2D list, often called a list of lists or a matrix, is simply a list
-          where each item is itself another list. This structure is commonly
-          used to represent grids, tables, game boards, matrices in mathematics,
-          or any data that has rows and columns.
-        </p>
-        <p class="mb-2">Here's how you can create a 2D list in Python:</p>
-        <pre><code class="language-python"># A 3x4 grid (3 rows, 4 columns)
+        <main>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">1. What is a 2D List?</h2>
+            <div class="sub-interactive-box">
+              <p>
+                A 2D list, often referred to as a list of lists or sometimes a matrix (especially in mathematical contexts), is a versatile data structure in Python. It's essentially a list where each element is itself another list. This structure is exceptionally useful for representing data that has a grid-like or tabular format, such as:
+              </p>
+              <ul>
+                <li>Game boards (e.g., chess, tic-tac-toe, mazes)</li>
+                <li>Tables of data (like a spreadsheet)</li>
+                <li>Matrices in mathematics for various calculations</li>
+                <li>Pixel data for images</li>
+              </ul>
+              <p>Think of a 2D list like a spreadsheet or a grid of cells. Just as a spreadsheet has rows and columns, a 2D list has rows (the outer lists) and columns (the elements within each inner list). This structure allows us to organize data in a way that's easy to navigate and manipulate.</p>
+              <p>Here's a simple way to visualize and create a 2D list:</p>
+              <pre><code class="code-block-8bit python"># A 3x4 grid (3 rows, 4 columns)
 grid = [
   [1, 2, 3, 4],    # Row 0
   [5, 6, 7, 8],    # Row 1
   [9, 10, 11, 12]  # Row 2
 ]
 
-# You can also create them dynamically, e.g., an empty 2x3 grid
-rows = 2
+# Each inner list is a row.
+# The elements of the inner lists are the columns.
+
+print("Grid:")
+for row in grid:
+    print(row)
+
+# Output:
+# Grid:
+# [1, 2, 3, 4]
+# [5, 6, 7, 8]
+# [9, 10, 11, 12]</code></pre>
+              <p>In this example, <code>grid</code> is a list containing three other lists. <code>grid[0]</code> is the list <code>[1, 2, 3, 4]</code>, which represents the first row. It's like having a spreadsheet where each row is a separate list, and each cell in that row is an element of that list.</p>
+            </div>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">2. Creating 2D Lists</h2>
+            <div class="sub-interactive-box">
+              <p>There are several ways to create 2D lists in Python, each with its own use case:</p>
+              <h3 class="section-subtitle-8bit smaller-subtitle">a) Direct Initialization:</h3>
+              <p>As shown above, you can directly define the list of lists. This is like manually filling out a spreadsheet - you know exactly what goes in each cell.</p>
+              <pre><code class="code-block-8bit python">tic_tac_toe_board = [
+    ['X', 'O', 'X'],
+    ['O', 'X', ' '],
+    ['O', ' ', 'O']
+]</code></pre>
+              
+              <h3 class="section-subtitle-8bit smaller-subtitle">b) Using Nested Loops:</h3>
+              <p>You can create a 2D list dynamically, for example, to initialize a grid with default values. This is like having a spreadsheet template where you want to start with the same value in every cell.</p>
+              <pre><code class="code-block-8bit python">rows = 3
 cols = 3
-empty_grid = [[0 for _ in range(cols)] for _ in range(rows)]
-# empty_grid will be: [[0, 0, 0], [0, 0, 0]]
+empty_grid = []
+for r in range(rows):
+    new_row = []
+    for c in range(ncols):
+        new_row.append(0) # Initialize with 0
+    empty_grid.append(new_row)
 
-print(grid)
+# empty_grid will be: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 print(empty_grid)</code></pre>
-        <p class="mt-2">
-          Each inner list represents a row, and the elements within the inner
-          lists represent the columns for that row.
-        </p>
-      </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Creating 2D Lists
-        </h2>
-        <p class="mb-2">
-          You can create a 2D list in Python using various methods. Here are a few examples:
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">
-          Creating with List Comprehension (more advanced):
-        </h3>
-        <pre><code class="language-python">rows = 3
+              <h3 class="section-subtitle-8bit smaller-subtitle">c) Using List Comprehension (More Pythonic):</h3>
+              <p>List comprehensions provide a concise way to create lists. A nested list comprehension can create a 2D list efficiently. Think of this as a more elegant way to create your spreadsheet - it's like having a formula that automatically fills in all the cells.</p>
+              <pre><code class="code-block-8bit python">rows = 2
 cols = 4
-grid = [[0 for _ in range(cols)] for _ in range(rows)]
-# grid will be: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]</code></pre>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Accessing Elements in a 2D List
-        </h2>
-        <p class="mb-2">
-          To access a specific element in a 2D list, you need two indices: one
-          for the row and one for the column. Remember that indexing starts at
-          0.
-        </p>
-        <p class="mb-2">
-          The syntax is: <code>list_name[row_index][column_index]</code>
-        </p>
-        <pre><code class="language-python">grid = [
-  [1, 2, 3, 4],
-  [5, 6, 7, 8],
-  [9, 10, 11, 12]
-]
-
-# Access the element at Row 0, Column 1 (value is 2)
-element_0_1 = grid[0][1]
-print(f"Element at [0][1]: {element_0_1}")  # Output: 2
-
-# Access the element at Row 2, Column 3 (value is 12)
-element_2_3 = grid[2][3]
-print(f"Element at [2][3]: {element_2_3}")  # Output: 12
-
-# Access an entire row (Row 1)
-row_1 = grid[1]
-print(f"Row 1: {row_1}")  # Output: [5, 6, 7, 8]</code></pre>
-        <p class="mt-2 text-sm text-red-600">
-          Be careful! Accessing an index outside the valid range (e.g.,
-          <code>grid[3]</code> or <code>grid[0][4]</code> in the example above)
-          will cause an <code>IndexError</code>.
-        </p>
-      </section>
-
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Try Accessing Elements
-        </h2>
-        <p class="mb-4">
-          Enter a row and column index below to see the corresponding element
-          highlighted in the example grid. Valid row indices are 0-2, valid
-          column indices are 0-3.
-        </p>
-        <div class="flex flex-wrap items-center mb-4">
-          <div>
-            <label for="rowIndexInput" class="mr-2 font-medium">Row:</label>
-            <input
-              type="number"
-              id="rowIndexInput"
-              class="input-field"
-              placeholder="0-2"
-              min="0"
-              max="2"
-            />
-          </div>
-          <div>
-            <label for="colIndexInput" class="mr-2 font-medium">Column:</label>
-            <input
-              type="number"
-              id="colIndexInput"
-              class="input-field"
-              placeholder="0-3"
-              min="0"
-              max="3"
-            />
-          </div>
-          <button id="accessElementButton" class="btn">Access Element</button>
-        </div>
-
-        <div class="flex flex-wrap items-start">
-          <div class="mr-6 mb-4">
-            <h3 class="text-lg font-medium mb-2">Example Grid:</h3>
-            <div id="gridVisualizer" class="grid-container"></div>
-          </div>
-          <div>
-            <h3 class="text-lg font-medium mb-2">Result:</h3>
-            <div id="accessResultDisplay" class="output-display min-h-[40px]">
-              <span class="text-gray-500 italic"
-                >Enter indices and click 'Access Element'.</span
-              >
+comprehension_grid = [[None for _ in range(cols)] for _ in range(rows)]
+# comprehension_grid will be: [[None, None, None, None], [None, None, None, None]]
+print(comprehension_grid)</code></pre>
+              <div class="message-box-8bit info">
+                  <strong>Watch Out for Shallow Copies!</strong> When creating lists of lists, especially by repeating a row (e.g., <code>row = [0]*cols; grid = [row]*rows</code>), be careful. This creates multiple references to the <em>same</em> inner list object. It's like having multiple windows open to the same spreadsheet - changes in one window affect all of them. Using loops or list comprehensions as shown above avoids this issue by creating distinct inner list objects for each row, like having separate spreadsheets for each row.
+              </div>
             </div>
-          </div>
-        </div>
-        <div id="accessMessage" class="message-box" style="display: none"></div>
-        <button id="accessClearButton" class="btn">Clear Output</button>
-      </section>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Iterating Through 2D Lists
-        </h2>
-        <p class="mb-2">
-          The most common way to process every element in a 2D list is using
-          nested loops. The outer loop iterates through the rows, and the inner
-          loop iterates through the elements (columns) within the current row.
-        </p>
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Iterating with nested loops to get individual elements:</h3>
-        <pre><code class="language-python">grid = [
-  [1, 2, 3],
-  [4, 5, 6]
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">3. Accessing Elements in a 2D List</h2>
+            <div class="sub-interactive-box">
+              <p>
+                To access a specific element in a 2D list, you use two indices: the first index for the row and the second index for the column. Remember that Python uses zero-based indexing, so the first row is at index 0, and the first column is at index 0. It's like using coordinates on a map - you need both the row number and column number to find a specific location.
+              </p>
+              <p>
+                The syntax is: <code>list_name[row_index][column_index]</code>
+              </p>
+              <pre><code class="code-block-8bit python">game_map = [
+    ['Grass', 'Water', 'Water'],  # Row 0
+    ['Grass', 'Grass', 'Bridge'], # Row 1
+    ['Road',  'Road',  'Grass']   # Row 2
 ]
 
-print("Iterating by element:")
-for row_index in range(len(grid)): # Outer loop iterates through row indices (0, 1)
-  for col_index in range(len(grid[row_index])): # Inner loop iterates through col indices (0, 1, 2)
-    element = grid[row_index][col_index]
-    print(f"  Processing element at [{row_index}][{col_index}]: {element}")
+# Access the element at Row 0, Column 1 (should be 'Water')
+element_0_1 = game_map[0][1]
+print(f"Element at [0][1]: {element_0_1}")  # Output: Water
 
-print("\nAlternative: Iterating directly through rows and elements:")
-for row in grid: # Outer loop gets each inner list (row)
-    print(f"Processing Row: {row}")
-    for element in row: # Inner loop gets each element in the current row
-        print(f"  Element: {element}")</code></pre>
-      </section>
+# Access the element at Row 1, Column 2 (should be 'Bridge')
+element_1_2 = game_map[1][2]
+print(f"Element at [1][2]: {element_1_2}")  # Output: Bridge
 
-      <section class="interactive-section mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Visualize Iteration
-        </h2>
-        <p class="mb-4">
-          Click the button to visualize nested loops iterating through the
-          example grid. Observe how it processes row by row, then element by
-          element within each row.
-        </p>
-        <div class="mb-4">
-          <button id="runIterationButton" class="btn btn-green">
-            Run Iteration
-          </button>
-          <button id="resetIterationButton" class="btn">Reset</button>
-        </div>
+# Access an entire row (Row 2)
+third_row_data = game_map[2]
+print(f"Row 2 data: {third_row_data}")  # Output: ['Road', 'Road', 'Grass']
 
-        <div class="flex flex-wrap items-start">
-          <div class="mr-6 mb-4">
-            <h3 class="text-lg font-medium mb-2">Example Grid:</h3>
-            <div id="gridVisualizerIter" class="grid-container"></div>
-          </div>
-          <div>
-            <h3 class="text-lg font-medium mb-2">Iteration Log:</h3>
-            <div id="iterationLogDisplay" class="output-display min-h-[150px]">
-              <span class="text-gray-500 italic"
-                >Click "Run Iteration" to start.</span
-              >
+# Modify an element
+print(f"Original element at [0][0]: {game_map[0][0]}")
+game_map[0][0] = 'Forest'
+print(f"Modified element at [0][0]: {game_map[0][0]}") # Output: Forest</code></pre>
+              <div class="message-box-8bit warning">
+                <strong>IndexError Alert:</strong> Be careful! Accessing an index that is outside the valid range for rows or columns (e.g., <code>game_map[3]</code> or <code>game_map[0][5]</code> in the example above) will result in an <code>IndexError</code>. This is like trying to find a location on a map that doesn't exist - you'll get lost!
+              </div>
             </div>
-          </div>
-        </div>
-        <div
-          id="iterationMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-        <button id="iterateClearButton" class="btn">Clear</button>
-      </section>
+          </section>
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. Modifying Elements
-        </h2>
-        <p class="mb-2">
-          You can modify elements in a 2D list by accessing them and assigning new values.
-        </p>
-        <pre><code class="language-python">grid = [
-  [1, 2, 3],
-  [4, 5, 6]
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">4. Interactive: Explore a Grid</h2>
+            <div class="sub-interactive-box">
+              <p>
+                Enter a row and column index below to see the corresponding element highlighted in the example 3x4 grid. Valid row indices are 0-2, and valid column indices are 0-3.
+              </p>
+              <div class="controls-grid grid-2col-responsive">
+                <div>
+                  <label for="rowIndexInput" class="block mb-1 font-medium">Row Index (0-2):</label>
+                  <input
+                    type="number"
+                    id="rowIndexInput"
+                    class="input-field w-full md:w-1/2"
+                    placeholder="e.g., 1"
+                    min="0"
+                    max="2"
+                  />
+                </div>
+                <div>
+                  <label for="colIndexInput" class="block mb-1 font-medium">Column Index (0-3):</label>
+                  <input
+                    type="number"
+                    id="colIndexInput"
+                    class="input-field w-full md:w-1/2"
+                    placeholder="e.g., 2"
+                    min="0"
+                    max="3"
+                  />
+                </div>
+              </div>
+              <div class="controls-flex mt-2">
+                <button id="accessElementButton" class="btn">Show Element</button>
+                <button id="accessClearButton" class="btn">Clear</button>
+              </div>
+      
+              <div class="grid-cols-2-responsive mt-4">
+                <div>
+                  <h3 class="text-md font-medium mb-1">Example Grid (3x4):</h3>
+                  <div id="gridVisualizerContainer">
+                    <table id="gridVisualizerTable" class="grid-table"></table>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-md font-medium mb-1">Selected Element:</h3>
+                  <div id="accessResultDisplay" class="output-display">
+                    <p><em>Enter indices and click 'Show Element'.</em></p>
+                  </div>
+                </div>
+              </div>
+              <div id="accessMessage" class="message-box mt-2" style="display: none;"></div>
+            </div>
+          </section>
+
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">5. Iterating Through 2D Lists</h2>
+            <div class="sub-interactive-box">
+              <p>
+                To process every element in a 2D list, nested loops are commonly used. The outer loop iterates through the rows (which are lists themselves), and the inner loop iterates through the elements (columns) within the current row. Think of this as systematically scanning through a spreadsheet, row by row, and within each row, cell by cell.
+              </p>
+              <h3 class="section-subtitle-8bit smaller-subtitle">a) Using Nested <code>for</code> Loops with Indices:</h3>
+              <pre><code class="code-block-8bit python">data_table = [
+    ['Name', 'Score', 'Level'],
+    ['PlayerA', 1500, 12],
+    ['PlayerB', 2200, 18],
+    ['PlayerC', 950, 7]
 ]
 
-# Modify the element at Row 1, Column 2 (value is 6) to 10
-grid[1][2] = 10
-print(grid) # Output: [[1, 2, 3], [4, 5, 10]]</code></pre>
-      </section>
+print("Iterating by index:")
+# Outer loop iterates through row indices
+for r_idx in range(len(data_table)):
+  # Inner loop iterates through column indices for the current row
+  for c_idx in range(len(data_table[r_idx])):
+    element = data_table[r_idx][c_idx]
+    print(f"  Element at [{r_idx}][{c_idx}]: {element}")</code></pre>
+              <h3 class="section-subtitle-8bit smaller-subtitle">b) Iterating Directly Through Rows and Elements (More Pythonic):</h3>
+              <pre><code class="code-block-8bit python">data_table = [
+    ['Name', 'Score', 'Level'],
+    ['PlayerA', 1500, 12],
+    ['PlayerB', 2200, 18],
+    ['PlayerC', 950, 7]
+]
 
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          6. Common Operations with 2D Lists
-        </h2>
-        
-        <h3 class="text-lg font-medium text-cyan-400 mb-1">Finding the number of rows:</h3>
-        <pre><code class="language-python">grid = [[1,2], [3,4]]
-num_rows = len(grid)
-print(f"Number of rows: {num_rows}") # Output: 2</code></pre>
+print("\nIterating directly through elements:")
+# Outer loop gets each inner list (row)
+for row_list in data_table:
+  # Inner loop gets each element in the current row_list
+  for item in row_list:
+    print(f"  Processing item: {item}")
+  print("--- Next Row ---") # Separator for clarity
+</code></pre>
+              <h3 class="section-subtitle-8bit smaller-subtitle">c) Using <code>enumerate</code> for Index and Value:</h3>
+              <p>If you need both the index and the value during iteration:</p>
+              <pre><code class="code-block-8bit python">pixel_map = [[(255,0,0), (0,255,0)], [(0,0,255), (255,255,0)]] # (R,G,B) tuples
 
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Finding the number of columns (assuming a rectangular grid):</h3>
-        <pre><code class="language-python">grid = [[1,2,3], [4,5,6]]
-if grid: # Check if grid is not empty
-  num_cols = len(grid[0])
-  print(f"Number of columns: {num_cols}") # Output: 3</code></pre>
+print("\nIterating with enumerate:")
+for r_idx, row_list in enumerate(pixel_map):
+    for c_idx, pixel_color in enumerate(row_list):
+        print(f"  Pixel at Row {r_idx}, Col {c_idx} is {pixel_color}")</code></pre>
+            </div>
+          </section>
 
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adding a new row:</h3>
-        <pre><code class="language-python">grid = [[1,2], [3,4]]
-grid.append([5,6])
-print(grid) # Output: [[1, 2], [3, 4], [5, 6]]</code></pre>
+          <section class="game-section interactive-section mb-8">
+            <h2 class="section-title-8bit">6. Common Operations with 2D Lists</h2>
+            <div class="sub-interactive-box">
+              <h3 class="section-subtitle-8bit smaller-subtitle">a) Getting Dimensions (Number of Rows and Columns):</h3>
+              <p>Just as you might want to know the size of a spreadsheet (how many rows and columns it has), you can get the dimensions of a 2D list. This is useful for bounds checking and understanding the structure of your data.</p>
+              <pre><code class="code-block-8bit python">my_grid = [[1,2,3], [4,5,6], [7,8,9], [10,11,12]]
+num_rows = len(my_grid)
+# For a non-empty grid where all rows have the same length:
+num_cols = len(my_grid[0]) if num_rows > 0 else 0
 
-        <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Adding a new column (more complex, often requires rebuilding):</h3>
-        <p class="mb-2">
-          Adding a new "column" usually means adding an element to each existing row at the same position, or appending to each row.
+print(f"Number of rows: {num_rows}")    # Output: 4
+print(f"Number of columns: {num_cols}") # Output: 3 (assuming all rows same length)
+
+# What if rows have different lengths (jagged array)?
+jagged_grid = [[1,2], [3,4,5], [6]]
+print(f"Length of first row: {len(jagged_grid[0])}") # 2
+print(f"Length of second row: {len(jagged_grid[1])}") # 3</code></pre>
+              <h3 class="section-subtitle-8bit smaller-subtitle">b) Summing All Elements (if numerical):</h3>
+              <p>When working with numerical data in a 2D list, you might want to calculate the sum of all elements. This is like using a spreadsheet's SUM function to add up all the values in a range of cells.</p>
+              <pre><code class="code-block-8bit python">scores = [[10, 15], [20, 25], [5, 30]]
+total_sum = 0
+for row in scores:
+    for score_value in row:
+        total_sum += score_value
+print(f"Total sum of all scores: {total_sum}") # Output: 105</code></pre>
+              <h3 class="section-subtitle-8bit smaller-subtitle">c) Finding an Element:</h3>
+              <p>Searching for a specific element in a 2D list is like looking for a particular item in a spreadsheet. You need to check each cell until you find what you're looking for, or determine that it's not there.</p>
+              <pre><code class="code-block-8bit python">treasure_map = [
+    ['Sand', 'Palm Tree', 'Rock'],
+    ['Water', 'X marks the spot', 'Sand'],
+    ['Rock', 'Sand', 'Cave']
+]
+
+def find_item_location(grid, item_to_find):
+    for r_idx, row in enumerate(grid):
+        for c_idx, current_item in enumerate(row):
+            if current_item == item_to_find:
+                return (r_idx, c_idx) # Return (row, col) tuple
+    return None # Item not found
+
+treasure_location = find_item_location(treasure_map, 'X marks the spot')
+if treasure_location:
+    print(f"Treasure found at row {treasure_location[0]}, col {treasure_location[1]}")
+    # Output: Treasure found at row 1, col 1
+else:
+    print("Treasure not found!")</code></pre>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer class="footer-8bit">
+        <p>Happy Coding!</p>
+        <p class="mt-2">
+          <a href="../index.html">Back to Main Menu (from Footer)</a>
         </p>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          7. Use Cases for 2D Lists
-        </h2>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <p class="font-medium mb-1">
-              Representing grids, tables, and game boards
-            </p>
-          </li>
-          <li>
-            <p class="font-medium mb-1">
-              Storing and processing tabular data
-            </p>
-          </li>
-          <li>
-            <p class="font-medium mb-1">
-              Implementing algorithms that involve 2D data
-            </p>
-          </li>
-          <li>
-            <p class="font-medium mb-1">
-              Storing and processing matrices in mathematics
-            </p>
-          </li>
-        </ul>
-      </section>
-    </main>
-
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+      </footer>
+    </div>
 
     <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
-
-      // --- Example 2D List Data ---
       const exampleGridData = [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
+        [10, 20, 30, 40],
+        [50, 60, 70, 80],
+        [90, 100, 110, 120]
       ];
-      const numRows = exampleGridData.length;
-      const numCols = exampleGridData[0].length; // Assumes a rectangular grid
 
-      // --- DOM Elements ---
-      const rowIndexInput = document.getElementById("rowIndexInput");
-      const colIndexInput = document.getElementById("colIndexInput");
-      const accessElementButton = document.getElementById(
-        "accessElementButton"
-      );
-      const gridVisualizer = document.getElementById("gridVisualizer");
-      const accessResultDisplay = document.getElementById(
-        "accessResultDisplay"
-      );
-      const accessMessage = document.getElementById("accessMessage");
+      const gridTable = document.getElementById('gridVisualizerTable');
+      const rowIndexInput = document.getElementById('rowIndexInput');
+      const colIndexInput = document.getElementById('colIndexInput');
+      const accessElementButton = document.getElementById('accessElementButton');
+      const accessResultDisplay = document.getElementById('accessResultDisplay');
+      const accessMessage = document.getElementById('accessMessage');
+      const accessClearButton = document.getElementById('accessClearButton');
+      
+      let highlightedCell = null;
 
-      const runIterationButton = document.getElementById("runIterationButton");
-      const resetIterationButton = document.getElementById(
-        "resetIterationButton"
-      );
-      const gridVisualizerIter = document.getElementById("gridVisualizerIter");
-      const iterationLogDisplay = document.getElementById(
-        "iterationLogDisplay"
-      );
-      const iterationMessage = document.getElementById("iterationMessage");
-
-      const checkQuizButton2DList = document.getElementById(
-        "checkQuizButton2DList"
-      );
-      const quizResult2DList = document.getElementById("quizResult2DList");
-
-      // --- Grid Rendering Function ---
-      function renderGrid(containerElement, gridData) {
-        containerElement.innerHTML = ""; // Clear previous grid
-        gridData.forEach((rowData, rIndex) => {
-          const rowDiv = document.createElement("div");
-          rowDiv.className = "grid-row";
-          rowDiv.dataset.rowIndex = rIndex;
-          rowData.forEach((cellData, cIndex) => {
-            const cellDiv = document.createElement("div");
-            cellDiv.className = "grid-cell";
-            cellDiv.textContent = cellData;
-            cellDiv.dataset.rowIndex = rIndex;
-            cellDiv.dataset.colIndex = cIndex;
-            rowDiv.appendChild(cellDiv);
+      function renderGrid() {
+        gridTable.innerHTML = ''; // Clear previous grid
+        const headerRow = gridTable.insertRow();
+        const th = document.createElement('th'); // Empty top-left corner
+        headerRow.appendChild(th);
+        for (let j = 0; j < exampleGridData[0].length; j++) {
+          const thCol = document.createElement('th');
+          thCol.textContent = `Col ${j}`;
+          headerRow.appendChild(thCol);
+        }
+        exampleGridData.forEach((rowData, r) => {
+          const tr = gridTable.insertRow();
+          const thRow = document.createElement('th');
+          thRow.textContent = `Row ${r}`;
+          tr.appendChild(thRow);
+          rowData.forEach((cellData, c) => {
+            const td = tr.insertCell();
+            td.textContent = cellData;
+            td.id = `cell-${r}-${c}`;
           });
-          containerElement.appendChild(rowDiv);
         });
       }
 
-      // --- Interactive Element Access Logic ---
-      function clearHighlights(containerElement) {
-        containerElement
-          .querySelectorAll(".grid-cell.highlight")
-          .forEach((cell) => {
-            cell.classList.remove("highlight");
-          });
+      function clearHighlight() {
+        if (highlightedCell) {
+          highlightedCell.classList.remove('highlight');
+          highlightedCell = null;
+        }
       }
 
-      function handleAccessElement() {
-        clearHighlights(gridVisualizer); // Clear previous highlight
-        const rStr = rowIndexInput.value;
-        const cStr = colIndexInput.value;
-
-        if (rStr === "" || cStr === "") {
-          showMessage(
-            accessMessage,
-            "Please enter both row and column indices.",
-            "error"
-          );
-          accessResultDisplay.innerHTML =
-            "<span class=\"text-gray-500 italic\">Enter indices and click 'Access Element'.</span>";
-          return;
-        }
-
-        const r = parseInt(rStr, 10);
-        const c = parseInt(cStr, 10);
-
-        // Validate indices
-        if (
-          isNaN(r) ||
-          isNaN(c) ||
-          r < 0 ||
-          r >= numRows ||
-          c < 0 ||
-          c >= numCols
-        ) {
-          showMessage(
-            accessMessage,
-            `Invalid indices. Row must be 0-${numRows - 1}, Column must be 0-${
-              numCols - 1
-            }.`,
-            "error"
-          );
-          accessResultDisplay.innerHTML =
-            '<span class="text-red-500">Error: Index out of bounds.</span>';
-          return;
-        }
-
-        // Highlight the cell
-        const targetCell = gridVisualizer.querySelector(
-          `.grid-cell[data-row-index="${r}"][data-col-index="${c}"]`
-        );
-        if (targetCell) {
-          targetCell.classList.add("highlight");
-          const value = exampleGridData[r][c];
-          accessResultDisplay.textContent = `Value at grid[${r}][${c}]: ${value}`;
-          showMessage(
-            accessMessage,
-            `Element at [${r}][${c}] highlighted.`,
-            "success"
-          );
+      function showMessage(element, message, type = 'info') {
+        element.textContent = message;
+        element.className = 'message-box mt-2'; // Reset base classes
+        if (type === 'error') {
+          element.classList.add('message-box-error');
+        } else if (type === 'success') {
+          element.classList.add('message-box-success');
         } else {
-          // Should not happen if validation is correct, but good fallback
-          showMessage(
-            accessMessage,
-            "Could not find the specified cell.",
-            "error"
-          );
-          accessResultDisplay.innerHTML =
-            '<span class="text-red-500">Error: Cell not found.</span>';
+          element.classList.add('message-box-info');
         }
+        element.style.display = 'block';
       }
 
-      // --- Iteration Visualization Logic ---
-      let iterationInterval = null;
-      let iterRow = 0;
-      let iterCol = 0;
-      let iterationRunning = false;
-
-      function clearIterationHighlights() {
-        gridVisualizerIter.querySelectorAll(".grid-cell").forEach((cell) => {
-          cell.classList.remove("highlight-row", "highlight-processing");
-        });
+      function hideMessage(element) {
+        element.style.display = 'none';
       }
 
-      function resetIteration() {
-        if (iterationInterval) {
-          clearInterval(iterationInterval);
-          iterationInterval = null;
-        }
-        iterationRunning = false;
-        iterRow = 0;
-        iterCol = 0;
-        clearIterationHighlights();
-        iterationLogDisplay.innerHTML =
-          '<span class="text-gray-500 italic">Click "Run Iteration" to start.</span>';
-        runIterationButton.disabled = false;
-        showMessage(iterationMessage, "Iteration reset.", "info");
-      }
+      accessElementButton.addEventListener('click', () => {
+        clearHighlight();
+        hideMessage(accessMessage);
+        accessResultDisplay.innerHTML = '<p><em>Processing...</em></p>';
+        const row = parseInt(rowIndexInput.value);
+        const col = parseInt(colIndexInput.value);
 
-      function stepThroughIteration() {
-        if (!iterationRunning) return;
-        clearIterationHighlights(); // Clear previous step's highlights
-
-        if (iterRow < numRows) {
-          // Highlight the current row being processed
-          gridVisualizerIter
-            .querySelectorAll(`.grid-cell[data-row-index="${iterRow}"]`)
-            .forEach((cell) => {
-              cell.classList.add("highlight-row");
-            });
-
-          if (iterCol < numCols) {
-            // Highlight the specific cell being processed
-            const currentCell = gridVisualizerIter.querySelector(
-              `.grid-cell[data-row-index="${iterRow}"][data-col-index="${iterCol}"]`
-            );
-            if (currentCell) {
-              currentCell.classList.add("highlight-processing");
-            }
-
-            // Log the action
-            const value = exampleGridData[iterRow][iterCol];
-            iterationLogDisplay.innerHTML += `Processing grid[${iterRow}][${iterCol}]: ${value}\n`;
-            iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight; // Auto-scroll
-
-            // Move to the next column for the next step
-            iterCol++;
-          } else {
-            // Finished columns for this row, move to the next row
-            iterationLogDisplay.innerHTML += `Finished Row ${iterRow}.\n`;
-            iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight;
-            iterRow++;
-            iterCol = 0; // Reset column index for the new row
-          }
-        } else {
-          // Finished all rows
-          iterationLogDisplay.innerHTML += `<strong class="text-green-600">Iteration Complete!</strong>\n`;
-          iterationLogDisplay.scrollTop = iterationLogDisplay.scrollHeight;
-          clearInterval(iterationInterval);
-          iterationInterval = null;
-          iterationRunning = false;
-          runIterationButton.disabled = false;
-          showMessage(iterationMessage, "Iteration finished.", "success");
-        }
-      }
-
-      function startIteration() {
-        if (iterationRunning) return;
-        resetIteration(); // Ensure clean state
-        iterationRunning = true;
-        runIterationButton.disabled = true;
-        iterationLogDisplay.innerHTML = "Starting iteration...\n";
-        iterationInterval = setInterval(stepThroughIteration, 700); // Delay between steps
-      }
-
-      // --- Quiz Logic ---
-      function check2DListQuiz() {
-        const answers = {
-          q1_2dlist: "c", // my_list[1][0] is 3
-          q2_2dlist: "b", // len(data) gives the number of inner lists (rows)
-          q3_2dlist: "c", // Nested loops
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResult2DList.textContent =
-            "Please answer all questions before checking.";
-          quizResult2DList.className = "message-box message-box-error";
-          quizResult2DList.style.display = "block";
+        if (isNaN(row) || isNaN(col)) {
+          accessResultDisplay.innerHTML = '<p>Invalid input. Please enter numbers for row and column.</p>';
+          showMessage(accessMessage, 'Row and Column must be numbers!', 'error');
           return;
         }
 
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResult2DList.innerHTML = resultsHTML;
-        quizResult2DList.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResult2DList.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      accessElementButton.addEventListener("click", handleAccessElement);
-      // Optional: Add Enter key listener for index inputs
-      rowIndexInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") handleAccessElement();
-      });
-      colIndexInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") handleAccessElement();
+        if (row >= 0 && row < exampleGridData.length && col >= 0 && col < exampleGridData[0].length) {
+          const selectedValue = exampleGridData[row][col];
+          accessResultDisplay.innerHTML = `<p>Value at [${row}][${col}]: <strong>${selectedValue}</strong></p>`;
+          const cellId = `cell-${row}-${col}`;
+          highlightedCell = document.getElementById(cellId);
+          if (highlightedCell) {
+            highlightedCell.classList.add('highlight');
+          }
+          showMessage(accessMessage, `Element [${row}][${col}] = ${selectedValue} highlighted!`, 'success');
+        } else {
+          accessResultDisplay.innerHTML = '<p>Index out of bounds for the example grid.</p>';
+          showMessage(accessMessage, 'Indices are out of bounds! Valid Rows: 0-2, Valid Cols: 0-3.', 'error');
+        }
       });
 
-      runIterationButton.addEventListener("click", startIteration);
-      resetIterationButton.addEventListener("click", resetIteration);
+      accessClearButton.addEventListener('click', () => {
+        clearHighlight();
+        hideMessage(accessMessage);
+        rowIndexInput.value = '';
+        colIndexInput.value = '';
+        accessResultDisplay.innerHTML = '<p><em>Enter indices and click \'Show Element\'.</em></p>';
+      });
 
-      checkQuizButton2DList.addEventListener("click", check2DListQuiz);
-
-      // --- Initial Setup ---
-      renderGrid(gridVisualizer, exampleGridData); // Render the access grid
-      renderGrid(gridVisualizerIter, exampleGridData); // Render the iteration grid
-      resetIteration(); // Set initial state for iteration visualizer
+      // Initial render of the grid
+      renderGrid();
+      accessClearButton.click(); // To set initial placeholder message in result display
     </script>
   </body>
 </html>

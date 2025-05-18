@@ -279,4 +279,506 @@ pre code {
   color: #1e3a8a; /* Tailwind blue-900 */
   font-weight: bold;
   /* border: 1px solid blue; */ /* Reverted */
-} 
+}
+
+/* ENCHANTED 8-BIT FOREST THEME - START */
+
+body {
+  font-family: 'Press Start 2P', cursive !important; /* Ensure this overrides any Tailwind body font */
+  color: #f0c060; /* Sunlight Gold - General text */
+  background-color: #224022; /* Forest Green - Body BG */
+  image-rendering: pixelated; /* Apply to whole body for crispness */
+}
+
+.console-screen-border {
+  border: 8px solid #503020; /* Deep Bark - Console border */
+  box-shadow: 
+    inset 0 0 0 4px #706050, /* Lighter Bark/Moss - Inner bevel highlight */
+    inset 0 0 0 8px #302010, /* Darkest Bark - Inner bevel shadow */
+    0 0 0 8px #302010,       /* Outer shadow */
+    4px 4px 0 4px #503020, 
+    calc(100% - 8px) 4px 0 4px #503020, 
+    4px calc(100% - 8px) 0 4px #503020, 
+    calc(100% - 8px) calc(100% - 8px) 0 4px #503020; 
+  background-color: #605040; /* Mossy Brown - Screen area BG */
+  padding: 16px; 
+  max-width: 1000px; 
+  margin: 30px auto; 
+  border-radius: 12px; /* Slightly rounded console screen corners */
+}
+
+.pixel-header { /* Typically for H1 on main page */
+  color: #f0c060; /* Sunlight Gold */
+  text-shadow: 
+    /* Top-left highlight for 3D effect */
+    -1px -1px 0 #f8e8c0, /* Pale Gold highlight */
+    -2px -2px 0 #f8e8c0,
+    /* Bottom-right shadows for depth and solidity */
+    1px 1px 0 #a07030,   /* Darker Brownish Gold - Layer 1 */
+    2px 2px 0 #a07030,
+    3px 3px 0 #503020,   /* Deep Bark - Layer 2 */
+    4px 4px 0 #503020,
+    5px 5px 0 #302010,   /* Darkest Bark - Layer 3 (deepest shadow) */
+    6px 6px 0 #302010;
+  font-size: 2.8rem; 
+  line-height: 1.1; 
+}
+
+.pixel-subheader { /* Typically for P subtitle on main page */
+  color: #40a090; /* Mystic Teal */
+  text-shadow: 2px 2px 0px #302010; /* Darkest Bark shadow for depth */
+  font-size: 1.2rem;
+}
+
+/* General page title for sub-pages */
+.page-title-8bit {
+  color: #f0c060; /* Sunlight Gold */
+   text-shadow: 
+    -1px -1px 0 #f8e8c0,
+    1px 1px 0 #a07030,
+    2px 2px 0 #503020,
+    3px 3px 0 #302010;
+  font-size: 2.2rem; /* Slightly smaller than main page H1 */
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+/* Section styling for main page sections */
+.game-section {
+  background-color: #a06040; /* Terracotta - Section BG */
+  border: 4px solid #c08060; /* Lighter Terracotta - Section border */
+  box-shadow: 
+    inset 0 0 0 3px #605040, /* Mossy Brown - Inner highlight line */
+    5px 5px 0 0 #503020,    /* Deep Bark - Main outer shadow */
+    -3px -3px 0 0 #d0a080;  /* Pale Terracotta - Top-left highlight */
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px; 
+}
+
+.section-title-8bit { /* For H2 titles within .game-section on main page */
+  background-color: #40a090; /* Mystic Teal - Title BG */
+  color: #f0e0c0; /* Cream - Title Text */
+  padding: 8px 16px; 
+  display: inline-block; 
+  border: 3px solid #503020; /* Deep Bark border */
+  border-right-color: #f0c060; /* Sunlight Gold accent */
+  border-bottom-color: #f0c060; /* Sunlight Gold accent */
+  text-shadow: 2px 2px 0 #224022; /* Forest Green shadow */
+  font-size: 1.4rem; 
+  margin-bottom: 24px;
+  border-radius: 6px; 
+}
+
+/* Link cards on index.html, also base for general themed buttons */
+.link-card-8bit, .btn-8bit {
+  background: linear-gradient(145deg, #7080b0, #506090); /* Gradient for 3D effect */
+  color: #f0e0c0; /* Cream text for readability */
+  border: none; /* Remove border for smoother look */
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: block;
+  border-radius: 15px; /* Smooth rounded corners */
+  box-shadow: 
+    5px 5px 0px #302010, /* Main shadow */
+    inset 0 2px 4px rgba(255, 255, 255, 0.2), /* Inner highlight */
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2); /* Inner shadow */
+  position: relative; /* For 3D effect */
+}
+
+.link-card-8bit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.link-card-8bit:hover, .btn-8bit:hover {
+  background: linear-gradient(145deg, #8090c0, #6070a0); /* Brighter gradient on hover */
+  color: #f8e8c0; /* Pale Gold text on hover */
+  transform: translate(-2px, -2px); 
+  box-shadow: 
+    7px 7px 0px #302010,
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.link-card-8bit:active, .btn-8bit:active { 
+  background: linear-gradient(145deg, #405080, #304070); /* Darker gradient when pressed */
+  transform: translate(3px, 3px); 
+  box-shadow: 
+    2px 2px 0px #302010,
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.link-card-8bit h3 { /* Specific to index.html cards */
+  color: #f0c060; /* Sunlight Gold for titles */
+  font-size: 1rem; 
+  margin-bottom: 0.75rem;
+  text-shadow: 1px 1px 0px #224022; 
+  position: relative;
+  z-index: 2; /* Above the gradient overlay */
+}
+
+.link-card-8bit:hover h3 {
+  color: #f8e8c0; /* Pale Gold on hover */
+}
+
+.link-card-8bit p { /* Specific to index.html cards */
+  color: #f0e0c0; /* Cream text for paragraph */
+  font-size: 0.9em;
+  margin-top: 8px;
+  position: relative;
+  z-index: 2; /* Above the gradient overlay */
+}
+
+.link-card-8bit:hover p {
+  color: #f8e8c0; /* Pale Gold text on hover for paragraph */
+}
+
+.link-card-container-8bit {
+  /* display: flex; */ /* Changed from flex */
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  display: grid; /* Use grid for layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.footer-8bit { /* For main index.html footer */
+  border-top: 4px solid #503020; 
+  box-shadow: 0 -3px 0 0 #f0c060; 
+  color: #f0c060; 
+  padding-top: 20px;
+  margin-top: 40px;
+  border-bottom-left-radius: 8px; 
+  border-bottom-right-radius: 8px;
+  text-align: center;
+}
+
+.footer-8bit a {
+  color: #80b0d0; 
+  text-shadow: 1px 1px 0px #503020; 
+}
+
+.footer-8bit a:hover {
+  color: #a0c0e0; 
+  text-shadow: 1px 1px 0px #224022; 
+}
+
+/* Theme adjustments for existing generic classes */
+.interactive-section { /* From original shared-styles */
+  background-color: #a06040; /* Terracotta - to match .game-section */
+  border: 2px solid #c08060; /* Lighter Terracotta */
+  box-shadow: inset 0 0 0 2px #605040, 3px 3px 0 0 #503020;
+  padding: 1.5rem; 
+  margin-bottom: 1.5rem; 
+  border-radius: 8px; /* Rounded to fit theme */
+  color: #f0e0c0; /* Cream text for contrast on Terracotta */
+}
+
+.interactive-section h2, .interactive-section h3 {
+    color: #f0c060; /* Sunlight Gold for titles within these sections */
+    text-shadow: 1px 1px 0px #503020;
+    margin-bottom: 1rem;
+}
+
+.btn { /* Generic .btn from original shared-styles, now themed */
+  background-color: #40a090; /* Mystic Teal */
+  color: #f0c060; /* Sunlight Gold */
+  padding: 0.6rem 1rem;
+  border-radius: 8px; /* Rounded */
+  font-weight: normal; /* Press Start 2P is already boldish */
+  cursor: pointer;
+  transition: transform 0.07s linear, box-shadow 0.07s linear, background-color 0.1s linear;
+  border: none; /* Remove default border if any */
+  margin-right: 0.5rem; 
+  margin-top: 0.5rem;
+  border-top: 3px solid #60c0b0;
+  border-left: 3px solid #60c0b0;
+  border-bottom: 3px solid #208070;
+  border-right: 3px solid #208070;
+  box-shadow: 3px 3px 0px #503020;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #50b0a0;
+  color: #f8e8c0;
+  transform: translate(-1px, -1px); 
+  box-shadow: 4px 4px 0px #302010;
+}
+
+.btn:disabled {
+  background-color: #706050; /* Lighter Bark/Moss */
+  color: #a08070; /* Muted color */
+  cursor: not-allowed;
+  border-top-color: #807060;
+  border-left-color: #807060;
+  border-bottom-color: #605040;
+  border-right-color: #605040;
+  box-shadow: 2px 2px 0px #503020;
+}
+
+.input-field,
+.select-field {
+  background-color: #706050; /* Lighter Bark/Moss */
+  color: #f0e0c0;           /* Cream text */
+  border: 3px solid #503020; /* Deep Bark */
+  border-top-color: #302010; /* Darkest Bark for inset feel */
+  border-left-color: #302010;
+  padding: 0.5rem;          
+  border-radius: 6px;  
+  margin-right: 0.5rem;     
+  margin-top: 0.25rem;      
+  margin-bottom: 0.5rem;    
+  font-family: 'Press Start 2P', cursive !important; /* Ensure font */
+}
+
+.input-field:focus,
+.select-field:focus {
+  outline: 2px solid #f0c060; /* Sunlight Gold focus outline */
+  background-color: #807060;
+}
+
+.message-box {
+  margin-top: 1rem; 
+  padding: 0.75rem; 
+  border-radius: 6px; 
+  font-size: 0.875rem; 
+  border-width: 3px;
+  border-style: solid;
+  box-shadow: 3px 3px 0px #503020;
+}
+
+.message-box-success {
+  background-color: #309080; /* Darker Teal */
+  color: #f0e0c0; /* Cream */
+  border-color: #208070; /* Darkest Teal */
+}
+
+.message-box-error {
+  background-color: #a06040; /* Terracotta */
+  color: #f8e8c0; /* Pale Gold */
+  border-color: #c08060; /* Lighter Terracotta */
+}
+
+.message-box-info {
+  background-color: #6080a0; /* Muted Sky Blue */
+  color: #f0e0c0; /* Cream */
+  border-color: #507090; /* Darker Muted Sky Blue */
+}
+
+.output-display { /* For code outputs etc. */
+  background-color: #503020; /* Deep Bark */
+  border: 3px solid #706050; /* Lighter Bark/Moss */
+  border-top-color: #302010;
+  border-left-color: #302010;
+  color: #f0c060; /* Sunlight Gold text */
+  padding: 1rem; 
+  border-radius: 6px; 
+  min-height: 100px; 
+  font-family: 'Press Start 2P', cursive !important; /* Ensure font for output */
+  white-space: pre-wrap; 
+  margin-top: 0.5rem; 
+  max-height: 300px; 
+  overflow-y: auto; 
+}
+
+/* Code block styling (pre) */
+pre {
+  background-color: #503020; /* Deep Bark */
+  border: 3px solid #706050; /* Lighter Bark/Moss */
+  color: #f0c060; /* Sunlight Gold */
+  border-radius: 6px; 
+  padding: 1rem; 
+  overflow-x: auto;
+  font-family: 'Press Start 2P', cursive !important; /* Monospace will be handled by this font */
+  font-size: 0.8rem; /* Slightly smaller for dense code */
+  margin-top: 0.5rem; 
+  margin-bottom: 1rem; 
+  position: relative;
+  line-height: 1.4;
+  box-shadow: inset 0 0 0 3px #302010; /* Inner shadow */
+}
+
+/* Inline code styling (code) */
+code {
+  font-family: 'Press Start 2P', cursive !important;
+  background-color: #706050; /* Lighter Bark/Moss */
+  color: #f8e8c0; /* Pale Gold */
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px; 
+  font-size: 0.9em; /* Relative to parent */
+  border: 1px solid #503020; /* Deep Bark border for inline code */
+}
+
+pre code { /* Reset for code inside pre */
+  background-color: transparent; 
+  color: inherit; 
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em; 
+  border: none; 
+}
+
+
+/* Specific Theming for BST Visualization */
+.tree-container {
+  background-color: #a06040; /* Terracotta, like game-section */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 2px solid #c08060;
+  box-shadow: inset 0 0 0 2px #605040, 3px 3px 0 0 #503020;
+}
+
+.tree-node {
+  background-color: #f0c060; /* Sunlight Gold */
+  color: #503020; /* Deep Bark text for contrast */
+  border: 3px solid #503020; /* Deep Bark */
+  border-top-color: #f8e8c0; /* Pale Gold highlight */
+  border-left-color: #f8e8c0;
+  border-radius: 50%; 
+  width: 45px; /* Slightly larger */
+  height: 45px;
+  font-size: 0.8rem; /* Adjusted for Press Start 2P */
+  box-shadow: 2px 2px 0px #302010; /* Darkest Bark shadow */
+}
+
+.tree-node.highlight { /* If used */
+  background-color: #80b0d0; /* Sky Blue for highlight */
+  color: #224022; /* Forest Green text */
+  box-shadow: 0 0 8px #a0c0e0; /* Lighter Sky Blue glow */
+}
+
+/* Connecting lines for BST - use a muted color */
+.node-wrapper.has-children > .tree-node::after,
+.node-wrapper.has-children > .node-children::before {
+  background-color: #706050; /* Lighter Bark/Moss */
+}
+
+
+/* Specific Theming for Loop Items */
+.loop-item {
+  color: #f0e0c0; /* Cream */
+  background-color: #40a090; /* Mystic Teal */
+  padding: 0.35rem 0.6rem; 
+  margin: 0.25rem; 
+  border-radius: 6px; 
+  font-size: 0.8rem; 
+  display: inline-block;
+  border: 2px solid #208070; /* Darker Mystic Teal */
+  box-shadow: 2px 2px 0 #503020; /* Deep Bark shadow */
+}
+
+.loop-item.highlight {
+  background-color: #f0c060; /* Sunlight Gold */
+  color: #224022; /* Forest Green */
+  border-color: #a07030; /* Darker Brownish Gold */
+  box-shadow: 2px 2px 0 #302010; /* Darkest Bark shadow */
+}
+
+/* Navbar styling for sub-pages */
+.navbar-8bit {
+  background-color: #503020; /* Deep Bark */
+  padding: 10px 20px;
+  border-bottom: 4px solid #302010; /* Darkest Bark */
+  display: flex;
+  justify-content: space-around; /* Distribute items */
+  align-items: center;
+  border-radius: 8px 8px 0 0; /* Rounded top corners if used at top of console-screen */
+  margin-bottom: 10px; /* Space below navbar if content follows directly */
+}
+
+.navbar-8bit a {
+  color: #f0c060; /* Sunlight Gold */
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.1s linear, color 0.1s linear;
+}
+
+.navbar-8bit a:hover {
+  background-color: var(--theme-accent1); /* Golden Sap */
+  color: var(--theme-bg); /* Dark Forest Green text */
+  border-color: var(--theme-shadow); /* Deep Forest Shadow for subtle border on hover */
+}
+
+/* General Content Wrapper for sub-pages inside console-screen-border */
+.content-wrapper-8bit {
+    padding: 1.5rem; /* p-6 */
+    background-color: var(--theme-bg); /* Dark Forest Green - ensure it matches body or desired inner bg */
+    border: 3px solid var(--theme-accent2); /* Dark Wood Brown */
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--theme-shadow); /* Deep Forest Shadow */
+    max-width: 900px; /* Max width for content pages */
+    margin: 0 auto 2rem auto; /* Centering and bottom margin */
+}
+
+/* New class for nested interactive boxes, simpler than .interactive-section */
+.sub-interactive-box {
+  background-color: rgba(0,0,0,0.1); /* Subtle darker overlay than content-wrapper */
+  border: 1px solid var(--theme-accent2); /* Dark Wood Brown border */
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sub-interactive-box h3 {
+  color: var(--theme-text); /* Moss Green for titles in sub-boxes */
+  border-bottom: 1px dashed var(--theme-accent2); /* Dark Wood Brown dashed underline */
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1em; /* Slightly smaller than .interactive-section h2/h3 */
+}
+
+/* Styling for quiz options and labels */
+.quiz-options .quiz-option-label {
+  display: block;
+  padding: 0.5rem;
+  border: 1px solid var(--theme-accent2); /* Dark Wood Brown border */
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.quiz-options .quiz-option-label:hover {
+  background-color: var(--theme-accent2); /* Dark Wood Brown on hover */
+  border-color: var(--theme-text); /* Moss Green border on hover */
+  color: var(--theme-highlight);
+}
+
+.quiz-options .quiz-option-label input[type="radio"] {
+  margin-right: 0.5rem;
+  /* Custom radio button appearance could be added here if desired */
+}
+
+/* Placeholder text styling */
+.placeholder-text {
+  color: var(--theme-text); /* Moss Green */
+  opacity: 0.6; /* Slightly faded */
+  font-style: italic;
+}
+
+/* Universal font application - ensure this is last or very high specificity if needed */
+body, h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, select, textarea {
+  font-family: 'Press Start 2P', cursive !important;
+}
+
+/* ENCHANTED 8-BIT FOREST THEME - END */ 

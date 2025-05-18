@@ -3,62 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Lists & Iteration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Lists & Iteration in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Lists and Iteration
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        How to store ordered collections of items and process them one by one.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="nested-loops.html" class="btn">
+          Next: Nested Loops &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="loops.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Loops (For & While)
-      </a>
-      <a
-        href="nested-loops.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: Nested Loops &rarr;
-      </a>
-    </nav>
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Lists & Iteration
+          </h2>
+          <p class="text-sm italic mt-1">
+            How to store ordered collections of items and process them one by one.
+          </p>
+        </header>
 
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. Python Lists: Ordered and Mutable
-        </h2>
-        <p class="mb-4">
-          A list is a fundamental data structure used to store an ordered
-          collection of items. Think of it like a shopping list or a to-do list
-          where each item has a specific position. Lists are very flexible: they
-          can hold items of different types (numbers, strings, even other
-          lists!), and you can change their contents (add, remove, or modify
-          items).
-        </p>
-        <p class="mb-2">
-          In Python, lists are created using square brackets <code>[]</code>,
-          with items separated by commas:
-        </p>
-        <pre><code class="language-python"># An empty list
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">
+            1. Python Lists: Ordered and Mutable
+          </h2>
+          <p class="mb-4">
+            A list is like a train with numbered cars - each item has its own position, and you can add or remove cars (items) as needed. Just like how a train can carry different types of cargo (passengers, goods, etc.), Python lists can store different types of data (numbers, text, even other lists!). The best part is that you can modify the train's contents anytime - add new cars, remove old ones, or change what's inside them. Think of it as a flexible storage container that can hold anything you need, similar to a Swiss Army knife that adapts to different tasks.
+          </p>
+          <p class="mb-2">
+            In Python, we create our "train" (list) using square brackets <code>[]</code>,
+            with each "car" (item) separated by commas:
+          </p>
+          <pre><code class="language-python"># An empty list
 empty_list = []
 
 # A list of numbers
@@ -69,27 +56,25 @@ fruits = ["apple", "banana", "cherry"]
 
 # A list with mixed data types
 mixed_list = [10, "hello", 3.14, True]</code></pre>
-      </section>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Accessing Elements: Indexing
-        </h2>
-        <p class="mb-2">
-          Since lists are ordered, each item has a specific position, called its
-          **index**. You can access individual items in a list using their index
-          inside square brackets <code>[]</code>.
-        </p>
-        <p class="mb-2 font-medium text-red-600">
-          Important: Indexing starts from 0! The first item is at index 0, the
-          second at index 1, and so on.
-        </p>
-        <p class="mb-2">You can also use negative indices:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-          <li><code>-1</code> refers to the last item.</li>
-          <li><code>-2</code> refers to the second-to-last item, etc.</li>
-        </ul>
-        <pre><code class="language-python">my_list = ["apple", "banana", "cherry", "date"]
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">
+            2. Accessing Elements: Indexing
+          </h2>
+          <p class="mb-2">
+            Think of list indexing like a row of lockers in a school. Each locker has a number, and you can access what's inside by using that number. The first locker is number 0 (not 1!), the second is 1, and so on. This might seem strange at first, but it's like counting steps - you start at 0 before taking your first step! It's similar to how a race car starts at position 0 before crossing the starting line, or how a ruler starts at 0 before measuring the first inch.
+          </p>
+          <p class="mb-2 font-medium text-red-600">
+            Important: Indexing starts from 0! The first item is at index 0, the
+            second at index 1, and so on.
+          </p>
+          <p class="mb-2">Negative indices are like counting from the end of the row:</p>
+          <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
+            <li><code>-1</code> is like saying "the last locker"</li>
+            <li><code>-2</code> is like saying "the second-to-last locker", etc.</li>
+          </ul>
+          <pre><code class="language-python">my_list = ["apple", "banana", "cherry", "date"]
 
 # Accessing items
 first_item = my_list[0]  # Gets "apple"
@@ -100,95 +85,91 @@ second_last = my_list[-2] # Gets "cherry"
 print(f"Index 0: {first_item}")
 print(f"Index -1: {last_item}")</code></pre>
 
-        <h3 class="text-lg font-medium mt-4 mb-2">Try Indexing:</h3>
-        <p class="text-sm mb-2">
-          Use the list below. Enter an index (e.g., 0, 1, -1, -2) to access its
-          element.
-        </p>
-        <div
-          id="indexingListVisualizer"
-          class="bg-gray-100 p-4 rounded-md min-h-[60px] flex flex-wrap items-center mb-4 relative pb-6"
-        ></div>
-        <div class="flex flex-wrap items-center">
-          <label for="indexInput" class="mr-2">Index:</label>
-          <input
-            type="number"
-            id="indexInput"
-            class="input-field input-field-small"
-            placeholder="e.g., 0, -1"
-          />
-          <button id="accessIndexButton" class="btn">Access Element</button>
-        </div>
-        <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-        <div id="indexingResultDisplay" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter an index and click 'Access Element'.</span
+          <h3 class="text-lg font-medium mt-4 mb-2">Try Indexing:</h3>
+          <p class="text-sm mb-2">
+            Use the list below. Enter an index (e.g., 0, 1, -1, -2) to access its
+            element.
+          </p>
+          <div
+            id="indexingListVisualizer"
+            class="bg-gray-100 p-4 rounded-md min-h-[60px] flex flex-wrap items-center mb-4 relative pb-6"
+          ></div>
+          <div class="flex flex-wrap items-center">
+            <label for="indexInput" class="mr-2">Index:</label>
+            <input
+              type="number"
+              id="indexInput"
+              class="input-field input-field-small"
+              placeholder="e.g., 0, -1"
+            />
+            <button id="accessIndexButton" class="btn">Access Element</button>
+          </div>
+          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
+          <div id="indexingResultDisplay" class="output-display">
+            <span class="text-gray-500 italic"
+              >Enter an index and click 'Access Element'.</span
+            >
+          </div>
+          <div
+            id="indexingMessage"
+            class="message-box"
+            style="display: none"
+          ></div>
+        </section>
+
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">
+            3. Playing with Lists (Operations)
+          </h2>
+          <p class="mb-4">
+            Working with lists is like managing a stack of cards. You can add new cards to the top, remove the top card, or clear the entire stack. Let's try these operations with our list! It's similar to how you might organize a deck of cards - you can add new cards, remove cards you don't need, or start fresh with a new deck. Think of it as a dynamic collection that you can shape and modify as needed, like a sculptor working with clay.
+          </p>
+          <div class="mb-4">
+            <label for="itemInput" class="mr-2 font-medium">Item to add:</label>
+            <input
+              type="text"
+              id="itemInput"
+              class="input-field"
+              placeholder="e.g., orange"
+            />
+            <button id="addButton" class="btn">Add Item</button>
+            <button id="removeButton" class="btn btn-secondary">
+              Remove Last Item
+            </button>
+            <button id="clearButton" class="btn btn-secondary">Clear List</button>
+          </div>
+          <h3 class="text-lg font-medium mb-2">Your List:</h3>
+          <div
+            id="listVisualizer"
+            class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
           >
-        </div>
-        <div
-          id="indexingMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+            <span class="text-gray-500 italic">List is currently empty.</span>
+          </div>
+          <div id="listMessage" class="message-box" style="display: none"></div>
+          <p class="mt-4 text-sm text-gray-600">
+            <strong>Common Operations:</strong><br />
+            - <strong>Adding Items:</strong> Use <code>.append()</code> to add to
+            the end. <code>my_list.append("new item")</code><br />
+            - <strong>Removing Items:</strong> Use <code>.pop()</code> to remove
+            the last item, or <code>.remove("item_value")</code> to remove a
+            specific value.<br />
+            - <strong>Finding Length:</strong> Use <code>len(my_list)</code> to
+            get the number of items.
+          </p>
+        </section>
 
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Playing with Lists (Operations)
-        </h2>
-        <p class="mb-4">
-          Let's interact with a list. You can add items, remove the last item,
-          and see how the list changes.
-        </p>
-        <div class="mb-4">
-          <label for="itemInput" class="mr-2 font-medium">Item to add:</label>
-          <input
-            type="text"
-            id="itemInput"
-            class="input-field"
-            placeholder="e.g., orange"
-          />
-          <button id="addButton" class="btn">Add Item</button>
-          <button id="removeButton" class="btn btn-secondary">
-            Remove Last Item
-          </button>
-          <button id="clearButton" class="btn btn-secondary">Clear List</button>
-        </div>
-        <h3 class="text-lg font-medium mb-2">Your List:</h3>
-        <div
-          id="listVisualizer"
-          class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
-        >
-          <span class="text-gray-500 italic">List is currently empty.</span>
-        </div>
-        <div id="listMessage" class="message-box" style="display: none"></div>
-        <p class="mt-4 text-sm text-gray-600">
-          <strong>Common Operations:</strong><br />
-          - <strong>Adding Items:</strong> Use <code>.append()</code> to add to
-          the end. <code>my_list.append("new item")</code><br />
-          - <strong>Removing Items:</strong> Use <code>.pop()</code> to remove
-          the last item, or <code>.remove("item_value")</code> to remove a
-          specific value.<br />
-          - <strong>Finding Length:</strong> Use <code>len(my_list)</code> to
-          get the number of items.
-        </p>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. What is Iteration?
-        </h2>
-        <p class="mb-4">
-          Iteration means repeating a process or a set of steps multiple times.
-          When working with lists, we often need to perform an action on each
-          item in the list. For example, printing each fruit name, calculating
-          the total of numbers, or checking each task on a to-do list.
-        </p>
-        <p class="mb-2">
-          The most common way to iterate through a list in Python is using a
-          <code>for</code> loop:
-        </p>
-        <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+        <section class="game-section">
+          <h2 class="section-title-8bit">
+            4. What is Iteration?
+          </h2>
+          <p class="mb-4">
+            Iteration is like reading a book - you go through each page one at a time, from start to finish. When working with lists, we often need to "read" each item in our list, performing some action on each one. It's like checking off items on a shopping list - you look at each item, decide what to do with it, and move to the next one. Think of it as a conveyor belt in a factory, where each item gets processed in sequence, or like a chef following a recipe step by step.
+          </p>
+          <p class="mb-2">
+            The most common way to iterate through a list in Python is using a
+            <code>for</code> loop, which is like having an automatic page-turner for your book:
+          </p>
+          <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
 
 # This loop goes through each item in the 'fruits' list
 # In each repetition, the current item is assigned to the variable 'fruit'
@@ -200,119 +181,115 @@ for fruit in fruits:
 # Current fruit: apple
 # Current fruit: banana
 # Current fruit: cherry</code></pre>
-        <p>
-          The loop automatically handles going from one item to the next until
-          it reaches the end of the list.
+          <p>
+            The loop automatically handles going from one item to the next until
+            it reaches the end of the list.
+          </p>
+        </section>
+
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">
+            5. See Iteration in Action
+          </h2>
+          <p class="mb-4">
+            Let's watch our automatic page-turner in action! We'll go through each item in our list, just like turning pages in a book. You'll see how the loop processes each item one at a time, from the first to the last. It's similar to how a robot arm might pick up and process items on an assembly line, or how a mail carrier delivers letters to each house on their route. Each item gets its moment of attention before moving to the next.
+          </p>
+          <div class="mb-4">
+            <button id="iterateButton" class="btn btn-green">
+              Iterate Through List
+            </button>
+            <button id="resetIterationButton" class="btn">Reset Iteration</button>
+          </div>
+          <h3 class="text-lg font-medium mb-2">List for Iteration:</h3>
+          <div
+            id="iterationListVisualizer"
+            class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
+          >
+            <span class="text-gray-500 italic">List will appear here.</span>
+          </div>
+          <h3 class="text-lg font-medium mt-4 mb-2">
+            Iteration Output / Current Step:
+          </h3>
+          <div id="iterationOutput" class="output-display">
+            <span class="text-gray-500 italic"
+              >Click "Iterate Through List" to start.</span
+            >
+          </div>
+          <div
+            id="iterationMessage"
+            class="message-box"
+            style="display: none"
+          ></div>
+        </section>
+
+        <section class="game-section interactive-section">
+          <h2 class="section-title-8bit">6. Quick Quiz</h2>
+          <p class="mb-4">Test your understanding!</p>
+          <div class="mb-3">
+            <p class="font-medium mb-1">
+              Q1: In Python, what is the index of the *first* element in a list?
+            </p>
+            <label class="block"
+              ><input type="radio" name="q1" value="a" class="mr-1" /> 1</label
+            >
+            <label class="block"
+              ><input type="radio" name="q1" value="b" class="mr-1" /> 0</label
+            >
+            <label class="block"
+              ><input type="radio" name="q1" value="c" class="mr-1" /> -1</label
+            >
+          </div>
+          <div class="mb-3">
+            <p class="font-medium mb-1">
+              Q2: If <code>my_list = [10, 20, 30, 40]</code>, what is
+              <code>my_list[-1]</code>?
+            </p>
+            <label class="block"
+              ><input type="radio" name="q2" value="a" class="mr-1" /> 10</label
+            >
+            <label class="block"
+              ><input type="radio" name="q2" value="b" class="mr-1" /> 30</label
+            >
+            <label class="block"
+              ><input type="radio" name="q2" value="c" class="mr-1" /> 40</label
+            >
+          </div>
+          <div class="mb-3">
+            <p class="font-medium mb-1">
+              Q3: What keyword is typically used to iterate through each item in a
+              list?
+            </p>
+            <label class="block"
+              ><input type="radio" name="q3" value="a" class="mr-1" />
+              <code>while</code></label
+            >
+            <label class="block"
+              ><input type="radio" name="q3" value="b" class="mr-1" />
+              <code>if</code></label
+            >
+            <label class="block"
+              ><input type="radio" name="q3" value="c" class="mr-1" />
+              <code>for</code></label
+            >
+          </div>
+          <button id="checkQuizButton" class="btn">Check Answers</button>
+          <div
+            id="quizResult"
+            class="message-box mt-4"
+            style="display: none"
+          ></div>
+        </section>
+      </div>
+
+      <footer class="footer-8bit">
+        <p>Happy Coding!</p>
+        <p class="mt-2">
+          <a
+            href="../index.html"
+          >Back to Main Menu</a>
         </p>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          5. See Iteration in Action
-        </h2>
-        <p class="mb-4">
-          Let's use the list from Section 3 (or a default list if yours is
-          empty) and iterate through it. Click the button to see the loop
-          process.
-        </p>
-        <div class="mb-4">
-          <button id="iterateButton" class="btn btn-green">
-            Iterate Through List
-          </button>
-          <button id="resetIterationButton" class="btn">Reset Iteration</button>
-        </div>
-        <h3 class="text-lg font-medium mb-2">List for Iteration:</h3>
-        <div
-          id="iterationListVisualizer"
-          class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
-        >
-          <span class="text-gray-500 italic">List will appear here.</span>
-        </div>
-        <h3 class="text-lg font-medium mt-4 mb-2">
-          Iteration Output / Current Step:
-        </h3>
-        <div id="iterationOutput" class="output-display">
-          <span class="text-gray-500 italic"
-            >Click "Iterate Through List" to start.</span
-          >
-        </div>
-        <div
-          id="iterationMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">6. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: In Python, what is the index of the *first* element in a list?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q1" value="a" class="mr-1" /> 1</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1" value="b" class="mr-1" /> 0</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1" value="c" class="mr-1" /> -1</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: If <code>my_list = [10, 20, 30, 40]</code>, what is
-            <code>my_list[-1]</code>?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2" value="a" class="mr-1" /> 10</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2" value="b" class="mr-1" /> 30</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2" value="c" class="mr-1" /> 40</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What keyword is typically used to iterate through each item in a
-            list?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3" value="a" class="mr-1" />
-            <code>while</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3" value="b" class="mr-1" />
-            <code>if</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3" value="c" class="mr-1" />
-            <code>for</code></label
-          >
-        </div>
-        <button id="checkQuizButton" class="btn">Check Answers</button>
-        <div
-          id="quizResult"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
-
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
-
+      </footer>
+    </div>
     <script src="../js/main.js" defer></script>
     <script>
       // --- State ---

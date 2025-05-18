@@ -3,535 +3,338 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Variables and Data Types</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Variables & Data Types in Python</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-    <style>
-      /* Custom styles (consistent with 8bit theme) */
-      /* body font-family is now in shared-styles.css */
-      pre {
-        background-color: #1e3a8a; /* blue-900 */
-        border: 1px solid #3b82f6; /* blue-500 */
-        color: #d1d5db; /* gray-200 */
-        border-radius: 0.375rem; /* rounded-md */
-        padding: 1rem; /* p-4 */
-        overflow-x: auto;
-        font-family: monospace;
-        font-size: 0.875rem; /* text-sm */
-        margin-top: 0.5rem; /* mt-2 */
-        margin-bottom: 1rem; /* mb-4 */
-        position: relative;
-      }
-      code {
-        font-family: monospace;
-        background-color: rgba(209, 213, 219, 0.3); /* gray-300 with opacity - adjusted for 8bit */
-        padding: 0.1rem 0.3rem;
-        border-radius: 0.25rem;
-      }
-      pre code {
-        /* Don't style code inside pre differently */
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-      }
-      .interactive-section {
-        background-color: #1e40af; /* blue-800 */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        box-shadow: 0 4px 6px -1px rgba(234, 179, 8, 0.3), 0 2px 4px -1px rgba(234, 179, 8, 0.18); /* shadow-yellow-500/30 */
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .btn {
-        background-color: #f59e0b; /* yellow-500 */
-        color: #1e3a8a; /* blue-900 */
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border: none;
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.5rem; /* Add some top margin for buttons */
-      }
-      .btn:hover:not(:disabled) {
-        background-color: #ca8a04; /* yellow-600 */
-      }
-      .btn:disabled {
-        background-color: #9ca3af; /* gray-400 */
-        cursor: not-allowed;
-      }
-      .btn-green {
-        background-color: #22c55e; /* green-500 */
-        color: #000000; /* black */
-      }
-      .btn-green:hover:not(:disabled) {
-        background-color: #4ade80; /* green-400 */
-      }
-      .input-field,
-      .select-field {
-        border: 1px solid #f59e0b; /* yellow-500 */
-        background-color: #1e3a8a; /* blue-900 */
-        color: #d1d5db; /* gray-200 */
-        padding: 0.5rem; /* p-2 */
-        border-radius: 0.375rem; /* rounded-md */
-        margin-right: 0.5rem; /* mr-2 */
-        margin-top: 0.25rem; /* mt-1 */
-        margin-bottom: 0.5rem; /* mb-2 */
-      }
-      .message-box {
-        margin-top: 1rem; /* mt-4 */
-        padding: 0.75rem; /* p-3 */
-        border-radius: 0.375rem; /* rounded-md */
-        font-size: 0.875rem; /* text-sm */
-      }
-      .message-box-success {
-        background-color: #15803d; /* green-700 */
-        color: #ffffff; /* white */
-        border: 1px solid #22c55e; /* green-500 */
-      }
-      .message-box-error {
-        background-color: #b91c1c; /* red-700 */
-        color: #ffffff; /* white */
-        border: 1px solid #ef4444; /* red-500 */
-      }
-      .message-box-info {
-        background-color: #0e7490; /* cyan-700 */
-        color: #ffffff; /* white */
-        border: 1px solid #22d3ee; /* cyan-500 */
-      }
-      .output-display {
-        background-color: #1e3a8a; /* blue-900 */
-        border: 1px dashed #f59e0b; /* yellow-500 */
-        color: #d1d5db; /* gray-200 */
-        padding: 1rem; /* p-4 */
-        border-radius: 0.375rem; /* rounded-md */
-        min-height: 50px;
-        font-family: monospace;
-        white-space: pre-wrap; /* Keep formatting */
-        margin-top: 0.5rem; /* mt-2 */
-        max-height: 200px;
-        overflow-y: auto;
-      }
-      .concept-box {
-        background-color: #1e40af; /* blue-800 - match interactive section */
-        border: 1px solid #3b82f6; /* blue-500 */
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin-top: 1rem;
-      }
-    </style>
   </head>
-  <body class="bg-blue-700 text-gray-300 p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Variables & Data Types
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Storing and managing different kinds of information like numbers, text, and booleans using variables.
-      </p>
-    </header>
+  <body class="">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="../index.html" class="btn">
+          &laquo; Main Menu
+        </a>
+        <a href="booleans-conditionals.html" class="btn">
+          Next: Booleans &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center"
-    >
-      <a
-        href="intro-programming.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        &larr; Previous: Introduction to Programming & Python
-      </a>
-      <a
-        href="booleans-conditionals.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        Next: Booleans & Conditionals &rarr;
-      </a>
-    </nav>
-
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What are Variables?
-        </h2>
-        <p class="mb-4">
-          Think of a variable as a labeled container or box where you can store
-          information (data). You give the container a name (the variable name),
-          and you put something inside it (the value). You can then refer to the
-          information using the variable's name. This makes your code easier to
-          read and allows you to reuse values without typing them repeatedly.
-        </p>
-        <p class="mb-2">
-          In Python, you create a variable and assign it a value using the
-          equals sign <code>=</code> (assignment operator):
-        </p>
-        <pre><code class="language-python"># Create a variable named 'message' and store the text "Hello, world!" in it
-message = "Hello, world!"
-
-# Create a variable named 'count' and store the number 10 in it
-count = 10
-
-# You can then use the variable name to access the stored value
-print(message)  # Output: Hello, world!
-print(count)    # Output: 10
-
-# You can also change the value stored in a variable
-count = count + 5
-print(count)    # Output: 15</code></pre>
-        <p class="mt-2 text-sm text-gray-300">
-          Variable names should be descriptive (e.g.,
-          <code>user_name</code> instead of <code>x</code>) and follow naming
-          rules (usually start with a letter or underscore, contain letters,
-          numbers, underscores).
-        </p>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Common Data Types in Python
-        </h2>
-        <p class="mb-4">
-          The "type" of data stored in a variable determines what kind of
-          information it is and what operations you can perform on it.
-          Programming languages have built-in data types. Here are some common
-          ones in Python:
-        </p>
-        <ul class="list-disc list-inside mb-4 space-y-2">
-          <li>
-            <strong>Integer (<code>int</code>):</strong> Whole numbers, positive
-            or negative, without decimals. Example: <code>-5</code>,
-            <code>0</code>, <code>42</code>.
-          </li>
-          <li>
-            <strong>Float (<code>float</code>):</strong> Numbers with a decimal
-            point. Example: <code>-3.14</code>, <code>0.0</code>,
-            <code>99.99</code>.
-          </li>
-          <li>
-            <strong>String (<code>str</code>):</strong> Sequences of characters
-            (text), enclosed in quotes (single <code>'</code> or double
-            <code>"</code>). Example: <code>"Hello"</code>,
-            <code>'Python is fun!'</code>, <code>"123"</code> (this is text, not
-            a number).
-          </li>
-          <li>
-            <strong>Boolean (<code>bool</code>):</strong> Represents truth
-            values, either <code>True</code> or <code>False</code>. Often used
-            in conditions.
-          </li>
-        </ul>
-        <pre><code class="language-python"># Examples of different data types
-age = 30               # int
-price = 19.95          # float
-name = "Alice"         # str
-is_student = True      # bool
-
-# Python automatically determines the type when you assign a value
-print(type(age))       # Output: <class 'int'>
-print(type(price))     # Output: <class 'float'>
-print(type(name))      # Output: <class 'str'>
-print(type(is_student))# Output: <class 'bool'></code></pre>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          Interactive: Assign and Check Variable Type
-        </h2>
-        <p class="mb-4">
-          Enter a value below. We'll assign it to a variable called
-          <code>my_variable</code> and show you its value and inferred data type
-          (based on common Python types).
-        </p>
-        <div class="mb-4 flex items-center flex-wrap">
-          <label for="varValueInput" class="mr-2 font-medium">Value:</label>
-          <input
-            type="text"
-            id="varValueInput"
-            class="input-field"
-            placeholder="e.g., Hello, 42, 3.14, True"
-          />
-          <button id="assignVarButton" class="btn">
-            Assign to my_variable
-          </button>
-        </div>
-        <h3 class="text-lg font-medium mb-2">Variable State:</h3>
-        <div id="variableDisplay" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter a value and click 'Assign' to see the variable.</span
-          >
-        </div>
-        <div
-          id="varAssignMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Check Data Type
-        </h2>
-        <p class="mb-4">
-          Enter any value, and we'll try to determine its likely data type
-          (simulating Python's <code>type()</code> function).
-        </p>
-        <div class="mb-4 flex items-center flex-wrap">
-          <label for="typeCheckInput" class="mr-2 font-medium">Value:</label>
-          <input
-            type="text"
-            id="typeCheckInput"
-            class="input-field"
-            placeholder="e.g., 100, 'test', False, 0.5"
-          />
-          <button id="checkTypeButton" class="btn btn-green">Check Type</button>
-        </div>
-        <h3 class="text-lg font-medium mb-2">Detected Type:</h3>
-        <div id="typeCheckOutput" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter a value and click 'Check Type'.</span
-          >
-        </div>
-        <div
-          id="typeCheckMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What is the primary purpose of a variable?
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Variables & Data Types
+          </h2>
+          <p class="text-sm italic mt-1">
+            Learn how to store and manage different kinds of information in Python.
           </p>
-          <label class="block"
-            ><input type="radio" name="q1_vars" value="a" class="mr-1" /> To
-            perform calculations</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_vars" value="b" class="mr-1" /> To
-            store data with a name</label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_vars" value="c" class="mr-1" /> To
-            repeat code</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: Which data type would you use to store the price of an item,
-            like $9.99?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_vars" value="a" class="mr-1" />
-            <code>int</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_vars" value="b" class="mr-1" />
-            <code>str</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_vars" value="c" class="mr-1" />
-            <code>float</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What is the data type of the value <code>"False"</code> (with
-            quotes)?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_vars" value="a" class="mr-1" />
-            <code>bool</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_vars" value="b" class="mr-1" />
-            <code>str</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_vars" value="c" class="mr-1" />
-            <code>int</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: What are the only two possible values for a boolean
-            (<code>bool</code>) data type?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_vars" value="a" class="mr-1" />
-            <code>0</code> and <code>1</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_vars" value="b" class="mr-1" />
-            <code>"Yes"</code> and <code>"No"</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_vars" value="c" class="mr-1" />
-            <code>True</code> and <code>False</code></label
-          >
-        </div>
-        <button id="checkQuizButtonVars" class="btn">Check Answers</button>
-        <div
-          id="quizResultVars"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+        </header>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">
-        &copy; 2024 Interactive Guide to Python. Happy Coding!
-      </p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+        <main>
+          <section class="interactive-section mb-8">
+            <h2>1. What are Variables?</h2>
+            <p class="mb-4">
+              In programming, a <strong>variable</strong> is like a labeled box where you can store a piece of information (data).
+              You give the box a name (the variable name), and you can put different things in it, change what's inside, or just see what's inside.
+              Think of it as a labeled storage box in a workshop. The label (e.g., <code>player_score</code>) tells you what kind of thing you expect to find inside, and the contents (e.g., <code>1000</code>) are what's actually stored. Variables allow you to write more flexible and understandable code because you can refer to data by name.
+            </p>
+            <pre><code class="language-python"># Example:
+character_name = "Pixel Knight"  # Storing text
+character_level = 5              # Storing a whole number
+health_points = 75.5           # Storing a number with a decimal
+is_player_active = True          # Storing a True/False value
 
-    <script src="../js/main.js" defer></script>
+print(character_name)
+print(character_level)</code></pre>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: Variable Assignment</h3>
+              <p class="mb-3 text-sm">
+                Let's simulate assigning a value to a variable and then displaying it.
+                Enter a name for your game score variable and a value.
+              </p>
+              <div class="flex flex-wrap items-center mb-2">
+                <label for="varNameInput" class="mr-2 mb-1 md:mb-0">Variable Name:</label>
+                <input type="text" id="varNameInput" class="input-field mr-4 mb-1 md:mb-0" value="player_score" />
+                <label for="varValueInput" class="mr-2 mb-1 md:mb-0">Value:</label>
+                <input type="text" id="varValueInput" class="input-field mb-1 md:mb-0" value="1000" />
+              </div>
+              <button id="assignVarButton" class="btn">Assign & Display</button>
+              <h4 class="text-md font-medium mt-3 mb-1">Simulated Action & Output:</h4>
+              <div id="varAssignmentOutput" class="output-display">
+                <span class="placeholder-text">Output will appear here.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>2. Common Data Types</h2>
+            <p class="mb-4">
+              Python can handle various types of data. Data types are like different categories of items you can store in your labeled boxes (variables).
+              Python needs to know the type to understand how to work with the data correctly – you wouldn't try to perform a mathematical sum on a word in the same way you sum two numbers.
+              Here are some of the most common ones:
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-3 mb-4">
+              <li>
+                <strong>Integers (<code>int</code>):</strong> Whole numbers, positive or negative, without decimals.
+                They are like whole, indivisible items you can count – 3 apples, 10 gold coins, -5 penalty points. There are no fractions or pieces.
+                <br /><em>Examples:</em> <code>-5</code>, <code>0</code>, <code>100</code>, <code>9876</code>
+                <pre><code class="language-python">player_age = 25</code></pre>
+              </li>
+              <li>
+                <strong>Floating-Point Numbers (<code>float</code>):</strong> Numbers with a decimal point.
+                These are for measurements that can have fractions or decimals, allowing for more precision than whole numbers – 75.5 health points, 19.99 gold pieces, 3.14159 (the value of pi).
+                <br /><em>Examples:</em> <code>-3.14</code>, <code>0.0</code>, <code>2.718</code>, <code>100.0</code>
+                <pre><code class="language-python">item_price = 19.99</code></pre>
+              </li>
+              <li>
+                <strong>Strings (<code>str</code>):</strong> Sequences of characters, used for text. Enclosed in single (<code>'</code>) or double (<code>"</code>) quotes.
+                Strings are like messages written on a scroll or labels on items. They can be names (<code>'Pixel Knight'</code>), instructions (<code>'Game Over!'</code>), or even numbers you want to treat as text (<code>'123 Main St'</code>). The quotes are like the scroll itself, clearly marking where the text begins and ends.
+                <br /><em>Examples:</em> <code>'Hello'</code>, <code>"Python Coder"</code>, <code>"123 Main St"</code>
+                <pre><code class="language-python">message = "Game Over!"</code></pre>
+              </li>
+              <li>
+                <strong>Booleans (<code>bool</code>):</strong> Represent truth values, either <code>True</code> or <code>False</code>.
+                Booleans are like simple light switches that can only be in one of two positions: ON (<code>True</code>) or OFF (<code>False</code>). They are crucial for making decisions in code – is the door open? (<code>True</code>), does the player have the key? (<code>False</code>).
+                <br /><em>Examples:</em> <code>True</code>, <code>False</code>
+                <pre><code class="language-python">has_key = False
+is_authenticated = True</code></pre>
+              </li>
+            </ul>
+            <p class="mb-2">
+              Python is dynamically typed, meaning you don't have to explicitly declare the data type of a variable.
+              Python figures it out automatically when you assign a value.
+            </p>
+            <pre><code class="language-python"># Python knows the type:
+my_variable = 10         # my_variable is an int
+my_variable = "Hello"    # Now, my_variable is a str (it changed!)
+my_variable = 3.14       # Now, it's a float
+
+# You can check a variable's type with the type() function:
+print(type(my_variable)) # This would print <class 'float'></code></pre>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>3. Naming Variables (Rules and Conventions)</h2>
+            <p class="mb-2">
+              Choosing good variable names makes your code much easier to read and understand.
+              It's like labeling your storage boxes clearly ('Old Photos,' 'Holiday Decorations') instead of using vague codes ('Box A,' 'Item 2'). Clear names help you (and others) instantly grasp what the variable holds.
+            </p>
+            <h3 class="text-md mt-3 mb-1">Rules:</h3>
+            <ul class="list-disc list-inside ml-4 space-y-1 mb-2">
+              <li>Must start with a letter (a-z, A-Z) or an underscore (<code>_</code>).</li>
+              <li>Can contain letters, numbers (0-9), and underscores.</li>
+              <li>Cannot be a Python keyword (e.g., <code>if</code>, <code>for</code>, <code>while</code>, <code>class</code>).</li>
+              <li>Are case-sensitive (<code>myVariable</code> is different from <code>myvariable</code>).</li>
+            </ul>
+            <h3 class="text-md mt-3 mb-1">Conventions (Good Practices):</h3>
+            <ul class="list-disc list-inside ml-4 space-y-1 mb-2">
+              <li>Use descriptive names (e.g., <code>user_name</code> instead of <code>un</code> or <code>u_n</code>).</li>
+              <li>
+                For multi-word names, use "snake_case" (all lowercase with underscores),
+                which is the common Python convention for variables and functions. This is like a preferred, consistent handwriting style for Python programmers – it makes all code look uniform and easier for everyone in the community to read.
+                <em>Examples:</em> <code>player_score</code>, <code>total_items</code>, <code>is_active</code>.
+              </li>
+              <li>Avoid using names of built-in functions or types if possible (e.g., don't name a variable <code>list</code> or <code>print</code>), as it can lead to confusion.</li>
+            </ul>
+            <pre><code class="language-python"># Good names:
+first_name = "Ada"
+player_health = 100
+is_game_over = False
+
+# Bad names (avoid these):
+# 1st_player = "Bob"  # Starts with a number
+# player-score = 0    # Contains a hyphen (not allowed)
+# for = "loop"        # 'for' is a keyword</code></pre>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>4. Type Conversion (Casting)</h2>
+            <p class="mb-4">
+              Sometimes you need to convert data from one type to another. This is called type casting.
+              Think of it like a workshop station where you can reshape or re-categorize an item. For example, you might have a number written down on a piece of paper (a string, like <code>'150'</code>), but you want to treat it as an actual quantity (an integer, <code>150</code>) so you can perform mathematical calculations with it.
+              Python provides built-in functions for this:
+            </p>
+            <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
+              <li><code>int(x)</code>: Converts <code>x</code> to an integer. This is like taking a price tag that says '$10' (text) and recognizing its numerical value as 10 (an integer).</li>
+              <li><code>float(x)</code>: Converts <code>x</code> to a float. This is like taking a measurement written as '7.5 inches' (text) and understanding it as the precise numerical value 7.5 (a float).</li>
+              <li><code>str(x)</code>: Converts <code>x</code> to a string. This is like taking a number, say your age <code>25</code> (an integer), and writing it down to include in a sentence: "My age is 25" (where "25" becomes part of the text).</li>
+            </ul>
+            <pre><code class="language-python">score_text = "150"
+score_number = int(score_text)  # Convert string "150" to integer 150
+print(score_number + 10)        # Now you can do math: prints 160
+
+level = 5
+level_text = str(level)         # Convert integer 5 to string "5"
+print("Current level: " + level_text) # Concatenate strings
+
+# Be careful: you can't always convert.
+# invalid_conversion = int("hello") # This would cause an error! You can't magically turn a word like 'apple' into a mathematical number.</code></pre>
+            <div class="sub-interactive-box p-4 mt-4">
+              <h3>Try It: Type Conversion</h3>
+              <p class="mb-2 text-sm">
+                Enter a number (which will be treated as text initially).
+                We'll try to convert it to an integer and add 10 to it.
+              </p>
+              <label for="textNumberInput" class="block mb-1">Enter a number as text:</label>
+              <input type="text" id="textNumberInput" class="input-field mb-2" value="25" />
+              <button id="convertAndAddButton" class="btn">Convert & Add 10</button>
+              <div id="conversionOutput" class="output-display mt-2">
+                <span class="placeholder-text">Result will appear here.</span>
+              </div>
+              <div id="conversionMessage" class="message-box mt-2" style="display: none;"></div>
+            </div>
+          </section>
+
+          <section class="interactive-section mb-8">
+            <h2>5. Quick Quiz</h2>
+            <p class="mb-4">Test your knowledge about variables and data types!</p>
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">
+                Q1: Which of the following is a valid Python variable name?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_vars" value="a" class="mr-1" /> <code>my-variable</code>
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_vars" value="b" class="mr-1" /> <code>2nd_variable</code>
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q1_vars" value="c" class="mr-1" /> <code>_my_variable2</code>
+              </label>
+            </div>
+
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">
+                Q2: What data type would Python assign to the variable <code>player_name = "Link"</code>?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_vars" value="a" class="mr-1" /> Integer (<code>int</code>)
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_vars" value="b" class="mr-1" /> String (<code>str</code>)
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q2_vars" value="c" class="mr-1" /> Boolean (<code>bool</code>)
+              </label>
+            </div>
+
+            <div class="quiz-options mb-3">
+              <p class="font-medium mb-1">
+                Q3: What would <code>print(type(10.5))</code> output?
+              </p>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_vars" value="a" class="mr-1" /> <code>&lt;class 'int'&gt;</code>
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_vars" value="b" class="mr-1" /> <code>&lt;class 'str'&gt;</code>
+              </label>
+              <label class="quiz-option-label">
+                <input type="radio" name="q3_vars" value="c" class="mr-1" /> <code>&lt;class 'float'&gt;</code>
+              </label>
+            </div>
+            <button id="checkQuizButtonVars" class="btn">Check Answers</button>
+            <div id="quizResultVars" class="message-box mt-3" style="display: none;"></div>
+          </section>
+        </main>
+
+        <footer class="text-center mt-12 py-4">
+          <p class="text-sm mb-2">Ready for the next challenge?</p>
+          <a href="booleans-conditionals.html" class="btn btn-8bit">
+            Next Tutorial: Booleans & Conditionals &rarr;
+          </a>
+        </footer>
+      </div>
+    </div>
+
     <script>
-      // --- DOM Elements ---
-      const varValueInput = document.getElementById("varValueInput");
-      const assignVarButton = document.getElementById("assignVarButton");
-      const variableDisplay = document.getElementById("variableDisplay");
-      const varAssignMessage = document.getElementById("varAssignMessage");
+      // Mockup script for variable assignment
+      const assignVarButton = document.getElementById('assignVarButton');
+      const varNameInput = document.getElementById('varNameInput');
+      const varValueInput = document.getElementById('varValueInput');
+      const varAssignmentOutput = document.getElementById('varAssignmentOutput');
 
-      const typeCheckInput = document.getElementById("typeCheckInput");
-      const checkTypeButton = document.getElementById("checkTypeButton");
-      const typeCheckOutput = document.getElementById("typeCheckOutput");
-      const typeCheckMessage = document.getElementById("typeCheckMessage");
-
-      const checkQuizButtonVars = document.getElementById(
-        "checkQuizButtonVars"
-      );
-      const quizResultVars = document.getElementById("quizResultVars");
-
-      // --- Utility Functions ---
-      // showMessage and inferDataType are now in js/main.js
-
-      // --- Interactive Variable Assignment Logic ---
-      function handleAssignVariable() {
-        const value = varValueInput.value; // Get value as string
-        const dataType = inferDataType(value);
-        let displayValue = value;
-
-        // Add quotes for strings in the display
-        if (dataType === "str") {
-          // Escape potential quotes within the string itself for display
-          const escapedValue = value.replace(/'/g, "\\'").replace(/"/g, '\\"');
-          displayValue = `"${escapedValue}"`; // Show strings with quotes
-        } else if (dataType === "bool") {
-          // Capitalize True/False like Python
-          displayValue =
-            value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-        } else if (dataType === "NoneType") {
-          displayValue = "None"; // Represent empty input as None
-        }
-
-        variableDisplay.textContent = `my_variable = ${displayValue}\nType: <${dataType}>`;
-        showMessage(
-          varAssignMessage,
-          `Assigned value to my_variable.`,
-          "success"
-        );
-        varValueInput.value = ""; // Clear input after assignment
-      }
-
-      // --- Interactive Data Type Checker Logic ---
-      function handleCheckType() {
-        const value = typeCheckInput.value;
-        const dataType = inferDataType(value);
-        let displayType = `<${dataType}>`;
-        if (dataType === "NoneType") {
-          displayType = "Detected type: NoneType (likely empty input)";
-        } else {
-          displayType = `Detected type: <${dataType}>`;
-        }
-
-        typeCheckOutput.textContent = displayType;
-        showMessage(
-          typeCheckMessage,
-          `Checked type for the provided value.`,
-          "success"
-        );
-      }
-
-      // --- Quiz Logic ---
-      function checkVarsQuiz() {
-        const answers = {
-          q1_vars: "b", // store data
-          q2_vars: "c", // float
-          q3_vars: "b", // str (because of quotes)
-          q4_vars: "c", // True and False
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break; // Stop checking if one question is unanswered
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`; // Extract question number
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultVars.textContent =
-            "Please answer all questions before checking.";
-          quizResultVars.className = "message-box message-box-error";
-          quizResultVars.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultVars.innerHTML = resultsHTML;
-        quizResultVars.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultVars.style.display = "block";
-      }
-
-      // --- Event Listeners ---
       if (assignVarButton) {
-        assignVarButton.addEventListener("click", handleAssignVariable);
+        assignVarButton.addEventListener('click', () => {
+          const varName = varNameInput.value.trim() || 'myVariable';
+          const varValue = varValueInput.value.trim();
+          varAssignmentOutput.innerHTML = `Simulating: <strong>${varName}</strong> = "${varValue}"<br>Value of <strong>${varName}</strong> is now: "${varValue}"`;
+        });
       }
-      if (checkTypeButton) {
-        checkTypeButton.addEventListener("click", handleCheckType);
+
+      // Mockup script for type conversion
+      const convertAndAddButton = document.getElementById('convertAndAddButton');
+      const textNumberInput = document.getElementById('textNumberInput');
+      const conversionOutput = document.getElementById('conversionOutput');
+      const conversionMessage = document.getElementById('conversionMessage');
+
+      if (convertAndAddButton) {
+        convertAndAddButton.addEventListener('click', () => {
+          const inputText = textNumberInput.value.trim();
+          conversionMessage.style.display = 'none';
+          conversionMessage.textContent = '';
+          
+          try {
+            const number = parseInt(inputText);
+            if (isNaN(number)) {
+              throw new Error('Input is not a valid number for conversion to integer.');
+            }
+            conversionOutput.innerHTML = `Input text: "${inputText}"<br>Converted to integer: ${number}<br>Result of adding 10: <strong>${number + 10}</strong>`;
+            conversionMessage.className = 'message-box message-box-success';
+            conversionMessage.textContent = 'Conversion successful!';
+            conversionMessage.style.display = 'block';
+          } catch (e) {
+            conversionOutput.innerHTML = `<span class="placeholder-text">Error during conversion.</span>`;
+            conversionMessage.className = 'message-box message-box-error';
+            conversionMessage.textContent = 'Error: ' + e.message;
+            conversionMessage.style.display = 'block';
+          }
+        });
       }
+      
+      // Mockup quiz script
+      const checkQuizButtonVars = document.getElementById('checkQuizButtonVars');
+      const quizResultVars = document.getElementById('quizResultVars');
+
       if (checkQuizButtonVars) {
-        checkQuizButtonVars.addEventListener("click", checkVarsQuiz);
+        checkQuizButtonVars.addEventListener('click', () => {
+          const answers = { q1_vars: 'c', q2_vars: 'b', q3_vars: 'c' };
+          let score = 0;
+          let allAnswered = true;
+          let resultHTML = '<h4>Quiz Results:</h4><ul>';
+
+          for (const question in answers) {
+            const selected = document.querySelector(`input[name="${question}"]:checked`);
+            if (selected) {
+              if (selected.value === answers[question]) {
+                score++;
+                resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
+              } else {
+                resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
+              }
+            } else {
+              allAnswered = false;
+              break;
+            }
+          }
+
+          if (!allAnswered) {
+            quizResultVars.innerHTML = 'Please answer all questions.';
+            quizResultVars.className = 'message-box message-box-info';
+          } else {
+            resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
+            quizResultVars.innerHTML = resultHTML;
+            if (score === Object.keys(answers).length) {
+                quizResultVars.className = 'message-box message-box-success';
+            } else {
+                quizResultVars.className = 'message-box message-box-info'; // Or error if preferred for any wrong
+            }
+          }
+          quizResultVars.style.display = 'block';
+        });
       }
     </script>
   </body>

@@ -3,743 +3,505 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn Basic Sorting Algorithms</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Basic Sorting - Python Guide</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Styles for sort visualization - preserved as they use theme colors */
+      .sort-container {
+        display: flex;
+        align-items: flex-end; /* Align bars at the bottom */
+        justify-content: center;
+        min-height: 300px; /* Increased from 150px */
+        padding: 20px; /* Increased padding */
+        background-color: #503020; /* Deep Bark */
+        border: 3px solid #706050; /* Lighter Bark/Moss */
+        border-top-color: #302010;
+        border-left-color: #302010;
+        border-radius: 6px;
+        margin-bottom: 20px; /* Increased margin */
+      }
+      .sort-bar {
+        background-color: #f0c060; /* Sunlight Gold */
+        border: 2px solid #a07030; /* Darker Brownish Gold - increased border width */
+        margin: 0 4px; /* Increased spacing between bars */
+        width: 40px; /* Increased from 20px */
+        min-height: 20px; /* Added minimum height */
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .sort-bar.comparing {
+        background-color: #80b0d0; /* Sky Blue */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #80b0d0;
+      }
+      .sort-bar.swapping {
+        background-color: #40a090; /* Mystic Teal */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #40a090;
+      }
+      .sort-bar.sorted {
+        background-color: #60c0b0; /* Lighter Mystic Teal for sorted elements */
+      }
+      .sort-bar.minimum { /* For Selection Sort visualization */
+        background-color: #f8e8c0; /* Pale Gold for current minimum */
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #f8e8c0;
+      }
+      .value-label {
+        color: #f0c060;
+        font-size: 12px;
+        margin-bottom: 4px;
+        font-family: 'Press Start 2P', monospace;
+        transition: all 0.3s ease;
+      }
+      .value-label.comparing {
+        color: #80b0d0;
+        transform: scale(1.1);
+      }
+      .value-label.swapping {
+        color: #40a090;
+        transform: scale(1.1);
+      }
+      .value-label.minimum {
+        color: #f8e8c0;
+        transform: scale(1.1);
+      }
+    </style>
   </head>
-  <body class="bg-blue-700 text-gray-300 min-h-screen p-4 md:p-8">
-    <header class="text-center mb-8">
-      <a href="../index.html" class="text-3xl md:text-4xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-200">
-        Interactive Guide to Python
-      </a>
-      <h1 class="text-2xl md:text-3xl font-semibold text-yellow-400 mt-2">
-        Understanding Basic Sorting Algorithms
-      </h1>
-      <p class="text-xs text-cyan-500 mt-1 italic">
-        Learning fundamental algorithms like Bubble Sort and Selection Sort to arrange items in order.
-      </p>
-    </header>
+  <body class="min-h-screen">
+    <div class="console-screen-border">
+      <nav class="navbar-8bit">
+        <a href="graphs.html" class="btn">
+          &laquo; Graphs
+        </a>
+        <a href="../index.html" class="btn">
+          Main Menu
+        </a>
+        <a href="sorting-merge-joke.html" class="btn">
+          Next: Merge Sort & Joke Sorts &rarr;
+        </a>
+      </nav>
 
-    <nav
-      class="max-w-4xl mx-auto mb-6 p-3 bg-blue-800 rounded-lg shadow-md flex justify-between items-center">
-      <a href="graphs.html"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        &larr; Previous: Graphs
-      </a>
-      <a href="sorting-merge-joke.html"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
-        Next: Merge Sort & Joke Sorts &rarr;
-      </a>
-    </nav>
-
-    <main class="max-w-4xl mx-auto">
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          1. What is Sorting?
-        </h2>
-        <p class="mb-4 text-gray-300">
-          Sorting is the process of arranging items in a collection (like a list
-          or array) into a specific order, typically numerical or alphabetical
-          order (ascending or descending). It's one of the most fundamental
-          operations in computer science.
-        </p>
-        <p>Why sort?</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong>Searching:</strong> Finding items in a sorted collection is
-            much faster (e.g., using binary search).
-          </li>
-          <li>
-            <strong>Readability:</strong> Sorted data is often easier for humans
-            to read and understand.
-          </li>
-          <li>
-            <strong>Data Processing:</strong> Many algorithms require data to be
-            sorted as a prerequisite (e.g., finding duplicates, calculating
-            medians).
-          </li>
-          <li>
-            <strong>Database Indexing:</strong> Sorting is crucial for efficient
-            database operations.
-          </li>
-        </ul>
-        <p class="mt-2">
-          There are many different algorithms (step-by-step procedures) for
-          sorting, each with its own strengths and weaknesses in terms of speed
-          (time complexity) and memory usage (space complexity).
-        </p>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          2. Bubble Sort
-        </h2>
-        <p class="mb-2 text-gray-300">
-          Bubble Sort is one of the simplest sorting algorithms. It repeatedly
-          steps through the list, compares adjacent elements, and swaps them if
-          they are in the wrong order. Passes through the list are repeated
-          until no swaps are needed, indicating the list is sorted.
-        </p>
-        <p class="mb-2"><strong>How it works:</strong></p>
-        <ol class="list-decimal list-inside ml-4 space-y-1 text-sm">
-          <li>Start at the beginning of the list.</li>
-          <li>
-            Compare the first element with the second. If the first is greater
-            than the second, swap them.
-          </li>
-          <li>
-            Move to the next pair (second and third elements) and compare/swap
-            if needed.
-          </li>
-          <li>
-            Continue this process until the end of the list. The largest element
-            will have "bubbled up" to the end.
-          </li>
-          <li>
-            Repeat the entire process for the remaining unsorted portion of the
-            list (excluding the last sorted element).
-          </li>
-          <li>Stop when a full pass through the list requires no swaps.</li>
-        </ol>
-        <p class="mt-2 text-sm text-gray-300">
-          Bubble Sort is easy to understand but generally inefficient for large
-          lists (O(n²) time complexity in the average and worst cases).
-        </p>
-
-        <h3 class="text-lg font-medium mt-4 mb-2">Visualize Bubble Sort:</h3>
-        <div class="flex flex-wrap items-center mb-2">
-          <button id="runBubbleSortButton" class="btn btn-green">
-            Run Bubble Sort
-          </button>
-          <button id="resetBubbleSortButton" class="btn btn-orange">
-            Reset
-          </button>
-          <label for="bubbleSpeedRange" class="ml-4 mr-1 text-sm">Speed:</label>
-          <input
-            type="range"
-            id="bubbleSpeedRange"
-            min="50"
-            max="1000"
-            value="300"
-            step="50"
-            class="align-middle"
-          />
-        </div>
-        <div id="bubbleSortContainer" class="sort-container"></div>
-        <h4 class="text-md font-medium mt-3 mb-1">Log:</h4>
-        <div id="bubbleSortLog" class="output-display">
-          <span class="text-gray-500 italic"
-            >Click 'Run Bubble Sort' to start visualization.</span
-          >
-        </div>
-        <div
-          id="bubbleSortMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          3. Selection Sort
-        </h2>
-        <p class="mb-2 text-gray-300">
-          Selection Sort works by repeatedly finding the minimum element from
-          the unsorted part of the list and putting it at the beginning (or the
-          next available position in the sorted part).
-        </p>
-        <p class="mb-2"><strong>How it works:</strong></p>
-        <ol class="list-decimal list-inside ml-4 space-y-1 text-sm">
-          <li>Assume the first element is the minimum.</li>
-          <li>
-            Iterate through the rest of the unsorted list (from the second
-            element onwards).
-          </li>
-          <li>
-            If you find an element smaller than the current minimum, mark it as
-            the new minimum.
-          </li>
-          <li>
-            After checking all unsorted elements, swap the found minimum element
-            with the element at the beginning of the unsorted portion.
-          </li>
-          <li>
-            Move the boundary between the sorted and unsorted parts one element
-            to the right.
-          </li>
-          <li>Repeat steps 1-5 until the entire list is sorted.</li>
-        </ol>
-        <p class="mt-2 text-sm text-gray-300">
-          Selection Sort is also relatively simple but generally inefficient for
-          large lists (O(n²) time complexity), though it performs fewer swaps
-          than Bubble Sort.
-        </p>
-
-        <h3 class="text-lg font-medium mt-4 mb-2">Visualize Selection Sort:</h3>
-        <div class="flex flex-wrap items-center mb-2">
-          <button id="runSelectionSortButton" class="btn btn-green">
-            Run Selection Sort
-          </button>
-          <button id="resetSelectionSortButton" class="btn btn-orange">
-            Reset
-          </button>
-          <label for="selectionSpeedRange" class="ml-4 mr-1 text-sm"
-            >Speed:</label
-          >
-          <input
-            type="range"
-            id="selectionSpeedRange"
-            min="50"
-            max="1000"
-            value="400"
-            step="50"
-            class="align-middle"
-          />
-        </div>
-        <div id="selectionSortContainer" class="sort-container"></div>
-        <h4 class="text-md font-medium mt-3 mb-1">Log:</h4>
-        <div id="selectionSortLog" class="output-display">
-          <span class="text-gray-500 italic"
-            >Click 'Run Selection Sort' to start visualization.</span
-          >
-        </div>
-        <div
-          id="selectionSortMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">
-          4. Python's Built-in Sorting
-        </h2>
-        <p class="mb-2">
-          While understanding algorithms like Bubble Sort and Selection Sort is
-          valuable, Python provides highly optimized, built-in ways to sort
-          sequences that you should generally use in practice:
-        </p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>
-            <strong><code>list.sort()</code> method:</strong> Sorts a list
-            *in-place* (modifies the original list) and returns
-            <code>None</code>.
-          </li>
-          <li>
-            <strong><code>sorted(iterable)</code> function:</strong> Returns a
-            *new*, sorted list created from the items in any iterable (list,
-            tuple, string, etc.), leaving the original iterable unchanged.
-          </li>
-        </ul>
-        <p class="mt-2">
-          Both methods use an efficient algorithm called Timsort (a hybrid
-          approach) which has an average time complexity of O(n log n), much
-          faster than O(n²) for large inputs.
-        </p>
-        <pre><code class="language-python">my_list = [5, 1, 4, 3]
-
-# Using list.sort() (in-place)
-print(f"Original list: {my_list}")
-my_list.sort() # Modifies my_list directly
-print(f"After list.sort(): {my_list}") # Output: [1, 3, 4, 5]
-
-# Using sorted() (returns a new list)
-my_tuple = (8, 2, 6)
-print(f"\nOriginal tuple: {my_tuple}")
-sorted_list = sorted(my_tuple) # Creates a new sorted list
-print(f"Result of sorted(): {sorted_list}") # Output: [2, 6, 8]
-print(f"Original tuple unchanged: {my_tuple}") # Output: (8, 2, 6)
-
-# Sorting in reverse order
-sorted_desc = sorted(my_list, reverse=True)
-print(f"\nSorted descending: {sorted_desc}") # Output: [5, 4, 3, 1]</code></pre>
-      </section>
-
-      <section class="mb-8 interactive-section">
-        <h2 class="text-2xl font-semibold text-yellow-300 mb-3">5. Quick Quiz</h2>
-        <p class="mb-4 text-gray-300">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">Q1: What is the main goal of sorting?</p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_sort" value="a" class="mr-1" /> To
-            make a list take up less memory</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_sort" value="b" class="mr-1" /> To
-            arrange items in a specific order</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q1_sort" value="c" class="mr-1" /> To
-            find the largest element quickly</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q2: How does Bubble Sort primarily work?
+      <div class="content-wrapper-8bit">
+        <header class="text-center mb-8">
+          <h1 class="pixel-header"><a href="../index.html">
+            Interactive Guide to Python
+          </a></h1>
+          <h2 class="pixel-subheader">
+            Basic Sorting Algorithms
+          </h2>
+          <p class="text-sm italic mt-1">
+            Understanding fundamental sorting algorithms: Bubble Sort and Selection Sort.
           </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_sort" value="a" class="mr-1" /> By
-            finding the minimum element and placing it first</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_sort" value="b" class="mr-1" /> By
-            repeatedly comparing and swapping adjacent elements</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q2_sort" value="c" class="mr-1" /> By
-            dividing the list into smaller sub-lists</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q3: Which Python method sorts a list in-place (modifies the
-            original)?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_sort" value="a" class="mr-1" />
-            <code>sorted(my_list)</code></label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_sort" value="b" class="mr-1" />
-            <code>my_list.sort()</code></label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q3_sort" value="c" class="mr-1" />
-            <code>my_list.sorted()</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1 text-gray-200">
-            Q4: Why are Python's built-in sorting methods generally preferred
-            over simple algorithms like Bubble Sort for large datasets?
-          </p>
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_sort" value="a" class="mr-1" /> They
-            are easier to write</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_sort" value="b" class="mr-1" /> They
-            use less memory</label
-          >
-          <label class="block text-gray-300"
-            ><input type="radio" name="q4_sort" value="c" class="mr-1" /> They
-            are significantly faster (better time complexity)</label
-          >
-        </div>
-        <button id="checkQuizButtonSort" class="btn">Check Answers</button>
-        <div
-          id="quizResultSort"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
+        </header>
 
-    </main>
+        <main class="mx-auto">
+          <h1 class="page-title-8bit">
+            Basic Sorting Algorithms
+          </h1>
 
-    <footer class="text-center mt-12 py-6 border-t border-yellow-500">
-      <p class="text-sm text-cyan-300">Happy Coding!</p>
-      <p class="mt-2">
-        <a
-          href="../index.html"
-          class="text-yellow-400 hover:text-yellow-200 font-medium transition-colors duration-200"
-          >Back to Main Menu</a
-        >
-      </p>
-    </footer>
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              1. What is Sorting?
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Sorting is the process of arranging items in a collection (like a list or array) into a specific order, which can be numerical (ascending or descending) or lexicographical (alphabetical). It's a fundamental and frequently performed operation in computer science. Think of it like organizing a deck of cards - you can arrange them by suit, by number, or any other rule, but the goal is to have a specific, predictable order.
+              </p>
+              <p>Why is sorting important?</p>
+              <ul>
+                <li><strong>Efficient Searching:</strong> Searching for an item in a sorted collection is significantly faster (e.g., using binary search, which requires sorted data). Like having a phone book - it's much easier to find a number when the names are in alphabetical order.</li>
+                <li><strong>Data Presentation:</strong> Sorted data is often easier for humans to read, understand, and analyze. Like having your music playlist sorted by artist - it's much easier to find your favorite songs.</li>
+                <li><strong>Algorithmic Prerequisite:</strong> Many algorithms require their input data to be sorted to function correctly or efficiently. Like having to arrange puzzle pieces by color before you can start solving the puzzle.</li>
+                <li><strong>Database Operations:</strong> Databases extensively use sorting for indexing and query optimization. Like having a library's card catalog system - it helps you find books quickly because they're organized in a specific way.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              2. Bubble Sort
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted. The largest (or smallest, depending on sort order) elements "bubble" to their correct position at the end of the list with each pass. Think of it like bubbles rising in a glass of soda - larger bubbles naturally rise to the top, just as larger numbers "bubble up" to their correct positions in the list.
+              </p>
+              <p><strong>How it works:</strong></p>
+              <ol>
+                <li>Iterate through the list from the first element to the second-to-last. Like checking each pair of students in a line to see if they're in the right order by height.</li>
+                <li>In each iteration, compare the current element with the next element. Like looking at two students standing next to each other.</li>
+                <li>If the current element is greater than the next element (for ascending order), swap them. Like having the taller student step back to let the shorter student move forward.</li>
+                <li>After the first full pass, the largest element will have "bubbled up" to the last position. Like the tallest student ending up at the end of the line after one round of comparisons.</li>
+                <li>Repeat the passes, reducing the range of comparison by one element each time (since the last elements are already in place), until a full pass completes with no swaps. Like continuing to organize the remaining students, but each time you can ignore one more student at the end of the line because they're already in the right place.</li>
+              </ol>
+              <p>
+                Bubble Sort is easy to understand and implement but is generally inefficient for large lists, with an average and worst-case time complexity of O(n²).
+              </p>
+
+              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Bubble Sort:</h3>
+              <div class="controls-flex">
+                <button id="runBubbleSortButton" class="button-8bit">Run Bubble Sort</button>
+                <button id="resetBubbleSortButton" class="button-8bit">Reset</button>
+                <label for="bubbleSpeedRange">Speed:</label>
+                <input type="range" id="bubbleSpeedRange" min="50" max="1000" value="300" step="50" class="input-field-8bit range-slider"/>
+              </div>
+              <div id="bubbleSortContainer" class="sort-container"></div>
+              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
+              <div id="bubbleSortLog" class="output-display-8bit min-h-[100px]">
+                <p><em>Click 'Run Bubble Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
+              </div>
+              <div id="bubbleSortMessage" class="message-box-8bit" style="display: none;"></div>
+            </div>
+          </section>
+
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">
+              3. Selection Sort
+            </h2>
+            <div class="sub-interactive-box">
+              <p>
+                Selection Sort is another simple, in-place comparison sorting algorithm. It divides the input list into two parts: a sorted sublist (initially empty) which is built up from left to right at the front of the list, and an unsorted sublist which makes up the rest of the list. The algorithm proceeds by finding the smallest (or largest, depending on sort order) element in the unsorted sublist, swapping it with the leftmost unsorted element, and moving the sublist boundaries one element to the right. Think of it like organizing a hand of cards - you look through your cards to find the lowest one, put it at the start, then look through the remaining cards to find the next lowest, and so on.
+              </p>
+              <p><strong>How it works:</strong></p>
+              <ol>
+                <li>Iterate from the first element to the second-to-last element of the list (this loop variable, say `i`, marks the end of the sorted part). Like having a line of students where the first few are already arranged by height.</li>
+                <li>In each iteration, assume the element at the current position `i` is the minimum (or maximum). Like temporarily marking a student as the shortest in the unsorted part of the line.</li>
+                <li>Iterate through the remaining unsorted part of the list (from `i+1` to the end) to find the actual minimum (or maximum) element. Like looking through the rest of the unsorted students to find the shortest one.</li>
+                <li>If a smaller (or larger) element is found, update the record of the minimum (or maximum) element's index. Like finding an even shorter student and updating your mental note of who's the shortest.</li>
+                <li>After scanning the entire unsorted part, if the minimum (or maximum) element found is not at position `i`, swap it with the element at position `i`. Like having the shortest student from the unsorted part swap places with the student at the end of the sorted part.</li>
+                <li>Repeat until the list is sorted. Like continuing this process until all students are arranged by height.</li>
+              </ol>
+              <p>
+                Selection Sort also has a time complexity of O(n²) in all cases (worst, average, and best). While its time complexity is similar to Bubble Sort, it generally performs fewer swaps.
+              </p>
+
+              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Selection Sort:</h3>
+              <div class="controls-flex">
+                <button id="runSelectionSortButton" class="button-8bit">Run Selection Sort</button>
+                <button id="resetSelectionSortButton" class="button-8bit">Reset</button>
+                <label for="selectionSpeedRange">Speed:</label>
+                <input type="range" id="selectionSpeedRange" min="50" max="1000" value="400" step="50" class="input-field-8bit range-slider"/>
+              </div>
+              <div id="selectionSortContainer" class="sort-container"></div>
+              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
+              <div id="selectionSortLog" class="output-display-8bit min-h-[100px]">
+                 <p><em>Click 'Run Selection Sort' to start. Initial array: [64, 34, 25, 12, 22, 11, 90, 50, 77, 8]</em></p>
+              </div>
+              <div id="selectionSortMessage" class="message-box-8bit" style="display: none;"></div>
+            </div>
+          </section>
+          
+          <section class="interactive-section">
+            <h2 class="section-subtitle-8bit">Code Examples</h2>
+            <div class="sub-interactive-box">
+              <p>Python implementations of Bubble Sort and Selection Sort:</p>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Bubble Sort:</h3>
+              <pre><code class="code-block-8bit python">def bubble_sort(arr):
+    n = len(arr)
+    # Traverse through all array elements
+    for i in range(n):
+        swapped = False
+        # Last i elements are already in place
+        for j in range(0, n - i - 1):
+            # Traverse the array from 0 to n-i-1
+            # Swap if the element found is greater
+            # than the next element
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        
+        # If no two elements were swapped by inner loop, then break
+        if not swapped:
+            break
+    return arr
+
+# Example usage:
+my_array = [64, 34, 25, 12, 22, 11, 90]
+print(f"Original array: {my_array}")
+bubble_sort(my_array)
+print(f"Sorted array (Bubble Sort): {my_array}")</code></pre>
+              <h3 class="section-subtitle-8bit smaller-subtitle">Selection Sort:</h3>
+              <pre><code class="code-block-8bit python">def selection_sort(arr):
+    n = len(arr)
+    # Traverse through all array elements
+    for i in range(n):
+        # Find the minimum element in remaining unsorted array
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+                
+        # Swap the found minimum element with the first element
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+
+# Example usage:
+another_array = [64, 25, 12, 22, 11, 50, 90]
+print(f"Original array: {another_array}")
+selection_sort(another_array)
+print(f"Sorted array (Selection Sort): {another_array}")</code></pre>
+            </div>
+          </section>
+        </main>
+
+        <footer class="footer-8bit text-center py-6">
+          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
+          <p class="mt-3 md:mt-4">
+            <a
+              href="../index.html" 
+              class="link-8bit" 
+              >Back to Main Menu</a 
+            >
+          </p>
+        </footer>
+      </div> <!-- End of content-wrapper-8bit -->
+    </div> <!-- End of console-screen-border -->
 
     <script>
-      // --- DOM Elements & Shared State ---
-      const bubbleSortContainer = document.getElementById(
-        "bubbleSortContainer"
-      );
-      const runBubbleSortButton = document.getElementById(
-        "runBubbleSortButton"
-      );
-      const resetBubbleSortButton = document.getElementById(
-        "resetBubbleSortButton"
-      );
-      const bubbleSortLog = document.getElementById("bubbleSortLog");
-      const bubbleSortMessage = document.getElementById("bubbleSortMessage");
-      const bubbleSpeedRange = document.getElementById("bubbleSpeedRange");
+        const initialArrayDefault = [64, 34, 25, 12, 22, 11, 90, 50, 77, 8];
+        let currentBubbleArray = [...initialArrayDefault];
+        let currentSelectionArray = [...initialArrayDefault];
 
-      const selectionSortContainer = document.getElementById(
-        "selectionSortContainer"
-      );
-      const runSelectionSortButton = document.getElementById(
-        "runSelectionSortButton"
-      );
-      const resetSelectionSortButton = document.getElementById(
-        "resetSelectionSortButton"
-      );
-      const selectionSortLog = document.getElementById("selectionSortLog");
-      const selectionSortMessage = document.getElementById(
-        "selectionSortMessage"
-      );
-      const selectionSpeedRange = document.getElementById(
-        "selectionSpeedRange"
-      );
+        let bubbleSortSpeed = 300;
+        let selectionSortSpeed = 400;
+        let bubbleAnimationTimeout = null;
+        let selectionAnimationTimeout = null;
 
-      const checkQuizButtonSort = document.getElementById(
-        "checkQuizButtonSort"
-      );
-      const quizResultSort = document.getElementById("quizResultSort");
+        const bubbleSpeedRange = document.getElementById('bubbleSpeedRange');
+        const selectionSpeedRange = document.getElementById('selectionSpeedRange');
 
-      const initialArray = [65, 55, 45, 35, 25, 15, 70]; // Sample data
-      let bubbleArray = [...initialArray];
-      let selectionArray = [...initialArray];
-      let bubbleSortTimeout = null;
-      let selectionSortTimeout = null;
-      const MAX_VAL = 100; // For scaling bar height
+        bubbleSpeedRange.addEventListener('input', (e) => bubbleSortSpeed = parseInt(e.target.value));
+        selectionSpeedRange.addEventListener('input', (e) => selectionSortSpeed = parseInt(e.target.value));
 
-      // --- Visualization Functions ---
-      function renderBars(container, array) {
-        container.innerHTML = ""; // Clear previous bars
-        const maxValue = Math.max(...array, MAX_VAL); // Use MAX_VAL as minimum height reference
-        array.forEach((value, index) => {
-          const bar = document.createElement("div");
-          bar.className = "sort-bar";
-          // Scale height relative to max value (or 100 if max is smaller)
-          const heightPercent = Math.max(5, (value / maxValue) * 100); // Min height 5%
-          bar.style.height = `${heightPercent}%`;
-          bar.textContent = value; // Display value on bar
-          bar.dataset.value = value;
-          bar.dataset.index = index;
-          container.appendChild(bar);
-        });
-      }
+        function createBars(containerId, arr, specificMaxValue = null) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            const maxValue = specificMaxValue || Math.max(...arr, 10); // Ensure a minimum height
+            arr.forEach(value => {
+                const barWrapper = document.createElement('div');
+                barWrapper.style.display = 'flex';
+                barWrapper.style.flexDirection = 'column';
+                barWrapper.style.alignItems = 'center';
+                barWrapper.style.margin = '0 4px';
 
-      function updateBars(container, array) {
-        const bars = container.querySelectorAll(".sort-bar");
-        const maxValue = Math.max(...array, MAX_VAL);
-        if (bars.length !== array.length) {
-          console.error(
-            "Mismatch between bars and array length. Re-rendering."
-          );
-          renderBars(container, array); // Fallback to re-render
-          return;
+                const valueLabel = document.createElement('div');
+                valueLabel.textContent = value;
+                valueLabel.classList.add('value-label');
+                valueLabel.dataset.value = value;
+
+                const bar = document.createElement('div');
+                bar.classList.add('sort-bar');
+                const percentageHeight = maxValue === 0 ? 0 : (value / maxValue) * 100;
+                bar.style.height = `${Math.max(percentageHeight, 5)}%`; // Ensure a minimum visible height
+                bar.dataset.value = value;
+
+                barWrapper.appendChild(valueLabel);
+                barWrapper.appendChild(bar);
+                container.appendChild(barWrapper);
+            });
         }
-        array.forEach((value, index) => {
-          const bar = bars[index];
-          if (bar) {
-            const heightPercent = Math.max(5, (value / maxValue) * 100);
-            bar.style.height = `${heightPercent}%`;
-            bar.textContent = value;
-            bar.dataset.value = value;
-            // Reset styles (will be reapplied by algorithm steps)
-            bar.classList.remove("comparing", "swapping", "sorted", "min-val");
-          }
-        });
-      }
-
-      function highlightBars(container, indices, className) {
-        const bars = container.querySelectorAll(".sort-bar");
-        bars.forEach((bar, i) => {
-          if (indices.includes(i)) {
-            bar.classList.add(className);
-          } else {
-            // Optionally remove other highlights if needed, or manage state carefully
-            // bar.classList.remove('comparing', 'swapping', 'min-val');
-          }
-        });
-      }
-
-      function clearHighlights(container) {
-        container.querySelectorAll(".sort-bar").forEach((bar) => {
-          bar.classList.remove("comparing", "swapping", "sorted", "min-val");
-        });
-      }
-
-      function markSorted(container, index) {
-        const bar = container.querySelector(`.sort-bar[data-index="${index}"]`);
-        if (bar) bar.classList.add("sorted");
-      }
-
-      // --- Sorting Algorithm Logic (Async Generators) ---
-
-      // Bubble Sort Generator
-      async function* bubbleSortGenerator(
-        array,
-        container,
-        logElement,
-        speedFunc
-      ) {
-        let arr = [...array];
-        let n = arr.length;
-        let swapped;
-        logElement.innerHTML = "Starting Bubble Sort...\n";
-        do {
-          swapped = false;
-          for (let i = 0; i < n - 1; i++) {
-            // Highlight comparing elements
-            clearHighlights(container);
-            highlightBars(container, [i, i + 1], "comparing");
-            logElement.innerHTML += `Comparing ${arr[i]} and ${
-              arr[i + 1]
-            }...\n`;
-            logElement.scrollTop = logElement.scrollHeight;
-            await new Promise((resolve) => setTimeout(resolve, speedFunc()));
-
-            if (arr[i] > arr[i + 1]) {
-              // Highlight swapping elements
-              highlightBars(container, [i, i + 1], "swapping");
-              logElement.innerHTML += `  Swapping ${arr[i]} and ${
-                arr[i + 1]
-              }.\n`;
-              logElement.scrollTop = logElement.scrollHeight;
-
-              // Swap
-              [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-              swapped = true;
-
-              // Update visualization after swap
-              updateBars(container, arr);
-              highlightBars(container, [i, i + 1], "swapping"); // Re-highlight after update
-              await new Promise((resolve) => setTimeout(resolve, speedFunc()));
+        
+        function updateBarClasses(bars, index, action) { // action: 'comparing', 'swapping', 'sorted', 'minimum', 'clear'
+            if (!bars || !bars[index]) return;
+            const barWrapper = bars[index];
+            const bar = barWrapper.querySelector('.sort-bar');
+            const label = barWrapper.querySelector('.value-label');
+            
+            // Remove all classes
+            bar.classList.remove('comparing', 'swapping', 'sorted', 'minimum');
+            label.classList.remove('comparing', 'swapping', 'minimum');
+            
+            if (action !== 'clear') {
+                bar.classList.add(action);
+                label.classList.add(action);
             }
-            clearHighlights(container); // Clear after comparison/swap
-          }
-          // Mark the last element of this pass as sorted
-          markSorted(container, n - 1);
-          n--; // Reduce the range for the next pass
-          logElement.innerHTML += `End of pass. Largest element bubbled up.\n`;
-          logElement.scrollTop = logElement.scrollHeight;
-          await new Promise((resolve) => setTimeout(resolve, speedFunc()));
-        } while (swapped);
+        }
+        
+        function logToSort(logId, message) {
+            const logArea = document.getElementById(logId);
+            if (!logArea) return;
+            const p = document.createElement('p');
+            p.innerHTML = message; // Allow simple HTML for emphasis if needed
+            logArea.appendChild(p);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
 
-        // Mark all remaining as sorted
-        for (let i = 0; i < arr.length; i++) markSorted(container, i);
+        function showSortMessage(messageId, text, type = 'info') {
+            const messageBox = document.getElementById(messageId);
+            if (!messageBox) return;
+            messageBox.textContent = text;
+            messageBox.className = 'message-box-8bit'; // Reset classes
+            if (type === 'success') messageBox.classList.add('success');
+            else if (type === 'error') messageBox.classList.add('error');
+            messageBox.style.display = 'block';
+        }
 
-        logElement.innerHTML += "Bubble Sort Complete!\n";
-        logElement.scrollTop = logElement.scrollHeight;
-        yield arr; // Final sorted array
-      }
+        function hideSortMessage(messageId) {
+            const messageBox = document.getElementById(messageId);
+            if (messageBox) messageBox.style.display = 'none';
+        }
 
-      // Selection Sort Generator
-      async function* selectionSortGenerator(
-        array,
-        container,
-        logElement,
-        speedFunc
-      ) {
-        let arr = [...array];
-        let n = arr.length;
-        logElement.innerHTML = "Starting Selection Sort...\n";
+        // --- Bubble Sort ---
+        const runBubbleSortButton = document.getElementById('runBubbleSortButton');
+        const resetBubbleSortButton = document.getElementById('resetBubbleSortButton');
+        const bubbleSortContainer = document.getElementById('bubbleSortContainer');
+        const bubbleSortLog = document.getElementById('bubbleSortLog');
 
-        for (let i = 0; i < n - 1; i++) {
-          let minIndex = i;
-          clearHighlights(container);
-          highlightBars(container, [minIndex], "min-val"); // Highlight current assumed minimum
-          logElement.innerHTML += `Pass ${
-            i + 1
-          }: Finding minimum in unsorted part (index ${i} to ${
-            n - 1
-          }). Assumed min: ${arr[minIndex]} at index ${minIndex}\n`;
-          logElement.scrollTop = logElement.scrollHeight;
-          await new Promise((resolve) => setTimeout(resolve, speedFunc()));
+        async function bubbleSortVisualize() {
+            if (bubbleAnimationTimeout) clearTimeout(bubbleAnimationTimeout);
+            runBubbleSortButton.disabled = true;
+            resetBubbleSortButton.disabled = true;
+            hideSortMessage('bubbleSortMessage');
+            bubbleSortLog.innerHTML = '<p><em>Starting Bubble Sort...</em></p>';
+            let arr = [...currentBubbleArray];
+            const n = arr.length;
+            const bars = bubbleSortContainer.childNodes;
 
-          for (let j = i + 1; j < n; j++) {
-            // Highlight comparing elements
-            highlightBars(container, [minIndex, j], "comparing");
-            logElement.innerHTML += `  Comparing current min (${arr[minIndex]}) with ${arr[j]}...\n`;
-            logElement.scrollTop = logElement.scrollHeight;
-            await new Promise((resolve) => setTimeout(resolve, speedFunc()));
+            logToSort('bubbleSortLog', `Initial array: [${arr.join(', ')}]`);
 
-            if (arr[j] < arr[minIndex]) {
-              logElement.innerHTML += `    Found new minimum: ${arr[j]} at index ${j}\n`;
-              logElement.scrollTop = logElement.scrollHeight;
-              // Remove old min highlight, highlight new min
-              clearHighlights(container);
-              minIndex = j;
-              highlightBars(container, [minIndex], "min-val");
-              await new Promise((resolve) => setTimeout(resolve, speedFunc()));
+            for (let i = 0; i < n - 1; i++) {
+                let swapped = false;
+                logToSort('bubbleSortLog', `<strong>Pass ${i + 1}:</strong>`);
+                for (let j = 0; j < n - i - 1; j++) {
+                    updateBarClasses(bars, j, 'comparing');
+                    updateBarClasses(bars, j + 1, 'comparing');
+                    await new Promise(resolve => bubbleAnimationTimeout = setTimeout(resolve, bubbleSortSpeed));
+
+                    logToSort('bubbleSortLog', `Comparing ${arr[j]} and ${arr[j+1]}`);
+                    if (arr[j] > arr[j + 1]) {
+                        logToSort('bubbleSortLog', `Swapping ${arr[j]} and ${arr[j+1]}`);
+                        updateBarClasses(bars, j, 'swapping');
+                        updateBarClasses(bars, j + 1, 'swapping');
+                        await new Promise(resolve => bubbleAnimationTimeout = setTimeout(resolve, bubbleSortSpeed));
+                        
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                        swapped = true;
+                        createBars('bubbleSortContainer', arr, Math.max(...initialArrayDefault, 10)); // Redraw with new heights
+                        updateBarClasses(bubbleSortContainer.childNodes, j, 'swapping'); // Reapply class after redraw
+                        updateBarClasses(bubbleSortContainer.childNodes, j + 1, 'swapping');
+                        await new Promise(resolve => bubbleAnimationTimeout = setTimeout(resolve, bubbleSortSpeed));
+                    }
+                    updateBarClasses(bars, j, 'clear');
+                    updateBarClasses(bars, j + 1, 'clear');
+                     // Mark the already sorted part (at the end of the array after pass i)
+                    if (bars[n - 1 - i]) updateBarClasses(bars, n - 1 - i, 'sorted');
+                }
+                if (bars[n - 1 - i]) updateBarClasses(bars, n - 1 - i, 'sorted'); // Mark as sorted
+                if (!swapped) {
+                    logToSort('bubbleSortLog', 'No swaps in this pass. Array is sorted.');
+                    break;
+                }
             }
-            // Clear comparison highlight for the inner loop element 'j'
-            const barJ = container.querySelector(
-              `.sort-bar[data-index="${j}"]`
-            );
-            if (barJ) barJ.classList.remove("comparing");
-          }
-
-          // Swap the found minimum element with the first element of the unsorted part
-          if (minIndex !== i) {
-            logElement.innerHTML += `Swapping minimum (${arr[minIndex]}) with element at index ${i} (${arr[i]}).\n`;
-            logElement.scrollTop = logElement.scrollHeight;
-            highlightBars(container, [i, minIndex], "swapping");
-            await new Promise((resolve) => setTimeout(resolve, speedFunc()));
-
-            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-
-            // Update visualization after swap
-            updateBars(container, arr);
-            // Mark the newly placed element as sorted
-            markSorted(container, i);
-            await new Promise((resolve) => setTimeout(resolve, speedFunc()));
-          } else {
-            logElement.innerHTML += `Element at index ${i} (${arr[i]}) is already the minimum. No swap needed.\n`;
-            logElement.scrollTop = logElement.scrollHeight;
-            // Mark the element as sorted
-            markSorted(container, i);
-            await new Promise((resolve) => setTimeout(resolve, speedFunc()));
-          }
-          clearHighlights(container); // Clear highlights before next outer loop pass
-        }
-        // Mark the last element as sorted
-        markSorted(container, n - 1);
-        logElement.innerHTML += "Selection Sort Complete!\n";
-        logElement.scrollTop = logElement.scrollHeight;
-        yield arr; // Final sorted array
-      }
-
-      // --- Event Listeners & Control ---
-      async function runSort(generator, button, messageElement) {
-        button.disabled = true;
-        messageElement.style.display = "none"; // Hide previous messages
-        try {
-          const iterator = generator();
-          let result = await iterator.next();
-          while (!result.done) {
-            // The work is done inside the generator with awaits
-            result = await iterator.next(); // Continue if generator yields intermediate steps (not used here)
-          }
-          showMessage(messageElement, "Sorting complete!", "success");
-        } catch (e) {
-          console.error("Sorting error:", e);
-          showMessage(
-            messageElement,
-            "An error occurred during sorting.",
-            "error"
-          );
-        } finally {
-          button.disabled = false;
-        }
-      }
-
-      runBubbleSortButton.addEventListener("click", () => {
-        const speed = () => 1050 - parseInt(bubbleSpeedRange.value, 10); // Inverse relationship: higher slider value = faster
-        runSort(
-          () =>
-            bubbleSortGenerator(
-              bubbleArray,
-              bubbleSortContainer,
-              bubbleSortLog,
-              speed
-            ),
-          runBubbleSortButton,
-          bubbleSortMessage
-        );
-      });
-
-      resetBubbleSortButton.addEventListener("click", () => {
-        if (bubbleSortTimeout) clearTimeout(bubbleSortTimeout); // Stop ongoing sort if any
-        bubbleArray = [...initialArray];
-        renderBars(bubbleSortContainer, bubbleArray);
-        bubbleSortLog.innerHTML =
-          "<span class=\"text-gray-500 italic\">Reset. Click 'Run Bubble Sort' to start visualization.</span>";
-        runBubbleSortButton.disabled = false;
-        showMessage(
-          bubbleSortMessage,
-          "Bubble Sort visualization reset.",
-          "info"
-        );
-      });
-
-      runSelectionSortButton.addEventListener("click", () => {
-        const speed = () => 1050 - parseInt(selectionSpeedRange.value, 10);
-        runSort(
-          () =>
-            selectionSortGenerator(
-              selectionArray,
-              selectionSortContainer,
-              selectionSortLog,
-              speed
-            ),
-          runSelectionSortButton,
-          selectionSortMessage
-        );
-      });
-
-      resetSelectionSortButton.addEventListener("click", () => {
-        if (selectionSortTimeout) clearTimeout(selectionSortTimeout); // Stop ongoing sort if any
-        selectionArray = [...initialArray];
-        renderBars(selectionSortContainer, selectionArray);
-        selectionSortLog.innerHTML =
-          "<span class=\"text-gray-500 italic\">Reset. Click 'Run Selection Sort' to start visualization.</span>";
-        runSelectionSortButton.disabled = false;
-        showMessage(
-          selectionSortMessage,
-          "Selection Sort visualization reset.",
-          "info"
-        );
-      });
-
-      // --- Quiz Logic ---
-      function checkSortQuiz() {
-        const answers = {
-          q1_sort: "b", // arrange items
-          q2_sort: "b", // compare/swap adjacent
-          q3_sort: "b", // list.sort()
-          q4_sort: "c", // faster (better time complexity)
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
+            // Mark all bars as sorted at the end
+            for(let k=0; k < n; k++) updateBarClasses(bars, k, 'sorted');
+            logToSort('bubbleSortLog', `Bubble Sort Complete. Sorted array: [${arr.join(', ')}]`);
+            showSortMessage('bubbleSortMessage', 'Bubble Sort Complete!', 'success');
+            runBubbleSortButton.disabled = false;
+            resetBubbleSortButton.disabled = false;
+            currentBubbleArray = arr; // Persist sorted array for next potential reset
         }
 
-        if (!allAnswered) {
-          quizResultSort.textContent =
-            "Please answer all questions before checking.";
-          quizResultSort.className = "message-box message-box-error";
-          quizResultSort.style.display = "block";
-          return;
+        function resetBubbleSort() {
+            if (bubbleAnimationTimeout) clearTimeout(bubbleAnimationTimeout);
+            currentBubbleArray = [...initialArrayDefault];
+            createBars('bubbleSortContainer', currentBubbleArray, Math.max(...initialArrayDefault, 10));
+            bubbleSortLog.innerHTML = `<p><em>Bubble sort reset. Initial array: [${currentBubbleArray.join(', ')}]</em></p>`;
+            hideSortMessage('bubbleSortMessage');
+            runBubbleSortButton.disabled = false;
+            resetBubbleSortButton.disabled = false;
         }
 
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
+        runBubbleSortButton.addEventListener('click', bubbleSortVisualize);
+        resetBubbleSortButton.addEventListener('click', resetBubbleSort);
+        
 
-        quizResultSort.innerHTML = resultsHTML;
-        quizResultSort.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultSort.style.display = "block";
-      }
+        // --- Selection Sort ---
+        const runSelectionSortButton = document.getElementById('runSelectionSortButton');
+        const resetSelectionSortButton = document.getElementById('resetSelectionSortButton');
+        const selectionSortContainer = document.getElementById('selectionSortContainer');
+        const selectionSortLog = document.getElementById('selectionSortLog');
 
-      // --- Event Listeners ---
-      checkQuizButtonSort.addEventListener("click", checkSortQuiz);
+        async function selectionSortVisualize() {
+            if (selectionAnimationTimeout) clearTimeout(selectionAnimationTimeout);
+            runSelectionSortButton.disabled = true;
+            resetSelectionSortButton.disabled = true;
+            hideSortMessage('selectionSortMessage');
+            selectionSortLog.innerHTML = '<p><em>Starting Selection Sort...</em></p>';
+            let arr = [...currentSelectionArray];
+            const n = arr.length;
+            const bars = selectionSortContainer.childNodes;
+            const maxVal = Math.max(...initialArrayDefault, 10);
 
-      // --- Initial Setup ---
-      window.onload = () => {
-        renderBars(bubbleSortContainer, bubbleArray);
-        renderBars(selectionSortContainer, selectionArray);
-      };
+            logToSort('selectionSortLog', `Initial array: [${arr.join(', ')}]`);
+
+            for (let i = 0; i < n - 1; i++) {
+                let min_idx = i;
+                updateBarClasses(bars, i, 'minimum'); // Current assumed minimum
+                logToSort('selectionSortLog', `<strong>Pass ${i + 1}:</strong> Finding minimum for position ${i} (current value ${arr[i]})`);
+                await new Promise(resolve => selectionAnimationTimeout = setTimeout(resolve, selectionSortSpeed));
+
+                for (let j = i + 1; j < n; j++) {
+                    updateBarClasses(bars, j, 'comparing');
+                    logToSort('selectionSortLog', `Comparing ${arr[min_idx]} (current min) with ${arr[j]}`);
+                    await new Promise(resolve => selectionAnimationTimeout = setTimeout(resolve, selectionSortSpeed));
+                    if (arr[j] < arr[min_idx]) {
+                        logToSort('selectionSortLog', `${arr[j]} < ${arr[min_idx]}. New minimum found: ${arr[j]}`);
+                        if(min_idx !== i) updateBarClasses(bars, min_idx, 'clear'); // Clear previous minimum if it wasn't the start of pass
+                        min_idx = j;
+                        updateBarClasses(bars, min_idx, 'minimum'); // Highlight new minimum
+                        await new Promise(resolve => selectionAnimationTimeout = setTimeout(resolve, selectionSortSpeed));
+                    }
+                    if (j !== min_idx) updateBarClasses(bars, j, 'clear'); // Clear non-minimum comparison
+                }
+
+                if (min_idx !== i) {
+                    logToSort('selectionSortLog', `Swapping ${arr[i]} with ${arr[min_idx]} (minimum for this pass)`);
+                    updateBarClasses(bars, i, 'swapping');
+                    updateBarClasses(bars, min_idx, 'swapping'); // min_idx is already 'minimum', add 'swapping'
+                    await new Promise(resolve => selectionAnimationTimeout = setTimeout(resolve, selectionSortSpeed));
+                    
+                    [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
+                    createBars('selectionSortContainer', arr, maxVal); // Redraw
+                    updateBarClasses(selectionSortContainer.childNodes, i, 'sorted'); // New item is sorted
+                    if (min_idx > i) updateBarClasses(selectionSortContainer.childNodes, min_idx, 'clear'); // Clear the original spot of min_idx if it moved
+                } else {
+                     logToSort('selectionSortLog', `${arr[i]} is already in correct position for this pass.`);
+                }
+                updateBarClasses(bars, i, 'sorted'); // Mark as sorted
+                 // Clear any lingering minimum highlights from previous inner loop iterations
+                for(let k = i + 1; k < n; k++) updateBarClasses(bars, k, 'clear');
+            }
+            if (bars[n-1]) updateBarClasses(bars, n - 1, 'sorted'); // Mark last element as sorted
+
+            logToSort('selectionSortLog', `Selection Sort Complete. Sorted array: [${arr.join(', ')}]`);
+            showSortMessage('selectionSortMessage', 'Selection Sort Complete!', 'success');
+            runSelectionSortButton.disabled = false;
+            resetSelectionSortButton.disabled = false;
+            currentSelectionArray = arr;
+        }
+
+        function resetSelectionSort() {
+            if (selectionAnimationTimeout) clearTimeout(selectionAnimationTimeout);
+            currentSelectionArray = [...initialArrayDefault];
+            createBars('selectionSortContainer', currentSelectionArray, Math.max(...initialArrayDefault, 10));
+            selectionSortLog.innerHTML = `<p><em>Selection sort reset. Initial array: [${currentSelectionArray.join(', ')}]</em></p>`;
+            hideSortMessage('selectionSortMessage');
+            runSelectionSortButton.disabled = false;
+            resetSelectionSortButton.disabled = false;
+        }
+
+        runSelectionSortButton.addEventListener('click', selectionSortVisualize);
+        resetSelectionSortButton.addEventListener('click', resetSelectionSort);
+
+        // Initial setup
+        resetBubbleSort();
+        resetSelectionSort();
     </script>
-    <script src="../js/main.js" defer></script>
   </body>
 </html>
