@@ -30,16 +30,53 @@ The Interactive Guide to Python serves as a central navigation hub for a collect
 
 ## Project Structure
 
-The project primarily consists of:
+The project follows a simple structure:
 
-* **`index.html` (Main Page):** The file you provided. This is the central landing page that displays all the topic categories and links.
+```
+interactive-python/
+├── index.html
+├── js/
+│   └── main.js
+├── topic_pages/  <-- (or similar, containing all .html files for topics)
+│   ├── intro-programming.html
+│   ├── variables-types.html
+│   ├── lists-iteration.html
+│   ├── booleans-conditionals.html
+│   ├── nested-conditionals.html
+│   ├── loops.html
+│   ├── nested-loops.html
+│   ├── string-operations.html
+│   ├── functions.html
+│   ├── error-handling.html
+│   ├── file-handling.html
+│   ├── random-module.html
+│   ├── 2d-lists.html
+│   ├── dictionaries-tuples.html
+│   ├── data-structures-overview.html
+│   ├── trees.html
+│   ├── graphs.html
+│   ├── sorting-algorithms.html
+│   ├── merge-sort-joke-sorts.html
+│   ├── searching.html
+│   ├── oop-basics.html
+│   ├── advanced-oop.html
+│   └── recursion.html
+└── README.md
+```
+
+Key components are:
+
+* **`index.html` (Main Page):** This is the central landing page that displays all the topic categories and links.
     * It includes inline CSS for custom card hover effects.
     * It uses Tailwind CSS via a CDN for overall styling.
     * It links to Google Fonts for the "Inter" font.
+    * It links to `js/main.js` for shared JavaScript functionality (like the `showMessage` function for navigation).
+* **`js/main.js`:** Contains shared JavaScript functions used across multiple HTML pages.
 * **Topic HTML Pages (e.g., `intro-programming.html`, `variables-types.html`, etc.):**
-    * These are separate HTML files, one for each topic listed on the main page.
-    * Each of these files would contain the detailed content, explanations, examples, and potentially interactive elements for the specific Python concept it covers. (The content of these files is not included in the provided `index.html` but is implied by the links).
-* **No separate `script.js` or `styles.css` is explicitly defined for `index.html` beyond the inline style and CDN links.** Individual topic pages might have their own CSS or JS if needed for interactivity.
+    * These are separate HTML files, one for each topic listed on the main page, likely stored in a dedicated directory (e.g., `topic_pages/`).
+    * Each of these files contains the detailed content, explanations, examples, and potentially interactive elements for the specific Python concept it covers.
+    * These pages also link to `js/main.js` for common script functionalities.
+* **No separate `styles.css` is explicitly defined for `index.html` beyond the inline style and CDN links.** Individual topic pages might have their own CSS if needed for interactivity.
 
 ## How to Use This Guide
 
@@ -55,7 +92,7 @@ The project primarily consists of:
 * **Tailwind CSS:** A utility-first CSS framework used for styling the pages, loaded via CDN.
 * **Google Fonts:** For the "Inter" font.
 * **CSS3:** For custom styles like the link card hover effects.
-* **JavaScript (Potentially):** While not present in `index.html`, individual topic pages might use JavaScript for interactive examples or demonstrations.
+* **JavaScript (Potentially):** While `index.html` itself doesn't have extensive JavaScript logic beyond what's in `js/main.js`, individual topic pages might use more JavaScript for interactive examples or demonstrations. Also, `js/main.js` provides shared functionality.
 
 ## Content Sections
 
