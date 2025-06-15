@@ -3,320 +3,830 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recursion in Python</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <title>Recursion: Functions Calling Themselves | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Enhanced pedagogical design - Full page layout */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(139, 92, 246, 0.6); }
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-subtitle {
+        font-size: 12px;
+        margin: 1rem 0;
+        opacity: 0.9;
+      }
+
+      .mental-model-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+      }
+
+      .mental-model-section h3 {
+        color: #a78bfa;
+        margin-bottom: 1rem;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .mental-model-analogy {
+        background: rgba(15, 23, 42, 0.4);
+        border-left: 4px solid #8b5cf6;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 0 8px 8px 0;
+        backdrop-filter: blur(5px);
+      }
+
+      .concept-category {
+        margin-bottom: 3rem;
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+      }
+
+      .category-header {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(124, 58, 237, 0.3));
+        padding: 1.5rem;
+        border-radius: 12px;
+        border-left: 5px solid #8b5cf6;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(15px);
+      }
+
+      .interactive-section {
+        background: rgba(31, 41, 55, 0.5);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .interactive-section:hover {
+        border-color: #8b5cf6;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      }
+
+      .recursion-visualizer {
+        background: linear-gradient(145deg, #1f2937 0%, #374151 100%);
+        border: 2px solid #8b5cf6;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .call-stack-visual {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem 0;
+        min-height: 200px;
+        border: 2px dashed #8b5cf6;
+        border-radius: 8px;
+        padding: 1rem;
+        background: rgba(139, 92, 246, 0.1);
+      }
+
+      .stack-frame {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        margin: 0.25rem 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-size: 12px;
+        font-weight: bold;
+        animation: stack-push 0.5s ease-out;
+        position: relative;
+      }
+
+      @keyframes stack-push {
+        from { transform: translateY(-20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      .fibonacci-explorer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .controls-panel {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #6b7280;
+        border-radius: 12px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .output-panel {
+        background: rgba(15, 23, 42, 0.8);
+        border: 2px solid #8b5cf6;
+        border-radius: 12px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .recursion-step {
+        background: rgba(139, 92, 246, 0.2);
+        border-left: 3px solid #8b5cf6;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border-radius: 0 6px 6px 0;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+      }
+
+      .base-case-highlight {
+        background: rgba(34, 197, 94, 0.3);
+        border-left-color: #22c55e;
+        font-weight: bold;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.2));
+        border: 2px solid #ef4444;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h4 {
+        color: #fca5a5;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+        border: 2px solid #22c55e;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 3rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-question {
+        background: rgba(31, 41, 55, 0.6);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 4px solid #22c55e;
+      }
+
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+
+      .quiz-option {
+        background: rgba(75, 85, 99, 0.5);
+        border: 2px solid transparent;
+        border-radius: 6px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 11px;
+      }
+
+      .quiz-option:hover {
+        border-color: #8b5cf6;
+        background: rgba(139, 92, 246, 0.2);
+      }
+
+      .quiz-option.selected {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.3);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.3);
+      }
+
+      .quiz-feedback {
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid #22c55e;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      .progress-indicator {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #8b5cf6;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 2rem 0;
+        text-align: center;
+        backdrop-filter: blur(10px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .fibonacci-explorer {
+          grid-template-columns: 1fr;
+        }
+
+        .concept-category {
+          padding: 1rem;
+        }
+      }
+    </style>
   </head>
-  <body class="min-h-screen">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="file-handling.html" class="btn">
-          &laquo; File Handling
-        </a>
-        <a href="../index.html" class="btn">
-          Main Menu
-        </a>
-        <a href="data-structures.html" class="btn">
-          Next: Data Structures &rarr;
-        </a>
+      <!-- Navigation -->
+      <nav style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 2px solid #8b5cf6; padding: 1rem 2rem; position: sticky; top: 0; z-index: 100;">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+          <a href="data-structures.html" style="color: #a78bfa; text-decoration: none; font-size: 11px;">← Data Structures</a>
+          <a href="../index.html" style="color: #facc15; text-decoration: none; font-size: 12px; font-weight: bold;">🏠 Main Menu</a>
+          <a href="trees.html" style="color: #a78bfa; text-decoration: none; font-size: 11px;">Trees →</a>
+        </div>
       </nav>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Recursion
-          </h2>
-          <p class="text-sm italic mt-1">
-            Understanding recursive functions and when to use them.
-          </p>
-        </header>
-
-        <main class="mx-auto">
-          <h1 class="page-title-8bit">
-            Understanding Recursion
+      <!-- Hero Section -->
+      <header class="hero-section">
+        <div class="hero-content">
+          <h1 style="font-size: 24px; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+            Recursion: Functions Calling Themselves
           </h1>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              1. What is Recursion?
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Recursion is like a magical mirror that shows a reflection of itself, which in turn shows another reflection, and so on. In programming, it's when a function looks at itself and says, "I need to do this same task, but with a smaller piece of the problem." It's like a chef who, when asked to make a cake, says, "First, I'll make a smaller cake, and then build upon it."
-              </p>
-              <p>
-                Think of it like a set of Russian nesting dolls (Matryoshka dolls): each doll contains a smaller, identical version of itself, until you reach the smallest doll that cannot be opened further. This smallest doll is like the "base case" in recursion - the point where we stop breaking down the problem and start building back up.
-              </p>
-              <p>A recursive function must have two key components:</p>
-              <ul>
-                <li>
-                  <strong>Base Case(s):</strong> This is like the smallest doll in the set - the simplest version of the problem that we can solve directly. It's the "stop sign" that tells our function when to stop calling itself and start returning answers.
-                </li>
-                <li>
-                  <strong>Recursive Step (or Recursive Case):</strong> This is like opening each doll to find a smaller one inside. The function calls itself with a smaller piece of the problem, just like each doll contains a smaller version of itself.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              2. Base Case and Recursive Step: The Factorial Example
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Let's use the factorial problem to understand recursion better. Calculating a factorial is like building a tower of blocks, where each level depends on the one below it. For example, to build a 5-block tower, you need to first build a 4-block tower, and to build that, you need a 3-block tower, and so on.
-              </p>
-              <p>We can define factorial recursively as follows:</p>
-              <ul>
-                <li>
-                  <strong>Base Case:</strong> When we reach the ground (n = 0), we know we have 1 block (0! = 1). This is like having a single foundation block that all towers start from.
-                </li>
-                <li>
-                  <strong>Recursive Step:</strong> For any other number, we build our tower by adding our current block to the tower below it. So, 5! = 5 * 4!, just like adding the 5th block to a 4-block tower.
-                </li>
-              </ul>
-              <pre><code class="code-block-8bit python">def factorial(n):
-  print(f"Function call: factorial({n})")
-  # Base Case: Stop the recursion
-  if n == 0:
-    print(f"  Base case reached for factorial(0). Returning 1.")
-    return 1
-  # Recursive Step: Call the function with a smaller value
-  else:
-    print(f"  Recursive step for factorial({n}). Needs factorial({n-1})...")
-    recursive_result = factorial(n - 1) # Function calls itself
-    result = n * recursive_result
-    print(f"  Returning from factorial({n}): calculated {n} * {recursive_result} = {result}")
-    return result
-
-# Example call to demonstrate the flow
-print("Calculating factorial of 3:")
-final_answer = factorial(3)
-print(f"\nFinal Answer for 3!: {final_answer}")
-
-# Expected Output (illustrative):
-# Calculating factorial of 3:
-# Function call: factorial(3)
-#   Recursive step for factorial(3). Needs factorial(2)...
-# Function call: factorial(2)
-#   Recursive step for factorial(2). Needs factorial(1)...
-# Function call: factorial(1)
-#   Recursive step for factorial(1). Needs factorial(0)...
-# Function call: factorial(0)
-#   Base case reached for factorial(0). Returning 1.
-#   Returning from factorial(1): calculated 1 * 1 = 1
-#   Returning from factorial(2): calculated 2 * 1 = 2
-#   Returning from factorial(3): calculated 3 * 2 = 6
-# 
-# Final Answer for 3!: 6</code></pre>
-              <div class="message-box-8bit error">
-                <strong>Crucial Point:</strong> A recursive function MUST have a correctly defined base case. Without it, or if the recursive calls don't eventually reach a base case, the function would call itself infinitely (or until system resources are exhausted), leading to a "stack overflow" error.
-              </div>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              3. How Recursion Works: The Call Stack
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                The call stack is like a stack of plates in a restaurant. Each time a function calls itself, it's like adding another plate to the stack. When a function finishes, it's like removing the top plate. This stack helps the computer keep track of where it is in the process of solving the problem.
-              </p>
-              <p>Here's how it works in the context of recursion:</p>
-              <ul>
-                <li>
-                  <strong>Pushing to the Stack:</strong> Each function call is like adding a new plate to the stack. The plate contains information about what we're trying to solve. For factorial(3), we first add a plate for 3, then one for 2, then 1, and finally 0.
-                </li>
-                <li>
-                  <strong>Reaching the Base Case:</strong> When we reach the base case (like factorial(0)), it's like finding the bottom plate in our stack. We can now start solving the problem by working our way back up.
-                </li>
-                <li>
-                  <strong>Popping from the Stack (Unwinding):</strong> As we solve each part, we remove plates from the stack, one by one. Each plate tells us what we need to multiply by to get the next answer. It's like building our tower back up, one block at a time.
-                </li>
-              </ul>
-              <p>
-                Visualizing this stack of function calls growing and shrinking is key to understanding how recursion progresses and eventually terminates to produce the final result.
-              </p>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              4. Interactive Factorial Visualization
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Enter a small non-negative integer (e.g., 0-12, as larger numbers create many calls) to see the factorial calculation steps and a simplified call stack trace.
-              </p>
-              <div class="controls-flex">
-                <label for="factorialInput">Number (n):</label>
-                <input
-                  type="number"
-                  id="factorialInput"
-                  class="input-field-8bit"
-                  min="0"
-                  max="12"
-                  value="4"
-                />
-                <button id="calculateFactorialButton" class="button-8bit">
-                  Calculate & Visualize
-                </button>
-              </div>
-              <div class="grid-cols-2-responsive mt-4">
-                <div>
-                  <h3 class="section-subtitle-8bit smaller-subtitle">Call Stack Trace:</h3>
-                  <div id="callStackOutput" class="output-display-8bit min-h-[200px]"><p><em>Call stack events will appear here.</em></p></div>
-                </div>
-                <div>
-                  <h3 class="section-subtitle-8bit smaller-subtitle">Calculation Steps:</h3>
-                  <div id="calculationStepsOutput" class="output-display-8bit min-h-[200px]"><p><em>Calculation details will appear here.</em></p></div>
-                </div>
-              </div>
-              <p class="mt-4">
-                  <strong>Final Result for n!: <span id="finalResult" class="final-result-text">N/A</span></strong>
-              </p>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-              <h2 class="section-subtitle-8bit">
-                  5. When to Use Recursion (and When Not To)
-              </h2>
-              <div class="sub-interactive-box">
-                  <p>Recursion can be an elegant and intuitive solution for problems that have a naturally recursive structure:</p>
-                  <ul>
-                      <li><strong>Tree and Graph Traversals:</strong> Algorithms like Depth-First Search (DFS) for exploring tree or graph nodes are often implemented recursively (e.g., finding files in a directory structure).</li>
-                      <li><strong>Divide and Conquer Algorithms:</strong> Many efficient algorithms, such as Merge Sort and Quick Sort, break the problem into smaller subproblems, solve them recursively, and then combine the results.</li>
-                      <li><strong>Mathematical Problems Defined Recursively:</strong> Problems like the Fibonacci sequence (<code>F(n) = F(n-1) + F(n-2)</code>) or factorial (<code>n! = n * (n-1)!</code>) have direct recursive definitions.</li>
-                      <li><strong>Parsing Hierarchical Data:</strong> Structures like JSON or XML can be parsed recursively, though often, dedicated libraries handle this complexity.</li>
-                  </ul>
-                  <p>However, recursion is not always the optimal choice and has potential drawbacks:</p>
-                  <ul>
-                      <li><strong>Performance Overhead:</strong> Each function call incurs some overhead (e.g., creating a stack frame, passing parameters). For simple iterative problems (like summing elements in a list), a straightforward loop is usually faster and more memory-efficient.</li>
-                      <li><strong>Stack Overflow Risk:</strong> If the recursion is too deep (i.e., too many nested calls without reaching a base case quickly enough), it can exhaust the available space on the call stack, leading to a stack overflow error. This is particularly a concern for problems that might lead to very long chains of recursion. Python has a default recursion limit (which can be checked with <code>sys.getrecursionlimit()</code> and modified with <code>sys.setrecursionlimit()</code>), but relying on increasing this limit is often a sign that an iterative approach might be better suited if the depth is an issue for typical inputs.</li>
-                      <li><strong>Readability and Debugging:</strong> While recursion can be very clear for problems that map directly to a recursive definition, complex recursive logic can sometimes be harder to understand, follow, and debug than an equivalent iterative solution, especially for those less familiar with the concept.</li>
-                  </ul>
-                  <div class="message-box-8bit info">
-                      It's important to note that any problem solvable with recursion can also be solved using iteration (loops), though the iterative solution might require an explicit data structure (like a stack) to mimic the behavior of the call stack. The choice between recursion and iteration often depends on factors like the clarity of the solution for the specific problem, efficiency considerations, and the potential for stack overflow issues with the expected input sizes.
-                  </div>
-              </div>
-          </section>
-        </main>
-
-        <footer class="footer-8bit text-center py-6">
-          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
-          <p class="mt-3 md:mt-4">
-            <a
-              href="../index.html"
-              class="link-8bit"
-              >Back to Main Menu</a>
+          <p class="hero-subtitle">
+            Master the elegant art of solving problems by breaking them into smaller versions of themselves
           </p>
-        </footer>
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+          <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1.5rem auto; max-width: 600px;">
+            🧠 Mental Model: Russian nesting dolls - each function call contains a smaller version until we reach the base case
+          </div>
+        </div>
+      </header>
+
+      <main class="content-wrapper-8bit">
+        <!-- Problem Motivation -->
+        <section class="concept-category">
+          <div class="category-header">
+            <h2 style="color: #facc15; font-size: 16px; margin-bottom: 0.5rem;">🎯 Why Learn Recursion?</h2>
+            <p style="font-size: 11px; color: #e5e7eb; line-height: 1.6; margin: 0;">
+              Imagine you need to calculate factorial(5) - that's 5 × 4 × 3 × 2 × 1. Traditional loops work, but what if we could express this as "5 times factorial(4)"? That's the recursive mindset: solving big problems by solving smaller versions of the same problem.
+            </p>
+          </div>
+        </section>
+
+        <!-- Mental Model Section -->
+        <section class="mental-model-section">
+          <h3>🧠 Mental Model: Russian Nesting Dolls (Matryoshka)</h3>
+          
+          <div class="mental-model-analogy">
+            <p style="font-size: 12px; line-height: 1.6; margin-bottom: 1rem;">
+              <strong>Think of recursion like Russian nesting dolls:</strong>
+            </p>
+            <ul style="font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+              <li><strong>🪆 Each doll contains a smaller version</strong> - Each function call contains a smaller problem</li>
+              <li><strong>📏 The smallest doll can't be opened</strong> - Base case: the simplest version we can solve directly</li>
+              <li><strong>🔄 Work backwards to build the complete doll</strong> - Solutions build up from base case to original problem</li>
+              <li><strong>⚠️ Must eventually reach the smallest doll</strong> - Must eventually reach base case or infinite loop!</li>
+            </ul>
+            
+            <div style="background: rgba(139, 92, 246, 0.2); border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <p style="font-size: 11px; margin: 0; color: #c4b5fd;">
+                <strong>Key Insight:</strong> Like opening dolls to find smaller ones inside, each recursive call peels away one layer of the problem until we reach something simple enough to solve directly.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 1: Understanding the Components -->
+        <section class="interactive-section">
+          <h3 style="color: #8b5cf6; font-size: 14px; margin-bottom: 1rem;">📋 Step 1: The Two Essential Components</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+            <div style="background: rgba(34, 197, 94, 0.2); border: 2px solid #22c55e; border-radius: 8px; padding: 1.5rem;">
+              <h4 style="color: #86efac; font-size: 12px; margin-bottom: 0.75rem;">🛑 Base Case</h4>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                The simplest version of the problem that can be solved directly without calling the function again.
+              </p>
+              <div style="background: rgba(15, 23, 42, 0.6); border-radius: 6px; padding: 0.75rem; font-family: 'Courier New', monospace; font-size: 10px; color: #86efac;">
+                if n == 0:<br>
+                &nbsp;&nbsp;return 1  # Stop here!
+              </div>
+            </div>
+            
+            <div style="background: rgba(139, 92, 246, 0.2); border: 2px solid #8b5cf6; border-radius: 8px; padding: 1.5rem;">
+              <h4 style="color: #c4b5fd; font-size: 12px; margin-bottom: 0.75rem;">🔄 Recursive Case</h4>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Break the problem into a smaller version of itself by calling the function with simpler input.
+              </p>
+              <div style="background: rgba(15, 23, 42, 0.6); border-radius: 6px; padding: 0.75rem; font-family: 'Courier New', monospace; font-size: 10px; color: #c4b5fd;">
+                else:<br>
+                &nbsp;&nbsp;return n * factorial(n-1)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2: Interactive Factorial Visualizer -->
+        <section class="recursion-visualizer">
+          <h3 style="color: #8b5cf6; font-size: 14px; margin-bottom: 1rem;">🎮 Step 2: Interactive Factorial Visualizer</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin: 1.5rem 0;">
+            <div class="controls-panel">
+              <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">Controls</h4>
+              <div style="margin-bottom: 1rem;">
+                <label style="color: #d1d5db; font-size: 11px; display: block; margin-bottom: 0.5rem;">Number (0-10):</label>
+                <input type="number" id="factorialInput" min="0" max="10" value="4" 
+                       style="width: 100%; padding: 0.5rem; border: 2px solid #6b7280; border-radius: 6px; background: rgba(31, 41, 55, 0.8); color: #e5e7eb; font-size: 11px;">
+              </div>
+              <button id="visualizeButton" 
+                      style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                🎬 Visualize Recursion
+              </button>
+              
+              <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(139, 92, 246, 0.1); border-radius: 6px;">
+                <p style="font-size: 10px; color: #c4b5fd; margin: 0;">
+                  <strong>Result:</strong> <span id="finalResult" style="color: #facc15;">Click to calculate</span>
+                </p>
+              </div>
+            </div>
+            
+            <div class="output-panel">
+              <h4 style="color: #8b5cf6; font-size: 12px; margin-bottom: 1rem;">📚 Call Stack Visualization</h4>
+              <div id="callStackDisplay" class="call-stack-visual">
+                <p style="color: #9ca3af; font-size: 11px; text-align: center;">Press "Visualize Recursion" to see the magic happen!</p>
+              </div>
+              
+              <div id="executionSteps" style="margin-top: 1rem; max-height: 200px; overflow-y: auto; background: rgba(15, 23, 42, 0.5); border-radius: 6px; padding: 1rem;">
+                <p style="color: #9ca3af; font-size: 10px; text-align: center;">Execution steps will appear here...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 3: Fibonacci Challenge -->
+        <section class="interactive-section">
+          <h3 style="color: #8b5cf6; font-size: 14px; margin-bottom: 1rem;">🏗️ Step 3: Building Fibonacci Recursively</h3>
+          
+          <div class="mental-model-analogy">
+            <p style="font-size: 11px; line-height: 1.6; margin-bottom: 1rem;">
+              <strong>Fibonacci sequence:</strong> Each number is the sum of the two preceding ones (0, 1, 1, 2, 3, 5, 8, 13...)
+            </p>
+            <p style="font-size: 11px; line-height: 1.6; margin: 0;">
+              Perfect for recursion because F(n) = F(n-1) + F(n-2) - it naturally calls itself twice!
+            </p>
+          </div>
+          
+          <div class="fibonacci-explorer">
+            <div>
+              <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">Try It Yourself</h4>
+              <div style="margin-bottom: 1rem;">
+                <label style="color: #d1d5db; font-size: 11px; display: block; margin-bottom: 0.5rem;">Fibonacci number (0-15):</label>
+                <input type="number" id="fibInput" min="0" max="15" value="6" 
+                       style="width: 100%; padding: 0.5rem; border: 2px solid #6b7280; border-radius: 6px; background: rgba(31, 41, 55, 0.8); color: #e5e7eb; font-size: 11px;">
+              </div>
+              <button id="fibButton" 
+                      style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; margin-bottom: 1rem;">
+                🔢 Calculate Fibonacci
+              </button>
+              
+              <div style="background: rgba(139, 92, 246, 0.1); border-radius: 6px; padding: 1rem;">
+                <p style="font-size: 10px; color: #c4b5fd; margin: 0;">
+                  <strong>F(<span id="fibN">6</span>) = <span id="fibResult">8</span></strong>
+                </p>
+              </div>
+            </div>
+            
+            <div id="fibVisualization" style="background: rgba(15, 23, 42, 0.5); border-radius: 8px; padding: 1rem; max-height: 300px; overflow-y: auto;">
+              <p style="color: #9ca3af; font-size: 11px; text-align: center;">Fibonacci call tree will appear here...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4: Critical Pitfalls -->
+        <section class="pitfall-warning">
+          <h4>⚠️ Critical Pitfall: Infinite Recursion</h4>
+          <div style="background: rgba(15, 23, 42, 0.6); border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
+            <p style="font-size: 11px; line-height: 1.6; margin-bottom: 1rem; color: #fecaca;">
+              <strong>The #1 recursion mistake:</strong> Forgetting the base case or making it unreachable!
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <h5 style="color: #ef4444; font-size: 11px; margin-bottom: 0.5rem;">❌ WRONG - Infinite Loop</h5>
+                <pre style="background: rgba(239, 68, 68, 0.2); border-radius: 4px; padding: 0.75rem; font-size: 10px; margin: 0; overflow-x: auto;"><code>def bad_factorial(n):
+    return n * bad_factorial(n-1)
+    # Missing base case!
+    # Will run forever!</code></pre>
+              </div>
+              
+              <div>
+                <h5 style="color: #22c55e; font-size: 11px; margin-bottom: 0.5rem;">✅ CORRECT - Has Base Case</h5>
+                <pre style="background: rgba(34, 197, 94, 0.2); border-radius: 4px; padding: 0.75rem; font-size: 10px; margin: 0; overflow-x: auto;"><code>def good_factorial(n):
+    if n == 0:  # Base case!
+        return 1
+    return n * good_factorial(n-1)</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1rem; margin-top: 1rem;">
+            <p style="font-size: 11px; color: #fecaca; margin: 0;">
+              <strong>Remember:</strong> Every recursive function needs a base case that stops the recursion. Without it, you'll get a "RecursionError: maximum recursion depth exceeded" error!
+            </p>
+          </div>
+        </section>
+
+        <!-- Step 5: When to Use Recursion -->
+        <section class="interactive-section">
+          <h3 style="color: #8b5cf6; font-size: 14px; margin-bottom: 1rem;">🎯 Step 5: When to Use Recursion</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4 style="color: #22c55e; font-size: 12px; margin-bottom: 1rem;">✅ Perfect for Recursion</h4>
+              <ul style="font-size: 11px; line-height: 1.6; color: #e5e7eb;">
+                <li><strong>Tree structures:</strong> File systems, family trees</li>
+                <li><strong>Mathematical formulas:</strong> Factorial, Fibonacci</li>
+                <li><strong>Divide & conquer:</strong> Merge sort, binary search</li>
+                <li><strong>Parsing:</strong> JSON, XML structures</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 style="color: #ef4444; font-size: 12px; margin-bottom: 1rem;">❌ Better with Loops</h4>
+              <ul style="font-size: 11px; line-height: 1.6; color: #e5e7eb;">
+                <li><strong>Simple counting:</strong> Sum of numbers 1 to n</li>
+                <li><strong>List processing:</strong> Finding max/min values</li>
+                <li><strong>Deep recursion:</strong> Risk of stack overflow</li>
+                <li><strong>Performance critical:</strong> Loops are often faster</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 6: Practice Problems -->
+        <section class="interactive-section">
+          <h3 style="color: #8b5cf6; font-size: 14px; margin-bottom: 1rem;">💪 Step 6: Practice with Real Applications</h3>
+          
+          <div style="background: rgba(139, 92, 246, 0.1); border-radius: 8px; padding: 1.5rem;">
+            <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">🌳 Tree Sum Calculator</h4>
+            <p style="font-size: 11px; line-height: 1.6; margin-bottom: 1rem; color: #e5e7eb;">
+              Calculate the sum of all numbers in a nested list structure (like a tree):
+            </p>
+            
+            <div style="background: rgba(15, 23, 42, 0.6); border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+              <pre style="font-size: 10px; color: #c4b5fd; margin: 0;"><code>def tree_sum(tree):
+    if isinstance(tree, int):  # Base case: leaf node
+        return tree
+    total = 0
+    for branch in tree:        # Recursive case: sum all branches
+        total += tree_sum(branch)
+    return total
+
+# Example: [1, [2, 3], [4, [5, 6]]] → 21</code></pre>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: center; margin: 1rem 0;">
+              <input type="text" id="treeInput" placeholder="[1, [2, 3], 4]" value="[1, [2, 3], [4, [5, 6]]]"
+                     style="flex: 1; padding: 0.5rem; border: 2px solid #6b7280; border-radius: 6px; background: rgba(31, 41, 55, 0.8); color: #e5e7eb; font-size: 11px;">
+              <button id="treeSumButton"
+                      style="padding: 0.5rem 1rem; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 6px; font-size: 11px; cursor: pointer;">
+                Calculate Sum
+              </button>
+            </div>
+            
+            <div id="treeSumResult" style="background: rgba(34, 197, 94, 0.1); border-radius: 6px; padding: 1rem; margin-top: 1rem; display: none;">
+              <p style="font-size: 11px; color: #86efac; margin: 0;">
+                <strong>Sum:</strong> <span id="sumValue">0</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 7: Assessment -->
+        <section class="assessment-section">
+          <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 1.5rem; text-align: center;">
+            🎯 Knowledge Assessment: Recursion Mastery
+          </h3>
+          
+          <div class="quiz-question">
+            <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">Question 1: What happens without a base case?</h4>
+            <div class="quiz-options" data-question="1">
+              <div class="quiz-option" data-answer="incorrect">The function returns None</div>
+              <div class="quiz-option" data-answer="incorrect">The function runs once and stops</div>
+              <div class="quiz-option" data-answer="correct">The function calls itself infinitely until stack overflow</div>
+              <div class="quiz-option" data-answer="incorrect">Python automatically adds a base case</div>
+            </div>
+            <div class="quiz-feedback">
+              <strong>Correct!</strong> Without a base case, the function will keep calling itself until Python runs out of memory and raises a "RecursionError: maximum recursion depth exceeded" error.
+            </div>
+          </div>
+          
+          <div class="quiz-question">
+            <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">Question 2: What would factorial(3) return?</h4>
+            <div class="quiz-options" data-question="2">
+              <div class="quiz-option" data-answer="incorrect">3</div>
+              <div class="quiz-option" data-answer="correct">6</div>
+              <div class="quiz-option" data-answer="incorrect">9</div>
+              <div class="quiz-option" data-answer="incorrect">0</div>
+            </div>
+            <div class="quiz-feedback">
+              <strong>Correct!</strong> factorial(3) = 3 × 2 × 1 = 6. The recursive calls would be: factorial(3) → 3 × factorial(2) → 3 × 2 × factorial(1) → 3 × 2 × 1 × factorial(0) → 3 × 2 × 1 × 1 = 6.
+            </div>
+          </div>
+          
+          <div class="quiz-question">
+            <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">Question 3: Which problem is BEST suited for recursion?</h4>
+            <div class="quiz-options" data-question="3">
+              <div class="quiz-option" data-answer="incorrect">Adding all numbers from 1 to 100</div>
+              <div class="quiz-option" data-answer="correct">Traversing a file system directory tree</div>
+              <div class="quiz-option" data-answer="incorrect">Finding the maximum value in a list</div>
+              <div class="quiz-option" data-answer="incorrect">Printing numbers from 1 to 10</div>
+            </div>
+            <div class="quiz-feedback">
+              <strong>Correct!</strong> File system traversal is perfect for recursion because directories can contain subdirectories, creating a natural tree structure. Each directory is like a smaller version of the whole file system.
+            </div>
+          </div>
+        </section>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+          <p style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">
+            🎉 Advanced Topic Complete: Recursion
+          </p>
+          <p style="color: #e5e7eb; font-size: 10px; margin: 0;">
+            Next up: Trees - Perfect for practicing your new recursion skills!
+          </p>
+        </div>
+      </main>
+
+      <!-- Footer Navigation -->
+      <footer style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-top: 2px solid #8b5cf6; padding: 2rem; text-align: center;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+          <p style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">
+            🌟 You've mastered recursion! Ready to explore tree structures?
+          </p>
+          <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="data-structures.html" style="color: #a78bfa; text-decoration: none; font-size: 11px;">← Data Structures</a>
+            <a href="../index.html" style="color: #facc15; text-decoration: none; font-size: 11px;">🏠 Main Menu</a>
+            <a href="trees.html" style="color: #a78bfa; text-decoration: none; font-size: 11px;">Trees →</a>
+          </div>
+        </div>
+      </footer>
+    </div>
 
     <script>
-        const factorialInput = document.getElementById('factorialInput');
-        const calculateFactorialButton = document.getElementById('calculateFactorialButton');
-        const callStackOutput = document.getElementById('callStackOutput');
-        const calculationStepsOutput = document.getElementById('calculationStepsOutput');
-        const finalResultSpan = document.getElementById('finalResult');
-
-        let callStackDepth = 0;
-
-        function logToCallStack(message, type = 'call') {
-            const p = document.createElement('p');
-            let prefix = '';
-            if (type === 'call') {
-                prefix = `&rarr; Call (${callStackDepth}): `;
-            } else if (type === 'return') {
-                prefix = `&larr; Return (${callStackDepth}): `;
-            }
-            p.innerHTML = `${'&nbsp;'.repeat(callStackDepth * 2)}${prefix}${message}`;
-            callStackOutput.appendChild(p);
-            callStackOutput.scrollTop = callStackOutput.scrollHeight;
-        }
-
-        function logToCalculation(message) {
-            const p = document.createElement('p');
-            p.innerHTML = `${'&nbsp;'.repeat(callStackDepth * 2)}${message}`;
-            calculationStepsOutput.appendChild(p);
-            calculationStepsOutput.scrollTop = calculationStepsOutput.scrollHeight;
-        }
-
-        function factorialVisualize(n) {
-            callStackDepth++;
-            logToCallStack(`factorial(${n}) invoked.`);
-
-            if (n < 0) {
-                logToCalculation(`Error: Factorial is not defined for negative numbers.`);
-                logToCallStack(`factorial(${n}) returning error.`, 'return');
-                callStackDepth--;
-                throw new Error("Factorial not defined for negative numbers");
-            }
-            if (n > 12) { // Limit to prevent browser slowdown / too much output
-                logToCalculation(`Input ${n} is too large for visualization. Max is 12.`);
-                 logToCallStack(`factorial(${n}) stopping due to large input.`, 'return');
-                callStackDepth--;
-                throw new Error("Input too large for visualization.");
-            }
-
-            // Base Case
+      // Factorial Visualizer
+      let callStack = [];
+      let executionSteps = [];
+      
+      function visualizeFactorial(n, depth = 0) {
+        const indent = '  '.repeat(depth);
+        
+        // Add to call stack
+        callStack.push(`factorial(${n})`);
+        executionSteps.push(`${indent}📞 Call: factorial(${n})`);
+        updateDisplay();
+        
+        // Delay for visualization
+        return new Promise(resolve => {
+          setTimeout(() => {
             if (n === 0) {
-                logToCalculation(`Base Case: factorial(0) = 1.`);
-                logToCallStack(`factorial(0) returns 1.`, 'return');
-                callStackDepth--;
-                return 1;
+              executionSteps.push(`${indent}🛑 Base case: factorial(0) = 1`);
+              callStack.pop();
+              updateDisplay();
+              resolve(1);
+            } else {
+              executionSteps.push(`${indent}🔄 Recursive: factorial(${n}) = ${n} × factorial(${n-1})`);
+              updateDisplay();
+              
+              visualizeFactorial(n - 1, depth + 1).then(result => {
+                const answer = n * result;
+                executionSteps.push(`${indent}✅ Return: factorial(${n}) = ${n} × ${result} = ${answer}`);
+                callStack.pop();
+                updateDisplay();
+                resolve(answer);
+              });
             }
-            // Recursive Step
-            else {
-                logToCalculation(`Recursive Step: factorial(${n}) = ${n} * factorial(${n - 1})`);
-                const recursiveResult = factorialVisualize(n - 1);
-                const result = n * recursiveResult;
-                logToCalculation(`Calculation: factorial(${n}) = ${n} * ${recursiveResult} = ${result}`);
-                logToCallStack(`factorial(${n}) returns ${result}.`, 'return');
-                callStackDepth--;
-                return result;
-            }
-        }
-
-        calculateFactorialButton.addEventListener('click', () => {
-            callStackOutput.innerHTML = '';
-            calculationStepsOutput.innerHTML = '';
-            finalResultSpan.textContent = 'N/A';
-            callStackDepth = 0;
-
-            const num = parseInt(factorialInput.value);
-
-            if (isNaN(num)) {
-                calculationStepsOutput.innerHTML = '<p>Please enter a valid number.</p>';
-                return;
-            }
-
-            try {
-                logToCallStack(`--- Starting factorial(${num}) visualization ---`);
-                const result = factorialVisualize(num);
-                finalResultSpan.textContent = result;
-                logToCallStack(`--- Visualization complete for factorial(${num}) ---`, 'complete');
-            } catch (error) {
-                finalResultSpan.textContent = 'Error';
-                // Error already logged in calculation/stack trace by the recursive function
-                logToCallStack(`--- Visualization stopped due to error for factorial(${num}) ---`, 'error');
-            }
+          }, 800);
         });
-
-        // Initial placeholder messages
-        callStackOutput.innerHTML = '<p><em>Call stack events will appear here. Click \'Calculate & Visualize\'.</em></p>';
-        calculationStepsOutput.innerHTML = '<p><em>Calculation details will appear here. Click \'Calculate & Visualize\'.</em></p>';
+      }
+      
+      function updateDisplay() {
+        const stackDisplay = document.getElementById('callStackDisplay');
+        const stepsDisplay = document.getElementById('executionSteps');
+        
+        // Update call stack
+        stackDisplay.innerHTML = '';
+        if (callStack.length === 0) {
+          stackDisplay.innerHTML = '<p style="color: #9ca3af; font-size: 11px; text-align: center;">Call stack empty</p>';
+        } else {
+          callStack.slice().reverse().forEach((call, index) => {
+            const frame = document.createElement('div');
+            frame.className = 'stack-frame';
+            frame.textContent = call;
+            stackDisplay.appendChild(frame);
+          });
+        }
+        
+        // Update execution steps
+        stepsDisplay.innerHTML = executionSteps.map(step => 
+          `<div style="font-family: 'Courier New', monospace; font-size: 10px; color: #c4b5fd; margin: 0.25rem 0;">${step}</div>`
+        ).join('');
+        stepsDisplay.scrollTop = stepsDisplay.scrollHeight;
+      }
+      
+      document.getElementById('visualizeButton').addEventListener('click', async () => {
+        const n = parseInt(document.getElementById('factorialInput').value);
+        if (n < 0 || n > 10) {
+          alert('Please enter a number between 0 and 10');
+          return;
+        }
+        
+        callStack = [];
+        executionSteps = [];
+        document.getElementById('finalResult').textContent = 'Calculating...';
+        
+        const result = await visualizeFactorial(n);
+        document.getElementById('finalResult').textContent = result;
+      });
+      
+      // Fibonacci Calculator
+      function fibonacciRecursive(n, depth = 0) {
+        const indent = '  '.repeat(depth);
+        const fibDisplay = document.getElementById('fibVisualization');
+        
+        if (n <= 1) {
+          fibDisplay.innerHTML += `<div style="color: #86efac; font-size: 10px; font-family: 'Courier New', monospace;">${indent}🛑 F(${n}) = ${n}</div>`;
+          return n;
+        }
+        
+        fibDisplay.innerHTML += `<div style="color: #c4b5fd; font-size: 10px; font-family: 'Courier New', monospace;">${indent}🔄 F(${n}) = F(${n-1}) + F(${n-2})</div>`;
+        
+        const a = fibonacciRecursive(n - 1, depth + 1);
+        const b = fibonacciRecursive(n - 2, depth + 1);
+        const result = a + b;
+        
+        fibDisplay.innerHTML += `<div style="color: #facc15; font-size: 10px; font-family: 'Courier New', monospace;">${indent}✅ F(${n}) = ${a} + ${b} = ${result}</div>`;
+        fibDisplay.scrollTop = fibDisplay.scrollHeight;
+        
+        return result;
+      }
+      
+      document.getElementById('fibButton').addEventListener('click', () => {
+        const n = parseInt(document.getElementById('fibInput').value);
+        if (n < 0 || n > 15) {
+          alert('Please enter a number between 0 and 15');
+          return;
+        }
+        
+        document.getElementById('fibVisualization').innerHTML = '';
+        document.getElementById('fibN').textContent = n;
+        
+        const result = fibonacciRecursive(n);
+        document.getElementById('fibResult').textContent = result;
+      });
+      
+      // Tree Sum Calculator
+      document.getElementById('treeSumButton').addEventListener('click', () => {
+        try {
+          const input = document.getElementById('treeInput').value;
+          const tree = JSON.parse(input.replace(/'/g, '"'));
+          
+          function treeSum(tree) {
+            if (typeof tree === 'number') {
+              return tree;
+            }
+            let total = 0;
+            for (let branch of tree) {
+              total += treeSum(branch);
+            }
+            return total;
+          }
+          
+          const result = treeSum(tree);
+          document.getElementById('sumValue').textContent = result;
+          document.getElementById('treeSumResult').style.display = 'block';
+        } catch (e) {
+          alert('Invalid format! Use format like: [1, [2, 3], 4]');
+        }
+      });
+      
+      // Quiz functionality
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.closest('.quiz-question');
+          const options = question.querySelectorAll('.quiz-option');
+          const feedback = question.querySelector('.quiz-feedback');
+          
+          // Reset all options
+          options.forEach(opt => {
+            opt.classList.remove('selected', 'incorrect');
+          });
+          
+          // Mark selected
+          this.classList.add('selected');
+          
+          // Show feedback
+          if (this.dataset.answer === 'correct') {
+            feedback.style.display = 'block';
+          } else {
+            this.classList.add('incorrect');
+            // Find and highlight correct answer
+            question.querySelector('[data-answer="correct"]').classList.add('selected');
+            feedback.style.display = 'block';
+          }
+        });
+      });
+      
+      // Initialize
+      document.getElementById('fibInput').addEventListener('input', function() {
+        document.getElementById('fibN').textContent = this.value;
+      });
     </script>
   </body>
-</html>
+</html> 
