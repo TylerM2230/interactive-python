@@ -3,255 +3,767 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nested Conditionals in Python</title>
+    <title>Nested Conditionals | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .breadcrumb-nav {
+        background: rgba(31, 41, 55, 0.9);
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-button {
+        background: linear-gradient(135deg, #1e40af, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 10px;
+        border: 2px solid #facc15;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.2);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+        border: 2px solid #22c55e;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .mental-model-box h3 {
+        color: #86efac;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h3 {
+        color: #fdba74;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .interactive-playground {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+        border: 2px solid #3b82f6;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-playground h3 {
+        color: #93c5fd;
+        margin-bottom: 1rem;
+        font-size: 14px;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(126, 34, 206, 0.2));
+        border: 2px solid #9333ea;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .assessment-section h3 {
+        color: #c4b5fd;
+        margin-bottom: 1rem;
+        font-size: 14px;
+      }
+
+      .code-block {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        line-height: 1.4;
+        color: #e2e8f0;
+        overflow-x: auto;
+      }
+
+      .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        margin: 1rem 0;
+      }
+
+      .input-field {
+        background: rgba(15, 23, 42, 0.8);
+        border: 2px solid #374151;
+        border-radius: 8px;
+        padding: 0.5rem;
+        color: #e2e8f0;
+        font-size: 11px;
+      }
+
+      .input-field:focus {
+        border-color: #facc15;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #facc15, #eab308);
+        color: #1e3a8a;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
+      }
+
+      .output-display {
+        background: rgba(15, 23, 42, 0.9);
+        border: 2px solid #374151;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        color: #e2e8f0;
+        min-height: 100px;
+        white-space: pre-wrap;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: #3b82f6;
+      }
+
+      .quiz-option.selected {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: #22c55e;
+      }
+
+      .quiz-option.correct {
+        background: rgba(34, 197, 94, 0.3);
+        border-color: #22c55e;
+      }
+
+      .quiz-option.incorrect {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: #ef4444;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .breadcrumb-nav {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .input-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="booleans-conditionals.html" class="btn">&laquo; Booleans & Conditionals</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="loops.html" class="btn">Next: Loops &rarr;</a>
-      </nav>
+      <header>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">
+              <a href="../index.html" style="color: inherit; text-decoration: none;">
+                Interactive Guide to Python
+              </a>
+            </h1>
+            <h2 class="pixel-subheader">Nested Conditionals: Complex Decision Making</h2>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🌳 Decision Trees • 🔀 Hierarchical Logic • 🎯 Structured Thinking
+            </p>
+          </div>
+        </div>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Nested Conditionals
-          </h2>
-          <p class="text-sm italic mt-1">
-            Building more complex decision-making structures by placing conditionals inside other conditionals.
+        <nav class="breadcrumb-nav">
+          <a href="booleans-conditionals.html" class="nav-button">← Booleans & Conditionals</a>
+          <a href="../index.html" class="nav-button">🏠 Home</a>
+          <a href="nested-loops.html" class="nav-button">Nested Loops →</a>
+        </nav>
+      </header>
+
+      <main class="content-wrapper-8bit">
+        <!-- Problem Motivation -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🎯 Why Do We Need Nested Conditionals?</h2>
+          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+            Real-world decisions aren't simple yes/no choices. They're like navigating a complex maze where each turn reveals new paths and new decisions. 
+            Imagine you're a security guard at a high-tech facility: first you check if someone has a valid ID, then if they do, you check if they have clearance for the specific area, 
+            and if they have clearance, you might check if it's during allowed hours.
           </p>
-        </header>
+          <p style="color: #e2e8f0; line-height: 1.6;">
+            <strong>The Problem:</strong> Simple if-else statements can only handle one level of decision-making. But what happens when your decision depends on the outcome of a previous decision?
+            That's where nested conditionals become essential - they let you build decision trees that mirror how we actually think and solve problems.
+          </p>
+        </section>
 
-        <main>
-          <section class="interactive-section mb-8">
-            <h2>1. What are Nested Conditionals?</h2>
-            <p class="mb-4">
-              <strong>Nested conditionals</strong> occur when you place an <code>if</code>, <code>elif</code>, or <code>else</code> statement inside another <code>if</code>, <code>elif</code>, or <code>else</code> block. This allows for more granular control over program flow, enabling you to check for a series of conditions.
-            </p>
-            <p class="mb-2">
-              Think of it like a flowchart with multiple decision points branching off from each other, or like a set of Russian nesting dolls (Matryoshka dolls). To get to an inner doll (an inner conditional), you must first open the outer doll that contains it (the outer conditional must be true).
-              The inner conditional is only evaluated if the outer conditional's condition is met.
-            </p>
-            <pre><code class="language-python"># Example: Adventure Game Choice
-age = 20
-has_sword = True
-
-if age >= 18:  # Outer condition: Like a bouncer checking ID at a club.
-    print("You are old enough to enter the dangerous cave.")
-    # This inner block is only reached if age >= 18 is True.
-    if has_sword:  # Inner condition: Like a second check for a special pass inside the club.
-        print("Armed with your sword, you venture into the darkness!")
+        <!-- Mental Model -->
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: Decision Trees & Russian Nesting Dolls</h3>
+          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+            Think of nested conditionals like <strong>Russian nesting dolls (Matryoshka)</strong>: to reach the innermost doll, you must first open each outer doll. 
+            Similarly, to execute an inner conditional, the outer conditional must first be true.
+          </p>
+          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+            Or imagine a <strong>decision tree</strong>: you start at the trunk (first condition), and only if you can climb up do you reach the branches (inner conditions). 
+            Each branch represents a new set of choices that only become available after you've successfully navigated the previous level.
+          </p>
+          <div class="code-block">
+# Like a security checkpoint system:
+if has_valid_id:           # First checkpoint: ID verification
+    print("ID verified")
+    if has_area_clearance:  # Second checkpoint: Area access
+        print("Area access granted")
+        if is_during_hours: # Third checkpoint: Time validation
+            print("Welcome! Access granted")
+        else:
+            print("Access denied: Outside allowed hours")
     else:
-        print("It is too dangerous to enter without a weapon. You turn back.")
-else: # Outer else: If the bouncer (age check) turns you away.
-    print("You are too young for this perilous journey.")</code></pre>
-            <p class="mt-3">
-              In the example above, the check for <code>has_sword</code> only happens if the <code>age</code> is 18 or greater.
-            </p>
-          </section>
+        print("Access denied: Insufficient clearance")
+else:
+    print("Access denied: Invalid ID")
+          </div>
+        </div>
 
-          <section class="interactive-section mb-8">
-            <h2>2. When to Use Nested Conditionals</h2>
-            <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
-              <li>When a decision depends on the outcome of a prior decision. It's like a 'Choose Your Own Adventure' book: your first choice (e.g., 'Do you open the creaky door?') leads you to a page with new, specific choices that only make sense based on that first decision.</li>
-              <li>To handle scenarios with multiple layers of criteria, where one condition needs to be true before another even becomes relevant.</li>
-              <li>When you need to check for specific combinations of conditions that follow a hierarchical order.</li>
-            </ul>
-            <p class="mb-2">
-              However, be cautious: deeply nested conditionals (many levels deep, like a Matryoshka doll with dozens of layers) can become hard to read and understand. It can feel like navigating a complex maze. If your logic gets too deep, it's often a sign you could simplify it, perhaps by using logical operators (<code>and</code>, <code>or</code>) as shown below, or by breaking parts of the logic into separate, smaller decisions using functions.
-            </p>
-            <pre><code class="language-python"># Alternative to the previous example using 'and'
-# This might be simpler for this specific case:
-if age >= 18 and has_sword:
-    print("You are old enough and armed. You venture into the darkness!")
-elif age >= 18 and not has_sword:
-    print("You are old enough, but it's too dangerous without a weapon. You turn back.")
-else: # age < 18
-    print("You are too young for this perilous journey.")</code></pre>
-          </section>
+        <!-- Syntax Introduction -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">📝 Nested Conditional Syntax</h2>
+          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+            The computer processes nested conditionals sequentially and literally. It evaluates the outer condition first, and only if that's true does it even look at the inner conditions.
+            This is exactly how the notional machine works: <strong>sequential, literal, and oblivious</strong> to anything it hasn't been explicitly told to check.
+          </p>
           
-          <section class="interactive-section mb-8">
-            <h2>3. Interactive Example: Ticket Pricing</h2>
-            <p class="mb-3">
-              Let's simulate a ticket pricing system based on age and whether it's a weekend.
-              This system uses nested logic: first, we categorize by a broad age group, and *then*, within some of those groups, we check a secondary condition (like whether it's a weekend) to determine the final price.
+          <div class="code-block">
+# Basic nested structure
+if outer_condition:
+    print("Outer condition is true")
+    if inner_condition:
+        print("Both outer AND inner conditions are true")
+    else:
+        print("Outer is true, but inner is false")
+else:
+    print("Outer condition is false - inner never checked")
+          </div>
+
+          <div class="code-block">
+# Real example: Student grade system
+score = 85
+attendance = 95
+
+if score >= 60:  # First check: Is it passing?
+    print("Student passed the course")
+    if attendance >= 90:  # Second check: Excellent attendance?
+        print("Eligible for honor roll!")
+        if score >= 90:  # Third check: High score too?
+            print("Dean's List candidate!")
+        else:
+            print("Good work, but need higher score for Dean's List")
+    else:
+        print("Passed, but attendance needs improvement")
+else:
+    print("Student failed - attendance doesn't matter")
+          </div>
+        </section>
+
+        <!-- Interactive Exploration -->
+        <div class="interactive-playground">
+          <h3>🔬 Interactive Decision Tree Explorer</h3>
+          <p style="color: #dbeafe; margin-bottom: 1rem;">
+            Let's build a character creation system for a fantasy game. Watch how each decision opens up new possibilities!
+          </p>
+          
+          <div class="input-group">
+            <label style="color: #dbeafe;">Character Level:</label>
+            <input type="number" id="characterLevel" class="input-field" value="15" min="1" max="100">
+            
+            <label style="color: #dbeafe;">Has Magic Ability:</label>
+            <input type="checkbox" id="hasMagic" checked>
+            
+            <label style="color: #dbeafe;">Guild Member:</label>
+            <input type="checkbox" id="isGuildMember">
+          </div>
+          
+          <button id="evaluateCharacter" class="btn">Evaluate Character</button>
+          
+          <div id="characterOutput" class="output-display">
+            Click "Evaluate Character" to see the nested decision process...
+          </div>
+        </div>
+
+        <!-- Common Pitfalls -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: The "Arrow Code" Anti-Pattern</h3>
+          <p style="color: #fed7aa; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Danger:</strong> Nesting too deeply creates "arrow code" that's impossible to read and maintain. 
+            If your code looks like it's pointing to the right edge of your screen, you've gone too far!
+          </p>
+          
+          <div class="code-block">
+# BAD: Arrow code (too much nesting)
+if condition1:
+    if condition2:
+        if condition3:
+            if condition4:
+                if condition5:
+                    print("This is getting ridiculous!")
+                    # Code is now way over to the right
+          </div>
+          
+          <div class="code-block">
+# BETTER: Use logical operators or early returns
+if condition1 and condition2 and condition3:
+    print("Much cleaner!")
+
+# OR use guard clauses (early exits)
+if not condition1:
+    return "Failed condition 1"
+if not condition2:
+    return "Failed condition 2"
+# Continue with main logic...
+          </div>
+          
+          <p style="color: #fed7aa; line-height: 1.6;">
+            <strong>Rule of thumb:</strong> If you're nesting more than 2-3 levels deep, consider refactoring with logical operators, 
+            functions, or guard clauses. Your future self will thank you!
+          </p>
+        </div>
+
+        <!-- Practice Project -->
+        <div class="interactive-playground">
+          <h3>🎮 Practice: Adventure Game Decision System</h3>
+          <p style="color: #dbeafe; margin-bottom: 1rem;">
+            Create a text adventure where the player's choices determine their path through a mysterious forest.
+          </p>
+          
+          <div class="input-group">
+            <label style="color: #dbeafe;">Player Health:</label>
+            <input type="number" id="playerHealth" class="input-field" value="80" min="0" max="100">
+            
+            <label style="color: #dbeafe;">Has Torch:</label>
+            <input type="checkbox" id="hasTorch" checked>
+            
+            <label style="color: #dbeafe;">Has Map:</label>
+            <input type="checkbox" id="hasMap">
+            
+            <label style="color: #dbeafe;">Time of Day:</label>
+            <select id="timeOfDay" class="input-field">
+              <option value="day">Day</option>
+              <option value="night">Night</option>
+            </select>
+          </div>
+          
+          <button id="startAdventure" class="btn">Start Adventure</button>
+          
+          <div id="adventureOutput" class="output-display">
+            Set your character's attributes and click "Start Adventure"...
+          </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="assessment-section">
+          <h3>🎯 Mastery Assessment: Nested Logic Quiz</h3>
+          <p style="color: #e0e7ff; margin-bottom: 1.5rem;">
+            Test your understanding of how nested conditionals work. Remember: the computer checks conditions sequentially!
+          </p>
+          
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 1: What gets printed when age = 16 and has_license = True?
             </p>
-            <div class="sub-interactive-box p-4">
-              <div class="flex flex-wrap items-center mb-3">
-                <label for="ticketAgeInput" class="mr-2">Enter Age:</label>
-                <input type="number" id="ticketAgeInput" class="input-field mr-4" value="25" min="0">
-                <label for="isWeekendCheckbox" class="mr-2">
-                  <input type="checkbox" id="isWeekendCheckbox" class="mr-1">Is it a weekend?
-                </label>
-              </div>
-              <button id="calculatePriceButton" class="btn">Calculate Ticket Price</button>
-              <div id="ticketPriceOutput" class="output-display mt-3">
-                <span class="placeholder-text">Ticket price will be shown here.</span>
-              </div>
+            <div class="code-block" style="margin-bottom: 1rem;">
+if age >= 18:
+    print("Adult")
+    if has_license:
+        print("Can drive alone")
+    else:
+        print("Need to get license")
+else:
+    print("Minor")
+    if has_license:
+        print("Can drive with adult")
             </div>
-            <h4 class="mt-4 mb-2">Logic Used:</h4>
-            <pre><code class="language-python"># Simplified Ticket Pricing Logic:
-# age = ... (user input)
-# is_weekend = ... (user input)
-# price = 0
-
-# if age < 5:              # Children under 5
-#     price = 0  # Free
-# elif age < 18:           # Children 5-17
-#     if is_weekend:
-#         price = 10 # Weekend price for child
-#     else:
-#         price = 7  # Weekday price for child
-# elif age >= 18 and age < 65: # Adults 18-64
-#     if is_weekend:
-#         price = 20 # Weekend price for adult
-#     else:
-#         price = 15 # Weekday price for adult
-# else:                    # Seniors 65+
-#     if is_weekend:
-#         price = 12 # Weekend price for senior
-#     else:
-#         price = 9  # Weekday price for senior
-# print(f"The ticket price is: ${price}")</code></pre>
-          </section>
-
-          <section class="interactive-section mb-8">
-            <h2>4. Quick Quiz</h2>
-            <p class="mb-4">Test your understanding of nested conditionals!</p>
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1">Q1: In the first example (adventure game), if <code>age = 17</code> and <code>has_sword = True</code>, what is printed?</p>
-              <label class="quiz-option-label"><input type="radio" name="q1_nested" value="a"> "Armed with your sword, you venture into the darkness!"</label>
-              <label class="quiz-option-label"><input type="radio" name="q1_nested" value="b"> "It is too dangerous to enter without a weapon. You turn back."</label>
-              <label class="quiz-option-label"><input type="radio" name="q1_nested" value="c"> "You are too young for this perilous journey."</label>
+            <div class="quiz-option" data-question="1" data-answer="a">
+              A) "Adult" and "Can drive alone"
             </div>
-
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1">Q2: When is an inner conditional statement evaluated?</p>
-              <label class="quiz-option-label"><input type="radio" name="q2_nested" value="a"> Always, regardless of the outer condition.</label>
-              <label class="quiz-option-label"><input type="radio" name="q2_nested" value="b"> Only if the outer conditional's condition is <code>True</code> (or the relevant <code>elif</code> path is taken).</label>
-              <label class="quiz-option-label"><input type="radio" name="q2_nested" value="c"> Only if the outer conditional's condition is <code>False</code>.</label>
+            <div class="quiz-option" data-question="1" data-answer="b">
+              B) "Minor" and "Can drive with adult"
             </div>
-
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1">Q3: Consider: <code>if x > 10: if y > 5: print("A") else: print("B") else: print("C")</code>. If <code>x = 10</code> and <code>y = 6</code>, what is printed?</p>
-              <label class="quiz-option-label"><input type="radio" name="q3_nested" value="a"> "A"</label>
-              <label class="quiz-option-label"><input type="radio" name="q3_nested" value="b"> "B"</label>
-              <label class="quiz-option-label"><input type="radio" name="q3_nested" value="c"> "C"</label>
+            <div class="quiz-option" data-question="1" data-answer="c">
+              C) Only "Minor"
             </div>
-            <button id="checkQuizButtonNested" class="btn">Check Answers</button>
-            <div id="quizResultNested" class="message-box mt-3" style="display: none;"></div>
-          </section>
-        </main>
+            <div class="quiz-option" data-question="1" data-answer="d">
+              D) Only "Can drive with adult"
+            </div>
+          </div>
+          
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 2: How many conditions are checked when x = 5?
+            </p>
+            <div class="code-block" style="margin-bottom: 1rem;">
+if x > 10:
+    if x > 20:
+        print("Large")
+    else:
+        print("Medium")
+else:
+    if x > 0:
+        print("Small positive")
+    else:
+        print("Zero or negative")
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="a">
+              A) 1 condition (x > 10)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="b">
+              B) 2 conditions (x > 10, then x > 0)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="c">
+              C) 3 conditions (all of them)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="d">
+              D) 4 conditions (impossible)
+            </div>
+          </div>
+          
+          <button id="checkQuiz" class="btn">Check Answers</button>
+          <div id="quizResults" class="output-display" style="display: none;">
+            Quiz results will appear here...
+          </div>
+        </div>
 
-        <footer class="footer-8bit">
-          <p class="text-sm mb-2">Ready to learn about repetition?</p>
-          <a href="loops.html" class="btn btn-8bit">Next Tutorial: Loops (For & While) &rarr;</a>
-        </footer>
-      </div>
+        <!-- Reflection Questions -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🤔 Reflection Questions</h2>
+          <ul style="color: #e2e8f0; line-height: 1.8; list-style-type: disc; margin-left: 2rem;">
+            <li>When would you use nested conditionals instead of logical operators (and, or)?</li>
+            <li>How do nested conditionals relate to the way you make decisions in real life?</li>
+            <li>What strategies can you use to avoid deeply nested "arrow code"?</li>
+            <li>How does the computer's sequential processing affect the order of your conditions?</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+          <p style="color: #facc15; margin-bottom: 1rem;">🎯 Ready to explore loops within loops?</p>
+          <a href="nested-loops.html" class="btn" style="margin-right: 1rem;">Next: Nested Loops →</a>
+          <a href="../index.html" class="nav-button">🏠 Back to Home</a>
+        </div>
+      </footer>
     </div>
 
     <script>
-      // Ticket Pricing Simulator
-      const ticketAgeInput = document.getElementById('ticketAgeInput');
-      const isWeekendCheckbox = document.getElementById('isWeekendCheckbox');
-      const calculatePriceButton = document.getElementById('calculatePriceButton');
-      const ticketPriceOutput = document.getElementById('ticketPriceOutput');
-
-      if (calculatePriceButton) {
-        calculatePriceButton.addEventListener('click', () => {
-          const age = parseInt(ticketAgeInput.value);
-          const isWeekend = isWeekendCheckbox.checked;
-          let price = 0;
-          let priceMessage = '';
-
-          if (isNaN(age) || age < 0) {
-            priceMessage = 'Please enter a valid age.';
-            ticketPriceOutput.className = 'output-display message-box-error';
-          } else {
-            if (age < 5) {
-              price = 0;
-              priceMessage = 'Ticket Price: $0 (Free for under 5s)';
-            } else if (age < 18) {
-              if (isWeekend) {
-                price = 10;
-                priceMessage = 'Ticket Price: $10 (Child Weekend)';
-              } else {
-                price = 7;
-                priceMessage = 'Ticket Price: $7 (Child Weekday)';
-              }
-            } else if (age < 65) {
-              if (isWeekend) {
-                price = 20;
-                priceMessage = 'Ticket Price: $20 (Adult Weekend)';
-              } else {
-                price = 15;
-                priceMessage = 'Ticket Price: $15 (Adult Weekday)';
-              }
-            } else { // age >= 65
-              if (isWeekend) {
-                price = 12;
-                priceMessage = 'Ticket Price: $12 (Senior Weekend)';
-              } else {
-                price = 9;
-                priceMessage = 'Ticket Price: $9 (Senior Weekday)';
-              }
+      // Character evaluation system
+      document.getElementById('evaluateCharacter').addEventListener('click', function() {
+        const level = parseInt(document.getElementById('characterLevel').value);
+        const hasMagic = document.getElementById('hasMagic').checked;
+        const isGuildMember = document.getElementById('isGuildMember').checked;
+        const output = document.getElementById('characterOutput');
+        
+        let result = "=== CHARACTER EVALUATION ===\n\n";
+        result += `Level: ${level}, Magic: ${hasMagic}, Guild: ${isGuildMember}\n\n`;
+        result += "Decision Process:\n";
+        
+        if (level >= 10) {
+          result += "✓ Level check passed (≥10)\n";
+          if (hasMagic) {
+            result += "  ✓ Magic ability detected\n";
+            if (isGuildMember) {
+              result += "    ✓ Guild membership confirmed\n";
+              result += "    → RESULT: Elite Mage (all conditions met!)\n";
+            } else {
+              result += "    ✗ No guild membership\n";
+              result += "    → RESULT: Independent Mage\n";
             }
-            ticketPriceOutput.className = 'output-display message-box-success'; 
+          } else {
+            result += "  ✗ No magic ability\n";
+            if (isGuildMember) {
+              result += "    ✓ Guild membership confirmed\n";
+              result += "    → RESULT: Guild Warrior\n";
+            } else {
+              result += "    ✗ No guild membership\n";
+              result += "    → RESULT: Freelance Adventurer\n";
+            }
           }
-          ticketPriceOutput.innerHTML = priceMessage;
-        });
-      }
+        } else {
+          result += "✗ Level check failed (<10)\n";
+          result += "  → Inner conditions not evaluated\n";
+          result += "  → RESULT: Novice (train more!)\n";
+        }
+        
+        output.textContent = result;
+      });
 
-      // Quiz Logic
-      const checkQuizButtonNested = document.getElementById('checkQuizButtonNested');
-      const quizResultNested = document.getElementById('quizResultNested');
-
-      if (checkQuizButtonNested) {
-        checkQuizButtonNested.addEventListener('click', () => {
-          const answers = { q1_nested: 'c', q2_nested: 'b', q3_nested: 'c' };
-          let score = 0;
-          let allAnswered = true;
-          let resultHTML = '<h4>Quiz Results:</h4><ul>';
-
-          for (const question in answers) {
-            const selected = document.querySelector(`input[name="${question}"]:checked`);
-            if (selected) {
-              if (selected.value === answers[question]) {
-                score++;
-                resultHTML += `<li style="color: var(--theme-highlight);">Question ${question.substring(1,2)}: Correct!</li>`;
+      // Adventure game system
+      document.getElementById('startAdventure').addEventListener('click', function() {
+        const health = parseInt(document.getElementById('playerHealth').value);
+        const hasTorch = document.getElementById('hasTorch').checked;
+        const hasMap = document.getElementById('hasMap').checked;
+        const timeOfDay = document.getElementById('timeOfDay').value;
+        const output = document.getElementById('adventureOutput');
+        
+        let story = "=== FOREST ADVENTURE ===\n\n";
+        story += "You stand at the edge of a mysterious forest...\n\n";
+        
+        if (health >= 50) {
+          story += "Your health is good enough to enter the forest.\n";
+          if (timeOfDay === "night") {
+            story += "The forest is dark and ominous at night.\n";
+            if (hasTorch) {
+              story += "Your torch illuminates the path ahead.\n";
+              if (hasMap) {
+                story += "With your map, you navigate safely to the treasure!\n";
+                story += "🏆 VICTORY: You found the legendary Golden Acorn!\n";
               } else {
-                resultHTML += `<li style="color: var(--theme-accent1);">Question ${question.substring(1,2)}: Incorrect.</li>`;
+                story += "Without a map, you get lost but find a small cave.\n";
+                story += "⭐ PARTIAL SUCCESS: You discover ancient cave paintings.\n";
               }
             } else {
-              allAnswered = false;
-              break;
+              story += "Without a torch, the darkness is too dangerous.\n";
+              story += "💀 FAILURE: You retreat, hearing strange howls.\n";
             }
-          }
-
-          if (!allAnswered) {
-            quizResultNested.innerHTML = 'Please answer all questions.';
-            quizResultNested.className = 'message-box message-box-info';
           } else {
-            resultHTML += `</ul><p>You scored ${score} out of ${Object.keys(answers).length}.</p>`;
-            quizResultNested.innerHTML = resultHTML;
-            if (score === Object.keys(answers).length) {
-              quizResultNested.className = 'message-box message-box-success';
+            story += "The daylight makes navigation much easier.\n";
+            if (hasMap) {
+              story += "Your map shows a shortcut to the treasure.\n";
+              story += "🏆 VICTORY: You quickly find the Golden Acorn!\n";
             } else {
-              quizResultNested.className = 'message-box message-box-info';
+              story += "Without a map, you explore randomly.\n";
+              story += "⭐ PARTIAL SUCCESS: You find some valuable herbs.\n";
             }
           }
-          quizResultNested.style.display = 'block';
+        } else {
+          story += "Your health is too low for this dangerous journey.\n";
+          story += "💀 FAILURE: You wisely decide to rest and recover first.\n";
+        }
+        
+        output.textContent = story;
+      });
+
+      // Quiz system
+      let selectedAnswers = {};
+      
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const answer = this.dataset.answer;
+          
+          // Remove previous selection for this question
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Mark this option as selected
+          this.classList.add('selected');
+          selectedAnswers[question] = answer;
         });
-      }
+      });
+      
+      document.getElementById('checkQuiz').addEventListener('click', function() {
+        const correctAnswers = {
+          '1': 'b', // "Minor" and "Can drive with adult"
+          '2': 'b'  // 2 conditions checked
+        };
+        
+        let results = "=== QUIZ RESULTS ===\n\n";
+        let score = 0;
+        
+        for (let question in correctAnswers) {
+          const userAnswer = selectedAnswers[question];
+          const correctAnswer = correctAnswers[question];
+          const isCorrect = userAnswer === correctAnswer;
+          
+          if (isCorrect) score++;
+          
+          results += `Question ${question}: ${isCorrect ? '✓ CORRECT' : '✗ INCORRECT'}\n`;
+          
+          if (question === '1') {
+            results += isCorrect ? 
+              "  Explanation: Since age < 18, we go to the else block, print 'Minor', then check has_license.\n" :
+              "  Explanation: The outer condition (age >= 18) is false, so we go to else and print 'Minor', then check the inner condition.\n";
+          } else if (question === '2') {
+            results += isCorrect ?
+              "  Explanation: First x > 10 is checked (false), then x > 0 is checked (true). The x > 20 condition is never reached.\n" :
+              "  Explanation: Only 2 conditions are checked because x > 10 is false, so we skip to the else branch.\n";
+          }
+          
+          // Visual feedback
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            if (opt.dataset.answer === correctAnswer) {
+              opt.classList.add('correct');
+            } else if (opt.dataset.answer === userAnswer && userAnswer !== correctAnswer) {
+              opt.classList.add('incorrect');
+            }
+          });
+        }
+        
+        results += `\nFinal Score: ${score}/2 (${Math.round(score/2*100)}%)\n`;
+        
+        if (score === 2) {
+          results += "\n🎉 Perfect! You understand nested conditionals!";
+        } else if (score === 1) {
+          results += "\n👍 Good progress! Review the explanations above.";
+        } else {
+          results += "\n📚 Keep practicing! Remember: conditions are checked sequentially.";
+        }
+        
+        document.getElementById('quizResults').textContent = results;
+        document.getElementById('quizResults').style.display = 'block';
+      });
+
+      // Progress tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mark this topic as visited
+        let visitedTopics = JSON.parse(localStorage.getItem('visitedTopics') || '[]');
+        const currentTopic = 'pages/nested-conditionals.html';
+        if (!visitedTopics.includes(currentTopic)) {
+          visitedTopics.push(currentTopic);
+          localStorage.setItem('visitedTopics', JSON.stringify(visitedTopics));
+        }
+      });
     </script>
   </body>
 </html>

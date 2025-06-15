@@ -1,547 +1,898 @@
-c<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Functions in Python</title>
+    <title>Functions: Code Recipes | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      /* Function visualization */
+      .function-demo {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .vending-machine {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        border: 3px solid #3b82f6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .vending-machine::before {
+        content: '🏪';
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        background: rgba(59, 130, 246, 0.9);
+        padding: 5px 10px;
+        border-radius: 8px;
+      }
+
+      .function-anatomy {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .function-part {
+        background: rgba(31, 41, 55, 0.6);
+        border: 2px solid #374151;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .function-part.highlight {
+        border-color: #facc15;
+        background: rgba(250, 204, 21, 0.1);
+      }
+
+      /* Assessment section */
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .function-anatomy {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="string-operations.html" class="btn">&laquo; String Operations</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="error-handling.html" class="btn">Next: Error Handling &rarr;</a>
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="lists-iteration.html" class="nav-btn">← Collections of Data</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Foundation: Code Recipes
+          </div>
+          <a href="nested-conditionals.html" class="nav-btn">Next: Complex Logic →</a>
+        </div>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Functions
-          </h2>
-          <p class="text-sm italic mt-1">
-            A way to package up code and give it a name.
-          </p>
-        </header>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            1. What is a Function?
-          </h2>
-          <p class="mb-4">
-            A function is like a recipe in a cookbook - it's a set of instructions that you can follow whenever you need to make a particular dish. Just as you can use the same recipe multiple times to make the same dish, you can call a function multiple times to perform the same task. The recipe (function) has a name, a list of ingredients (parameters), and step-by-step instructions (code). Think of it like a vending machine - you put in the right inputs (arguments), press the button (call the function), and get a consistent output (return value).
-          </p>
-          <p>Functions help you:</p>
-          <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-            <li>
-              <strong>Organize Code:</strong> Like organizing a kitchen - each recipe (function) has its own place and purpose. It's similar to how a library organizes books by category, making it easier to find what you need.
-            </li>
-            <li>
-              <strong>Reuse Code:</strong> Like having a recipe card instead of memorizing how to make a dish every time. Think of it like a template or a blueprint that you can use over and over.
-            </li>
-            <li>
-              <strong>Improve Readability:</strong> Like giving clear names to recipes so you know what they make without reading the whole recipe. It's similar to how road signs tell you what's ahead without needing to see the entire road.
-            </li>
-            <li>
-              <strong>Abstract Details:</strong> Like following a recipe without needing to know the chemistry behind why each step works. Think of it like driving a car - you don't need to know how the engine works to use it.
-            </li>
-          </ul>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            2. Defining and Calling Functions
-          </h2>
-          <p class="mb-2">
-            Defining a function is like writing down a recipe - you give it a name, list what you need (parameters), and write the steps (code). Calling a function is like following the recipe - you gather the ingredients (arguments) and follow the steps. It's similar to how a TV remote control is programmed (defined) once but can be used (called) many times to change channels.
-          </p>
-          <p class="mb-2">
-            The docstring is like the introduction to a recipe - it tells you what the dish will be and any special notes before you start cooking. Think of it like a product manual that explains what something does before you start using it.
-          </p>
-          <pre><code class="language-python"># 1. Define the function
-def say_hello():
-  """This is a docstring. It explains what the function does."""
-  print("Hello from the function!")
-  print("Nice to meet you.")
-
-# 2. Call the function
-print("Calling the function now...")
-say_hello() # This executes the code inside the function definition
-print("Function call finished.")
-
-# Output:
-# Calling the function now...
-# Hello from the function!
-# Nice to meet you.
-# Function call finished.</code></pre>
-          <p class="mt-2 text-sm text-gray-300">
-            The text within triple quotes (<code>"""..."""</code>) right after the
-            <code>def</code> line is called a <strong>docstring</strong>. It's
-            good practice to include one to document what your function does.
-          </p>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            3. Parameters and Arguments
-          </h2>
-          <p class="mb-2">
-            Parameters are like the ingredient list in a recipe - they're placeholders for what you'll need. Arguments are like the actual ingredients you use when cooking - they're the real values you provide when you follow the recipe. Think of it like a form where the fields (parameters) are empty until you fill them in (arguments).
-          </p>
-          <p class="mb-2">
-            Just as you can make the same recipe with different ingredients (like using chicken instead of beef), you can call the same function with different arguments to get different results. It's similar to how a calculator can perform the same operation (like addition) with different numbers to get different results.
-          </p>
-          <pre><code class="language-python"># 'name' and 'greeting' are parameters
-def greet_person(name, greeting):
-  print(f"{greeting}, {name}!")
-
-# "Alice" and "Good morning" are arguments
-greet_person("Alice", "Good morning") # Output: Good morning, Alice!
-
-# "Bob" and "Hi" are arguments for the second call
-greet_person("Bob", "Hi")             # Output: Hi, Bob!</code></pre>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            4. Return Values
-          </h2>
-          <p class="mb-2">
-            Return values are like the finished dish in cooking - they're what you get after following all the steps. When a function returns a value, it's like the recipe telling you "here's your finished dish" instead of just showing you how to make it. Think of it like a vending machine that gives you a product after you put in money and make a selection.
-          </p>
-          <p class="mb-2">
-            If a function doesn't have a return statement, it's like a recipe that shows you how to make something but doesn't tell you what to do with the finished product - you get <code>None</code>, which is like having no specific instructions for what to do next. It's similar to a TV show that entertains you but doesn't give you anything to take away.
-          </p>
-          <pre><code class="language-python"># This function calculates the sum and returns it
-def add_numbers(x, y):
-  result = x + y
-  return result # Send the calculated result back
-
-# Call the function and store the returned value
-sum_result = add_numbers(5, 3)
-print(f"The sum is: {sum_result}") # Output: The sum is: 8
-
-# You can use the returned value directly
-print(f"Adding 10 and 20 gives: {add_numbers(10, 20)}") # Output: 30
-
-def function_without_explicit_return():
-    print("Doing something...")
-    # No return statement here
-
-what_is_returned = function_without_explicit_return()
-print(f"Value returned: {what_is_returned}") # Output: Value returned: None</code></pre>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            5. Default Argument Values
-          </h2>
-          <p class="mb-2">
-            Default arguments are like having optional ingredients in a recipe - if you don't specify them, the recipe will use a standard alternative. It's like a recipe that says "use salt to taste" - if you don't specify how much salt, it assumes you'll use a standard amount. Think of it like a car with default settings - if you don't change them, it uses the factory settings.
-          </p>
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          5. Default Argument Values
-        </h2>
-        <p class="mb-2">
-          Default arguments are like having optional ingredients in a recipe - if you don't specify them, the recipe will use a standard alternative. It's like a recipe that says "use salt to taste" - if you don't specify how much salt, it assumes you'll use a standard amount. Think of it like a car with default settings - if you don't change them, it uses the factory settings.
-        </p>
-        <pre><code class="language-python">def greet_person(name, greeting="Hello"):
-  print(f"{greeting}, {name}!")
-
-# "Alice" is the argument for 'name'
-greet_person("Alice") # Output: Hello, Alice!
-
-# "Bob" and "Good morning" are arguments for 'name' and 'greeting'
-greet_person("Bob", "Good morning") # Output: Good morning, Bob!</code></pre>
-      </section>
-
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          6. Keyword Arguments
-        </h2>
-        <p class="mb-2">
-          Keyword arguments are like having labeled containers for your ingredients - you can put them in any order because each one is clearly marked. It's like a recipe where you can add the ingredients in any order as long as you label them correctly. Think of it like a form where you can fill in the fields in any order because each one has a clear label.
-        </p>
-        <pre><code class="language-python">def greet_person(name, greeting):
-  print(f"{greeting}, {name}!")
-
-# "Bob" is the argument for 'name'
-# "Good morning" is the argument for 'greeting'
-greet_person(name="Bob", greeting="Good morning") # Output: Good morning, Bob!</code></pre>
-      </section>
-
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          7. Variable Number of Arguments (*args and **kwargs)
-        </h2>
-        <p class="mb-2">
-          <code>*args</code> and <code>**kwargs</code> are like having a flexible recipe that can work with whatever ingredients you have on hand. <code>*args</code> is like saying "add any number of vegetables" and <code>**kwargs</code> is like saying "add any number of spices, each with its own name". Think of it like a buffet where you can take any number of items (<code>*args</code>) and any number of condiments, each with its own label (<code>**kwargs</code>).
-        </p>
-        <pre><code class="language-python">def print_arguments(*args):
-  for arg in args:
-    print(arg)
-
-print_arguments("Hello", "World", 1, 2, 3) # Output: Hello, World, 1, 2, 3
-
-def print_keyword_arguments(**kwargs):
-  for key, value in kwargs.items():
-    print(f"{key}: {value}")
-
-print_keyword_arguments(a=1, b=2, c=3) # Output: a: 1, b: 2, c: 3</code></pre>
-      </section>
-
-      <section class="game-section interactive-section">
-        <h2 class="section-title-8bit">
-          Interactive: Define and Call a Simple Function
-        </h2>
-        <p class="mb-4">
-          Let's use a function that calculates the area of a rectangle. Enter
-          the width and height (arguments) and see the result returned by the
-          function.
-        </p>
-        <div class="mb-4">
-          <h4 class="text-md font-medium mb-1">Function Definition:</h4>
-          <pre id="functionCodeDisplay"><code class="language-python">
-<span class="code-line" data-line="1">def calculate_area(width, height):</span>
-<span class="code-line indent-1" data-line="2">  """Calculates the area of a rectangle."""</span>
-<span class="code-line indent-1" data-line="3">  area = width * height</span>
-<span class="code-line indent-1 highlight-return" data-line="4">  return area</span>
-                </code></pre>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Functions: Code Recipes</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              📦 Vending Machines: Input Something, Get Something Back
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master the art of creating reusable code blocks that solve specific problems
+            </div>
+          </div>
         </div>
 
-        <div class="flex flex-wrap items-center mb-2">
-          <label for="widthInput" class="mr-2">Width:</label>
-          <input
-            type="number"
-            id="widthInput"
-            class="input-field"
-            placeholder="e.g., 10"
-            value="10"
-          />
-          <label for="heightInput" class="ml-4 mr-2">Height:</label>
-          <input
-            type="number"
-            id="heightInput"
-            class="input-field"
-            placeholder="e.g., 5"
-            value="5"
-          />
-          <button id="callFunctionButton" class="btn btn-green">
-            Call calculate_area()
-          </button>
-        </div>
+        <main>
+          <!-- Core Mental Model Section -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧠 Mental Model: Functions as Vending Machines</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The Perfect Metaphor Evolution</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                As you grow as a programmer, your understanding of functions should evolve:
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>Beginner:</strong> "Recipe" - Follow steps to make something</li>
+                <li><strong>Intermediate:</strong> "Vending Machine" - Put something in, get something out</li>
+                <li><strong>Advanced:</strong> "Black Box" - Focus on what it does, not how</li>
+              </ul>
+            </div>
 
-        <h4 class="text-md font-medium mt-3 mb-1">Execution Flow & Result:</h4>
-        <div id="functionCallDisplay" class="output-display">
-          <span class="text-gray-500 italic"
-            >Enter width/height and click 'Call'.</span
-          >
-        </div>
+            <div class="vending-machine">
+              <h3 style="color: #3b82f6; margin-bottom: 1rem;">The Vending Machine Model</h3>
+              <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin: 1.5rem 0;">
+                <div style="text-align: right; color: #e5e7eb; font-size: 11px;">
+                  <div style="background: rgba(250, 204, 21, 0.2); border: 2px solid #facc15; border-radius: 8px; padding: 0.5rem; margin-bottom: 0.5rem;">
+                    Input: $1.50
+                  </div>
+                  <div style="background: rgba(250, 204, 21, 0.2); border: 2px solid #facc15; border-radius: 8px; padding: 0.5rem;">
+                    Selection: A3
+                  </div>
+                </div>
+                
+                <div style="color: #3b82f6; font-size: 24px;">
+                  🏪
+                </div>
+                
+                <div style="text-align: left; color: #e5e7eb; font-size: 11px;">
+                  <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 0.5rem;">
+                    Output: Chocolate Bar
+                  </div>
+                </div>
+              </div>
+              <p style="color: #93c5fd; font-size: 10px; margin-bottom: 0;">
+                You don't need to know how the machine works inside - just what inputs produce what outputs!
+              </p>
+            </div>
+          </section>
 
-        <div
-          id="functionCallMessage"
-          class="message-box"
-          style="display: none"
-        ></div>
-      </section>
+          <!-- Function Anatomy -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔧 Anatomy of a Function</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Every function has the same basic structure. Let's break it down piece by piece:
+            </p>
 
-      <section class="game-section">
-        <h2 class="section-title-8bit">
-          8. Variable Scope (Briefly)
-        </h2>
-        <p class="mb-2">
-          Variables defined inside a function (like <code>area</code> in the
-          example above) are generally <strong>local</strong> to that function.
-          This means they only exist while the function is running and cannot be
-          accessed from outside the function.
-        </p>
-        <pre><code class="language-python">def my_function():
-  local_var = "I'm inside the function"
-  print(local_var)
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive Function Builder</h3>
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code>def greet_user(name, age):        # Function definition
+    """Welcome a user with name and age."""  # Docstring (optional)
+    
+    message = f"Hello ${name}!"      # Function body
+    greeting = f"You are ${age} years old."
+    
+    return message + " " + greeting  # Return statement
 
-my_function() # Output: I'm inside the function
+# Function call
+result = greet_user("Alice", 25)
+print(result)  # Output: Hello Alice! You are 25 years old.</code></pre>
+              
+              <div style="margin: 1rem 0;">
+                <label style="color: #facc15; font-size: 11px;">Try it yourself:</label>
+                <br>
+                <input type="text" id="userName" class="input-field" placeholder="Enter name" style="margin: 0.5rem 0.5rem 0.5rem 0;">
+                <input type="number" id="userAge" class="input-field" placeholder="Age" style="margin: 0.5rem;">
+                <button id="callGreetFunction" class="btn">Call Function</button>
+              </div>
+              
+              <div id="functionOutput" class="output-display">
+                <span class="placeholder-text">Enter name and age, then click 'Call Function'</span>
+              </div>
+            </div>
 
-# Trying to access local_var outside the function will cause an error:
-# print(local_var) # This would raise a NameError</code></pre>
-        <p class="mt-2">
-          This helps prevent naming conflicts and keeps functions
-          self-contained. Information is typically passed *into* functions via
-          arguments and *out of* functions via return values.
-        </p>
-      </section>
+            <div class="function-anatomy">
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">def</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">The "definition" keyword - tells Python "I'm creating a function"</p>
+              </div>
 
-      <section class="game-section interactive-section">
-        <h2 class="section-title-8bit">9. Quick Quiz</h2>
-        <p class="mb-4">Test your understanding!</p>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q1: What keyword is used to define a function in Python?
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">function_name</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">What you'll call this function. Use descriptive names!</p>
+              </div>
+
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">(parameters)</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">The inputs your function expects. Like vending machine coin slots.</p>
+              </div>
+
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">Function Body</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">The code that does the work. This is indented!</p>
+              </div>
+
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">return</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">What the function gives back. Like the snack from the vending machine.</p>
+              </div>
+
+              <div class="function-part">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 12px;">Function Call</h4>
+                <p style="color: #e5e7eb; font-size: 10px;">How you use the function. Put money in the machine and press buttons!</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Critical Pitfall: Print vs Return -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚠️ Critical Pitfall: print() vs return</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">The #1 Function Mistake</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                <strong>Beginner confusion:</strong> Thinking that <span class="code-highlight">print()</span> and 
+                <span class="code-highlight">return</span> do the same thing. They're completely different!
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ return</h4>
+                <ul style="color: #d1fae5; font-size: 10px; line-height: 1.4; margin-left: 1rem;">
+                  <li>Gives data back to the caller</li>
+                  <li>Can be stored in variables</li>
+                  <li>Can be used in other functions</li>
+                  <li>Ends the function immediately</li>
+                </ul>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;"><code>def add(a, b):
+    return a + b
+
+result = add(5, 3)  # result = 8</code></pre>
+              </div>
+              
+              <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #ef4444; margin-bottom: 0.5rem;">⚠️ print()</h4>
+                <ul style="color: #fecaca; font-size: 10px; line-height: 1.4; margin-left: 1rem;">
+                  <li>Shows text on screen</li>
+                  <li>Returns None (nothing useful)</li>
+                  <li>Just for human viewing</li>
+                  <li>Function continues after print</li>
+                </ul>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;"><code>def add(a, b):
+    print(a + b)  # Shows 8
+    
+result = add(5, 3)  # result = None!</code></pre>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Demonstrate the Difference</h3>
+              <div style="display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap;">
+                <button id="demoReturn" class="btn">Demo return</button>
+                <button id="demoPrint" class="btn">Demo print()</button>
+              </div>
+              
+              <div id="printVsReturnOutput" class="output-display">
+                <span class="placeholder-text">Click a demo button to see the difference</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Parameters vs Arguments -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">📥 Parameters vs Arguments: The Input System</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🧠 The Mailbox Analogy</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of parameters as labeled mailboxes at a post office, and arguments as the actual mail you put in them:
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>Parameters</strong> - The mailbox labels (placeholders in function definition)</li>
+                <li><strong>Arguments</strong> - The actual mail (real values when calling function)</li>
+              </ul>
+            </div>
+
+            <div class="function-demo">
+              <h3 style="color: #3730a3; margin-bottom: 1rem;">Parameter vs Argument Demo</h3>
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; text-align: left;"><code>def calculate_area(length, width):  # length, width = PARAMETERS
+    """Calculate area of rectangle."""
+    area = length * width
+    return area
+
+# When calling the function:
+result = calculate_area(10, 5)      # 10, 5 = ARGUMENTS
+print(f"Area is {result}")          # Area is 50</code></pre>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive Parameter Practice</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Try the rectangle area calculator:
+              </p>
+              
+              <div style="margin: 1rem 0;">
+                <label style="color: #facc15; font-size: 11px;">Length:</label>
+                <input type="number" id="rectLength" class="input-field" value="10" style="margin: 0 0.5rem;">
+                <label style="color: #facc15; font-size: 11px;">Width:</label>
+                <input type="number" id="rectWidth" class="input-field" value="5" style="margin: 0 0.5rem;">
+                <button id="calculateArea" class="btn">Calculate Area</button>
+              </div>
+              
+              <div id="areaOutput" class="output-display">
+                <span class="placeholder-text">Enter dimensions and click 'Calculate Area'</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Function Benefits -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🚀 Why Use Functions? The Big Benefits</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+              <div style="background: rgba(34, 197, 94, 0.1); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem; font-size: 12px;">🔄 Reusability</h3>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  Write once, use many times. Like having a recipe you can follow repeatedly.
+                </p>
+              </div>
+
+              <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem;">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">🧱 Organization</h3>
+                <p style="color: #dbeafe; font-size: 10px; line-height: 1.4;">
+                  Break big problems into smaller, manageable pieces. Divide and conquer!
+                </p>
+              </div>
+
+              <div style="background: rgba(168, 85, 247, 0.1); border: 2px solid #a855f7; border-radius: 8px; padding: 1rem;">
+                <h3 style="color: #a855f7; margin-bottom: 0.5rem; font-size: 12px;">🐛 Debugging</h3>
+                <p style="color: #f3e8ff; font-size: 10px; line-height: 1.4;">
+                  Easier to find and fix bugs when code is organized in functions.
+                </p>
+              </div>
+
+              <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem;">
+                <h3 style="color: #f59e0b; margin-bottom: 0.5rem; font-size: 12px;">🤝 Collaboration</h3>
+                <p style="color: #fef3c7; font-size: 10px; line-height: 1.4;">
+                  Different people can work on different functions independently.
+                </p>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Build Your Own Function</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Let's create a simple greeting function together:
+              </p>
+              
+              <div style="margin: 1rem 0;">
+                <label style="color: #facc15; font-size: 11px;">Function Name:</label>
+                <input type="text" id="functionName" class="input-field" value="say_hello" style="margin: 0 0.5rem;">
+                <br><br>
+                <label style="color: #facc15; font-size: 11px;">Parameter Name:</label>
+                <input type="text" id="parameterName" class="input-field" value="name" style="margin: 0 0.5rem;">
+                <br><br>
+                <label style="color: #facc15; font-size: 11px;">What to return:</label>
+                <input type="text" id="returnValue" class="input-field" value="Hello, " placeholder="e.g., Hello, " style="margin: 0 0.5rem;">
+                <br><br>
+                <button id="buildFunction" class="btn">Build Function</button>
+                <button id="testFunction" class="btn" disabled>Test Function</button>
+              </div>
+              
+              <div id="functionBuilder" class="output-display">
+                <span class="placeholder-text">Click 'Build Function' to create your function</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Mastery Check: Functions</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Function Purpose</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What is the main difference between <code>print()</code> and <code>return</code> in a function?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">return gives data back to the caller, print just shows text on screen</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">They do the same thing</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">print is faster than return</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Parameters vs Arguments</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 0.5rem;">
+                In this code, what are <code>x</code> and <code>y</code>?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>def add_numbers(x, y):
+    return x + y
+
+result = add_numbers(5, 3)</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Parameters (placeholders in the function definition)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Arguments (actual values passed to the function)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Variables (they're the same as parameters)</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 3: Function Scope</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What happens when this code runs?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>x = 10
+
+def my_function():
+    x = 20
+    print(x)
+
+my_function()
+print(x)</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints 20, then 10 (local vs global scope)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints 20, then 20 (x is changed globally)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Causes an error (variable conflict)</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 4: Function Design</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Which function is better designed?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">def calculate_area(length, width): return length * width</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">def calculate(): length = 5; width = 3; print(length * width)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Both are equally good</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 5: Function Debugging</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                This function should double a number, but it's not working. What's wrong?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>def double_number(num):
+    print(num * 2)
+
+result = double_number(5) * 3</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Missing return statement (function returns None)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Wrong parameter name (should be 'number')</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Nothing wrong (it works correctly)</p>
+              </div>
+            </div>
+
+            <button id="checkFunctionsQuiz" class="btn btn-green">Check My Understanding</button>
+            <div id="functionsQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Next Steps -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎯 Ready for Complex Logic!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">What You've Mastered</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ Functions as vending machines (input → processing → output)</li>
+                <li>✅ Function anatomy (def, parameters, body, return)</li>
+                <li>✅ Critical difference between print() and return</li>
+                <li>✅ Parameters vs arguments (mailbox vs mail)</li>
+                <li>✅ Why functions make code better (reusable, organized, debuggable)</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Now that you can create your own functions, let's learn how to combine them with complex 
+                conditional logic for sophisticated programs!
+              </p>
+              <a href="nested-conditionals.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                Continue to Complex Logic →
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🎮 Functions Mastered! Ready for Complex Logic? 🎮</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="nested-conditionals.html" style="color: #facc15;">🧠 Next: Complex Logic →</a>
           </p>
-          <label class="block"
-            ><input type="radio" name="q1_func" value="a" class="mr-1" />
-            <code>function</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_func" value="b" class="mr-1" />
-            <code>def</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q1_func" value="c" class="mr-1" />
-            <code>define</code></label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q2: In <code>def my_func(param1): ...</code>, what is
-            <code>param1</code> called?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q2_func" value="a" class="mr-1" />
-            Argument</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_func" value="b" class="mr-1" />
-            Variable</label
-          >
-          <label class="block"
-            ><input type="radio" name="q2_func" value="c" class="mr-1" />
-            Parameter</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q3: What does the <code>return</code> statement do?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q3_func" value="a" class="mr-1" /> Prints
-            output to the console</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_func" value="b" class="mr-1" /> Sends
-            a value back from the function</label
-          >
-          <label class="block"
-            ><input type="radio" name="q3_func" value="c" class="mr-1" /> Stops
-            the entire program</label
-          >
-        </div>
-        <div class="mb-3">
-          <p class="font-medium mb-1">
-            Q4: If a function doesn't have a <code>return</code> statement, what
-            does it return by default?
-          </p>
-          <label class="block"
-            ><input type="radio" name="q4_func" value="a" class="mr-1" />
-            <code>0</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_func" value="b" class="mr-1" />
-            <code>None</code></label
-          >
-          <label class="block"
-            ><input type="radio" name="q4_func" value="c" class="mr-1" /> An
-            empty string <code>""</code></label
-          >
-        </div>
-        <button id="checkQuizButtonFunc" class="btn">Check Answers</button>
-        <div
-          id="quizResultFunc"
-          class="message-box mt-4"
-          style="display: none"
-        ></div>
-      </section>
-    </main>
+        </footer>
+      </div>
+    </div>
 
-    <footer class="footer-8bit">
-      <p class="text-sm mb-2">Ready to handle errors?</p>
-      <a href="error-handling.html" class="btn btn-8bit">Next Tutorial: Error Handling &rarr;</a>
-    </footer>
-  </div>
-
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+      document.addEventListener('DOMContentLoaded', function() {
+        // Function caller
+        const callGreetFunctionBtn = document.getElementById('callGreetFunction');
+        const functionOutput = document.getElementById('functionOutput');
 
-      // --- DOM Elements ---
-      const widthInput = document.getElementById("widthInput");
-      const heightInput = document.getElementById("heightInput");
-      const callFunctionButton = document.getElementById("callFunctionButton");
-      const functionCallDisplay = document.getElementById(
-        "functionCallDisplay"
-      );
-      const functionCallMessage = document.getElementById(
-        "functionCallMessage"
-      );
-      const functionCodeLines = document.querySelectorAll(
-        "#functionCodeDisplay .code-line"
-      );
+        callGreetFunctionBtn.addEventListener('click', function() {
+          const name = document.getElementById('userName').value.trim();
+          const age = parseInt(document.getElementById('userAge').value);
 
-      const checkQuizButtonFunc = document.getElementById(
-        "checkQuizButtonFunc"
-      );
-      const quizResultFunc = document.getElementById("quizResultFunc");
+          if (!name || isNaN(age)) {
+            functionOutput.innerHTML = '<span style="color: #ef4444;">Please enter both name and age</span>';
+            return;
+          }
 
-      // --- Interactive Function Call Logic ---
-
-      // The actual function logic (simulated in JS for interaction)
-      function calculate_area(width, height) {
-        // Simulate potential errors or constraints if needed
-        if (isNaN(width) || isNaN(height) || width < 0 || height < 0) {
-          throw new Error("Width and height must be non-negative numbers.");
-        }
-        const area = width * height;
-        return area;
-      }
-
-      function highlightCodeLine(lines, className) {
-        functionCodeLines.forEach((line) =>
-          line.classList.remove(
-            "highlight-def",
-            "highlight-call",
-            "highlight-return"
-          )
-        ); // Clear all highlights first
-        lines.forEach((ln) => {
-          const lineElement = document.querySelector(
-            `.code-line[data-line="${ln}"]`
-          );
-          if (lineElement) lineElement.classList.add(className);
+          // Simulate the function
+          const message = `Hello ${name}! You are ${age} years old.`;
+          
+          functionOutput.innerHTML = `
+            <div style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">Function call: greet_user("${name}", ${age})</div>
+            <div style="color: #10b981; font-size: 12px; margin-bottom: 0.5rem;">Return value: "${message}"</div>
+            <div style="color: #d1fae5; font-size: 10px;">The function processed your inputs and returned a formatted string!</div>
+          `;
         });
-      }
 
-      callFunctionButton.addEventListener("click", () => {
-        const widthStr = widthInput.value;
-        const heightStr = heightInput.value;
+        // Print vs Return demonstration
+        const demoReturnBtn = document.getElementById('demoReturn');
+        const demoPrintBtn = document.getElementById('demoPrint');
+        const printVsReturnOutput = document.getElementById('printVsReturnOutput');
 
-        if (widthStr === "" || heightStr === "") {
-          showMessage(
-            functionCallMessage,
-            "Please enter both width and height.",
-            "error"
-          );
-          functionCallDisplay.innerHTML =
-            "<span class=\"text-gray-500 italic\">Enter width/height and click 'Call'.</span>";
-          return;
-        }
+        demoReturnBtn.addEventListener('click', function() {
+          printVsReturnOutput.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">def add_with_return(a, b):</div>
+            <div style="color: #d1fae5; margin-left: 1rem; margin-bottom: 0.5rem;">return a + b</div>
+            <div style="color: #facc15; margin-bottom: 0.5rem;">result = add_with_return(5, 3)</div>
+            <div style="color: #10b981; font-size: 12px; margin-bottom: 0.5rem;">result = 8 ✅ (Can be used!)</div>
+            <div style="color: #9ca3af; font-size: 10px;">The return value can be stored, passed to other functions, etc.</div>
+          `;
+        });
 
-        const width = parseFloat(widthStr);
-        const height = parseFloat(heightStr);
+        demoPrintBtn.addEventListener('click', function() {
+          printVsReturnOutput.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">def add_with_print(a, b):</div>
+            <div style="color: #d1fae5; margin-left: 1rem; margin-bottom: 0.5rem;">print(a + b)  # Shows: 8</div>
+            <div style="color: #facc15; margin-bottom: 0.5rem;">result = add_with_print(5, 3)</div>
+            <div style="color: #ef4444; font-size: 12px; margin-bottom: 0.5rem;">result = None ❌ (Not useful!)</div>
+            <div style="color: #9ca3af; font-size: 10px;">print() just shows text but returns nothing useful</div>
+          `;
+        });
 
-        // Clear previous display and highlights
-        functionCallDisplay.innerHTML = "";
-        highlightCodeLine([], ""); // Clear highlights
+        // Area calculator
+        const calculateAreaBtn = document.getElementById('calculateArea');
+        const areaOutput = document.getElementById('areaOutput');
 
-        // 1. Show the call being made
-        functionCallDisplay.innerHTML += `Calling function: <code class="highlight-call">calculate_area(${width}, ${height})</code>\n`;
-        highlightCodeLine([1], "highlight-def"); // Highlight function definition line
+        calculateAreaBtn.addEventListener('click', function() {
+          const length = parseFloat(document.getElementById('rectLength').value);
+          const width = parseFloat(document.getElementById('rectWidth').value);
 
-        // Short delay to simulate execution start
-        setTimeout(() => {
-          try {
-            // 2. Simulate passing arguments and execution
-            functionCallDisplay.innerHTML += ` -> Function receives width=${width}, height=${height}\n`;
-            highlightCodeLine([3], "highlight-def"); // Highlight calculation line
-
-            // 3. Execute the function logic
-            const areaResult = calculate_area(width, height); // Call the JS simulation
-
-            // Short delay before showing return
-            setTimeout(() => {
-              // 4. Show the return statement being executed
-              functionCallDisplay.innerHTML += ` -> Calculating area: ${width} * ${height} = ${areaResult}\n`;
-              functionCallDisplay.innerHTML += ` -> Function <code class="highlight-return">return</code>s value: ${areaResult}\n`;
-              highlightCodeLine([4], "highlight-return"); // Highlight return line
-
-              // 5. Show the final result received by the caller
-              setTimeout(() => {
-                functionCallDisplay.innerHTML += `\nResult received: <strong class="text-green-600">${areaResult}</strong>`;
-                showMessage(
-                  functionCallMessage,
-                  "Function executed successfully.",
-                  "success"
-                );
-                highlightCodeLine([], ""); // Clear highlights at the end
-              }, 600);
-            }, 600);
-          } catch (e) {
-            // Handle errors from the function logic
-            functionCallDisplay.innerHTML += `<span class="text-red-500">\nError during execution: ${e.message}</span>`;
-            showMessage(functionCallMessage, `Error: ${e.message}`, "error");
-            highlightCodeLine([], ""); // Clear highlights on error
+          if (isNaN(length) || isNaN(width)) {
+            areaOutput.innerHTML = '<span style="color: #ef4444;">Please enter valid numbers</span>';
+            return;
           }
-        }, 600); // Delay for step 2
-      });
 
-      // --- Quiz Logic ---
-      function checkFunctionsQuiz() {
-        const answers = {
-          q1_func: "b", // def
-          q2_func: "c", // Parameter
-          q3_func: "b", // Sends a value back
-          q4_func: "b", // None
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
+          const area = length * width;
+          
+          areaOutput.innerHTML = `
+            <div style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">calculate_area(${length}, ${width})</div>
+            <div style="color: #d1fae5; font-size: 11px; margin-bottom: 0.5rem;">Arguments: length=${length}, width=${width}</div>
+            <div style="color: #10b981; font-size: 12px;">Returned: ${area} square units</div>
+          `;
+        });
 
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
+        // Function builder
+        const buildFunctionBtn = document.getElementById('buildFunction');
+        const testFunctionBtn = document.getElementById('testFunction');
+        const functionBuilder = document.getElementById('functionBuilder');
+        let builtFunction = null;
+
+        buildFunctionBtn.addEventListener('click', function() {
+          const funcName = document.getElementById('functionName').value.trim();
+          const paramName = document.getElementById('parameterName').value.trim();
+          const returnText = document.getElementById('returnValue').value.trim();
+
+          if (!funcName || !paramName || !returnText) {
+            functionBuilder.innerHTML = '<span style="color: #ef4444;">Please fill in all fields</span>';
+            return;
           }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
+
+          builtFunction = { funcName, paramName, returnText };
+          testFunctionBtn.disabled = false;
+          
+          functionBuilder.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">Your function:</div>
+            <pre style="background: #1f2937; padding: 1rem; border-radius: 4px; text-align: left;"><code>def ${funcName}(${paramName}):
+    return "${returnText}" + ${paramName}
+
+# Example call:
+result = ${funcName}("World")
+print(result)  # Output: ${returnText}World</code></pre>
+            <div style="color: #9ca3af; font-size: 10px; margin-top: 0.5rem;">Click 'Test Function' to try it!</div>
+          `;
+        });
+
+        testFunctionBtn.addEventListener('click', function() {
+          if (!builtFunction) return;
+
+          const testInput = prompt(`Enter a value for parameter "${builtFunction.paramName}":`) || "World";
+          const result = builtFunction.returnText + testInput;
+          
+          functionBuilder.innerHTML += `
+            <div style="border-top: 1px solid #374151; margin-top: 1rem; padding-top: 1rem;">
+              <div style="color: #facc15; margin-bottom: 0.5rem;">Test Result:</div>
+              <div style="color: #10b981; font-size: 12px;">${builtFunction.funcName}("${testInput}") returned: "${result}"</div>
+            </div>
+          `;
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkFunctionsQuizBtn = document.getElementById('checkFunctionsQuiz');
+        const functionsQuizResult = document.getElementById('functionsQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkFunctionsQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
+                }
+              }
+            });
+          });
+
+          functionsQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            functionsQuizResult.className = 'message-box message-box-success';
+            functionsQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand functions and the vending machine model!`;
           } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
+            functionsQuizResult.className = 'message-box message-box-info';
+            functionsQuizResult.innerHTML = `${correct}/${total} correct. Review the concepts above, especially the difference between print() and return!`;
           }
-        }
+        });
 
-        if (!allAnswered) {
-          quizResultFunc.textContent =
-            "Please answer all questions before checking.";
-          quizResultFunc.className = "message-box message-box-error";
-          quizResultFunc.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultFunc.innerHTML = resultsHTML;
-        quizResultFunc.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultFunc.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonFunc.addEventListener("click", checkFunctionsQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        // No specific setup needed initially beyond HTML rendering
-      };
+        // Progress tracking
+        localStorage.setItem('completedFunctions', 'true');
+      });
     </script>
   </body>
 </html>

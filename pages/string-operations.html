@@ -3,912 +3,858 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>String Operations in Python</title>
+    <title>Working with Text: String Operations | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      /* String operation visualization */
+      .string-demo {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: monospace;
+        text-align: center;
+      }
+
+      .string-visualization {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+      }
+
+      .char-box {
+        background: rgba(250, 204, 21, 0.2);
+        border: 1px solid #facc15;
+        border-radius: 4px;
+        padding: 0.5rem;
+        min-width: 30px;
+        text-align: center;
+        font-family: monospace;
+        color: #facc15;
+        position: relative;
+      }
+
+      .char-index {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 8px;
+        color: #9ca3af;
+      }
+
+      .method-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .method-card {
+        background: rgba(59, 130, 246, 0.1);
+        border: 2px solid #3b82f6;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      /* Assessment section */
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .method-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .string-visualization {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="nested-loops.html" class="btn">&laquo; Nested Loops</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="functions.html" class="btn">Next: Functions &rarr;</a>
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="variables-types.html" class="nav-btn">← Variables & Types</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Foundation: Working with Text
+          </div>
+          <a href="booleans-conditionals.html" class="nav-btn">Next: Making Decisions →</a>
+        </div>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            String Operations
-          </h2>
-          <p class="text-sm italic mt-1">
-            Manipulating text data using various built-in methods for formatting, searching, and modification.
-          </p>
-        </header>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            1. What are Strings?
-          </h2>
-          <p class="mb-4">
-            A string is like a necklace of beads - each character is a bead, and they're strung together in a specific order. Just as you can't change a bead's position without making a new necklace, strings in Python are **immutable** - you can't change individual characters directly. Instead, you create a new string with the changes you want. Think of it like a sentence written in ink - you can't erase or change individual letters, but you can write a new sentence with the changes you want.
-          </p>
-          <p class="mb-2">
-            You can create strings using different types of quotes, just like how you might use different types of containers for different purposes:
-            <ul class="list-disc list-inside ml-4 mt-2">
-              <li>Single quotes (<code>'...'</code>) are like a small box - good for short strings, similar to how you might use a small container for a single item</li>
-              <li>Double quotes (<code>"..."</code>) are like a medium box - good for strings with single quotes inside, like a container that can hold other containers</li>
-              <li>Triple quotes (<code>'''...'''</code> or <code>"""..."""</code>) are like a large box - perfect for multi-line strings, similar to how you might use a large container for multiple items or a complex arrangement</li>
-            </ul>
-          </p>
-          <pre><code class="language-python">greeting = "Hello, Python!"  # Using double quotes
-name = 'Alice'            # Using single quotes
-empty_string = ""
-multiline_string = """
-This is a
-multi-line string.
-"""
-
-print(greeting)
-print(type(name)) # Output: <class 'str'>
-print(multiline_string)</code></pre>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            2. Combining & Repeating Strings
-          </h2>
-          <p class="mb-2">
-            Working with strings is like playing with building blocks. You can:
-            <ul class="list-disc list-inside ml-4 mt-2">
-              <li>Combine strings using <code>+</code> - like connecting two train cars or linking together pieces of a chain</li>
-              <li>Repeat strings using <code>*</code> - like making multiple copies of the same pattern, similar to how a printer can make multiple copies of a document</li>
-              <li>Mix strings with other types using <code>str()</code> - like converting different types of blocks to fit together, similar to how you might need to convert different types of materials to work together in a construction project</li>
-            </ul>
-          </p>
-          <pre><code class="language-python">first_name = "Ada"
-last_name = "Lovelace"
-
-# Concatenation
-full_name = first_name + " " + last_name
-print(full_name)  # Output: Ada Lovelace
-
-# Repetition
-separator = "-" * 10
-print(separator)  # Output: ----------
-
-# Combining with other types (requires conversion to string)
-age = 30
-# print("Age: " + age) # This would cause a TypeError
-print("Age: " + str(age)) # Correct: Age: 30
-print(f"Age: {age}")      # Using an f-string (preferred for readability)</code></pre>
-
-          <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-2">Try it:</h3>
-          <div class="flex flex-wrap items-center mb-2">
-            <input
-              type="text"
-              id="str1Input"
-              class="input-field"
-              placeholder="String 1"
-              value="Hello"
-            />
-            <span class="mx-2 text-xl font-bold">+</span>
-            <input
-              type="text"
-              id="str2Input"
-              class="input-field"
-              placeholder="String 2"
-              value=" World"
-            />
-            <button id="concatButton" class="btn">Concatenate</button>
-          </div>
-          <div class="flex flex-wrap items-center mb-2">
-            <input
-              type="text"
-              id="strRepeatInput"
-              class="input-field"
-              placeholder="String to Repeat"
-              value="Go "
-            />
-            <span class="mx-2 text-xl font-bold">*</span>
-            <input
-              type="number"
-              id="repeatNumInput"
-              class="input-field input-field-small"
-              placeholder="Num"
-              value="3"
-              min="0"
-            />
-            <button id="repeatButton" class="btn">Repeat</button>
-          </div>
-          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-          <div id="combineResultDisplay" class="output-display">
-            <span class="text-gray-500 italic"
-              >Click buttons above to see results.</span
-            >
-          </div>
-          <div
-            id="combineMessage"
-            class="message-box"
-            style="display: none"
-          ></div>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            3. String Indexing and Slicing
-          </h2>
-          <p class="mb-2">
-            Think of a string as a row of numbered lockers in a school hallway. Each character has its own locker number (index), and you can:
-            <ul class="list-disc list-inside ml-4 mt-2">
-              <li><strong>Indexing:</strong> Open a specific locker to see what's inside (get a single character), like checking a specific mailbox in a row of mailboxes</li>
-              <li><strong>Slicing:</strong> Look at a range of lockers (get a substring), similar to how you might look at a section of books on a bookshelf</li>
-            </ul>
-            Just like how locker numbers start at 1, but string indices start at 0, and negative numbers count from the end of the hallway! It's similar to how a race car starts at position 0 before crossing the starting line, or how a ruler starts at 0 before measuring the first inch.
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Indexing:</strong> Access a single character. Python uses 0-based indexing (the first character is at index 0).
-                  Negative indexing starts from the end (-1 is the last character).</li>
-              <li><strong>Slicing:</strong> Extract a portion of the string. Syntax: <code>my_string[start:stop:step]</code>.
-                  <ul>
-                      <li><code>start</code>: The index to begin the slice (inclusive). Defaults to 0.</li>
-                      <li><code>stop</code>: The index to end the slice (exclusive). Defaults to the end of the string.</li>
-                      <li><code>step</code>: The amount to increment by (e.g., 2 for every other character). Defaults to 1.</li>
-                  </ul>
-              </li>
-          </ul>
-          <pre><code class="language-python">text = "Python Fun"
-# Indexing
-print(f"First char: {text[0]}")   # Output: P
-print(f"Last char: {text[-1]}")  # Output: n
-# print(text[10]) # IndexError: string index out of range
-
-# Slicing
-print(f"Slice [0:6]: {text[0:6]}") # Output: Python
-print(f"Slice [:6]: {text[:6]}")   # Output: Python (from start up to, not including, index 6)
-print(f"Slice [7:]: {text[7:]}")   # Output: Fun (from index 7 to the end)
-print(f"Slice [::-1]: {text[::-1]}") # Output: nuF nohtyP (reverses the string)
-print(f"Slice [::2]: {text[::2]}")  # Output: Pto u (every other character)
-</code></pre>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            Interactive String Indexing & Slicing
-          </h2>
-          <p class="mb-4">
-            Enter a string and indices to see indexing and slicing in action.
-            The example string is "PixelWorld".
-          </p>
-          <div id="accessStringVis" class="string-vis-container mb-4"></div>
-          <div class="flex flex-wrap items-center mb-2">
-            <label for="accessIndexInput" class="mr-2">Index:</label>
-            <input
-              type="number"
-              id="accessIndexInput"
-              class="input-field input-field-small"
-              placeholder="e.g., 0, -1"
-            />
-            <button id="accessIndexButton" class="btn">Get Character</button>
-          </div>
-          <div class="flex flex-wrap items-center mb-2">
-            <label for="sliceStartInput" class="mr-2">Slice Start:</label>
-            <input
-              type="number"
-              id="sliceStartInput"
-              class="input-field input-field-small"
-              placeholder="Start"
-            />
-            <label for="sliceStopInput" class="ml-4 mr-2">Stop:</label>
-            <input
-              type="number"
-              id="sliceStopInput"
-              class="input-field input-field-small"
-              placeholder="Stop"
-            />
-            <label for="sliceStepInput" class="ml-4 mr-2">Step:</label>
-            <input
-              type="number"
-              id="sliceStepInput"
-              class="input-field input-field-small"
-              placeholder="Step"
-            />
-            <button id="sliceButton" class="btn">Get Slice</button>
-          </div>
-          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-          <div id="accessResultDisplay" class="output-display">
-            <span class="text-gray-500 italic"
-              >Enter index/slice values and click buttons.</span
-            >
-          </div>
-          <div
-            id="accessStrMessage"
-            class="message-box"
-            style="display: none"
-          ></div>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            4. Common String Methods
-          </h2>
-          <p class="mb-2">
-            String methods are like tools in a toolbox - each one has a specific purpose for working with text. Remember, since strings are immutable, these methods don't change the original string - they create a new one, like making a copy of a document before editing it.
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-            <li><code>len(my_string)</code>: Like counting how many beads are on your necklace</li>
-            <li><code>.lower()</code>: Like turning all the lights in a room to their dimmest setting</li>
-            <li><code>.upper()</code>: Like turning all the lights to their brightest setting</li>
-            <li><code>.strip()</code>: Like trimming the edges of a piece of paper to remove any uneven bits</li>
-            <li><code>.replace(old, new)</code>: Like finding and replacing all instances of a word in a document</li>
-            <li><code>.split(separator)</code>: Like cutting a piece of string at specific points to create smaller pieces</li>
-            <li><code>.join(iterable)</code>: Joins elements of an iterable (like a list of strings) into a single string, with the original string as a separator.</li>
-            <li><code>.startswith(prefix)</code>: Returns <code>True</code> if the string starts with <code>prefix</code>.</li>
-            <li><code>.endswith(suffix)</code>: Returns <code>True</code> if the string ends with <code>suffix</code>.</li>
-            <li><code>.find(substring)</code>: Returns the starting index of the first occurrence of <code>substring</code>. Returns -1 if not found. <code>.rfind()</code> finds from the right.</li>
-            <li><code>.count(substring)</code>: Returns the number of non-overlapping occurrences of <code>substring</code>.</li>
-            <li><code>.isdigit()</code>, <code>.isalpha()</code>, <code>.isalnum()</code>, <code>.isspace()</code>: Check if characters are digits, alphabetic, alphanumeric, or whitespace.</li>
-          </ul>
-          <pre><code class="language-python">text = "  Hello, Python World!  "
-
-print(f"Length: {len(text)}")
-print(f"Lowercase: '{text.lower()}'")
-print(f"Uppercase: '{text.upper()}'")
-print(f"Stripped: '{text.strip()}'")
-print(f"Replaced: '{text.replace("Python", "User")}'")
-print(f"Split by ',': {text.split(',')}")
-
-words = ["Python", "is", "fun"]
-print(f"Joined: '{'-'.join(words)}'") # Output: Python-is-fun
-
-print(f"Starts with '  H': {text.startswith('  H')}")
-print(f"Ends with '!  ': {text.endswith('!  ')}")
-print(f"Find 'Python': {text.find('Python')}")
-print(f"Count 'o': {text.count('o')}")</code></pre>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            Interactive String Methods
-          </h2>
-          <p class="mb-4">
-            Try some common string methods with your own input string.
-          </p>
-          <div class="mb-2">
-            <label for="methodStrInput" class="block font-medium"
-              >Input String:</label
-            >
-            <input
-              type="text"
-              id="methodStrInput"
-              class="input-field w-full"
-              value="  Example String To Test  "
-            />
-          </div>
-          <div class="flex flex-wrap items-center mb-2">
-            <label for="methodSelect" class="mr-2">Method:</label>
-            <select id="methodSelect" class="select-field">
-              <option value="len">len()</option>
-              <option value="upper">.upper()</option>
-              <option value="lower">.lower()</option>
-              <option value="strip">.strip()</option>
-              <option value="replace">.replace(old, new)</option>
-              <option value="find">.find(substring)</option>
-              <option value="split">.split(separator)</option>
-            </select>
-            <div id="methodArgsContainer" class="inline-block ml-2"></div>
-            <button id="applyMethodButton" class="btn btn-green">
-              Apply Method
-            </button>
-          </div>
-          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-          <div id="methodResultDisplay" class="output-display">
-            <span class="text-gray-500 italic"
-              >Select a method and click 'Apply'.</span
-            >
-          </div>
-          <div id="methodMessage" class="message-box" style="display: none"></div>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            5. String Formatting
-          </h2>
-          <p class="mb-2">
-            Often, you need to embed variables or expressions within strings. Python offers several ways to do this:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-              <li><strong>f-strings (Formatted String Literals - Recommended):</strong> Introduced in Python 3.6, f-strings provide a concise and readable way to embed expressions inside string literals. Prefix the string with <code>f</code> or <code>F</code> and enclose expressions in curly braces <code>{}</code>.</li>
-              <li><code>.format()</code> method: A versatile method available in older Python versions too. Uses curly braces as placeholders.</li>
-              <li>Older <code>%</code> operator (C-style formatting): Less common in modern Python code but you might encounter it.</li>
-          </ul>
-          <pre><code class="language-python">name = "Alice"
-age = 30
-
-# f-string (preferred)
-formatted_f = f"My name is {name} and I am {age} years old."
-print(formatted_f)
-
-# .format() method
-formatted_dot = "My name is {} and I am {} years old.".format(name, age)
-print(formatted_dot)
-
-formatted_dot_named = "My name is {n} and I am {a} years old.".format(n=name, a=age)
-print(formatted_dot_named)
-
-# % operator (older style)
-formatted_percent = "My name is %s and I am %d years old." % (name, age)
-print(formatted_percent)</code></pre>
-          <p class="mt-2 text-sm text-cyan-300">
-              F-strings also support formatting specifiers within the curly braces, e.g., <code>{value:.2f}</code> to format a float to 2 decimal places.
-          </p>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            Interactive: String Formatting (f-string)
-          </h2>
-          <p class="mb-4">Enter a name and an item to create a personalized message using an f-string.</p>
-          <div class="mb-2">
-            <label for="nameInput" class="block font-medium">Name:</label>
-            <input
-              type="text"
-              id="nameInput"
-              class="input-field w-full"
-              placeholder="Enter your name"
-            />
-          </div>
-          <div class="mb-2">
-            <label for="itemInput" class="block font-medium">Item:</label>
-            <input
-              type="text"
-              id="itemInput"
-              class="input-field w-full"
-              placeholder="Enter an item"
-            />
-          </div>
-          <button id="formatButton" class="btn">Format</button>
-          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-          <div id="formattedMessage" class="output-display">
-            <span class="text-gray-500 italic"
-              >Enter a name and an item to see a personalized message.</span
-            >
-          </div>
-          <div id="formatMessage" class="message-box" style="display: none"></div>
-        </section>
-
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            6. Escape Characters
-          </h2>
-          <p class="mb-2">
-            Sometimes you need to include characters in a string that have special meaning, like a newline,
-            a tab, or a quote character itself. This is done using **escape characters**, which start with a
-            backslash <code>\</code>.
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-              <li><code>\n</code>: Newline</li>
-              <li><code>\t</code>: Tab</li>
-              <li><code>\'</code>: Single quote</li>
-              <li><code>\"</code>: Double quote</li>
-              <li><code>\\</code>: Backslash</li>
-          </ul>
-          <pre><code class="language-python">print("This is line one.\nThis is line two.")
-# Output:
-# This is line one.
-# This is line two.
-
-print("She said: \"Hello!\"") # Output: She said: "Hello!"
-print('It\'s a sunny day.') # Output: It's a sunny day.
-print("Path: C:\\Users\\Name") # Output: Path: C:\Users\Name</code></pre>
-          <h3 class="text-lg font-medium text-cyan-400 mt-4 mb-1">Raw Strings:</h3>
-          <p class="mb-2">
-            If you have many backslashes (e.g., in file paths or regular expressions), you can use a
-            <strong>raw string</strong> by prefixing the string literal with <code>r</code>. In raw strings,
-            backslashes are treated as literal characters.
-          </p>
-          <pre><code class="language-python"># Regular string, needs double backslashes for path
-path1 = "C:\\new_folder\\text_file.txt"
-print(f"Regular path: {path1}")
-
-# Raw string, backslashes are literal
-path2 = r"C:\new_folder\text_file.txt"
-print(f"Raw path: {path2}")
-# Note: A raw string cannot end in an odd number of backslashes.</code></pre>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            8. Quick Quiz
-          </h2>
-          <p class="mb-4">Test your understanding!</p>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q1: Which operator is used for string concatenation in Python?
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Working with Text</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              📝 String Operations: Processing and Manipulating Text Data
             </p>
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q1_str" value="a" class="mr-1" />
-              <code>&</code></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q1_str" value="b" class="mr-1" />
-              <code>+</code></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q1_str" value="c" class="mr-1" />
-              <code>.concat()</code></label
-            >
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master text processing - the foundation of user interaction and data processing
+            </div>
           </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q2: Which of the following is the correct way to access the first character of a string?
+        </div>
+
+        <main>
+          <!-- Core Mental Model Section -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧠 Mental Model: Strings as Sequences of Characters</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The Bead Necklace Metaphor</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of strings as necklaces made of beads, where each bead is a character. You can:
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>Look at individual beads</strong> (access characters by index)</li>
+                <li><strong>Count the beads</strong> (get string length)</li>
+                <li><strong>Make new necklaces</strong> (concatenate strings)</li>
+                <li><strong>Take sections</strong> (slice strings)</li>
+                <li><strong>Transform the necklace</strong> (change case, replace characters)</li>
+              </ul>
+            </div>
+
+            <div class="string-demo">
+              <h3 style="color: #3730a3; margin-bottom: 1rem;">String Indexing Demo</h3>
+              <div class="string-visualization">
+                <div class="char-box">
+                  <div class="char-index">0</div>
+                  P
+                </div>
+                <div class="char-box">
+                  <div class="char-index">1</div>
+                  y
+                </div>
+                <div class="char-box">
+                  <div class="char-index">2</div>
+                  t
+                </div>
+                <div class="char-box">
+                  <div class="char-index">3</div>
+                  h
+                </div>
+                <div class="char-box">
+                  <div class="char-index">4</div>
+                  o
+                </div>
+                <div class="char-box">
+                  <div class="char-index">5</div>
+                  n
+                </div>
+              </div>
+              <p style="color: #e5e7eb; font-size: 10px; margin-top: 1rem;">
+                "Python"[0] = "P" | "Python"[3] = "h" | "Python"[-1] = "n"
+              </p>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive String Explorer</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Enter any text and explore its characters:
+              </p>
+              
+              <div style="margin: 1rem 0;">
+                <input type="text" id="stringInput" class="input-field" value="Hello World!" placeholder="Enter text here" style="width: 70%; margin-right: 0.5rem;">
+                <button id="exploreString" class="btn">Explore String</button>
+              </div>
+              
+              <div id="stringExploreOutput" class="output-display">
+                <span class="placeholder-text">Enter text and click 'Explore String'</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- String Methods -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔧 Essential String Methods</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Strings come with built-in methods (functions) that let you manipulate text easily. 
+              Think of these as different tools in a text-processing toolkit:
             </p>
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q2_str" value="a" class="mr-1" />
-              <code>my_string[0]</code></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q2_str" value="b" class="mr-1" />
-              <code>my_string.first()</code></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q2_str" value="c" class="mr-1" />
-              <code>my_string(0)</code></label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q3: Which of the following is true about the .upper() method?
+
+            <div class="method-grid">
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.upper() / .lower()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Change case</p>
+                <div class="string-demo">
+                  <code>"Hello".upper() → "HELLO"</code><br>
+                  <code>"WORLD".lower() → "world"</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Perfect for making comparisons case-insensitive</p>
+              </div>
+
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.strip()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Remove whitespace</p>
+                <div class="string-demo">
+                  <code>"  hello  ".strip() → "hello"</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Essential for cleaning user input</p>
+              </div>
+
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.replace()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Find and replace</p>
+                <div class="string-demo">
+                  <code>"Hello World".replace("World", "Python") → "Hello Python"</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Great for text substitution</p>
+              </div>
+
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.split()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Break into pieces</p>
+                <div class="string-demo">
+                  <code>"a,b,c".split(",") → ['a', 'b', 'c']</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Turn text into lists for processing</p>
+              </div>
+
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.join()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Combine list into string</p>
+                <div class="string-demo">
+                  <code>"-".join(['a', 'b', 'c']) → "a-b-c"</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Opposite of split - build strings from lists</p>
+              </div>
+
+              <div class="method-card">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.find() / in</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Search for text</p>
+                <div class="string-demo">
+                  <code>"Hello".find("ll") → 2</code><br>
+                  <code>"ll" in "Hello" → True</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Check if text contains something</p>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">String Methods Playground</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Try different string methods:
+              </p>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin: 1rem 0;">
+                <button id="demoUpper" class="btn btn-small">.upper()</button>
+                <button id="demoLower" class="btn btn-small">.lower()</button>
+                <button id="demoStrip" class="btn btn-small">.strip()</button>
+                <button id="demoReplace" class="btn btn-small">.replace()</button>
+                <button id="demoSplit" class="btn btn-small">.split()</button>
+                <button id="demoJoin" class="btn btn-small">.join()</button>
+              </div>
+              
+              <div id="methodsOutput" class="output-display">
+                <span class="placeholder-text">Click a method button to see it in action</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- String Slicing -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">✂️ String Slicing: Getting Parts of Text</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🧠 The Cutting Scissors Model</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                String slicing is like using scissors to cut out specific sections of a newspaper. 
+                You specify where to start cutting and where to stop.
+              </p>
+              <div style="font-family: monospace; background: rgba(55, 48, 163, 0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                <div style="color: #facc15; margin-bottom: 0.5rem;">text[start:end:step]</div>
+                <div style="color: #d1fae5; font-size: 10px;">
+                  • start: where to begin (inclusive)<br>
+                  • end: where to stop (exclusive)<br>
+                  • step: how many to skip (optional)
+                </div>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive String Slicer</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Practice slicing with the string "Programming":
+              </p>
+              
+              <div style="margin: 1rem 0;">
+                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+                  <span style="color: #facc15; font-size: 11px;">"Programming"[</span>
+                  <input type="number" id="sliceStart" class="input-field" value="0" style="width: 60px;">
+                  <span style="color: #facc15; font-size: 11px;">:</span>
+                  <input type="number" id="sliceEnd" class="input-field" value="4" style="width: 60px;">
+                  <span style="color: #facc15; font-size: 11px;">]</span>
+                  <button id="sliceString" class="btn btn-small">Slice</button>
+                </div>
+              </div>
+              
+              <div id="sliceOutput" class="output-display">
+                <span class="placeholder-text">Adjust the slice parameters and click 'Slice'</span>
+              </div>
+
+              <div style="margin-top: 1rem;">
+                <h4 style="color: #facc15; font-size: 11px; margin-bottom: 0.5rem;">Common Patterns:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
+                  <button id="firstChar" class="btn btn-small">First char [0]</button>
+                  <button id="lastChar" class="btn btn-small">Last char [-1]</button>
+                  <button id="first3" class="btn btn-small">First 3 [:3]</button>
+                  <button id="last3" class="btn btn-small">Last 3 [-3:]</button>
+                  <button id="everyOther" class="btn btn-small">Every 2nd [::2]</button>
+                  <button id="reverse" class="btn btn-small">Reverse [::-1]</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- String Formatting -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎨 String Formatting: Building Dynamic Text</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              String formatting lets you create text templates and fill in the blanks with variables. 
+              Modern Python uses f-strings (formatted string literals) - the easiest and most readable way.
             </p>
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q3_str" value="a" class="mr-1" /> It
-              modifies the original string to be all uppercase.</label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q3_str" value="b" class="mr-1" /> It
-              returns a new string with all characters in uppercase.</label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q3_str" value="c" class="mr-1" /> It
-              checks if the string is already uppercase.</label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q4: Which of the following is the correct way to format a string with variables?
-            </p>
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q4_str" value="a" class="mr-1" />
-              <code>print("Name: " + name + ", Age: " + age)</code></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q4_str" value="b" class="mr-1" />
-              <code>print(f"Name: {name}, Age: {age}")</code></f-string></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer"
-              ><input type="radio" name="q4_str" value="c" class="mr-1" />
-              <code>print("Name: {0}, Age: {1}".format(name, age))</code></f-string></label
-            >
-            <label class="block p-2 border border-yellow-500 rounded-md hover:bg-blue-900 cursor-pointer">
-              <input type="radio" name="q4_str" value="d" class="mr-1" />
-              Both b and c are recommended and correct ways.</label>
-          </div>
-          <button id="checkQuizButtonStr" class="btn">Check Answers</button>
-          <div
-            id="quizResultStr"
-            class="message-box mt-4"
-            style="display: none"
-          ></div>
-        </section>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">f-String Template Builder</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Create personalized messages with f-strings:
+              </p>
+              
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code># f-string syntax: f"text {variable} more text"
+name = "Alice"
+age = 25
+score = 95.7
+
+message = f"Hello {name}! You are {age} years old and scored {score:.1f}%."
+print(message)
+# Output: Hello Alice! You are 25 years old and scored 95.7%.</code></pre>
+              
+              <div style="margin: 1rem 0;">
+                <label style="color: #facc15; font-size: 11px;">Name:</label>
+                <input type="text" id="formatName" class="input-field" value="Alice" style="margin: 0 0.5rem;">
+                <label style="color: #facc15; font-size: 11px;">Age:</label>
+                <input type="number" id="formatAge" class="input-field" value="25" style="margin: 0 0.5rem;">
+                <label style="color: #facc15; font-size: 11px;">Score:</label>
+                <input type="number" id="formatScore" class="input-field" value="95.7" step="0.1" style="margin: 0 0.5rem;">
+                <button id="buildFString" class="btn">Build Message</button>
+              </div>
+              
+              <div id="fStringOutput" class="output-display">
+                <span class="placeholder-text">Enter values and click 'Build Message'</span>
+              </div>
+            </div>
+
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🧠 f-String Benefits</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>Readable:</strong> Variables appear right where they'll be inserted</li>
+                <li><strong>Flexible:</strong> Can include expressions: <code>f"Result: {x + y}"</code></li>
+                <li><strong>Formatting:</strong> Control decimal places: <code>f"Score: {score:.2f}"</code></li>
+                <li><strong>Fast:</strong> More efficient than older formatting methods</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Critical Pitfall: String Immutability -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚠️ Critical Pitfall: Strings are Immutable</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">Common Beginner Confusion</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                <strong>Misconception:</strong> Thinking you can change individual characters in a string like 
+                <code>text[0] = "X"</code>. This will cause an error because strings are immutable (unchangeable)!
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ This Won't Work</h4>
+                <pre style="color: #fecaca; font-size: 10px; background: #1f2937; padding: 0.5rem; border-radius: 4px;"><code>text = "Hello"
+text[0] = "J"  # ERROR!
+# TypeError: 'str' object does not support item assignment</code></pre>
+              </div>
+              
+              <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Do This Instead</h4>
+                <pre style="color: #d1fae5; font-size: 10px; background: #1f2937; padding: 0.5rem; border-radius: 4px;"><code>text = "Hello"
+text = "J" + text[1:]  # Create new string
+# Result: "Jello"
+
+# Or use replace method
+text = text.replace("H", "J")</code></pre>
+              </div>
+            </div>
+
+            <div class="mental-model-box" style="margin-top: 1.5rem;">
+              <h3 style="color: #10b981; margin-bottom: 0.5rem;">🧠 Remember: String Methods Return New Strings</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5;">
+                When you call <code>.upper()</code>, <code>.replace()</code>, or any string method, 
+                it doesn't change the original string - it returns a brand new one!
+              </p>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Mastery Check: String Operations</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: String Indexing</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What does <code>"Python"[2]</code> return?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">"t" (the character at index 2)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">"y" (the second character)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">"th" (two characters starting at index 2)</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: String Immutability</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 0.5rem;">
+                What happens when you run this code?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>text = "Hello"
+new_text = text.upper()
+print(text)</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints "Hello" (original unchanged)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints "HELLO" (original changed)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Causes an error</p>
+              </div>
+            </div>
+
+            <button id="checkStringsQuiz" class="btn btn-green">Check My Understanding</button>
+            <div id="stringsQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Next Steps -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎯 Ready for Decision Making!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">What You've Mastered</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ Strings as sequences of characters (bead necklace model)</li>
+                <li>✅ String indexing and slicing (accessing parts of text)</li>
+                <li>✅ Essential string methods (.upper(), .lower(), .strip(), .replace(), etc.)</li>
+                <li>✅ String formatting with f-strings</li>
+                <li>✅ String immutability (methods return new strings)</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Now that you can work with text data, let's learn how to make your programs make 
+                intelligent decisions based on that data!
+              </p>
+              <a href="booleans-conditionals.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                Continue to Making Decisions →
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🎮 Text Mastered! Ready for Decisions? 🎮</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="booleans-conditionals.html" style="color: #facc15;">🔀 Next: Making Decisions →</a>
+          </p>
+        </footer>
       </div>
-
-      <footer class="footer-8bit">
-        <p class="text-sm mb-2">Ready to write reusable code?</p>
-        <a href="functions.html" class="btn btn-8bit">Next Tutorial: Functions &rarr;</a>
-      </footer>
     </div>
 
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+      document.addEventListener('DOMContentLoaded', function() {
+        // String explorer
+        const exploreStringBtn = document.getElementById('exploreString');
+        const stringExploreOutput = document.getElementById('stringExploreOutput');
 
-      // --- DOM Elements ---
-      const str1Input = document.getElementById("str1Input");
-      const str2Input = document.getElementById("str2Input");
-      const concatButton = document.getElementById("concatButton");
-      const strRepeatInput = document.getElementById("strRepeatInput");
-      const repeatNumInput = document.getElementById("repeatNumInput");
-      const repeatButton = document.getElementById("repeatButton");
-      const combineResultDisplay = document.getElementById(
-        "combineResultDisplay"
-      );
-      const combineMessage = document.getElementById("combineMessage");
+        exploreStringBtn.addEventListener('click', function() {
+          const text = document.getElementById('stringInput').value;
+          
+          if (!text) {
+            stringExploreOutput.innerHTML = '<span style="color: #ef4444;">Please enter some text</span>';
+            return;
+          }
 
-      const accessStringVis = document.getElementById("accessStringVis");
-      const accessIndexInput = document.getElementById("accessIndexInput");
-      const accessIndexButton = document.getElementById("accessIndexButton");
-      const sliceStartInput = document.getElementById("sliceStartInput");
-      const sliceStopInput = document.getElementById("sliceStopInput");
-      const sliceStepInput = document.getElementById("sliceStepInput");
-      const sliceButton = document.getElementById("sliceButton");
-      const accessResultDisplay = document.getElementById(
-        "accessResultDisplay"
-      );
-      const accessStrMessage = document.getElementById("accessStrMessage");
-      const accessExampleString = "PixelWorld";
-
-      const methodStrInput = document.getElementById("methodStrInput");
-      const methodSelect = document.getElementById("methodSelect");
-      const methodArgsContainer = document.getElementById(
-        "methodArgsContainer"
-      );
-      const applyMethodButton = document.getElementById("applyMethodButton");
-      const methodResultDisplay = document.getElementById(
-        "methodResultDisplay"
-      );
-      const methodMessage = document.getElementById("methodMessage");
-
-      const checkQuizButtonStr = document.getElementById(
-        "checkQuizButtonStr"
-      );
-      const quizResultStr = document.getElementById("quizResultStr");
-
-      // --- Concatenation & Repetition Logic ---
-      concatButton.addEventListener("click", () => {
-        const str1 = str1Input.value;
-        const str2 = str2Input.value;
-        const result = str1 + str2;
-        combineResultDisplay.textContent = `"${str1}" + "${str2}" => "${result}"`;
-        showMessage(combineMessage, "Concatenation complete.", "success");
-      });
-
-      repeatButton.addEventListener("click", () => {
-        const str = strRepeatInput.value;
-        const numStr = repeatNumInput.value;
-        const num = parseInt(numStr, 10);
-
-        if (isNaN(num) || num < 0) {
-          showMessage(
-            combineMessage,
-            "Please enter a non-negative number for repetition.",
-            "error"
-          );
-          combineResultDisplay.textContent =
-            '<span class="text-red-500">Error: Invalid number.</span>';
-          return;
-        }
-        const result = str.repeat(num); // Use built-in repeat for simplicity
-        combineResultDisplay.textContent = `"${str}" * ${num} => "${result}"`;
-        showMessage(combineMessage, "Repetition complete.", "success");
-      });
-
-      // --- Indexing & Slicing Logic ---
-      function renderStringVisual(container, text) {
-        container.innerHTML = "";
-        for (let i = 0; i < text.length; i++) {
-          const charSpan = document.createElement("span");
-          charSpan.className = "string-char";
-          charSpan.textContent = text[i];
-          charSpan.dataset.index = i;
-          container.appendChild(charSpan);
-        }
-      }
-
-      function clearStringHighlights(container) {
-        container.querySelectorAll(".string-char.highlight").forEach((span) => {
-          span.classList.remove("highlight");
+          let output = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">Text: "${text}"</div>
+            <div style="color: #d1fae5; font-size: 11px; margin-bottom: 0.5rem;">Length: ${text.length} characters</div>
+            <div style="color: #d1fae5; font-size: 11px; margin-bottom: 0.5rem;">First character: "${text[0]}"</div>
+            <div style="color: #d1fae5; font-size: 11px; margin-bottom: 0.5rem;">Last character: "${text[text.length - 1]}"</div>
+            <div style="color: #d1fae5; font-size: 11px;">Characters: 
+          `;
+          
+          for (let i = 0; i < Math.min(text.length, 10); i++) {
+            output += `[${i}]="${text[i]}" `;
+          }
+          
+          if (text.length > 10) {
+            output += '...';
+          }
+          
+          output += '</div>';
+          stringExploreOutput.innerHTML = output;
         });
-      }
 
-      accessIndexButton.addEventListener("click", () => {
-        clearStringHighlights(accessStringVis);
-        const indexStr = accessIndexInput.value;
-        if (indexStr === "") {
-          showMessage(accessStrMessage, "Please enter an index.", "error");
-          accessResultDisplay.textContent =
-            '<span class="text-gray-500 italic">Enter index/slice values and click buttons.</span>';
-          return;
-        }
-        const index = parseInt(indexStr, 10);
+        // String methods demonstration
+        const methodButtons = {
+          'demoUpper': () => '"Hello World".upper() → "HELLO WORLD"',
+          'demoLower': () => '"Hello World".lower() → "hello world"',
+          'demoStrip': () => '"  hello  ".strip() → "hello"',
+          'demoReplace': () => '"Hello World".replace("World", "Python") → "Hello Python"',
+          'demoSplit': () => '"a,b,c".split(",") → [\'a\', \'b\', \'c\']',
+          'demoJoin': () => '"-".join([\'a\', \'b\', \'c\']) → "a-b-c"'
+        };
 
-        try {
-          const char = accessExampleString[index];
-          if (char === undefined) {
-            // Handle out-of-bounds more gracefully than error
-            throw new Error("Index out of bounds");
-          }
-          accessResultDisplay.textContent = `Character at index ${index}: "${char}"`;
-          // Highlight the character
-          const targetSpan = accessStringVis.querySelector(
-            `.string-char[data-index="${
-              index < 0 ? accessExampleString.length + index : index
-            }"]`
-          );
-          if (targetSpan) targetSpan.classList.add("highlight");
-          showMessage(accessStrMessage, "Character accessed.", "success");
-        } catch (e) {
-          showMessage(accessStrMessage, "Error: Index out of bounds.", "error");
-          accessResultDisplay.textContent =
-            '<span class="text-red-500">Error: Index out of bounds.</span>';
-        }
-      });
+        const methodsOutput = document.getElementById('methodsOutput');
 
-      sliceButton.addEventListener("click", () => {
-        clearStringHighlights(accessStringVis);
-        // Get slice parameters, treating empty as undefined for default behavior
-        const start =
-          sliceStartInput.value === ""
-            ? undefined
-            : parseInt(sliceStartInput.value, 10);
-        const stop =
-          sliceStopInput.value === ""
-            ? undefined
-            : parseInt(sliceStopInput.value, 10);
-        const step =
-          sliceStepInput.value === ""
-            ? undefined
-            : parseInt(sliceStepInput.value, 10);
+        Object.keys(methodButtons).forEach(buttonId => {
+          document.getElementById(buttonId).addEventListener('click', function() {
+            methodsOutput.innerHTML = `
+              <div style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">Method Demo:</div>
+              <div style="color: #d1fae5; font-family: monospace;">${methodButtons[buttonId]()}</div>
+            `;
+          });
+        });
 
-        // Basic validation for NaN
-        if (
-          (start !== undefined && isNaN(start)) ||
-          (stop !== undefined && isNaN(stop)) ||
-          (step !== undefined && isNaN(step))
-        ) {
-          showMessage(
-            accessStrMessage,
-            "Invalid number entered for slice parameter.",
-            "error"
-          );
-          accessResultDisplay.textContent =
-            '<span class="text-red-500">Error: Invalid slice number.</span>';
-          return;
-        }
-        if (step === 0) {
-          showMessage(accessStrMessage, "Slice step cannot be zero.", "error");
-          accessResultDisplay.textContent =
-            '<span class="text-red-500">Error: Step cannot be zero.</span>';
-          return;
-        }
+        // String slicer
+        const sliceStringBtn = document.getElementById('sliceString');
+        const sliceOutput = document.getElementById('sliceOutput');
+        const testString = "Programming";
 
-        try {
-          // Use slice method - handles undefined parameters correctly
-          const sliceResult = accessExampleString.slice(start, stop);
-          // For step, we need a different approach if step is provided
-          let finalResult = sliceResult;
-          let indicesToHighlight = [];
+        sliceStringBtn.addEventListener('click', function() {
+          const start = parseInt(document.getElementById('sliceStart').value) || 0;
+          const end = parseInt(document.getElementById('sliceEnd').value) || testString.length;
+          
+          const result = testString.slice(start, end);
+          
+          sliceOutput.innerHTML = `
+            <div style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">"${testString}"[${start}:${end}]</div>
+            <div style="color: #10b981; font-size: 14px;">Result: "${result}"</div>
+          `;
+        });
 
-          if (step !== undefined) {
-            finalResult = "";
-            const len = accessExampleString.length;
-            const actualStart =
-              start === undefined || isNaN(start)
-                ? step > 0
-                  ? 0
-                  : len - 1
-                : start < 0
-                ? len + start
-                : start;
-            const actualStop =
-              stop === undefined || isNaN(stop)
-                ? step > 0
-                  ? len
-                  : -1
-                : stop < 0
-                ? len + stop
-                : stop;
+        // Slice pattern buttons
+        const slicePatterns = {
+          'firstChar': () => ({ start: 0, end: 1, desc: 'First character' }),
+          'lastChar': () => ({ start: -1, end: testString.length, desc: 'Last character' }),
+          'first3': () => ({ start: 0, end: 3, desc: 'First 3 characters' }),
+          'last3': () => ({ start: -3, end: testString.length, desc: 'Last 3 characters' }),
+          'everyOther': () => ({ start: 0, end: testString.length, step: 2, desc: 'Every 2nd character' }),
+          'reverse': () => ({ start: testString.length, end: 0, step: -1, desc: 'Reversed string' })
+        };
 
-            if (step > 0) {
-              for (let i = actualStart; i < actualStop; i += step) {
-                if (i >= 0 && i < len) {
-                  finalResult += accessExampleString[i];
-                  indicesToHighlight.push(i);
-                }
-              }
+        Object.keys(slicePatterns).forEach(buttonId => {
+          document.getElementById(buttonId).addEventListener('click', function() {
+            const pattern = slicePatterns[buttonId]();
+            let result;
+            
+            if (buttonId === 'everyOther') {
+              result = testString.split('').filter((_, i) => i % 2 === 0).join('');
+            } else if (buttonId === 'reverse') {
+              result = testString.split('').reverse().join('');
+            } else if (buttonId === 'lastChar') {
+              result = testString[testString.length - 1];
             } else {
-              // step < 0
-              for (let i = actualStart; i > actualStop; i += step) {
-                if (i >= 0 && i < len) {
-                  finalResult += accessExampleString[i];
-                  indicesToHighlight.push(i);
+              result = testString.slice(pattern.start, pattern.end);
+            }
+            
+            sliceOutput.innerHTML = `
+              <div style="color: #facc15; font-size: 12px; margin-bottom: 0.5rem;">${pattern.desc}</div>
+              <div style="color: #10b981; font-size: 14px;">Result: "${result}"</div>
+            `;
+          });
+        });
+
+        // f-String builder
+        const buildFStringBtn = document.getElementById('buildFString');
+        const fStringOutput = document.getElementById('fStringOutput');
+
+        buildFStringBtn.addEventListener('click', function() {
+          const name = document.getElementById('formatName').value;
+          const age = parseInt(document.getElementById('formatAge').value);
+          const score = parseFloat(document.getElementById('formatScore').value);
+
+          const message = `Hello ${name}! You are ${age} years old and scored ${score.toFixed(1)}%.`;
+          
+          fStringOutput.innerHTML = `
+            <div style="color: #facc15; font-size: 11px; margin-bottom: 0.5rem;">f-string template:</div>
+            <div style="color: #d1fae5; font-family: monospace; font-size: 10px; margin-bottom: 0.5rem;">f"Hello {name}! You are {age} years old and scored {score:.1f}%."</div>
+            <div style="color: #10b981; font-size: 12px;">Result: "${message}"</div>
+          `;
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkStringsQuizBtn = document.getElementById('checkStringsQuiz');
+        const stringsQuizResult = document.getElementById('stringsQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkStringsQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
                 }
               }
-            }
-          } else {
-            // Calculate indices for simple slice without step
-            const len = accessExampleString.length;
-            const actualStart =
-              start === undefined || isNaN(start)
-                ? 0
-                : start < 0
-                ? len + start
-                : start;
-            const actualStop =
-              stop === undefined || isNaN(stop)
-                ? len
-                : stop < 0
-                ? len + stop
-                : stop;
-            for (let i = actualStart; i < actualStop; i++) {
-              if (i >= 0 && i < len) {
-                indicesToHighlight.push(i);
-              }
-            }
-          }
-
-          accessResultDisplay.textContent = `Slice result: "${finalResult}"`;
-          // Highlight characters in the slice
-          indicesToHighlight.forEach((idx) => {
-            const targetSpan = accessStringVis.querySelector(
-              `.string-char[data-index="${idx}"]`
-            );
-            if (targetSpan) targetSpan.classList.add("highlight");
+            });
           });
 
-          showMessage(accessStrMessage, "Slice applied.", "success");
-        } catch (e) {
-          showMessage(
-            accessStrMessage,
-            `Error applying slice: ${e.message}`,
-            "error"
-          );
-          accessResultDisplay.textContent = `<span class="text-red-500">Error: ${e.message}</span>`;
-        }
-      });
-
-      // --- String Methods Logic ---
-      function updateMethodArgs() {
-        methodArgsContainer.innerHTML = ""; // Clear previous args
-        const selectedMethod = methodSelect.value;
-
-        if (selectedMethod === "replace") {
-          methodArgsContainer.innerHTML = `
-                    <input type="text" id="replaceOld" class="input-field" placeholder="Old Substring">
-                    <input type="text" id="replaceNew" class="input-field" placeholder="New Substring">
-                `;
-        } else if (selectedMethod === "find") {
-          methodArgsContainer.innerHTML = `
-                    <input type="text" id="findSubstr" class="input-field" placeholder="Substring to Find">
-                `;
-        } else if (selectedMethod === "split") {
-          methodArgsContainer.innerHTML = `
-                    <input type="text" id="splitSep" class="input-field" placeholder="Separator (optional)">
-                `;
-        }
-      }
-
-      methodSelect.addEventListener("change", updateMethodArgs);
-
-      applyMethodButton.addEventListener("click", () => {
-        const inputStr = methodStrInput.value;
-        const method = methodSelect.value;
-        let result;
-        let resultDisplayStr = "";
-
-        try {
-          switch (method) {
-            case "len":
-              result = inputStr.length;
-              resultDisplayStr = `len("${inputStr}") => ${result}`;
-              break;
-            case "upper":
-              result = inputStr.toUpperCase();
-              resultDisplayStr = `"${inputStr}".upper() => "${result}"`;
-              break;
-            case "lower":
-              result = inputStr.toLowerCase();
-              resultDisplayStr = `"${inputStr}".lower() => "${result}"`;
-              break;
-            case "strip":
-              result = inputStr.strip(); // Use strip() - trim is JS
-              resultDisplayStr = `"${inputStr}".strip() => "${result}"`;
-              break;
-            case "replace":
-              const oldSub = document.getElementById("replaceOld").value;
-              const newSub = document.getElementById("replaceNew").value;
-              result = inputStr.replace(
-                new RegExp(oldSub.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"),
-                newSub
-              ); // Use RegExp for global replace
-              resultDisplayStr = `"${inputStr}".replace("${oldSub}", "${newSub}") => "${result}"`;
-              break;
-            case "find":
-              const findSub = document.getElementById("findSubstr").value;
-              result = inputStr.indexOf(findSub); // Use indexOf (JS equivalent of find)
-              resultDisplayStr = `"${inputStr}".find("${findSub}") => ${result}`;
-              break;
-            case "split":
-              const separator = document.getElementById("splitSep").value;
-              // If separator is empty, split by whitespace (default Python behavior simulated)
-              // If separator provided, split by it.
-              result =
-                separator === ""
-                  ? inputStr.trim().split(/\s+/)
-                  : inputStr.split(separator);
-              // Format list output nicely
-              const listStr =
-                "[" + result.map((item) => `"${item}"`).join(", ") + "]";
-              resultDisplayStr = `"${inputStr}".split(${
-                separator === "" ? "" : '"' + separator + '"'
-              }) => ${listStr}`;
-              break;
-            default:
-              throw new Error("Invalid method selected");
-          }
-          methodResultDisplay.textContent = resultDisplayStr;
-          showMessage(methodMessage, `Method .${method}() applied.`, "success");
-        } catch (e) {
-          showMessage(methodMessage, `Error: ${e.message}`, "error");
-          methodResultDisplay.textContent = `<span class="text-red-500">Error: ${e.message}</span>`;
-        }
-      });
-
-      // --- Quiz Logic ---
-      function checkStringsQuiz() {
-        const answers = {
-          q1_str: "b", // "+"
-          q2_str: "a", // "my_string[0]"
-          q3_str: "b", // ".upper() returns a new string with all characters in uppercase"
-          q4_str: "b", // "print(f"Name: {name}, Age: {age}")"
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
+          stringsQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            stringsQuizResult.className = 'message-box message-box-success';
+            stringsQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand string operations and immutability!`;
           } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
+            stringsQuizResult.className = 'message-box message-box-info';
+            stringsQuizResult.innerHTML = `${correct}/${total} correct. Review the concepts above, especially string indexing and immutability!`;
           }
-        }
+        });
 
-        if (!allAnswered) {
-          quizResultStr.textContent =
-            "Please answer all questions before checking.";
-          quizResultStr.className = "message-box message-box-error";
-          quizResultStr.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultStr.innerHTML = resultsHTML;
-        quizResultStr.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultStr.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonStr.addEventListener("click", checkStringsQuiz);
-
-      // --- Initial Setup ---
-      renderStringVisual(accessStringVis, accessExampleString);
-      updateMethodArgs(); // Set initial argument fields for default method
+        // Progress tracking
+        localStorage.setItem('completedStrings', 'true');
+      });
     </script>
   </body>
 </html>

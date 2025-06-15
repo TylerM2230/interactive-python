@@ -3,392 +3,470 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dictionaries & Tuples - Python Guide</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
+    <title>Key-Value Storage & Immutable Data | Interactive Python Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      body {
+        margin: 0; padding: 0; min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+      .console-screen-border { min-height: 100vh; max-width: none; margin: 0; padding: 0; border: none; border-radius: 0; background: transparent; }
+      .content-wrapper-8bit { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+      .hero-section {
+        background: linear-gradient(135deg, #be185d 0%, #9d174d 50%, #831843 100%);
+        padding: 3rem 2rem; margin: 0 -2rem 3rem -2rem; border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3); position: relative; overflow: hidden;
+      }
+      .hero-section::before {
+        content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+      @keyframes hero-shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+      .hero-content { text-align: center; color: #facc15; position: relative; z-index: 1; }
+      .breadcrumb-nav {
+        background: rgba(15, 23, 42, 0.9); padding: 1rem 2rem; margin: 0 -2rem 2rem -2rem;
+        border-bottom: 2px solid #374151; backdrop-filter: blur(10px);
+      }
+      .nav-links { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+      .nav-links a { color: #facc15; text-decoration: none; font-size: 10px; transition: all 0.3s ease; }
+      .nav-links a:hover { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); }
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+        border: 2px solid #22c55e; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; backdrop-filter: blur(10px);
+      }
+      .mental-model-box h3 { color: #4ade80; margin-bottom: 0.5rem; font-size: 14px; }
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; backdrop-filter: blur(10px);
+      }
+      .pitfall-warning h3 { color: #fb923c; margin-bottom: 0.5rem; font-size: 14px; }
+      .interactive-section {
+        background: rgba(15, 23, 42, 0.4); border-radius: 16px; padding: 2rem; margin: 2rem 0;
+        border: 1px solid rgba(250, 204, 21, 0.2); backdrop-filter: blur(10px);
+      }
+      .repl-container {
+        background: #0f172a; border: 2px solid #374151; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+      }
+      .repl-input {
+        background: #1f2937; border: 1px solid #4b5563; border-radius: 6px; padding: 0.75rem;
+        color: #e5e7eb; font-family: 'Courier New', monospace; width: 100%; margin: 0.5rem 0;
+      }
+      .repl-output {
+        background: #111827; border: 1px solid #374151; border-radius: 6px; padding: 1rem;
+        color: #d1d5db; font-family: 'Courier New', monospace; min-height: 100px; margin: 0.5rem 0; overflow-x: auto;
+      }
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+        border: 2px solid #8b5cf6; border-radius: 16px; padding: 2rem; margin: 3rem 0; backdrop-filter: blur(10px);
+      }
+      .quiz-question {
+        background: rgba(15, 23, 42, 0.6); border-radius: 12px; padding: 1.5rem; margin: 1rem 0;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+      .quiz-options { display: grid; gap: 0.75rem; margin: 1rem 0; }
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.8); border: 2px solid #4b5563; border-radius: 8px; padding: 0.75rem;
+        cursor: pointer; transition: all 0.3s ease; color: #e5e7eb;
+      }
+      .quiz-option:hover { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.2); }
+      .quiz-option.correct { border-color: #22c55e; background: rgba(34, 197, 94, 0.2); }
+      .quiz-option.incorrect { border-color: #ef4444; background: rgba(239, 68, 68, 0.2); }
+      @media (max-width: 768px) {
+        .content-wrapper-8bit { padding: 0 1rem; }
+        .hero-section { padding: 2rem 1rem; margin: 0 -1rem 2rem -1rem; }
+        .breadcrumb-nav { padding: 1rem; margin: 0 -1rem 2rem -1rem; }
+        .nav-links { flex-direction: column; gap: 1rem; text-align: center; }
+      }
+    </style>
   </head>
-  <body class="min-h-screen">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="2d-lists.html" class="btn">&laquo; 2D Lists</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="data-structures.html" class="btn">Next: Data Structures Overview &rarr;</a>
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1 class="pixel-header">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Interactive Guide to Python</a>
+          </h1>
+          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">Key-Value Storage & Immutable Data</h2>
+          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
+            Dictionaries for Fast Lookups • Tuples for Data Integrity • Advanced Data Organization
+          </p>
+        </div>
+      </div>
+
+      <nav class="breadcrumb-nav">
+        <div class="nav-links">
+          <a href="random-module.html">← Previous: Random Module</a>
+          <a href="../index.html">🏠 Home</a>
+          <a href="2d-lists.html">Next: 2D Lists →</a>
+        </div>
       </nav>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Dictionaries & Tuples
-          </h2>
-          <p class="text-sm italic mt-1">
-            Learn about key-value stores and immutable sequences in Python.
-          </p>
-        </header>
+      <main class="content-wrapper-8bit">
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🎯 Why Do We Need Different Data Containers?</h2>
+          <p class="mb-4">Imagine organizing your belongings:</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-blue-900/20 border border-blue-500 rounded-lg p-4">
+              <h4 class="text-blue-400 font-bold mb-2">📚 Dictionary = Address Book</h4>
+              <p class="text-sm">Quick lookup: "What's John's phone number?" → Direct access by name (key)</p>
+            </div>
+            <div class="bg-green-900/20 border border-green-500 rounded-lg p-4">
+              <h4 class="text-green-400 font-bold mb-2">📍 Tuple = GPS Coordinates</h4>
+              <p class="text-sm">Fixed data: (latitude, longitude) → Can't accidentally change coordinates</p>
+            </div>
+          </div>
+          <p>Lists are great for ordered collections, but sometimes you need different superpowers!</p>
+        </section>
 
-        <main class="mx-auto">
-          <h1 class="page-title-8bit">
-            Dictionaries & Tuples
-          </h1>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">1. Dictionaries (<code>dict</code>): Key-Value Stores</h2>
-            <div class="sub-interactive-box">
-              <p>
-                A dictionary in Python is an unordered (prior to Python 3.7) or ordered (Python 3.7+) collection of <strong>key-value pairs</strong>. Each key is unique and is used to store and retrieve its associated value. Think of it like a real-world dictionary where a word (the key) maps to its definition (the value), or a phone book where a name (key) maps to a phone number (value). It's also similar to a locker system - each locker (key) can only be assigned to one person (value), but multiple lockers can contain the same type of item.
-              </p>
-              <p>Key characteristics of dictionaries:</p>
-              <ul>
-                <li>
-                  <strong>Key-Value Pairs:</strong> Data is stored in <code>key: value</code> format. Keys are used to access their corresponding values efficiently. Think of it like a filing system where each file (value) has a unique label (key) for quick retrieval.
-                </li>
-                <li>
-                  <strong>Mutable:</strong> Dictionaries can be changed after they are created. You can add, remove, or update key-value pairs. It's like a dynamic filing system where you can add new files, remove old ones, or update existing ones at any time.
-                </li>
-                <li>
-                  <strong>Ordered (Python 3.7+):</strong> Since Python 3.7 (and CPython 3.6), dictionaries remember the order in which items were inserted. In older Python versions, they were unordered. This is like a modern filing system that remembers the order in which files were added, while older systems might just keep files in any order.
-                </li>
-                <li>
-                  <strong>Unique Keys:</strong> Keys within a single dictionary must be unique. If you assign a value to an existing key, it will overwrite the previous value. Values, however, can be duplicated. This is like having a unique ID for each student in a class - you can't have two students with the same ID, but multiple students can have the same grade.
-                </li>
-                <li>
-                  <strong>Keys Must Be Immutable:</strong> Keys must be of an immutable type (e.g., strings, numbers, tuples containing only immutable elements). Lists or other dictionaries cannot be used as keys because they are mutable. Think of it like a library's catalog system - the call numbers (keys) must be permanent and unchanging, while the books (values) can be updated or replaced.
-                </li>
-              </ul>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Creating Dictionaries:</h3>
-              <pre><code class="code-block-8bit python"># Creating an empty dictionary
-empty_dict_v1 = {}
-empty_dict_v2 = dict()
-
-# Creating a dictionary with initial items
-player_stats = {
-  "name": "Pixel Knight",
-  "level": 5,
-  "hp": 100,
-  "inventory": ["sword", "shield", "potion"], # Values can be any type
-  "active_quest": None
-}
-
-print(f"Player Stats: {player_stats}")
-print(f"Type of player_stats: {type(player_stats)}") # Output: <class 'dict'></code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Accessing Values:</h3>
-              <p>
-                You access values using their corresponding key inside square brackets <code>[]</code>. If the key doesn't exist, this will raise a <code>KeyError</code>. A safer way to access values is using the <code>.get()</code> method, which can return a default value if the key is not found.
-              </p>
-              <pre><code class="code-block-8bit python"># Accessing with [] (raises KeyError if key is missing)
-print(f"Player Name: {player_stats["name"]}")  # Output: Pixel Knight
-# print(player_stats["experience"]) # This would cause a KeyError
-
-# Safer access using .get(key, default_value)
-experience = player_stats.get("experience", 0) # Returns 0 if "experience" key doesn't exist
-print(f"Player Experience: {experience}")      # Output: Player Experience: 0
-
-current_hp = player_stats.get("hp")
-print(f"Player HP: {current_hp}")             # Output: Player HP: 100</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Adding or Updating Items:</h3>
-              <p>You can add a new key-value pair or update the value of an existing key using assignment.</p>
-              <pre><code class="code-block-8bit python"># Add a new key-value pair
-player_stats["experience"] = 1500
-print(f"Updated Experience: {player_stats["experience"]}")
-
-# Update an existing value
-player_stats["hp"] = 95 # Player took some damage!
-player_stats["inventory"] = ["sword", "shield"] # Lost a potion
-print(f"Updated HP: {player_stats["hp"]}")
-print(f"Updated Inventory: {player_stats["inventory"]}")
-
-print(f"\nFull Player Stats after updates:\n{player_stats}")</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Removing Items:</h3>
-              <pre><code class="code-block-8bit python"># Using del statement (raises KeyError if key is missing)
-if "active_quest" in player_stats:
-    del player_stats["active_quest"]
-print(f"Quest removed (del): {player_stats.get('active_quest', 'No active quest')}")
-
-# Using .pop(key, default_value) (returns value, safer)
-removed_level = player_stats.pop("level", -1) # Returns -1 if not found
-print(f"Removed level: {removed_level}")
-print(f"Level after pop: {player_stats.get('level', 'Level key not found')}")
-
-# Using .popitem() (removes and returns the last inserted (key,value) pair in LIFO order since Py 3.7)
-# Useful for destructively iterating through a dictionary.
-if player_stats: # Check if dictionary is not empty
-    last_item = player_stats.popitem()
-    print(f"Popped item: {last_item}")
-    print(f"Dictionary after popitem: {player_stats}")</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Iterating Through Dictionaries:</h3>
-              <pre><code class="code-block-8bit python">player_config = {"difficulty": "hard", "sound": True, "autosave": False}
-
-# Iterate through keys (this is the default iteration behavior)
-print("\nIterating through Keys:")
-for k in player_config:
-  print(f"  Key: {k}, Value: {player_config[k]}")
-
-# Iterate through values using .values()
-print("\nIterating through Values:")
-for v in player_config.values():
-  print(f"  Value: {v}")
-
-# Iterate through key-value pairs using .items()
-print("\nIterating through Items (key-value pairs):")
-for key, value_item in player_config.items():
-  print(f"  {key} -> {value_item}")</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Other Useful Dictionary Methods:</h3>
-               <ul>
-                  <li><code>len(my_dict)</code>: Returns the number of key-value pairs.</li>
-                  <li><code>key in my_dict</code>: Returns <code>True</code> if <code>key</code> exists in the dictionary, <code>False</code> otherwise.</li>
-                  <li><code>my_dict.clear()</code>: Removes all items from the dictionary.</li>
-                  <li><code>my_dict.copy()</code>: Returns a shallow copy of the dictionary.</li>
-                  <li><code>dict.fromkeys(sequence, value)</code>: Creates a new dictionary with keys from sequence and all values set to <code>value</code>.</li>
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: The Digital Filing System</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h4 class="font-bold text-green-400 mb-2">📖 Dictionary = Smart Filing Cabinet</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Keys</strong> = Folder labels (unique identifiers)</li>
+                <li>• <strong>Values</strong> = Contents of folders</li>
+                <li>• <strong>Instant lookup</strong> = No searching through drawers</li>
+                <li>• <strong>Mutable</strong> = Can add/remove folders anytime</li>
               </ul>
             </div>
-          </section>
+            <div>
+              <h4 class="font-bold text-green-400 mb-2">🔒 Tuple = Sealed Package</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Ordered items</strong> = Contents in specific positions</li>
+                <li>• <strong>Immutable</strong> = Once sealed, can't change</li>
+                <li>• <strong>Lightweight</strong> = Perfect for coordinates, pairs</li>
+                <li>• <strong>Hashable</strong> = Can be used as dictionary keys</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">2. Interactive Dictionary Operations</h2>
-            <div class="sub-interactive-box">
-              <p>This area is for displaying dictionary states. (No interactive JS implemented yet for this section, but styled for future use).</p>
-              <div class="grid-cols-2-responsive mt-4">
-                <div>
-                  <h3 class="section-subtitle-8bit smaller-subtitle">Current Dictionary State:</h3>
-                  <div id="dictDisplay" class="output-display-8bit min-h-[150px]"><p>{ "name": "Hero", "class": "Warrior", "level": 10 }</p></div>
-                </div>
-                <div>
-                  <h3 class="section-subtitle-8bit smaller-subtitle">Operation Result / Log:</h3>
-                  <div id="dictResultDisplay" class="output-display-8bit min-h-[150px]"><p><em>No operation performed yet.</em></p></div>
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">📝 Dictionary Syntax & Operations</h2>
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Dictionary Essentials:</h4>
+            <pre class="text-green-300"><code># Creating dictionaries
+player = {"name": "Hero", "level": 5, "hp": 100}
+empty_dict = {}
+
+# Accessing values
+print(player["name"])        # "Hero" - direct access
+print(player.get("exp", 0))  # 0 - safe access with default
+
+# Adding/updating
+player["exp"] = 1500         # Add new key-value
+player["level"] = 6          # Update existing
+
+# Removing
+del player["hp"]             # Remove key-value pair
+level = player.pop("level")  # Remove and return value
+
+# Iterating
+for key, value in player.items():
+    print(f"{key}: {value}")</code></pre>
+          </div>
+        </section>
+
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🔍 Interactive Dictionary Explorer</h2>
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Player Database:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Player Name:</label>
+                <input type="text" id="playerName" class="repl-input" value="Hero" placeholder="Enter name">
+                <label class="block text-sm font-medium mb-2 mt-3">Action:</label>
+                <select id="dictAction" class="repl-input">
+                  <option value="get">Get Player Info</option>
+                  <option value="add">Add New Player</option>
+                  <option value="update">Update Level</option>
+                  <option value="remove">Remove Player</option>
+                </select>
+                <input type="number" id="playerLevel" class="repl-input mt-2" value="1" placeholder="Level">
+                <button id="performDictAction" class="btn btn-8bit mt-2 w-full">Execute</button>
+              </div>
+              <div>
+                <h5 class="text-sm font-bold mb-2">Database Contents:</h5>
+                <div id="databaseDisplay" class="repl-output h-40 overflow-y-auto">
+                  <div class="text-gray-400 italic">Click execute to see database...</div>
                 </div>
               </div>
-              <div id="dictMessage" class="message-box-8bit mt-2" style="display: none;">Message area</div>
             </div>
-          </section>
+            <div id="dictResult" class="repl-output mt-4" style="display: none;">Results will appear here...</div>
+          </div>
+        </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">3. Tuples (<code>tuple</code>): Immutable Sequences</h2>
-            <div class="sub-interactive-box">
-              <p>
-                A tuple is an <strong>ordered, immutable sequence</strong> of items. \"Immutable\" means that once a tuple is created, its contents cannot be changed—you cannot add, remove, or modify elements. Tuples are typically used to store collections of related items where the order and content should remain constant, such as coordinates (x, y), RGB color values (red, green, blue), or records from a database. Think of a tuple like a sealed package - once it's created, you can't change what's inside, but you can use the package as a whole.
-              </p>
-              <p>Key characteristics of tuples:</p>
-              <ul>
-                <li><strong>Ordered:</strong> Items are stored in a specific sequence, and this order is maintained. Like a combination lock where the order of numbers matters.</li>
-                <li><strong>Immutable:</strong> Once created, the elements within a tuple cannot be changed, nor can elements be added or removed. This makes tuples safer to use as dictionary keys if all their elements are immutable. It's like a sealed time capsule - once it's sealed, its contents can't be modified.</li>
-                <li><strong>Allows Duplicates:</strong> Tuples can contain the same item multiple times. Like a combination lock that can have repeated numbers.</li>
-                <li><strong>Heterogeneous:</strong> Tuples can contain items of different data types (e.g., a mix of integers, strings, and floats). Think of it like a package that can contain different types of items - a book, a pen, and a calculator, all in a specific order.</li>
-              </ul>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Creating Tuples:</h3>
-              <p>
-                Tuples are created by enclosing a comma-separated sequence of items within parentheses <code>()</code>. Parentheses are optional in many contexts if the commas make the tuple clear, but it's good practice to use them for readability.
-              </p>
-              <pre><code class="code-block-8bit python"># Creating an empty tuple
-empty_tuple_v1 = ()
-empty_tuple_v2 = tuple()
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">📝 Tuple Syntax & Operations</h2>
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Tuple Essentials:</h4>
+            <pre class="text-green-300"><code># Creating tuples
+coordinates = (10, 20)           # GPS coordinates
+rgb_color = (255, 128, 0)        # RGB color values
+single_item = (42,)              # Single item tuple needs comma!
 
-# Creating a tuple with items
-coordinates = (10, 20, 5) # A 3D point (x, y, z)
-primary_colors = ("red", "green", "blue")
-player_info = ("PixelPete", 25, 1500.75) # name, age, score
+# Accessing elements (like lists)
+x = coordinates[0]               # 10
+y = coordinates[1]               # 20
 
-print(f"Coordinates: {coordinates}")
-print(f"Type of coordinates: {type(coordinates)}") # Output: <class 'tuple'>
+# Tuple unpacking (very powerful!)
+x, y = coordinates               # x=10, y=20
+red, green, blue = rgb_color     # Unpack all values
 
-# Parentheses are sometimes optional (tuple packing)
-packed_tuple = 1, 'hello', True
-print(f"Packed tuple: {packed_tuple}, Type: {type(packed_tuple)}")
+# Swapping variables elegantly
+a, b = 5, 10
+a, b = b, a                      # Now a=10, b=5
 
-# Special case: Single item tuple needs a trailing comma!
-single_item_tuple = (99,) # This is a tuple with one element
-not_a_tuple_but_int = (99)  # This is just the integer 99 in parentheses
-string_in_tuple = ("apple",) # Tuple containing one string
+# Tuples are immutable
+# coordinates[0] = 15            # ERROR! Can't modify</code></pre>
+          </div>
+        </section>
 
-print(f"Single item tuple: {single_item_tuple}, Type: {type(single_item_tuple)}")
-print(f"Not a tuple: {not_a_tuple_but_int}, Type: {type(not_a_tuple_but_int)}")</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Accessing Elements:</h3>
-              <p>Elements in a tuple are accessed using indexing (starting from 0), just like lists. Think of it like reading a combination lock - you need to know which position to look at to get the right number.</p>
-              <pre><code class="code-block-8bit python">rgb_color = (255, 128, 0) # Orange
-red_value = rgb_color[0]
-print(f"Red: {red_value}") # Output: 255
-
-# Slicing also works like lists
-green_and_blue = rgb_color[1:3]
-print(f"Green and Blue: {green_and_blue}") # Output: (128, 0)</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Immutability:</h3>
-              <p>Once a tuple is created, you cannot change its elements. It's like a sealed package - you can look at what's inside, but you can't modify the contents. However, if the package contains a box (mutable object), you can still modify what's inside the box.</p>
-              <pre><code class="code-block-8bit python">my_tuple = (1, 2, 3)
-# my_tuple[0] = 100  # This would raise a TypeError: 'tuple' object does not support item assignment
-# my_tuple.append(4) # This would raise an AttributeError: 'tuple' object has no attribute 'append'
-
-# However, if a tuple contains a mutable object (like a list), the mutable object itself can be changed.
-mutable_in_tuple = ([1, 2], [3, 4])
-mutable_in_tuple[0].append(99) # This is allowed, modifies the inner list
-print(f"Tuple with modified inner list: {mutable_in_tuple}")
-# Output: Tuple with modified inner list: ([1, 2, 99], [3, 4])</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Tuple Packing and Unpacking:</h3>
-              <p>Tuple packing is when you assign a sequence of values to a single variable, implicitly creating a tuple. Unpacking is assigning the elements of a tuple to multiple variables. Think of it like packing a suitcase (creating a tuple) and then unpacking it at your destination (assigning items to different variables).</p>
-              <pre><code class="code-block-8bit python"># Tuple Packing
-packed_data = "Player1", 100, "Active" # Creates a tuple
-print(f"Packed: {packed_data}")
-
-# Tuple Unpacking
-name, health, status = packed_data # Assigns elements to variables
-print(f"Name: {name}, Health: {health}, Status: {status}")
-
-# Unpacking can be used for swapping variables elegantly
-a = 5
-b = 10
-a, b = b, a # a becomes 10, b becomes 5 (internally uses tuples)
-print(f"Swapped a: {a}, b: {b}")</code></pre>
-              <h3 class="section-subtitle-8bit smaller-subtitle">When to Use Tuples:</h3>
-              <ul>
-                  <li>For fixed collections of items that should not change (e.g., coordinates, constants).</li>
-                  <li>When you need to use a collection as a dictionary key (since keys must be immutable).</li>
-                  <li>When you want to ensure data integrity (prevent accidental modification).</li>
-                  <li>Sometimes for slight performance gains over lists in specific scenarios (due to their fixed size and immutability), though this is often minor.</li>
-              </ul>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Tuple Methods:</h3>
-              <p>Tuples have only two main methods because they are immutable:</p>
-              <ul>
-                  <li><code>my_tuple.count(value)</code>: Returns the number of times <code>value</code> appears in the tuple.</li>
-                  <li><code>my_tuple.index(value)</code>: Returns the index of the first occurrence of <code>value</code>. Raises a <code>ValueError</code> if the value is not found.</li>
-              </ul>
-              <pre><code class="code-block-8bit python">example_tuple = ('a', 'b', 'c', 'a', 'd', 'a')
-print(f"Count of 'a': {example_tuple.count('a')}") # Output: 3
-print(f"Index of 'd': {example_tuple.index('d')}") # Output: 4</code></pre>
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: Single Item Tuples</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h4 class="text-red-400 font-bold mb-2">❌ Common Mistake:</h4>
+              <pre class="text-sm"><code>not_a_tuple = (42)
+print(type(not_a_tuple))  # <class 'int'>
+# This is just an integer in parentheses!</code></pre>
             </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">4. Quick Quiz</h2>
-            <div class="sub-interactive-box">
-              <p class="mb-4">Test your understanding!</p>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q1: What is a key characteristic of dictionaries?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_dict" value="a" class="mr-2" />
-                  They can only store numbers
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_dict" value="b" class="mr-2" />
-                  They store key-value pairs
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_dict" value="c" class="mr-2" />
-                  They are always ordered
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q2: What makes tuples different from lists?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_dict" value="a" class="mr-2" />
-                  They can only store numbers
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_dict" value="b" class="mr-2" />
-                  They are immutable
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_dict" value="c" class="mr-2" />
-                  They are unordered
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q3: Which of these is a valid dictionary key?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_dict" value="a" class="mr-2" />
-                  A list
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_dict" value="b" class="mr-2" />
-                  A tuple of numbers
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_dict" value="c" class="mr-2" />
-                  A dictionary
-                </label>
-              </div>
-              <button id="checkQuizButtonDict" class="btn">Check Answers</button>
-              <div id="quizResultDict" class="message-box mt-4" style="display: none"></div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h4 class="text-green-400 font-bold mb-2">✅ Correct Approach:</h4>
+              <pre class="text-sm"><code>actual_tuple = (42,)
+print(type(actual_tuple))  # <class 'tuple'>
+# The comma makes it a tuple!</code></pre>
             </div>
-          </section>
-        </main>
+          </div>
+        </div>
 
-        <footer class="footer-8bit">
-          <p class="text-sm mb-2">Ready to explore more data structures?</p>
-          <a href="data-structures.html" class="btn btn-8bit">Next Tutorial: Data Structures Overview &rarr;</a>
-        </footer>
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🛠️ Practice: Coordinate Transformer</h2>
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">2D Point Operations:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Point A (x, y):</label>
+                <input type="number" id="pointAX" class="repl-input" value="3" placeholder="X coordinate">
+                <input type="number" id="pointAY" class="repl-input" value="4" placeholder="Y coordinate">
+                <label class="block text-sm font-medium mb-2 mt-3">Operation:</label>
+                <select id="tupleOperation" class="repl-input">
+                  <option value="distance">Distance from Origin</option>
+                  <option value="midpoint">Midpoint with (0,0)</option>
+                  <option value="translate">Translate by (2,3)</option>
+                  <option value="scale">Scale by 2</option>
+                </select>
+                <button id="performTupleOp" class="btn btn-8bit mt-2 w-full">Calculate</button>
+              </div>
+              <div>
+                <h5 class="text-sm font-bold mb-2">Results:</h5>
+                <div id="tupleResult" class="repl-output h-32">
+                  <div class="text-gray-400 italic">Select operation and calculate...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="assessment-section">
+          <h2 class="section-title-8bit">🎓 Check Your Understanding</h2>
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 1: What makes dictionaries special?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="1" data-correct="false">A) They can only store strings</div>
+              <div class="quiz-option" data-question="1" data-correct="true">B) They provide fast key-based lookup</div>
+              <div class="quiz-option" data-question="1" data-correct="false">C) They are immutable like tuples</div>
+            </div>
+            <div class="quiz-feedback" id="feedback1" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 2: How do you create a tuple with one item?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="2" data-correct="false">A) (42)</div>
+              <div class="quiz-option" data-question="2" data-correct="true">B) (42,)</div>
+              <div class="quiz-option" data-question="2" data-correct="false">C) [42]</div>
+            </div>
+            <div class="quiz-feedback" id="feedback2" style="display: none;"></div>
+          </div>
+        </div>
+
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🚀 What's Next?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+              <h4 class="text-blue-400 font-bold mb-2">🔗 Building On:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Dictionaries enable fast data lookup algorithms</li>
+                <li>• Tuples provide immutable coordinate systems</li>
+                <li>• Both are essential for complex data structures</li>
+              </ul>
+            </div>
+            <div class="p-4 bg-green-900/20 border border-green-500 rounded-lg">
+              <h4 class="text-green-400 font-bold mb-2">🎯 Coming Up:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• 2D arrays and matrix operations</li>
+                <li>• Advanced data structures (stacks, queues)</li>
+                <li>• Algorithm efficiency and optimization</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-8bit">
+        <div style="text-align: center; padding: 2rem 0;">
+          <p style="margin-bottom: 1rem;">🗂️ Great! You've mastered advanced data organization! 🗂️</p>
+          <div style="margin-top: 2rem;">
+            <a href="random-module.html" style="margin-right: 2rem;">← Previous: Random Module</a>
+            <a href="../index.html" style="margin: 0 1rem;">🏠 Home</a>
+            <a href="2d-lists.html" style="margin-left: 2rem;">Next: 2D Lists →</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
     <script>
-      // --- DOM Elements ---
-      const checkQuizButtonDict = document.getElementById("checkQuizButtonDict");
-      const quizResultDict = document.getElementById("quizResultDict");
+      // Database simulation
+      const playerDatabase = {
+        "Hero": {level: 5, hp: 100, exp: 1250},
+        "Wizard": {level: 8, hp: 80, exp: 2100},
+        "Archer": {level: 3, hp: 90, exp: 750}
+      };
 
-      // --- Quiz Logic ---
-      function checkDictQuiz() {
-        const answers = {
-          q1_dict: "b", // Key-value pairs
-          q2_dict: "b", // Immutable
-          q3_dict: "b", // Tuple of numbers
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
+      function updateDatabaseDisplay() {
+        const display = document.getElementById('databaseDisplay');
+        let html = '';
+        for (const [name, stats] of Object.entries(playerDatabase)) {
+          html += `<div class="mb-2"><strong>${name}:</strong> Level ${stats.level}, HP ${stats.hp}, EXP ${stats.exp}</div>`;
         }
-
-        if (!allAnswered) {
-          quizResultDict.textContent =
-            "Please answer all questions before checking.";
-          quizResultDict.className = "message-box message-box-error";
-          quizResultDict.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultDict.innerHTML = resultsHTML;
-        quizResultDict.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultDict.style.display = "block";
+        display.innerHTML = html || '<div class="text-gray-400 italic">Database is empty</div>';
       }
 
-      // --- Event Listeners ---
-      checkQuizButtonDict.addEventListener("click", checkDictQuiz);
+      document.getElementById('performDictAction').addEventListener('click', function() {
+        const name = document.getElementById('playerName').value.trim();
+        const action = document.getElementById('dictAction').value;
+        const level = parseInt(document.getElementById('playerLevel').value) || 1;
+        const result = document.getElementById('dictResult');
+        
+        let output = '';
+        
+        try {
+          switch(action) {
+            case 'get':
+              if (playerDatabase[name]) {
+                const player = playerDatabase[name];
+                output = `✅ Player Found!\nName: ${name}\nLevel: ${player.level}\nHP: ${player.hp}\nEXP: ${player.exp}`;
+              } else {
+                output = `❌ KeyError: Player "${name}" not found in database!`;
+              }
+              break;
+              
+            case 'add':
+              if (playerDatabase[name]) {
+                output = `⚠️ Player "${name}" already exists! Use update to modify.`;
+              } else {
+                playerDatabase[name] = {level: level, hp: level * 20, exp: level * 100};
+                output = `✅ Added new player: ${name} (Level ${level})`;
+              }
+              break;
+              
+            case 'update':
+              if (playerDatabase[name]) {
+                playerDatabase[name].level = level;
+                playerDatabase[name].hp = level * 20;
+                playerDatabase[name].exp = level * 100;
+                output = `✅ Updated ${name} to level ${level}`;
+              } else {
+                output = `❌ KeyError: Cannot update non-existent player "${name}"`;
+              }
+              break;
+              
+            case 'remove':
+              if (playerDatabase[name]) {
+                delete playerDatabase[name];
+                output = `✅ Removed player: ${name}`;
+              } else {
+                output = `❌ KeyError: Player "${name}" not found`;
+              }
+              break;
+          }
+        } catch (error) {
+          output = `❌ Error: ${error.message}`;
+        }
+        
+        result.innerHTML = `<pre>${output}</pre>`;
+      });
+
+      // Tuple operations
+      document.getElementById('performTupleOp').addEventListener('click', function() {
+        const x = parseFloat(document.getElementById('pointAX').value) || 0;
+        const y = parseFloat(document.getElementById('pointAY').value) || 0;
+        const operation = document.getElementById('tupleOperation').value;
+        const result = document.getElementById('tupleResult');
+        
+        let output = '';
+        const point = `(${x}, ${y})`;
+        
+        switch(operation) {
+          case 'distance':
+            const distance = Math.sqrt(x*x + y*y).toFixed(2);
+            output = `Point: ${point}\nDistance from origin: ${distance}`;
+            break;
+            
+          case 'midpoint':
+            const midX = x / 2;
+            const midY = y / 2;
+            output = `Point A: ${point}\nPoint B: (0, 0)\nMidpoint: (${midX}, ${midY})`;
+            break;
+            
+          case 'translate':
+            const newX = x + 2;
+            const newY = y + 3;
+            output = `Original: ${point}\nTranslate by (2, 3)\nResult: (${newX}, ${newY})`;
+            break;
+            
+          case 'scale':
+            const scaledX = x * 2;
+            const scaledY = y * 2;
+            output = `Original: ${point}\nScale by 2\nResult: (${scaledX}, ${scaledY})`;
+            break;
+        }
+        
+        result.innerHTML = `<pre>${output}</pre>`;
+      });
+
+      // Quiz functionality
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const isCorrect = this.dataset.correct === 'true';
+          const feedback = document.getElementById(`feedback${question}`);
+          
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+          });
+          
+          if (isCorrect) {
+            this.classList.add('correct');
+            feedback.innerHTML = '<p class="text-green-400 mt-2">✅ Correct!</p>';
+          } else {
+            this.classList.add('incorrect');
+            document.querySelector(`[data-question="${question}"][data-correct="true"]`).classList.add('correct');
+            feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. Check the correct answer above.</p>';
+          }
+          
+          feedback.style.display = 'block';
+        });
+      });
+
+      // Initialize
+      updateDatabaseDisplay();
     </script>
   </body>
 </html>

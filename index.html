@@ -3,325 +3,1120 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Guide to Python</title>
+    <title>Interactive Guide to Python | Learn Programming Step by Step</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/shared-styles.css">
+    <style>
+      /* Enhanced pedagogical homepage design - Full page layout */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-subtitle {
+        font-size: 12px;
+        margin: 1rem 0;
+        opacity: 0.9;
+      }
+
+      .learning-path-indicator {
+        background: rgba(250, 204, 21, 0.1);
+        border: 2px dashed #facc15;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        text-align: center;
+        font-size: 10px;
+        color: #facc15;
+        backdrop-filter: blur(5px);
+      }
+
+             .stats-bar {
+        background: rgba(31, 41, 55, 0.9);
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .stat-item {
+        padding: 0.5rem;
+        border-radius: 8px;
+        background: rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(250, 204, 21, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .stat-item:hover {
+        background: rgba(30, 58, 138, 0.4);
+        border-color: rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .stat-number {
+        font-size: 20px;
+        color: #facc15;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        font-size: 8px;
+        color: #d1d5db;
+      }
+
+             .concept-category {
+        margin-bottom: 4rem;
+        position: relative;
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .category-header {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.6), rgba(55, 48, 163, 0.4));
+        padding: 1.5rem;
+        border-radius: 12px;
+        border-left: 5px solid #facc15;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(15px);
+      }
+
+      .category-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #facc15, #eab308);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 20px;
+        color: #1e3a8a;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        flex-shrink: 0;
+      }
+
+      .category-info h2 {
+        margin: 0 0 0.5rem 0;
+        color: #facc15;
+      }
+
+      .category-description {
+        font-size: 11px;
+        color: #e5e7eb;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .link-card-enhanced {
+        position: relative;
+        background: linear-gradient(145deg, #1f2937 0%, #374151 100%);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: #e5e7eb;
+        display: block;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        min-height: 160px;
+      }
+
+      .link-card-enhanced::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.1), transparent);
+        transition: left 0.6s ease;
+      }
+
+      .link-card-enhanced:hover::before {
+        left: 100%;
+      }
+
+      .link-card-enhanced:hover {
+        transform: translateY(-6px) scale(1.03);
+        border-color: #facc15;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(250, 204, 21, 0.3);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+
+      .card-level-indicator {
+        background: linear-gradient(135deg, #facc15, #eab308);
+        color: #1e3a8a;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 8px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-difficulty {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 0.75rem;
+      }
+
+      .difficulty-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #4b5563;
+        transition: background 0.3s ease;
+      }
+
+      .difficulty-dot.active {
+        background: #facc15;
+        box-shadow: 0 0 4px rgba(250, 204, 21, 0.5);
+      }
+
+      .card-title {
+        font-size: 14px;
+        margin-bottom: 0.75rem;
+        color: #facc15;
+        line-height: 1.3;
+      }
+
+      .card-description {
+        font-size: 10px;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+        color: #d1d5db;
+      }
+
+      .card-concepts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .concept-tag {
+        background: rgba(59, 130, 246, 0.3);
+        color: #93c5fd;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 8px;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+      }
+
+      .progress-path {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 3rem 0;
+        font-size: 10px;
+        color: #9ca3af;
+        background: rgba(31, 41, 55, 0.5);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px dashed #4b5563;
+      }
+
+      .path-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem;
+      }
+
+      .path-arrow {
+        margin: 0 1rem;
+        color: #facc15;
+        font-size: 16px;
+      }
+
+             .notional-machine-callout {
+        background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.2));
+        border: 2px solid #dc2626;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+      }
+
+      .notional-machine-callout h3 {
+        color: #fca5a5;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .notional-machine-callout p {
+        color: #fecaca;
+        font-size: 10px;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+             /* Footer styling for full page */
+       .footer-8bit {
+        background: rgba(15, 23, 42, 0.8);
+        border-top: 2px solid #facc15;
+        margin-top: 4rem;
+        backdrop-filter: blur(10px);
+       }
+
+       /* Responsive Design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-category {
+          padding: 1rem;
+        }
+        
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .category-header {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .category-icon {
+          margin-right: 0;
+          margin-bottom: 1rem;
+        }
+
+        .stats-bar {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .progress-path {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .path-arrow {
+          transform: rotate(90deg);
+          margin: 0.5rem 0;
+        }
+      }
+
+      /* Accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .hero-section {
+          animation: none;
+        }
+        
+        .hero-section::before {
+          animation: none;
+        }
+        
+        .link-card-enhanced {
+          transition: none;
+        }
+      }
+    </style>
   </head>
-  <body
-    class="" 
-  > 
+  <body> 
     <div class="console-screen-border">
       <header class="text-center">
-        <h1 class="pixel-header text-left"><a href="index.html">
-          Interactive Guide to Python
-        </a></h1>
-        <p class="pixel-subheader text-left">
-          Retro Journey into Code!
-        </p>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">
+              <a href="index.html" style="color: inherit; text-decoration: none;">
+                Interactive Guide to Python
+              </a>
+            </h1>
+            <p class="hero-subtitle">
+              Master Programming Through Concept-First Learning
+            </p>
+            <div class="learning-path-indicator">
+              🎯 Pedagogically Structured • 🧠 Mental Models First • 🔧 Hands-On Practice
+            </div>
+          </div>
+        </div>
       </header>
 
       <main class="content-wrapper-8bit">
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            Core Concepts
-          </h2>
-          <div class="link-card-container-8bit">
-            <a
-              href="pages/intro-programming.html"
-              class="link-card-8bit block"
-            >
-              <h3 class="mb-2">
-                Intro to Programming & Python
-              </h3>
-              <p>
-                What is code? Python basics.
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-number">7</span>
+            <div class="stat-label">Foundation Topics</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <div class="stat-label">Intermediate Topics</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">9</span>
+            <div class="stat-label">Advanced Concepts</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">2</span>
+            <div class="stat-label">OOP Mastery</div>
+          </div>
+        </div>
+
+        <div class="notional-machine-callout">
+          <h3>🎯 Start Here: Build Your Mental Model</h3>
+          <p>
+            Before diving into code, understand how computers think: they're sequential, literal, and oblivious. 
+            This mental model is the foundation for all programming success!
+          </p>
+        </div>
+
+        <!-- Foundation: Core Programming Concepts -->
+        <section class="concept-category">
+          <div class="category-header">
+            <div class="category-icon">🏗️</div>
+            <div class="category-info">
+              <h2 class="section-title-8bit">Foundation: Building Your Programming Mindset</h2>
+              <div class="category-description">
+                Start here! These concepts form the absolute foundation of programming. 
+                Master the "notional machine" (how computers think) before learning syntax. 
+                Each concept builds on the previous one in a carefully designed sequence.
+              </div>
+            </div>
+          </div>
+          
+          <div class="cards-grid">
+            <a href="pages/intro-programming.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">START</div>
+              </div>
+              <h3 class="card-title">The Notional Machine & Python Basics</h3>
+              <p class="card-description">
+                🎯 <strong>Mental Model First!</strong> Understand how computers think: sequential, literal, and oblivious. 
+                Learn what programming is and why Python is perfect for beginners. This foundation prevents 90% of beginner confusion.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Mental Models</span>
+                <span class="concept-tag">Sequential Execution</span>
+                <span class="concept-tag">Python Setup</span>
+                <span class="concept-tag">REPL</span>
+              </div>
             </a>
 
-            <a
-              href="pages/variables-types.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Variables & Data Types
-              </h3>
-              <p>
-                Storing data: int, str, bool.
+            <a href="pages/variables-types.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Variables & Data Types</h3>
+              <p class="card-description">
+                Variables are like labeled boxes storing values. Learn the fundamental data types: 
+                numbers (int, float), text (str), and true/false values (bool). Master assignment and avoid common pitfalls.
               </p>
-            </a>
-            
-            <a
-              href="pages/booleans-conditionals.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Booleans & Conditionals
-              </h3>
-              <p>
-                Logic: if, elif, else.
-              </p>
-            </a>
-
-            <a
-              href="pages/nested-conditionals.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Nested Conditionals
-              </h3>
-              <p>
-                Complex decision making.
-              </p>
-            </a>
-            
-            <a
-              href="pages/loops.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Loops (For & While)
-              </h3>
-              <p>
-                Repeat code: for, while.
-              </p>
+              <div class="card-concepts">
+                <span class="concept-tag">int</span>
+                <span class="concept-tag">str</span>
+                <span class="concept-tag">bool</span>
+                <span class="concept-tag">Assignment</span>
+                <span class="concept-tag">Type Errors</span>
+              </div>
             </a>
 
-            <a
-              href="pages/lists-iteration.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Lists & Iteration
-              </h3>
-              <p>
-                Ordered items, loop through.
+            <a href="pages/string-operations.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Working with Text</h3>
+              <p class="card-description">
+                Strings are sequences of characters. Learn to manipulate text: combining, splitting, 
+                formatting, and transforming. Essential for user interaction and data processing.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Concatenation</span>
+                <span class="concept-tag">String Methods</span>
+                <span class="concept-tag">f-strings</span>
+                <span class="concept-tag">Indexing</span>
+              </div>
             </a>
 
-            <a
-              href="pages/nested-loops.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Nested Loops
-              </h3>
-              <p>
-                Loops inside loops, grids.
+            <a href="pages/booleans-conditionals.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Making Decisions</h3>
+              <p class="card-description">
+                Programs need to make choices! Learn boolean logic and conditional statements (if-elif-else). 
+                Think of it as forks in the road - your program chooses which path to take.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">if-elif-else</span>
+                <span class="concept-tag">Boolean Logic</span>
+                <span class="concept-tag">Comparisons</span>
+                <span class="concept-tag">and/or/not</span>
+              </div>
             </a>
 
-            <a
-              href="pages/string-operations.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                String Operations
-              </h3>
-              <p>
-                Manipulate text data.
+            <a href="pages/loops.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Repeating Actions</h3>
+              <p class="card-description">
+                Don't repeat yourself - use loops! Learn when to use 'for' loops (known iterations, like a recipe) 
+                vs 'while' loops (condition-based, like a guard on duty). Avoid infinite loops!
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">for loops</span>
+                <span class="concept-tag">while loops</span>
+                <span class="concept-tag">range()</span>
+                <span class="concept-tag">break/continue</span>
+              </div>
             </a>
 
-            <a
-              href="pages/functions.html"
-              class="link-card-8bit block"
-            >
-              <h3>Functions</h3>
-              <p>
-                Reusable code blocks.
+            <a href="pages/lists-iteration.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Collections of Data</h3>
+              <p class="card-description">
+                Lists store multiple items in order. Learn to create, modify, and iterate through collections. 
+                ⚠️ Important: Lists are mutable - changing one affects all references to it!
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Lists</span>
+                <span class="concept-tag">Indexing</span>
+                <span class="concept-tag">Iteration</span>
+                <span class="concept-tag">Mutability</span>
+                <span class="concept-tag">References</span>
+              </div>
             </a>
 
-            <a
-              href="pages/error-handling.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Error Handling
-              </h3>
-              <p>
-                Try, except, finally.
+            <a href="pages/functions.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">CORE</div>
+              </div>
+              <h3 class="card-title">Reusable Code Blocks</h3>
+              <p class="card-description">
+                Functions are like vending machines: input goes in, output comes out. Learn to create reusable code blocks. 
+                ⚠️ Critical: understand print() vs return - they're completely different!
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">def</span>
+                <span class="concept-tag">Parameters</span>
+                <span class="concept-tag">return</span>
+                <span class="concept-tag">Scope</span>
+                <span class="concept-tag">print vs return</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="progress-path">
+            <div class="path-step">
+              <strong>🎯 Mental Model</strong>
+              <div>How computers think</div>
+            </div>
+            <span class="path-arrow">→</span>
+            <div class="path-step">
+              <strong>📦 Data & Variables</strong>
+              <div>Storing information</div>
+            </div>
+            <span class="path-arrow">→</span>
+            <div class="path-step">
+              <strong>🔀 Logic & Control</strong>
+              <div>Making decisions</div>
+            </div>
+            <span class="path-arrow">→</span>
+            <div class="path-step">
+              <strong>🔧 Functions</strong>
+              <div>Reusable tools</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Intermediate: Advanced Control & Professional Practices -->
+        <section class="concept-category">
+          <div class="category-header">
+            <div class="category-icon">⚡</div>
+            <div class="category-info">
+              <h2 class="section-title-8bit">Intermediate: Advanced Patterns & Professional Practices</h2>
+              <div class="category-description">
+                Build on your foundation with sophisticated programming patterns and professional practices. 
+                Learn to handle complexity, errors, and real-world scenarios like a pro.
+              </div>
+            </div>
+          </div>
+          
+          <div class="cards-grid">
+            <a href="pages/nested-conditionals.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">INT</div>
+              </div>
+              <h3 class="card-title">Complex Decision Making</h3>
+              <p class="card-description">
+                Handle complex scenarios with nested if statements. Learn to structure complex logic clearly 
+                and avoid the "arrow code" anti-pattern. Keep it readable!
+              </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Nested Logic</span>
+                <span class="concept-tag">Complex Conditions</span>
+                <span class="concept-tag">Code Organization</span>
+              </div>
             </a>
 
-            <a
-              href="pages/file-handling.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                File Handling
-              </h3>
-              <p>
-                Read & write files.
+            <a href="pages/nested-loops.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">INT</div>
+              </div>
+              <h3 class="card-title">Loops Within Loops</h3>
+              <p class="card-description">
+                Work with 2D patterns, grids, and complex iterations. Essential for algorithms, 
+                game development, and data processing. Think multiplication tables or chess boards.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">2D Iteration</span>
+                <span class="concept-tag">Pattern Generation</span>
+                <span class="concept-tag">Grid Processing</span>
+              </div>
             </a>
 
-            <a
-              href="pages/random-module.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Random Module
-              </h3>
-              <p>
-                Generate random numbers.
+            <a href="pages/error-handling.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">PRO</div>
+              </div>
+              <h3 class="card-title">Handling Things That Go Wrong</h3>
+              <p class="card-description">
+                Professional programs handle errors gracefully. Learn to anticipate and manage exceptions 
+                with try-except blocks. Turn crashes into helpful error messages.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">try-except</span>
+                <span class="concept-tag">Exception Types</span>
+                <span class="concept-tag">finally</span>
+                <span class="concept-tag">Graceful Failures</span>
+              </div>
+            </a>
+
+            <a href="pages/file-handling.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">PRO</div>
+              </div>
+              <h3 class="card-title">Working with Files</h3>
+              <p class="card-description">
+                Read from and write to files on your computer. Essential for data processing, 
+                configuration files, and making your programs remember things between runs.
+              </p>
+              <div class="card-concepts">
+                <span class="concept-tag">File I/O</span>
+                <span class="concept-tag">Context Managers</span>
+                <span class="concept-tag">Text Processing</span>
+                <span class="concept-tag">Data Persistence</span>
+              </div>
+            </a>
+
+            <a href="pages/random-module.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">LIB</div>
+              </div>
+              <h3 class="card-title">Adding Randomness</h3>
+              <p class="card-description">
+                Generate random numbers, make random choices, and add unpredictability to your programs. 
+                Perfect for games, simulations, and sampling. Learn to use Python's standard library!
+              </p>
+              <div class="card-concepts">
+                <span class="concept-tag">random.randint()</span>
+                <span class="concept-tag">random.choice()</span>
+                <span class="concept-tag">Module Import</span>
+                <span class="concept-tag">Randomness</span>
+              </div>
             </a>
           </div>
         </section>
 
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            Data Structures & Algorithms
-          </h2>
-          <div class="link-card-container-8bit">
-            <a
-              href="pages/recursion.html"
-              class="link-card-8bit block"
-            >
-              <h3>Recursion</h3>
-              <p>
-                Functions calling themselves.
+        <!-- Advanced: Data Structures & Algorithms -->
+        <section class="concept-category">
+          <div class="category-header">
+            <div class="category-icon">🧮</div>
+            <div class="category-info">
+              <h2 class="section-title-8bit">Advanced: Data Structures & Algorithms</h2>
+              <div class="category-description">
+                Learn how to organize and process data efficiently. These concepts are crucial for solving 
+                complex problems, writing performant code, and understanding computer science fundamentals.
+              </div>
+            </div>
+          </div>
+          
+          <div class="cards-grid">
+            <a href="pages/dictionaries-tuples.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Key-Value Storage & Immutable Data</h3>
+              <p class="card-description">
+                Dictionaries store data as key-value pairs (like real dictionaries!). Tuples are immutable sequences. 
+                Essential for organizing and accessing data efficiently.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">dict</span>
+                <span class="concept-tag">tuple</span>
+                <span class="concept-tag">Immutability</span>
+                <span class="concept-tag">Key-Value Pairs</span>
+              </div>
             </a>
 
-            <a
-              href="pages/2d-lists.html"
-              class="link-card-8bit block"
-            >
-              <h3>2D Lists</h3>
-              <p>
-                Grids and matrices.
+            <a href="pages/2d-lists.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Grids & Matrices</h3>
+              <p class="card-description">
+                Work with 2D data structures - lists containing lists. Perfect for representing grids, 
+                game boards, spreadsheets, and mathematical matrices.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">2D Lists</span>
+                <span class="concept-tag">Matrix Operations</span>
+                <span class="concept-tag">Grid Traversal</span>
+                <span class="concept-tag">Nested Indexing</span>
+              </div>
             </a>
 
-            <a
-              href="pages/dictionaries-tuples.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Dictionaries & Tuples
-              </h3>
-              <p>
-                Key-value pairs, immutables.
+            <a href="pages/data-structures.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Sets, Stacks & Queues</h3>
+              <p class="card-description">
+                Beyond lists: Sets for unique items, Stacks for LIFO operations (last in, first out), 
+                Queues for FIFO processing (first in, first out). Each has specific use cases.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">set</span>
+                <span class="concept-tag">Stack (LIFO)</span>
+                <span class="concept-tag">Queue (FIFO)</span>
+                <span class="concept-tag">Data Organization</span>
+              </div>
             </a>
 
-            <a
-              href="pages/data-structures.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Data Structures Overview
-              </h3>
-              <p>
-                Sets, Stacks, Queues.
+            <a href="pages/recursion.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Functions Calling Themselves</h3>
+              <p class="card-description">
+                Recursion: solving problems by breaking them into smaller versions of themselves. 
+                Elegant solutions for tree traversal, mathematical problems, and divide-and-conquer algorithms.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Base Case</span>
+                <span class="concept-tag">Recursive Case</span>
+                <span class="concept-tag">Call Stack</span>
+                <span class="concept-tag">Divide & Conquer</span>
+              </div>
             </a>
 
-            <a
-              href="pages/trees.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Trees (BST)
-              </h3>
-              <p>
-                Hierarchical data, BSTs.
+            <a href="pages/trees.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Hierarchical Data Structures</h3>
+              <p class="card-description">
+                Trees organize data hierarchically. Learn Binary Search Trees for efficient data storage, 
+                search, and retrieval. Think family trees or file system directories.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Binary Search Trees</span>
+                <span class="concept-tag">Tree Traversal</span>
+                <span class="concept-tag">Hierarchy</span>
+                <span class="concept-tag">Search Efficiency</span>
+              </div>
             </a>
 
-            <a
-              href="pages/graphs.html"
-              class="link-card-8bit block"
-            >
-              <h3>Graphs</h3>
-              <p>
-                Nodes and edges.
+            <a href="pages/graphs.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ADV</div>
+              </div>
+              <h3 class="card-title">Networks & Connections</h3>
+              <p class="card-description">
+                Graphs represent relationships between objects. Essential for social networks, maps, 
+                route planning, and many real-world connection problems.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Nodes & Edges</span>
+                <span class="concept-tag">Graph Traversal</span>
+                <span class="concept-tag">Networks</span>
+                <span class="concept-tag">Relationships</span>
+              </div>
             </a>
 
-            <a
-              href="pages/sorting-basic.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Sorting (Bubble/Selection)
-              </h3>
-              <p>
-                Bubble & Selection sort.
+            <a href="pages/sorting-basic.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">ALG</div>
+              </div>
+              <h3 class="card-title">Basic Sorting Algorithms</h3>
+              <p class="card-description">
+                Learn fundamental sorting algorithms: Bubble Sort and Selection Sort. Understand how 
+                computers organize data and analyze algorithm efficiency.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Bubble Sort</span>
+                <span class="concept-tag">Selection Sort</span>
+                <span class="concept-tag">Algorithm Analysis</span>
+                <span class="concept-tag">Efficiency</span>
+              </div>
             </a>
 
-            <a
-              href="pages/sorting-merge-joke.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Merge Sort & Joke Sorts
-              </h3>
-              <p>
-                Efficient sorting, fun sorts.
+            <a href="pages/sorting-merge-joke.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">ALG</div>
+              </div>
+              <h3 class="card-title">Advanced Sorting & Fun Algorithms</h3>
+              <p class="card-description">
+                Merge Sort: divide and conquer for efficiency. Plus "joke sorts" like Bogo Sort 
+                to understand what NOT to do (and have some fun)!
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Merge Sort</span>
+                <span class="concept-tag">Divide & Conquer</span>
+                <span class="concept-tag">Bogo Sort</span>
+                <span class="concept-tag">Algorithm Humor</span>
+              </div>
             </a>
 
-            <a
-              href="pages/searching-binary.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                Searching (Binary Search)
-              </h3>
-              <p>
-                Efficient item finding.
+            <a href="pages/searching-binary.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <div class="card-level-indicator">ALG</div>
+              </div>
+              <h3 class="card-title">Efficient Searching</h3>
+              <p class="card-description">
+                Binary Search: find items in sorted lists super efficiently. Learn how to reduce 
+                search time from linear to logarithmic - a massive performance improvement!
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Binary Search</span>
+                <span class="concept-tag">Sorted Data</span>
+                <span class="concept-tag">Logarithmic Time</span>
+                <span class="concept-tag">Efficiency</span>
+              </div>
             </a>
           </div>
         </section>
 
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            Object-Oriented Programming
-          </h2>
-          <div class="link-card-container-8bit">
-            <a
-              href="pages/oop-basics.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                OOP Basics
-              </h3>
-              <p>
-                Classes and objects.
+        <!-- Mastery: Object-Oriented Programming -->
+        <section class="concept-category">
+          <div class="category-header">
+            <div class="category-icon">🏛️</div>
+            <div class="category-info">
+              <h2 class="section-title-8bit">Mastery: Object-Oriented Programming</h2>
+              <div class="category-description">
+                The final frontier: organize your code like professional software developers. 
+                Learn to model real-world problems with classes and objects. This is how large applications are built.
+              </div>
+            </div>
+          </div>
+          
+          <div class="cards-grid">
+            <a href="pages/oop-basics.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">OOP</div>
+              </div>
+              <h3 class="card-title">Classes & Objects</h3>
+              <p class="card-description">
+                Create your own data types! Learn to define classes (blueprints) and create objects (instances). 
+                Organize code and data together like professional developers do.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">class</span>
+                <span class="concept-tag">Objects</span>
+                <span class="concept-tag">__init__</span>
+                <span class="concept-tag">Methods</span>
+                <span class="concept-tag">Attributes</span>
+              </div>
             </a>
-            <a
-              href="pages/oop-advanced.html"
-              class="link-card-8bit block"
-            >
-              <h3>
-                OOP Advanced
-              </h3>
-              <p>
-                Inheritance, Polymorphism.
+
+            <a href="pages/oop-advanced.html" class="link-card-enhanced">
+              <div class="card-header">
+                <div class="card-difficulty">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <div class="card-level-indicator">OOP</div>
+              </div>
+              <h3 class="card-title">Inheritance & Advanced OOP</h3>
+              <p class="card-description">
+                Advanced OOP concepts: classes that inherit from other classes (like family trees), 
+                encapsulation for data protection, and polymorphism for flexible, maintainable code.
               </p>
+              <div class="card-concepts">
+                <span class="concept-tag">Inheritance</span>
+                <span class="concept-tag">Encapsulation</span>
+                <span class="concept-tag">Polymorphism</span>
+                <span class="concept-tag">Code Reuse</span>
+              </div>
             </a>
           </div>
         </section>
       </main>
 
       <footer class="footer-8bit">
-        <p>Happy Coding, Player 1!</p>
-        <p>
-          <a
-            href="index.html" 
-            >Back to Main Menu</a 
-          >
-        </p>
+        <div style="text-align: center; padding: 2rem 0;">
+          <p style="margin-bottom: 1rem;">🎮 Happy Coding, Future Developer! 🎮</p>
+          <p style="font-size: 10px; color: #9ca3af; margin-bottom: 1rem;">
+            Built with pedagogical principles • Designed for learning success
+          </p>
+          <p>
+            <a href="index.html" style="margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="#" onclick="scrollToTop()" style="margin-left: 1rem;">⬆️ Back to Top</a>
+          </p>
+        </div>
       </footer>
-    </div> 
+    </div>
+
+    <script>
+      // Enhanced interactivity
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Enhanced card interactions
+        const cards = document.querySelectorAll('.link-card-enhanced');
+        cards.forEach(card => {
+          card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-6px) scale(1.03)';
+          });
+          
+          card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+          });
+
+          // Add click tracking for future analytics
+          card.addEventListener('click', function() {
+            const title = this.querySelector('.card-title').textContent;
+            console.log(`Navigating to: ${title}`);
+            // Could integrate with analytics here
+          });
+        });
+
+        // Add progress tracking (future feature)
+        let completedTopics = JSON.parse(localStorage.getItem('completedTopics') || '[]');
+        console.log(`Progress: ${completedTopics.length} topics completed`);
+
+        // Visual feedback for completion status
+        completedTopics.forEach(topicUrl => {
+          const card = document.querySelector(`a[href="${topicUrl}"]`);
+          if (card) {
+            card.style.background = 'linear-gradient(145deg, #1f2937 0%, #065f46 100%)';
+            card.querySelector('.card-level-indicator').textContent = '✓ DONE';
+            card.querySelector('.card-level-indicator').style.background = '#10b981';
+          }
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Home') {
+            scrollToTop();
+          }
+        });
+      });
+
+      // Future: Add sound effects for retro feel
+      // Future: Add progress animation
+      // Future: Add search functionality
+    </script>
   </body>
 </html>

@@ -1,399 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Binary Search - Python Guide</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Algorithm - Interactive Python Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/shared-styles.css">
-    <style>
-      /* Styles for search visualization - preserved as they use theme colors */
-      .search-container {
-        display: flex;
-        flex-wrap: wrap; /* Allow items to wrap if not enough space */
-        align-items: center;
-        justify-content: center;
-        min-height: 80px;
-        padding: 10px;
-        background-color: #503020; /* Deep Bark */
-        border: 3px solid #706050; /* Lighter Bark/Moss */
-        border-top-color: #302010;
-        border-left-color: #302010;
-        border-radius: 6px;
-        margin-bottom: 10px;
-      }
-      .search-item {
-        background-color: #f0c060; /* Sunlight Gold */
-        color: #503020; /* Deep Bark text */
-        border: 2px solid #a07030; /* Darker Brownish Gold */
-        padding: 8px 12px;
-        margin: 4px;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        text-align: center;
-        min-width: 40px;
-        transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-      }
-      .search-item.low, .search-item.high {
-        border-color: #80b0d0; /* Sky Blue for low/high pointers */
-        box-shadow: 0 0 5px #80b0d0;
-      }
-      .search-item.mid {
-        background-color: #40a090; /* Mystic Teal for mid pointer */
-        color: #f0e0c0; /* Cream text */
-        transform: scale(1.1);
-        border-color: #208070;
-      }
-      .search-item.found {
-        background-color: #60c0b0; /* Lighter Mystic Teal for found */
-        color: #224022; /* Forest Green text */
-        transform: scale(1.2);
-        border-color: #224022;
-      }
-      .search-item.discarded {
-        opacity: 0.4;
-        background-color: #706050; /* Lighter Bark/Moss for discarded items */
-        border-color: #503020;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen">
-    <div class="console-screen-border">
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Binary Search
-          </h2>
-          <p class="text-sm italic mt-1">
-            Understanding efficient searching algorithms and the divide-and-conquer approach.
-          </p>
-        </header>
-
-        <nav class="navbar-8bit">
-          <a href="sorting-merge-joke.html" class="btn">&laquo; Merge Sort & Joke Sorts</a>
-          <a href="../index.html" class="btn">Main Menu</a>
-          <a href="oop-basics.html" class="btn">Next: OOP Basics &rarr;</a>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <nav class="hero-nav">
+            <a href="sorting-merge-joke.html" class="nav-link">&larr; Merge Sort</a>
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="oop-basics.html" class="nav-link">OOP Basics &rarr;</a>
         </nav>
-
-        <main class="mx-auto">
-          <h1 class="page-title-8bit">
-            Binary Search
-          </h1>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              1. What is Searching?
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Searching is the process of finding a specific item, often called a target or key, within a collection of items (like a list, array, or database). Linear search is a basic method where you check items one by one from the beginning until the target is found or the list ends. It has a time complexity of O(n) in the worst case and works on any list, sorted or unsorted. Think of it like looking for a specific book in a library by checking each shelf one at a time - it works but can be time-consuming if the library is large.
-              </p>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              2. Binary Search: Efficient Searching
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Binary Search is a much faster searching algorithm, but it has a crucial prerequisite: the collection (e.g., list or array) must be **sorted**. It works based on a **Divide and Conquer** strategy. Think of it like looking up a word in a dictionary - you don't start from the first page and read through each word. Instead, you open to the middle, check if your word is before or after that point, and then focus on the relevant half, repeating this process until you find your word.
-              </p>
-              <ol>
-                <li>Start with the entire sorted list (or a sub-list). Like opening a dictionary to its middle page.</li>
-                <li>Find the middle element of the current search range. This is like checking the word at the top of the page you opened to.</li>
-                <li>Compare this middle element with the target value:</li>
-                <ul>
-                    <li>If the middle element is equal to the target, the item is found! Like finding your word exactly where you looked.</li>
-                    <li>If the target is less than the middle element, the target must be in the left half of the current range (if it exists at all). So, discard the right half and repeat the search on the left half. Like knowing your word must be in the first half of the dictionary.</li>
-                    <li>If the target is greater than the middle element, the target must be in the right half. Discard the left half and repeat the search on the right half. Like knowing your word must be in the second half of the dictionary.</li>
-                </ul>
-                <li>Continue this process, narrowing down the search range by half each time, until the target is found or the search range becomes empty (indicating the target is not in the list). Each step is like tearing the dictionary in half and focusing on the half that must contain your word.</li>
-              </ol>
-              <p>
-                Because Binary Search halves the search space with each comparison, it is very efficient, with a time complexity of O(log n). This makes it ideal for searching in large sorted datasets. It's like having a smart GPS that can instantly eliminate half of the possible locations with each check, rather than having to visit each location one by one.
-              </p>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              3. Interactive Binary Search Visualization
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Enter a sorted list of numbers (comma-separated) and a target value to see Binary Search in action.
-              </p>
-              <div class="controls-grid">
-                <div>
-                  <label for="binarySearchList">Sorted List:</label>
-                  <input
-                    type="text"
-                    id="binarySearchList"
-                    class="input-field-8bit"
-                    value="2,5,7,8,11,12,15,18,20,23,25,28,30,33,37"
-                  />
-                </div>
-                <div>
-                  <label for="binarySearchTarget">Target Value:</label>
-                  <input type="number" id="binarySearchTarget" class="input-field-8bit" value="23" />
-                </div>
-              </div>
-               <div class="controls-flex">
-                <label for="binarySearchSpeed">Speed:</label>
-                <input type="range" id="binarySearchSpeed" min="100" max="2000" value="700" class="input-field-8bit range-slider" style="padding:0; border-width:2px;">
-                <span id="binarySearchSpeedValue">700 ms</span>
-              </div>
-
-              <button id="startBinarySearch" class="button-8bit">Start Search</button>
-              <button id="resetBinarySearch" class="button-8bit">Reset</button>
-
-              <h3 class="section-subtitle-8bit smaller-subtitle">Array Visualization:</h3>
-              <div id="binarySearchContainer" class="search-container">
-                <!-- Items will be generated here by JS -->
-              </div>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Log / Steps:</h3>
-              <div id="binarySearchLog" class="output-display-8bit min-h-[100px]"></div>
-              <div id="binarySearchMessage" class="message-box-8bit mt-3" style="display: none"></div>
-            </div>
-          </section>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              4. Python Implementation
-            </h2>
-            <pre><code class="code-block-8bit python">def binary_search(arr, target):
-  low = 0
-  high = len(arr) - 1
-
-  while low <= high:
-    mid = (low + high) // 2 # Calculate middle index
-
-    if arr[mid] == target:
-      return mid # Target found at mid index
-    elif target < arr[mid]:
-      high = mid - 1 # Target is in the left half
-    else: # target > arr[mid]
-      low = mid + 1  # Target is in the right half
-  
-  return -1 # Target not found
-
-# Example usage:
-my_sorted_list = [2, 5, 7, 8, 11, 12, 15, 18, 20, 23, 25, 28, 30, 33, 37]
-target_value = 23
-index = binary_search(my_sorted_list, target_value)
-
-if index != -1:
-  print(f"Target {target_value} found at index: {index}")
-else:
-  print(f"Target {target_value} not found in the list.")
-
-target_value_absent = 10
-index_absent = binary_search(my_sorted_list, target_value_absent)
-if index_absent != -1:
-  print(f"Target {target_value_absent} found at index: {index_absent}")
-else:
-  print(f"Target {target_value_absent} not found in the list.")</code></pre>
-          </section>
-        </main>
-
-        <footer class="footer-8bit">
-          <p class="text-sm mb-2">Ready for object-oriented programming?</p>
-          <a href="oop-basics.html" class="btn btn-8bit">Next Tutorial: OOP Basics &rarr;</a>
-        </footer>
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
-
-    <script>
-        const listInput = document.getElementById('binarySearchList');
-        const targetInput = document.getElementById('binarySearchTarget');
-        const startButton = document.getElementById('startBinarySearch');
-        const resetButton = document.getElementById('resetBinarySearch');
-        const container = document.getElementById('binarySearchContainer');
-        const logOutput = document.getElementById('binarySearchLog');
-        const messageBox = document.getElementById('binarySearchMessage');
-        const speedSlider = document.getElementById('binarySearchSpeed');
-        const speedValueDisplay = document.getElementById('binarySearchSpeedValue');
-
-        let currentArray = [];
-        let animationSpeed = 700;
-        let animationTimeout = null;
-
-        speedSlider.addEventListener('input', (e) => {
-            animationSpeed = parseInt(e.target.value);
-            speedValueDisplay.textContent = `${animationSpeed} ms`;
-            // If an animation is running, clear it to avoid speed issues until next step
-            if (animationTimeout) {
-                clearTimeout(animationTimeout);
-            }
-        });
-
-        function displayArray(arr, low = -1, high = -1, mid = -1, foundIdx = -1, discardedIndices = []) {
-            container.innerHTML = '';
-            arr.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.classList.add('search-item');
-                div.textContent = item;
-
-                if (index === mid) {
-                    div.classList.add('mid');
-                } else if (index === low) {
-                    div.classList.add('low');
-                } else if (index === high) {
-                    div.classList.add('high');
-                }
-                
-                if (index === foundIdx) {
-                    div.classList.add('found');
-                } else if (discardedIndices.includes(index)) {
-                    div.classList.add('discarded');
-                }
-                container.appendChild(div);
-            });
-        }
-
-        function logStep(message) {
-            const p = document.createElement('p');
-            p.textContent = message;
-            logOutput.appendChild(p);
-            logOutput.scrollTop = logOutput.scrollHeight; // Scroll to bottom
-        }
-
-        function showMessage(text, type = 'info') {
-            messageBox.textContent = text;
-            messageBox.className = 'message-box-8bit'; // Reset classes
-            if (type === 'success') {
-                messageBox.classList.add('success');
-            } else if (type === 'error') {
-                messageBox.classList.add('error');
-            }
-            messageBox.style.display = 'block';
-        }
         
-        function hideMessage() {
-            messageBox.style.display = 'none';
-        }
+        <div class="hero-content">
+            <h1 style="font-size: 24px;">Binary Search: Divide and Conquer Searching</h1>
+            <p class="hero-subtitle">Master the art of efficient searching in sorted data with logarithmic time complexity</p>
+            
+            <div style="background: rgba(59, 130, 246, 0.1); border: 2px dashed #3b82f6; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <span style="font-size: 24px;">📖</span>
+                    <div>
+                        <div style="color: #3b82f6; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Dictionary Lookup</div>
+                        <div style="color: #e2e8f0;">Think of binary search like looking up a word in a dictionary - you open to the middle, see if you need to go left or right, then repeat until you find your word.</div>
+                    </div>
+                </div>
+            </div>
 
-        async function performBinarySearch() {
-            startButton.disabled = true;
-            resetButton.disabled = true;
-            hideMessage();
-            logOutput.innerHTML = '';
+            <div class="hero-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <span>O(log n) Speed</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <span>Divide & Conquer</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span>Sorted Data Required</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-            const listStr = listInput.value.trim();
-            const targetVal = parseInt(targetInput.value);
-
-            if (!listStr) {
-                showMessage('Error: List cannot be empty.', 'error');
-                startButton.disabled = false;
-                resetButton.disabled = false;
-                return;
-            }
-            if (isNaN(targetVal)) {
-                showMessage('Error: Target value must be a number.', 'error');
-                startButton.disabled = false;
-                resetButton.disabled = false;
-                return;
-            }
-
-            currentArray = listStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-
-            // Validate if sorted
-            let isSorted = true;
-            for (let i = 0; i < currentArray.length - 1; i++) {
-                if (currentArray[i] > currentArray[i+1]) {
-                    isSorted = false;
-                    break;
-                }
-            }
-            if (!isSorted) {
-                showMessage('Error: The input list must be sorted for Binary Search.', 'error');
-                displayArray(currentArray); // Display unsorted array for user to see
-                startButton.disabled = false;
-                resetButton.disabled = false;
-                return;
-            }
-
-
-            let low = 0;
-            let high = currentArray.length - 1;
-            let found = false;
-            let discardedIndices = [];
-
-            logStep(`Initial array: [${currentArray.join(', ')}], Target: ${targetVal}`);
-            displayArray(currentArray, low, high);
-            await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
-
-            while (low <= high) {
-                let mid = Math.floor((low + high) / 2);
-                logStep(`Searching between index ${low} (value ${currentArray[low]}) and ${high} (value ${currentArray[high]}). Middle index: ${mid} (value ${currentArray[mid]}).`);
-                displayArray(currentArray, low, high, mid, -1, discardedIndices);
-                await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
-
-                if (currentArray[mid] === targetVal) {
-                    logStep(`Target ${targetVal} found at index ${mid}.`);
-                    displayArray(currentArray, low, high, mid, mid, discardedIndices);
-                    showMessage(`Target ${targetVal} found at index ${mid}!`, 'success');
-                    found = true;
-                    break;
-                } else if (targetVal < currentArray[mid]) {
-                    logStep(`Target ${targetVal} < ${currentArray[mid]}. Discarding right half. New high: ${mid - 1}.`);
-                    // Mark elements from mid to high as discarded
-                    for(let i = mid; i <= high; i++) {
-                        if (!discardedIndices.includes(i)) discardedIndices.push(i);
-                    }
-                    high = mid - 1;
-                } else { // target > arr[mid]
-                    logStep(`Target ${targetVal} > ${currentArray[mid]}. Discarding left half. New low: ${mid + 1}.`);
-                    // Mark elements from low to mid as discarded
-                    for(let i = low; i <= mid; i++) {
-                        if (!discardedIndices.includes(i)) discardedIndices.push(i);
-                    }
-                    low = mid + 1;
-                }
-                displayArray(currentArray, low, high, -1, -1, discardedIndices); // Show updated low/high and discarded
-                if (low <= high) { // only pause if there's more to do
-                   await new Promise(resolve => animationTimeout = setTimeout(resolve, animationSpeed));
-                }
-            }
-
-            if (!found) {
-                logStep(`Target ${targetVal} not found in the list.`);
-                showMessage(`Target ${targetVal} not found.`, 'info');
-                // Mark all remaining elements as discarded if range is valid
-                 for(let i = 0; i < currentArray.length; i++) {
-                    if (!discardedIndices.includes(i)) discardedIndices.push(i);
-                }
-                displayArray(currentArray, -1, -1, -1, -1, discardedIndices);
-            }
-            startButton.disabled = false;
-            resetButton.disabled = false;
-        }
-
-        function resetSearch() {
-            if(animationTimeout) clearTimeout(animationTimeout);
-            listInput.value = "2,5,7,8,11,12,15,18,20,23,25,28,30,33,37";
-            targetInput.value = "23";
-            currentArray = listInput.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-            logOutput.innerHTML = '';
-            hideMessage();
-            displayArray(currentArray);
-            startButton.disabled = false;
-            resetButton.disabled = false;
-        }
-
-        startButton.addEventListener('click', performBinarySearch);
-        resetButton.addEventListener('click', resetSearch);
-
-        // Initial display
-        resetSearch();
-    </script>
-  </body>
-</html>
+    <main class="container">
+        <div class="content-placeholder">
+            <h2>🚧 Page Under Construction</h2>
+            <p>This Binary Search page is being developed with the full pedagogical framework including:</p>
+            <ul>
+                <li>Problem motivation with search efficiency examples</li>
+                <li>Dictionary lookup mental model for divide-and-conquer approach</li>
+                <li>Interactive binary search visualizer</li>
+                <li>Performance comparison with linear search</li>
+                <li>Critical pitfall about requiring sorted data</li>
+                <li>Comprehensive assessment with complexity analysis</li>
+            </ul>
+            <p>The page will cover binary search algorithm with step-by-step visualization and hands-on practice.</p>
+        </div>
+    </main>
+</body>
+</html> 

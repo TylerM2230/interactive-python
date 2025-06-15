@@ -3,459 +3,947 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nested Loops in Python</title>
+    <title>Nested Loops | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .breadcrumb-nav {
+        background: rgba(31, 41, 55, 0.9);
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-button {
+        background: linear-gradient(135deg, #1e40af, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 10px;
+        border: 2px solid #facc15;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.2);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+        border: 2px solid #22c55e;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .mental-model-box h3 {
+        color: #86efac;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h3 {
+        color: #fdba74;
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+      }
+
+      .interactive-playground {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+        border: 2px solid #3b82f6;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-playground h3 {
+        color: #93c5fd;
+        margin-bottom: 1rem;
+        font-size: 14px;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(126, 34, 206, 0.2));
+        border: 2px solid #9333ea;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .assessment-section h3 {
+        color: #c4b5fd;
+        margin-bottom: 1rem;
+        font-size: 14px;
+      }
+
+      .code-block {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        line-height: 1.4;
+        color: #e2e8f0;
+        overflow-x: auto;
+      }
+
+      .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        margin: 1rem 0;
+      }
+
+      .input-field {
+        background: rgba(15, 23, 42, 0.8);
+        border: 2px solid #374151;
+        border-radius: 8px;
+        padding: 0.5rem;
+        color: #e2e8f0;
+        font-size: 11px;
+      }
+
+      .input-field:focus {
+        border-color: #facc15;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #facc15, #eab308);
+        color: #1e3a8a;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
+      }
+
+      .output-display {
+        background: rgba(15, 23, 42, 0.9);
+        border: 2px solid #374151;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        color: #e2e8f0;
+        min-height: 100px;
+        white-space: pre-wrap;
+      }
+
+      .grid-display {
+        display: grid;
+        gap: 2px;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 8px;
+        border: 1px solid #374151;
+      }
+
+      .grid-cell {
+        background: rgba(59, 130, 246, 0.3);
+        border: 1px solid #3b82f6;
+        padding: 0.5rem;
+        text-align: center;
+        font-size: 10px;
+        color: #e2e8f0;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .grid-cell.active {
+        background: rgba(250, 204, 21, 0.6);
+        border-color: #facc15;
+        color: #1e3a8a;
+        font-weight: bold;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: #3b82f6;
+      }
+
+      .quiz-option.selected {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: #22c55e;
+      }
+
+      .quiz-option.correct {
+        background: rgba(34, 197, 94, 0.3);
+        border-color: #22c55e;
+      }
+
+      .quiz-option.incorrect {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: #ef4444;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .breadcrumb-nav {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .input-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="lists-iteration.html" class="btn">&laquo; Lists & Iteration</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="string-operations.html" class="btn">Next: String Operations &rarr;</a>
-      </nav>
+      <header>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">
+              <a href="../index.html" style="color: inherit; text-decoration: none;">
+                Interactive Guide to Python
+              </a>
+            </h1>
+            <h2 class="pixel-subheader">Nested Loops: Loops Within Loops</h2>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🔄 Iteration Patterns • 🎯 2D Processing • ⚡ Powerful Combinations
+            </p>
+          </div>
+        </div>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Nested Loops
-          </h2>
-          <p class="text-sm italic mt-1">
-            Using loops inside other loops to process multi-dimensional data or generate combinations.
-          </p>
-        </header>
+        <nav class="breadcrumb-nav">
+          <a href="nested-conditionals.html" class="nav-button">← Nested Conditionals</a>
+          <a href="../index.html" class="nav-button">🏠 Home</a>
+          <a href="error-handling.html" class="nav-button">Error Handling →</a>
+        </nav>
+      </header>
 
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            1. What are Nested Loops?
-          </h2>
-          <p class="mb-4 text-gray-300">
-            Nested loops are like a clock with two hands - the hour hand (outer loop) moves slowly, and for each position of the hour hand, the minute hand (inner loop) makes a complete circle. Just as the minute hand completes its full rotation for each hour, the inner loop completes all its iterations for each single iteration of the outer loop. Think of it like a Russian nesting doll - each doll contains another doll inside, and you need to open each outer doll to access the inner ones.
+      <main class="content-wrapper-8bit">
+        <!-- Problem Motivation -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🎯 Why Do We Need Nested Loops?</h2>
+          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+            Imagine you're organizing a massive library. You need to visit every shelf (outer loop), and on each shelf, 
+            you need to check every single book (inner loop). Or think about a farmer plowing a field: they plow each row (outer loop), 
+            and within each row, they need to cover every inch of soil (inner loop).
           </p>
-          <p class="mb-2 text-gray-300">
-            Think of it like a game of chess: for each move of the white pieces (outer loop), black gets to make all their possible moves (inner loop). The key concept is that for <strong>each single iteration</strong> of the outer loop, the <strong>entire inner loop</strong> completes all of its iterations. It's similar to how a teacher might check each student's homework (outer loop), and for each student, they need to check every question (inner loop).
+          <p style="color: #e2e8f0; line-height: 1.6;">
+            <strong>The Problem:</strong> Single loops can only handle one-dimensional tasks. But what about grids, tables, 
+            combinations, or any situation where you need to process data in multiple dimensions? That's where nested loops become essential - 
+            they let you work with complex, multi-layered data structures efficiently.
           </p>
-          <pre><code class="language-python"># Basic structure (for loop inside a for loop)
-for i in range(3):  # Outer loop (runs 3 times: i=0, i=1, i=2)
-  print(f"Outer loop iteration: i = {i}")
-  for j in range(2):  # Inner loop (runs 2 times for EACH outer iteration: j=0, j=1)
-    print(f"  Inner loop iteration: j = {j}")
-  print("-" * 10) # Separator after inner loop finishes
+        </section>
+
+        <!-- Mental Model -->
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: Clock Hands & Assembly Lines</h3>
+          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+            Think of nested loops like a <strong>clock with two hands</strong>: the hour hand (outer loop) moves slowly, 
+            and for each position of the hour hand, the minute hand (inner loop) makes a complete circle. 
+            The minute hand completes its full rotation for each hour!
+          </p>
+          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+            Or imagine an <strong>assembly line with quality control</strong>: for each product that comes down the line (outer loop), 
+            a quality inspector checks every component on that product (inner loop). The inspector finishes checking all components 
+            before the next product arrives.
+          </p>
+          <div class="code-block">
+# Like a clock: hour hand (i) and minute hand (j)
+for i in range(3):      # Hour hand: 0, 1, 2
+    print(f"Hour: {i}")
+    for j in range(4):  # Minute hand: 0, 1, 2, 3 (for EACH hour)
+        print(f"  Minute: {j}")
+    print("---")
+
+# Output shows the pattern:
+# Hour: 0
+#   Minute: 0, 1, 2, 3
+# Hour: 1  
+#   Minute: 0, 1, 2, 3
+# Hour: 2
+#   Minute: 0, 1, 2, 3
+          </div>
+        </div>
+
+        <!-- Syntax Introduction -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">📝 Nested Loop Mechanics</h2>
+          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+            The computer processes nested loops with mechanical precision. The outer loop starts, then the inner loop runs completely, 
+            then the outer loop advances one step, then the inner loop runs completely again. This is the notional machine at work: 
+            <strong>sequential, literal, and oblivious</strong> to our human intuition about "doing things at the same time."
+          </p>
+          
+          <div class="code-block">
+# Basic nested structure
+for outer_var in range(3):
+    print(f"Outer loop: {outer_var}")
+    for inner_var in range(2):
+        print(f"  Inner loop: {inner_var}")
+        # This line executes 6 times total (3 × 2)
+    print("  Inner loop finished")
+print("All loops finished")
+          </div>
+
+          <div class="code-block">
+# Real example: Creating a multiplication table
+for row in range(1, 4):      # Rows 1, 2, 3
+    for col in range(1, 4):  # Columns 1, 2, 3
+        product = row * col
+        print(f"{row} × {col} = {product}", end="  ")
+    print()  # New line after each row
 
 # Output:
-# Outer loop iteration: i = 0
-#   Inner loop iteration: j = 0
-#   Inner loop iteration: j = 1
-# ----------
-# Outer loop iteration: i = 1
-#   Inner loop iteration: j = 0
-#   Inner loop iteration: j = 1
-# ----------
-# Outer loop iteration: i = 2
-#   Inner loop iteration: j = 0
-#   Inner loop iteration: j = 1
-# ----------</code></pre>
-          <p class="mt-2 text-gray-300">
-            You can nest any type of loop inside another (e.g., a
-            <code>while</code> loop inside a <code>for</code> loop), but nested
-            <code>for</code> loops are very common.
-          </p>
+# 1 × 1 = 1  1 × 2 = 2  1 × 3 = 3
+# 2 × 1 = 2  2 × 2 = 4  2 × 3 = 6  
+# 3 × 1 = 3  3 × 2 = 6  3 × 3 = 9
+          </div>
         </section>
 
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            2. Common Use Cases
-          </h2>
-          <p class="mb-2 text-gray-300">
-            Nested loops are like having a map of a city - you need to visit each street (outer loop) and then check each house on that street (inner loop). They're powerful for tasks that involve multi-dimensional structures or combinations. Think of it like a treasure hunt where you need to check each room in a house (outer loop), and within each room, you need to look in every possible hiding spot (inner loop).
+        <!-- Interactive Exploration -->
+        <div class="interactive-playground">
+          <h3>🔬 Interactive Loop Visualizer</h3>
+          <p style="color: #dbeafe; margin-bottom: 1rem;">
+            Watch how nested loops work step by step. See the outer loop control the inner loop's complete execution!
           </p>
-          <ul class="list-disc list-inside mb-4 space-y-2 text-gray-300">
-            <li>
-              <strong>Working with Grids or 2D Arrays:</strong> Like reading a spreadsheet - you go through each row (outer loop) and then check each column in that row (inner loop). It's similar to how you might read a book - first you pick a page (row), then you read each word on that page (column). Think of it like a farmer plowing a field - they need to plow each row (outer loop), and within each row, they need to plow every inch (inner loop).
-            </li>
-            <li>
-              <strong>Generating Combinations or Pairs:</strong> Like making all possible outfits from your wardrobe - for each shirt (outer loop), you try it with every pair of pants (inner loop). It's like a restaurant menu where each main course can be paired with any side dish. Think of it like a dance competition where each dancer (outer loop) needs to perform with every possible partner (inner loop).
-            </li>
-            <li>
-              <strong>Creating Patterns:</strong> Like building with blocks - you place blocks in rows (outer loop) and then fill each row with the right number of blocks (inner loop). It's similar to how you might color in a grid - first you choose a row, then you color each cell in that row. Think of it like knitting a sweater - you need to knit each row (outer loop), and within each row, you need to make every stitch (inner loop).
-            </li>
-            <li>
-              <strong>Processing Multi-level Data:</strong> Like organizing a library - you go through each bookshelf (outer loop) and then look at each book on that shelf (inner loop). It's like how you might clean a house - first you pick a room, then you clean each item in that room. Think of it like a family tree - you need to check each generation (outer loop), and within each generation, you need to look at every family member (inner loop).
-            </li>
+          
+          <div class="input-group">
+            <label style="color: #dbeafe;">Outer Loop Range:</label>
+            <input type="number" id="outerRange" class="input-field" value="3" min="1" max="5">
+            
+            <label style="color: #dbeafe;">Inner Loop Range:</label>
+            <input type="number" id="innerRange" class="input-field" value="4" min="1" max="6">
+          </div>
+          
+          <button id="runVisualization" class="btn">Run Visualization</button>
+          <button id="resetVisualization" class="btn">Reset</button>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+            <div>
+              <h4 style="color: #dbeafe; margin-bottom: 0.5rem;">Loop State:</h4>
+              <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px;">
+                <p style="color: #e2e8f0;">Outer: <span id="outerCounter" style="color: #facc15; font-weight: bold;">-</span></p>
+                <p style="color: #e2e8f0;">Inner: <span id="innerCounter" style="color: #facc15; font-weight: bold;">-</span></p>
+                <p style="color: #e2e8f0;">Total Iterations: <span id="totalCounter" style="color: #facc15; font-weight: bold;">0</span></p>
+              </div>
+            </div>
+            
+            <div>
+              <h4 style="color: #dbeafe; margin-bottom: 0.5rem;">Coordinate Grid:</h4>
+              <div id="coordinateGrid" class="grid-display">
+                <!-- Grid will be generated here -->
+              </div>
+            </div>
+          </div>
+          
+          <div id="loopOutput" class="output-display">
+            Click "Run Visualization" to see nested loops in action...
+          </div>
+        </div>
+
+        <!-- Common Pitfalls -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: Performance Explosion</h3>
+          <p style="color: #fed7aa; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Danger:</strong> Nested loops multiply their iterations! A loop with 100 iterations inside another loop with 100 iterations 
+            creates 10,000 total iterations. This can make your program incredibly slow or even crash.
+          </p>
+          
+          <div class="code-block">
+# DANGEROUS: This creates 1,000,000 iterations!
+for i in range(1000):
+    for j in range(1000):
+        print(f"({i}, {j})")  # This will take forever!
+          </div>
+          
+          <div class="code-block">
+# BETTER: Be mindful of the total iterations
+outer_size = 10
+inner_size = 10
+total_iterations = outer_size * inner_size
+print(f"This will run {total_iterations} times")
+
+for i in range(outer_size):
+    for j in range(inner_size):
+        # Do your work here
+        pass
+          </div>
+          
+          <p style="color: #fed7aa; line-height: 1.6;">
+            <strong>Rule of thumb:</strong> Always calculate total iterations (outer × inner). If it's more than 10,000, 
+            consider if there's a more efficient approach. Your computer is fast, but not infinitely fast!
+          </p>
+        </div>
+
+        <!-- Practice Project -->
+        <div class="interactive-playground">
+          <h3>🎮 Practice: Pattern Generator</h3>
+          <p style="color: #dbeafe; margin-bottom: 1rem;">
+            Create different patterns using nested loops. See how changing the loop structure creates different visual effects!
+          </p>
+          
+          <div class="input-group">
+            <label style="color: #dbeafe;">Pattern Type:</label>
+            <select id="patternType" class="input-field">
+              <option value="rectangle">Rectangle</option>
+              <option value="triangle">Triangle</option>
+              <option value="diamond">Diamond</option>
+              <option value="checkerboard">Checkerboard</option>
+            </select>
+            
+            <label style="color: #dbeafe;">Size:</label>
+            <input type="number" id="patternSize" class="input-field" value="5" min="3" max="8">
+            
+            <label style="color: #dbeafe;">Character:</label>
+            <input type="text" id="patternChar" class="input-field" value="*" maxlength="1">
+          </div>
+          
+          <button id="generatePattern" class="btn">Generate Pattern</button>
+          
+          <div id="patternOutput" class="output-display">
+            Select pattern settings and click "Generate Pattern"...
+          </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="assessment-section">
+          <h3>🎯 Mastery Assessment: Nested Loop Logic</h3>
+          <p style="color: #e0e7ff; margin-bottom: 1.5rem;">
+            Test your understanding of how nested loops execute. Remember: the inner loop completes fully for each outer iteration!
+          </p>
+          
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 1: How many times does "Hello" get printed?
+            </p>
+            <div class="code-block" style="margin-bottom: 1rem;">
+for i in range(3):
+    for j in range(4):
+        print("Hello")
+            </div>
+            <div class="quiz-option" data-question="1" data-answer="a">
+              A) 3 times
+            </div>
+            <div class="quiz-option" data-question="1" data-answer="b">
+              B) 4 times
+            </div>
+            <div class="quiz-option" data-question="1" data-answer="c">
+              C) 7 times (3 + 4)
+            </div>
+            <div class="quiz-option" data-question="1" data-answer="d">
+              D) 12 times (3 × 4)
+            </div>
+          </div>
+          
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 2: What's the last coordinate printed?
+            </p>
+            <div class="code-block" style="margin-bottom: 1rem;">
+for row in range(2):
+    for col in range(3):
+        print(f"({row}, {col})")
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="a">
+              A) (2, 3)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="b">
+              B) (1, 2)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="c">
+              C) (0, 2)
+            </div>
+            <div class="quiz-option" data-question="2" data-answer="d">
+              D) (1, 3)
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 3: Performance Analysis
+            </p>
+            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+              Which nested loop structure creates the most total iterations?
+            </p>
+            <div class="quiz-option" data-question="3" data-answer="a">
+              A) for i in range(10): for j in range(10): # 100 iterations
+            </div>
+            <div class="quiz-option" data-question="3" data-answer="b">
+              B) for i in range(5): for j in range(50): # 250 iterations
+            </div>
+            <div class="quiz-option" data-question="3" data-answer="c">
+              C) for i in range(20): for j in range(20): # 400 iterations
+            </div>
+            <div class="quiz-option" data-question="3" data-answer="d">
+              D) for i in range(100): # 100 iterations (single loop)
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 4: Pattern Recognition
+            </p>
+            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+              What pattern does this code create?
+            </p>
+            <div class="code-block" style="margin-bottom: 1rem;">
+for i in range(3):
+    for j in range(i + 1):
+        print("*", end="")
+    print()
+            </div>
+            <div class="quiz-option" data-question="4" data-answer="a">
+              A) Rectangle of stars
+            </div>
+            <div class="quiz-option" data-question="4" data-answer="b">
+              B) Right triangle of stars
+            </div>
+            <div class="quiz-option" data-question="4" data-answer="c">
+              C) Diamond shape
+            </div>
+            <div class="quiz-option" data-question="4" data-answer="d">
+              D) Single line of stars
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-bottom: 2rem;">
+            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+              Question 5: Loop Order Understanding
+            </p>
+            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+              In nested loops, what happens to the inner loop variable?
+            </p>
+            <div class="quiz-option" data-question="5" data-answer="a">
+              A) It completes its full range for each outer loop iteration
+            </div>
+            <div class="quiz-option" data-question="5" data-answer="b">
+              B) It only runs once per program
+            </div>
+            <div class="quiz-option" data-question="5" data-answer="c">
+              C) It runs independently of the outer loop
+            </div>
+            <div class="quiz-option" data-question="5" data-answer="d">
+              D) It skips values when the outer loop increments
+            </div>
+          </div>
+          
+          <button id="checkQuiz" class="btn">Check Answers</button>
+          <div id="quizResults" class="output-display" style="display: none;">
+            Quiz results will appear here...
+          </div>
+        </div>
+
+        <!-- Reflection Questions -->
+        <section class="concept-section">
+          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🤔 Reflection Questions</h2>
+          <ul style="color: #e2e8f0; line-height: 1.8; list-style-type: disc; margin-left: 2rem;">
+            <li>How do nested loops relate to real-world tasks you do every day?</li>
+            <li>When would you use nested loops instead of a single loop?</li>
+            <li>How can you calculate the total number of iterations before running nested loops?</li>
+            <li>What strategies can you use to avoid performance problems with nested loops?</li>
           </ul>
-          <pre><code class="language-python"># Example: Generating coordinate pairs (like a grid)
-rows = 3
-cols = 2
-coordinates = []
-
-for r in range(rows): # Outer loop for rows
-    for c in range(cols): # Inner loop for columns
-        coordinates.append((r, c)) # Add the (row, col) tuple
-
-print(coordinates)
-# Output: [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1)]</code></pre>
         </section>
+      </main>
 
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            3. See Nested Loops in Action (Generating Coordinates)
-          </h2>
-          <p class="mb-4 text-gray-300">
-            Let's watch our clock in action! We'll generate coordinate pairs for a small grid, where the hour hand (outer loop) represents rows and the minute hand (inner loop) represents columns. Each time the hour hand moves, the minute hand will make a complete circle, just like how each row will be paired with every possible column. Think of it like a game of Battleship - you need to check each row (outer loop), and within each row, you need to check every column position (inner loop) to find the ships.
-          </p>
-          <div class="mb-4">
-            <button id="runNestedLoopButton" class="btn btn-green">
-              Run Nested Loop
-            </button>
-            <button id="resetNestedLoopButton" class="btn">Reset</button>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 class="text-lg font-medium mb-2 text-cyan-400">Loop State:</h3>
-              <div class="bg-blue-900 p-4 rounded-md">
-                <p class="text-gray-300">
-                  Outer Loop (<code class="font-semibold text-yellow-300">i</code>):
-                  <span id="outerLoopCounter" class="loop-counter outer-loop"
-                    >-</span
-                  >
-                </p>
-                <p class="text-gray-300">
-                  Inner Loop (<code class="font-semibold text-yellow-300">j</code>):
-                  <span id="innerLoopCounter" class="loop-counter inner-loop"
-                    >-</span
-                  >
-                </p>
-              </div>
-              <h4 class="text-md font-medium mt-4 mb-1 text-cyan-400">Code Snippet:</h4>
-              <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">
-<span class="code-line" data-line="1">for i in range(3): # Outer</span>
-<span class="code-line indent-1" data-line="2">  # Outer loop body starts</span>
-<span class="code-line indent-1" data-line="3">  for j in range(2): # Inner</span>
-<span class="code-line indent-2" data-line="4">    # Inner loop body starts</span>
-<span class="code-line indent-2" data-line="5">    print(f"({i}, {j})")</span>
-<span class="code-line indent-2" data-line="6">    # Inner loop body ends</span>
-<span class="code-line indent-1" data-line="7">  # Inner loop finishes</span>
-<span class="code-line indent-1" data-line="8"> # Outer loop body ends</span>
-<span class="code-line" data-line="9"># Outer loop finishes</span>
-                      </code></pre>
-            </div>
-
-            <div>
-              <h3 class="text-lg font-medium mb-2 text-cyan-400">Generated Output:</h3>
-              <div id="nestedLoopOutput" class="output-display bg-blue-900 border-yellow-500 text-gray-200">
-                <span class="text-gray-400 italic"
-                  >Click "Run Nested Loop" to start.</span
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            id="nestedLoopMessage"
-            class="message-box"
-            style="display: none"
-          ></div>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">4. Quick Quiz</h2>
-          <p class="mb-4 text-gray-300">Test your understanding!</p>
-          <div class="mb-3">
-            <p class="font-medium mb-1 text-gray-200">
-              Q1: If an outer loop runs 3 times and an inner loop runs 4 times for
-              each outer iteration, how many times does the innermost code block
-              execute in total?
-            </p>
-            <label class="block text-gray-300"
-              ><input type="radio" name="q1_nestedloop" value="a" class="mr-1" />
-              3 times</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q1_nestedloop" value="b" class="mr-1" />
-              4 times</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q1_nestedloop" value="c" class="mr-1" />
-              7 times</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q1_nestedloop" value="d" class="mr-1" />
-              12 times</label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1 text-gray-200">Q2: Consider the code:</p>
-            <pre class="text-xs bg-blue-900 border-blue-500 text-gray-200"><code class="language-python">count = 0
-for x in range(2):
-  for y in range(2):
-    count = count + 1
-print(count)</code></pre>
-            <p class="font-medium mt-1 text-gray-200">What will be printed?</p>
-            <label class="block text-gray-300"
-              ><input type="radio" name="q2_nestedloop" value="a" class="mr-1" />
-              2</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q2_nestedloop" value="b" class="mr-1" />
-              3</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q2_nestedloop" value="c" class="mr-1" />
-              4</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q2_nestedloop" value="d" class="mr-1" />
-              1</label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1 text-gray-200">
-              Q3: Which use case is NOT a typical application of nested loops?
-            </p>
-            <label class="block text-gray-300"
-              ><input type="radio" name="q3_nestedloop" value="a" class="mr-1" />
-              Iterating through a simple list (1D)</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q3_nestedloop" value="b" class="mr-1" />
-              Processing pixels in an image (grid)</label
-            >
-            <label class="block text-gray-300"
-              ><input type="radio" name="q3_nestedloop" value="c" class="mr-1" />
-              Generating all possible pairs of players from two teams</label
-            >
-          </div>
-          <button id="checkQuizButtonNestedLoop" class="btn">
-            Check Answers
-          </button>
-          <div
-            id="quizResultNestedLoop"
-            class="message-box mt-4"
-            style="display: none"
-          ></div>
-        </section>
-      </div>
-
-      <footer class="footer-8bit">
-        <p class="text-sm mb-2">Ready to manipulate text?</p>
-        <a href="string-operations.html" class="btn btn-8bit">Next Tutorial: String Operations &rarr;</a>
+      <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+          <p style="color: #facc15; margin-bottom: 1rem;">🎯 Ready to handle errors gracefully?</p>
+          <a href="error-handling.html" class="btn" style="margin-right: 1rem;">Next: Error Handling →</a>
+          <a href="../index.html" class="nav-button">🏠 Back to Home</a>
+        </div>
       </footer>
     </div>
 
-    <script src="../js/main.js" defer></script>
     <script>
-      // --- Nested Loop Elements and State ---
-      const runNestedLoopButton = document.getElementById(
-        "runNestedLoopButton"
-      );
-      const resetNestedLoopButton = document.getElementById(
-        "resetNestedLoopButton"
-      );
-      const outerLoopCounter = document.getElementById("outerLoopCounter");
-      const innerLoopCounter = document.getElementById("innerLoopCounter");
-      const nestedLoopOutput = document.getElementById("nestedLoopOutput");
-      const nestedLoopMessage = document.getElementById("nestedLoopMessage");
-      const codeLines = document.querySelectorAll(
-        "#nestedCodeDisplay .code-line"
-      ); // Select code lines for highlighting
+      // Loop visualization system
+      let visualizationRunning = false;
+      let visualizationTimeout;
 
-      let nestedLoopInterval = null;
-      let currentOuterIndex = 0;
-      let currentInnerIndex = 0;
-      const outerLimit = 3;
-      const innerLimit = 2;
-      let nestedLoopRunning = false;
-
-      // --- Quiz Elements ---
-      const checkQuizButtonNestedLoop = document.getElementById(
-        "checkQuizButtonNestedLoop"
-      );
-      const quizResultNestedLoop = document.getElementById(
-        "quizResultNestedLoop"
-      );
-
-      // --- Nested Loop Logic ---
-      function highlightCode(lineNumbers) {
-        codeLines.forEach((line) => line.classList.remove("highlight")); // Clear previous
-        if (Array.isArray(lineNumbers)) {
-          lineNumbers.forEach((ln) => {
-            const lineElement = document.querySelector(
-              `.code-line[data-line="${ln}"]`
-            );
-            if (lineElement) lineElement.classList.add("highlight");
-          });
-        } else {
-          // Single line number
-          const lineElement = document.querySelector(
-            `.code-line[data-line="${lineNumbers}"]`
-          );
-          if (lineElement) lineElement.classList.add("highlight");
+      document.getElementById('runVisualization').addEventListener('click', function() {
+        if (visualizationRunning) return;
+        
+        const outerRange = parseInt(document.getElementById('outerRange').value);
+        const innerRange = parseInt(document.getElementById('innerRange').value);
+        const output = document.getElementById('loopOutput');
+        const grid = document.getElementById('coordinateGrid');
+        
+        // Setup grid
+        grid.style.gridTemplateColumns = `repeat(${innerRange}, 1fr)`;
+        grid.innerHTML = '';
+        
+        for (let i = 0; i < outerRange; i++) {
+          for (let j = 0; j < innerRange; j++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.textContent = `(${i},${j})`;
+            cell.id = `cell-${i}-${j}`;
+            grid.appendChild(cell);
+          }
         }
-      }
-
-      function resetNestedLoop() {
-        if (nestedLoopInterval) {
-          clearInterval(nestedLoopInterval);
-          nestedLoopInterval = null;
-        }
-        nestedLoopRunning = false;
-        currentOuterIndex = 0;
-        currentInnerIndex = 0;
-        outerLoopCounter.textContent = "-";
-        innerLoopCounter.textContent = "-";
-        outerLoopCounter.classList.remove("highlight");
-        innerLoopCounter.classList.remove("highlight");
-        nestedLoopOutput.innerHTML =
-          '<span class="text-gray-500 italic">Click "Run Nested Loop" to start.</span>';
-        runNestedLoopButton.disabled = false;
-        highlightCode([]); // Clear code highlights
-        showMessage(nestedLoopMessage, "Nested loop reset.", "info");
-      }
-
-      function stepThroughNestedLoop() {
-        if (!nestedLoopRunning) return; // Stop if reset called
-
-        // Determine current state and next action
-        if (currentOuterIndex < outerLimit) {
-          // Outer loop is running
-          outerLoopCounter.textContent = currentOuterIndex;
-          outerLoopCounter.classList.add("highlight");
-          innerLoopCounter.classList.remove("highlight");
-          highlightCode([1, 2]); // Highlight outer loop line and start of its body
-
-          // Check if inner loop needs to start/continue
-          if (currentInnerIndex < innerLimit) {
-            // Inner loop's turn
-            innerLoopCounter.textContent = currentInnerIndex;
-            outerLoopCounter.classList.remove("highlight"); // De-emphasize outer while inner runs
-            innerLoopCounter.classList.add("highlight");
-            highlightCode([3, 4, 5, 6]); // Highlight inner loop line and its body
-
-            // Append output for this inner iteration
-            nestedLoopOutput.innerHTML += `(${currentOuterIndex}, ${currentInnerIndex})\n`;
-            nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight; // Auto-scroll
-
-            // Increment inner index for next step
-            currentInnerIndex++;
+        
+        visualizationRunning = true;
+        let totalIterations = 0;
+        let outputText = "=== NESTED LOOP EXECUTION ===\n\n";
+        
+        function runStep(outerIndex, innerIndex) {
+          if (outerIndex >= outerRange) {
+            outputText += "\n🎉 All loops completed!";
+            output.textContent = outputText;
+            document.getElementById('outerCounter').textContent = 'Done';
+            document.getElementById('innerCounter').textContent = 'Done';
+            visualizationRunning = false;
+            return;
+          }
+          
+          if (innerIndex === 0) {
+            outputText += `Outer loop: i = ${outerIndex}\n`;
+          }
+          
+          if (innerIndex < innerRange) {
+            totalIterations++;
+            outputText += `  Inner loop: j = ${innerIndex} → (${outerIndex}, ${innerIndex})\n`;
+            
+            // Update counters
+            document.getElementById('outerCounter').textContent = outerIndex;
+            document.getElementById('innerCounter').textContent = innerIndex;
+            document.getElementById('totalCounter').textContent = totalIterations;
+            
+            // Highlight current cell
+            document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('active'));
+            document.getElementById(`cell-${outerIndex}-${innerIndex}`).classList.add('active');
+            
+            output.textContent = outputText;
+            
+            visualizationTimeout = setTimeout(() => {
+              runStep(outerIndex, innerIndex + 1);
+            }, 800);
           } else {
-            // Inner loop finished for this outer iteration
-            innerLoopCounter.textContent = "-"; // Reset inner display
-            innerLoopCounter.classList.remove("highlight");
-            highlightCode([7, 8]); // Highlight end of inner loop, end of outer body
+            outputText += `  Inner loop finished for i = ${outerIndex}\n\n`;
+            output.textContent = outputText;
+            
+            visualizationTimeout = setTimeout(() => {
+              runStep(outerIndex + 1, 0);
+            }, 1200);
+          }
+        }
+        
+        runStep(0, 0);
+      });
 
-            // Reset inner index and increment outer index for the *next* step
-            currentInnerIndex = 0;
-            currentOuterIndex++;
-            // Add a separator in output
-            if (currentOuterIndex < outerLimit) {
-              // Add separator only if outer loop continues
-              nestedLoopOutput.innerHTML += `----\n`;
-              nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight;
+      document.getElementById('resetVisualization').addEventListener('click', function() {
+        if (visualizationTimeout) {
+          clearTimeout(visualizationTimeout);
+        }
+        visualizationRunning = false;
+        
+        document.getElementById('outerCounter').textContent = '-';
+        document.getElementById('innerCounter').textContent = '-';
+        document.getElementById('totalCounter').textContent = '0';
+        document.getElementById('loopOutput').textContent = 'Click "Run Visualization" to see nested loops in action...';
+        
+        document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('active'));
+      });
+
+      // Pattern generator
+      document.getElementById('generatePattern').addEventListener('click', function() {
+        const patternType = document.getElementById('patternType').value;
+        const size = parseInt(document.getElementById('patternSize').value);
+        const char = document.getElementById('patternChar').value || '*';
+        const output = document.getElementById('patternOutput');
+        
+        let pattern = `=== ${patternType.toUpperCase()} PATTERN ===\n\n`;
+        
+        switch (patternType) {
+          case 'rectangle':
+            for (let i = 0; i < size; i++) {
+              for (let j = 0; j < size; j++) {
+                pattern += char + ' ';
+              }
+              pattern += '\n';
             }
-          }
-        } else {
-          // Outer loop finished
-          outerLoopCounter.textContent = "-";
-          innerLoopCounter.textContent = "-";
-          outerLoopCounter.classList.remove("highlight");
-          innerLoopCounter.classList.remove("highlight");
-          highlightCode([9]); // Highlight end of outer loop
-
-          nestedLoopOutput.innerHTML += `<strong class="text-green-600">Nested loop Complete!</strong>\n`;
-          nestedLoopOutput.scrollTop = nestedLoopOutput.scrollHeight;
-
-          clearInterval(nestedLoopInterval);
-          nestedLoopInterval = null;
-          nestedLoopRunning = false;
-          runNestedLoopButton.disabled = false; // Re-enable button
-          showMessage(nestedLoopMessage, "Nested loop finished.", "success");
-        }
-      }
-
-      function startNestedLoop() {
-        if (nestedLoopRunning) return; // Prevent multiple runs
-        resetNestedLoop(); // Ensure clean state before starting
-        nestedLoopRunning = true;
-        runNestedLoopButton.disabled = true;
-        nestedLoopOutput.innerHTML = "Starting nested loop...\n"; // Clear previous output
-        // Initial state setup before first interval tick
-        outerLoopCounter.textContent = currentOuterIndex;
-        outerLoopCounter.classList.add("highlight");
-        innerLoopCounter.textContent = "-"; // Inner hasn't started yet
-        highlightCode([1]); // Highlight outer loop start
-
-        nestedLoopInterval = setInterval(stepThroughNestedLoop, 900); // Delay between steps
-      }
-
-      // --- Quiz Logic ---
-      function checkNestedLoopsQuiz() {
-        const answers = {
-          q1_nestedloop: "d", // 3 * 4 = 12
-          q2_nestedloop: "c", // 2 * 2 = 4 increments
-          q3_nestedloop: "a", // Simple list usually needs only one loop
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
             break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
+            
+          case 'triangle':
+            for (let i = 0; i < size; i++) {
+              for (let j = 0; j <= i; j++) {
+                pattern += char + ' ';
+              }
+              pattern += '\n';
+            }
+            break;
+            
+          case 'diamond':
+            // Upper half
+            for (let i = 0; i < size; i++) {
+              for (let j = 0; j < size - i - 1; j++) {
+                pattern += '  ';
+              }
+              for (let j = 0; j <= i; j++) {
+                pattern += char + ' ';
+              }
+              pattern += '\n';
+            }
+            // Lower half
+            for (let i = size - 2; i >= 0; i--) {
+              for (let j = 0; j < size - i - 1; j++) {
+                pattern += '  ';
+              }
+              for (let j = 0; j <= i; j++) {
+                pattern += char + ' ';
+              }
+              pattern += '\n';
+            }
+            break;
+            
+          case 'checkerboard':
+            for (let i = 0; i < size; i++) {
+              for (let j = 0; j < size; j++) {
+                if ((i + j) % 2 === 0) {
+                  pattern += char + ' ';
+                } else {
+                  pattern += '  ';
+                }
+              }
+              pattern += '\n';
+            }
+            break;
         }
+        
+        output.textContent = pattern;
+      });
 
-        if (!allAnswered) {
-          quizResultNestedLoop.textContent =
-            "Please answer all questions before checking.";
-          quizResultNestedLoop.className = "message-box message-box-error";
-          quizResultNestedLoop.style.display = "block";
-          return;
+      // Quiz system
+      let selectedAnswers = {};
+      
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const answer = this.dataset.answer;
+          
+          // Remove previous selection for this question
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Mark this option as selected
+          this.classList.add('selected');
+          selectedAnswers[question] = answer;
+        });
+      });
+      
+      document.getElementById('checkQuiz').addEventListener('click', function() {
+        const correctAnswers = {
+          '1': 'd', // 12 times (3 × 4)
+          '2': 'b', // (1, 2)
+          '3': 'c', // 400 iterations (20 × 20)
+          '4': 'b', // Right triangle of stars
+          '5': 'a'  // Completes full range for each outer iteration
+        };
+        
+        let results = "=== QUIZ RESULTS ===\n\n";
+        let score = 0;
+        
+        for (let question in correctAnswers) {
+          const userAnswer = selectedAnswers[question];
+          const correctAnswer = correctAnswers[question];
+          const isCorrect = userAnswer === correctAnswer;
+          
+          if (isCorrect) score++;
+          
+          results += `Question ${question}: ${isCorrect ? '✓ CORRECT' : '✗ INCORRECT'}\n`;
+          
+          if (question === '1') {
+            results += isCorrect ? 
+              "  Explanation: Outer loop runs 3 times, inner loop runs 4 times for each outer iteration: 3 × 4 = 12\n" :
+              "  Explanation: Nested loops multiply! 3 outer iterations × 4 inner iterations = 12 total iterations.\n";
+          } else if (question === '2') {
+            results += isCorrect ?
+              "  Explanation: range(2) gives 0,1 and range(3) gives 0,1,2. Last combination is (1,2).\n" :
+              "  Explanation: Remember range(n) goes from 0 to n-1. So range(2) = [0,1] and range(3) = [0,1,2].\n";
+          } else if (question === '3') {
+            results += isCorrect ?
+              "  Explanation: 20 × 20 = 400 iterations, which is more than the other options.\n" :
+              "  Explanation: Calculate total iterations by multiplying: 10×10=100, 5×50=250, 20×20=400, single loop=100.\n";
+          } else if (question === '4') {
+            results += isCorrect ?
+              "  Explanation: range(i+1) creates increasing rows: 1 star, 2 stars, 3 stars = right triangle.\n" :
+              "  Explanation: The inner loop runs (i+1) times, creating rows of increasing length.\n";
+          } else if (question === '5') {
+            results += isCorrect ?
+              "  Explanation: The inner loop resets and runs completely for each iteration of the outer loop.\n" :
+              "  Explanation: This is the key behavior of nested loops - inner completes fully each time.\n";
+          }
+          
+          // Visual feedback
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            if (opt.dataset.answer === correctAnswer) {
+              opt.classList.add('correct');
+            } else if (opt.dataset.answer === userAnswer && userAnswer !== correctAnswer) {
+              opt.classList.add('incorrect');
+            }
+          });
         }
+        
+        results += `\nFinal Score: ${score}/5 (${Math.round(score/5*100)}%)\n`;
+        
+        if (score === 5) {
+          results += "\n🎉 Perfect! You understand nested loops completely!";
+        } else if (score >= 4) {
+          results += "\n👍 Excellent! You have a solid understanding of nested loops.";
+        } else if (score >= 3) {
+          results += "\n👍 Good progress! Review the explanations above.";
+        } else {
+          results += "\n📚 Keep practicing! Remember: nested loops multiply iterations.";
+        }
+        
+        document.getElementById('quizResults').textContent = results;
+        document.getElementById('quizResults').style.display = 'block';
+      });
 
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultNestedLoop.innerHTML = resultsHTML;
-        quizResultNestedLoop.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultNestedLoop.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      runNestedLoopButton.addEventListener("click", startNestedLoop);
-      resetNestedLoopButton.addEventListener("click", resetNestedLoop);
-      checkQuizButtonNestedLoop.addEventListener("click", checkNestedLoopsQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        resetNestedLoop(); // Set initial state for display
-      };
+      // Progress tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mark this topic as visited
+        let visitedTopics = JSON.parse(localStorage.getItem('visitedTopics') || '[]');
+        const currentTopic = 'pages/nested-loops.html';
+        if (!visitedTopics.includes(currentTopic)) {
+          visitedTopics.push(currentTopic);
+          localStorage.setItem('visitedTopics', JSON.stringify(visitedTopics));
+        }
+      });
     </script>
   </body>
 </html>

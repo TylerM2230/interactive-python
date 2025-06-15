@@ -3,232 +3,779 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Error Handling in Python</title>
+    <title>Handling the Unexpected - Error Handling | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching the pedagogical design */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .breadcrumb-nav {
+        background: rgba(15, 23, 42, 0.9);
+        padding: 1rem 2rem;
+        margin: 0 -2rem 2rem -2rem;
+        border-bottom: 2px solid #374151;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .nav-links a {
+        color: #facc15;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #fbbf24;
+        text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      }
+
+      /* Mental Model and Pitfall boxes */
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+        border: 2px solid #22c55e;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .mental-model-box h3 {
+        color: #4ade80;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h3 {
+        color: #fb923c;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .interactive-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(250, 204, 21, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .repl-container {
+        background: #0f172a;
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+      }
+
+      .repl-input {
+        background: #1f2937;
+        border: 1px solid #4b5563;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: #e5e7eb;
+        font-family: 'Courier New', monospace;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .repl-output {
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 6px;
+        padding: 1rem;
+        color: #d1d5db;
+        font-family: 'Courier New', monospace;
+        min-height: 100px;
+        margin: 0.5rem 0;
+        overflow-x: auto;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 3rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-question {
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .quiz-options {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 8px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e5e7eb;
+      }
+
+      .quiz-option:hover {
+        border-color: #8b5cf6;
+        background: rgba(139, 92, 246, 0.2);
+      }
+
+      .quiz-option.correct {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .breadcrumb-nav {
+          padding: 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="functions.html" class="btn">&laquo; Functions</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="file-handling.html" class="btn">Next: File Handling &rarr;</a>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1 class="pixel-header">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">
+              Interactive Guide to Python
+            </a>
+          </h1>
+          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">
+            Handling the Unexpected
+          </h2>
+          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
+            Professional Programs Handle Errors Gracefully • Turn Crashes into Helpful Messages
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="breadcrumb-nav">
+        <div class="nav-links">
+          <a href="nested-loops.html">← Previous: Nested Loops</a>
+          <a href="../index.html">🏠 Home</a>
+          <a href="file-handling.html">Next: File Handling →</a>
+        </div>
       </nav>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Error Handling
-          </h2>
-          <p class="text-sm italic mt-1">
-            Handling errors and exceptions in Python programs.
-          </p>
-        </header>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            1. What are Errors?
-          </h2>
+      <main class="content-wrapper-8bit">
+        <!-- Step 1: Problem Motivation -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🎯 Why Do We Need Error Handling?</h2>
           <p class="mb-4">
-            Errors in programming are like roadblocks in a journey. They can stop your program in its tracks, but understanding them helps you navigate around them. There are two main types:
+            Imagine you're driving a car and the engine starts making strange noises. You have two choices:
           </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><strong>Syntax Errors:</strong> Like grammar mistakes in a recipe - Python catches these before even starting to cook (run the program). Think of it like a GPS that won't start the journey because the destination address is written incorrectly.</li>
-            <li><strong>Exceptions:</strong> Like unexpected problems while cooking - the recipe is correct, but something goes wrong during execution (e.g., missing ingredients, wrong temperature). It's similar to how a car might break down during a trip even though the route was planned correctly.</li>
-          </ul>
-          <p class="mt-2">
-            We handle <strong>Exceptions</strong> with <code>try...except</code>, like having a backup plan when cooking goes wrong. Think of it like having a spare tire in your car - you hope you don't need it, but it's there if something goes wrong.
-          </p>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            2. Basic `try` and `except`
-          </h2>
-          <p class="mb-2">
-            Think of <code>try</code> and <code>except</code> like a safety net in a circus act. The <code>try</code> block is where the performer attempts a risky trick, and the <code>except</code> block is the safety net that catches them if they fall. If the trick succeeds, the safety net isn't needed. It's similar to how a pilot has emergency procedures - they hope they won't need them, but they're ready if something goes wrong.
-          </p>
-          <pre><code class="language-python">try:
-  # Risky code: dividing by user input
-  value = int(input("Enter a number to divide 10 by: "))
-  result = 10 / value
-  print(f"10 / {value} = {result}")
-except:
-  print("Oops! A glitch in the matrix (an error occurred).")
-
-print("Program continues...")</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            3. Handling Specific Exceptions
-          </h2>
-          <p class="mb-2">
-            Handling specific exceptions is like having different first-aid kits for different types of injuries. Instead of using a generic bandage for everything, you have specific treatments for burns, cuts, or sprains. Each <code>except</code> block is like a specialized first-aid kit for a specific type of problem. Think of it like a car's warning system - different lights come on for different problems (low fuel, engine trouble, flat tire), and each requires a different response.
-          </p>
-          <pre><code class="language-python">try:
-  item_level_str = input("Enter item level (1-100): ")
-  level = int(item_level_str) # Potential ValueError
-  power = 1000 / level      # Potential ZeroDivisionError (if level 0 allowed)
-  print(f"Item power at level {level}: {power}")
-except ValueError:
-  print(f"Invalid level: '{item_level_str}' is not a number.")
-except ZeroDivisionError:
-  print("Error: Level cannot be zero for power calculation!")
-except Exception as e: # Catch any other unexpected errors
-  print(f"An unknown enchantment failed: {e}")
-
-print("Forge continues its work...")</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            4. `else` and `finally` Clauses
-          </h2>
-          <p class="mb-2">
-            <strong><code>else</code> Clause:</strong> Like a victory celebration after successfully completing a mission - it only happens if everything went perfectly in the <code>try</code> block. Think of it like getting a bonus at work - you only get it if you've done everything right.
-          </p>
-          <p class="mb-2">
-            <strong><code>finally</code> Clause:</strong> Like cleaning up after a party - whether the party was a success or a disaster, you still need to clean up. It's the code that must run no matter what happens in the <code>try</code> block. Think of it like locking your house when you leave - you do it whether you had a good day or a bad day.
-          </p>
-          <pre><code class="language-python">ancient_scroll = None
-try:
-  scroll_name = "scroll_of_wisdom.txt"
-  # ancient_scroll = open(scroll_name, "r") # This would be real file IO
-  print(f"Attempting to read '{scroll_name}'...")
-  # content = ancient_scroll.read() # Simulate reading
-  # print(f"Scroll says: {content}") 
-  # For demo, let's assume it can succeed or fail randomly
-  if input("Does reading the scroll succeed? (yes/no): ").lower() != "yes":
-      raise ValueError("The runes are illegible!")
-except FileNotFoundError: # Example if open() was real
-  print(f"Error: Scroll '{scroll_name}' not found in library.")
-except ValueError as ve:
-  print(f"ValueError: {ve}")
-else:
-  print("Scroll deciphered successfully! No errors in try block.")
-finally:
-  # if ancient_scroll: ancient_scroll.close()
-  print("The scholar leaves the library (finally block executed).")
-
-print("The day ends.")</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">Interactive Potion Brewing</h2>
-          <p class="mb-2">
-            Let's practice error handling with a fun potion-brewing game! Just like a real alchemist, you'll need to handle unexpected reactions and ingredient problems. Each error is like a different type of magical mishap that needs its own special handling. Think of it like being a chef in a kitchen - you need to know how to handle different types of cooking disasters, from burnt food to missing ingredients.
-          </p>
-          <div class="sub-interactive-box">
-            <label for="ingredient1Input" class="block mb-1 font-semibold">Ingredient 1 (e.g., 'Dragon Scale', 'number'):</label>
-            <input type="text" id="ingredient1Input" class="input-field w-full mb-2" value="Dragon Scale">
-            
-            <label for="ingredient2Input" class="block mb-1 font-semibold">Ingredient 2 (e.g., 'number', 'Phoenix Tear'):</label>
-            <input type="text" id="ingredient2Input" class="input-field w-full mb-2" value="10">
-            
-            <button id="brewPotionButton" class="btn btn-8bit">Brew Potion</button>
-            
-            <div id="potionResult" class="output-display min-h-[50px] mt-2">
-              <span class="placeholder-text">Potion results will appear here...</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-red-900/20 border border-red-500 rounded-lg p-4">
+              <h4 class="text-red-400 font-bold mb-2">❌ Bad Approach: Ignore It</h4>
+              <p class="text-sm">Keep driving until the car breaks down completely, leaving you stranded.</p>
             </div>
-             <div id="errorHandlingMessage" class="message-box mt-3" style="display: none;"></div>
+            <div class="bg-green-900/20 border border-green-500 rounded-lg p-4">
+              <h4 class="text-green-400 font-bold mb-2">✅ Good Approach: Handle It</h4>
+              <p class="text-sm">Pull over safely, diagnose the problem, and take appropriate action.</p>
+            </div>
+          </div>
+          <p>
+            Programming is the same way! When things go wrong in your code, you want to handle the problem gracefully
+            rather than letting your entire program crash. This is what makes the difference between amateur and professional code.
+          </p>
+        </section>
+
+        <!-- Step 2: Mental Model -->
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: The Safety Net Principle</h3>
+          <p class="mb-4">
+            Think of error handling like a circus performer with a safety net:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="text-center">
+              <div class="text-4xl mb-2">🎪</div>
+              <h4 class="font-bold text-yellow-400">The Performance</h4>
+              <p class="text-sm">Your main code attempting a risky operation</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl mb-2">🕸️</div>
+              <h4 class="font-bold text-yellow-400">The Safety Net</h4>
+              <p class="text-sm">Error handling code that catches problems</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl mb-2">👏</div>
+              <h4 class="font-bold text-yellow-400">The Show Goes On</h4>
+              <p class="text-sm">Program continues despite the error</p>
+            </div>
+          </div>
+          <p class="text-sm">
+            <strong>Key Insight:</strong> The computer is still literal and oblivious - it doesn't "understand" 
+            when something goes wrong. We have to explicitly tell it what to do in each error situation.
+          </p>
+        </div>
+
+        <!-- Step 3: Syntax Introduction -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">📝 The try-except Syntax</h2>
+          <p class="mb-4">
+            Python's error handling follows a simple pattern. Here's the basic syntax:
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Basic Structure:</h4>
+            <pre class="text-green-300"><code>try:
+    # Risky code goes here
+    # Code that might cause an error
+except SpecificErrorType:
+    # What to do if that specific error happens
+    # This is your "safety net"
+except AnotherErrorType:
+    # Handle a different type of error
+    # You can have multiple except blocks
+else:
+    # This runs ONLY if no errors occurred
+    # Like a "success celebration"
+finally:
+    # This ALWAYS runs, error or no error
+    # Like "cleanup after the party"</code></pre>
+          </div>
+
+          <p class="mt-4">
+            <strong>Remember:</strong> The computer reads this sequentially. If an error occurs in the `try` block,
+            Python immediately jumps to the matching `except` block. It doesn't continue with the rest of the `try` block.
+          </p>
+        </section>
+
+        <!-- Step 4: Interactive Exploration -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🔍 Let's Explore: Division by Zero</h2>
+          <p class="mb-4">
+            Let's start with a common error: division by zero. Try different inputs to see how error handling works:
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Interactive Division Demo:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Numerator:</label>
+                <input type="number" id="numeratorInput" class="repl-input" value="10" placeholder="Enter a number">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Denominator:</label>
+                <input type="number" id="denominatorInput" class="repl-input" value="2" placeholder="Enter a number">
+              </div>
+            </div>
+            <button id="divideButton" class="btn btn-8bit mt-4">Perform Division</button>
+            <div id="divisionOutput" class="repl-output mt-4">
+              <span class="text-gray-400">Results will appear here...</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+            <h4 class="text-blue-400 font-bold mb-2">🧪 Experiments to Try:</h4>
+            <ul class="text-sm space-y-1">
+              <li>• Normal division: 10 ÷ 2 (should work fine)</li>
+              <li>• Division by zero: 10 ÷ 0 (triggers ZeroDivisionError)</li>
+              <li>• Large numbers: 1000000 ÷ 3 (should work fine)</li>
+              <li>• Negative numbers: -15 ÷ 3 (should work fine)</li>
+            </ul>
           </div>
         </section>
 
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+        <!-- Step 5: Common Pitfalls -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: Catching All Errors</h3>
+          <p class="mb-4">
+            <strong>The Mistake:</strong> Using a bare `except:` clause that catches ALL errors.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h4 class="text-red-400 font-bold mb-2">❌ Don't Do This:</h4>
+              <pre class="text-sm"><code>try:
+    result = 10 / 0
+except:  # Catches EVERYTHING!
+    print("Something went wrong")
+# You have no idea what went wrong!</code></pre>
+            </div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h4 class="text-green-400 font-bold mb-2">✅ Do This Instead:</h4>
+              <pre class="text-sm"><code>try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+except ValueError:
+    print("Invalid number format!")
+# Specific handling for specific problems</code></pre>
+            </div>
+          </div>
+          <p class="mt-4 text-sm">
+            <strong>Why This Matters:</strong> Specific error handling helps you understand what went wrong and 
+            respond appropriately. Catching all errors can hide serious bugs!
+          </p>
+        </div>
 
-    <footer class="footer-8bit">
-      <p class="text-sm mb-2">Ready to work with files?</p>
-      <a href="file-handling.html" class="btn btn-8bit">Next Tutorial: File Handling &rarr;</a>
-    </footer>
+        <!-- Step 6: Practice Project -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🛠️ Practice: Safe Calculator</h2>
+          <p class="mb-4">
+            Let's build a calculator that handles errors gracefully. This demonstrates how professional 
+            programs stay resilient in the face of user mistakes.
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Safe Calculator:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">First Number:</label>
+                <input type="text" id="calcNum1" class="repl-input" placeholder="Enter number">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Operation:</label>
+                <select id="calcOperation" class="repl-input">
+                  <option value="+">Addition (+)</option>
+                  <option value="-">Subtraction (-)</option>
+                  <option value="*">Multiplication (×)</option>
+                  <option value="/">Division (÷)</option>
+                  <option value="**">Power (^)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Second Number:</label>
+                <input type="text" id="calcNum2" class="repl-input" placeholder="Enter number">
+              </div>
+            </div>
+            <button id="calculateButton" class="btn btn-8bit mt-4">Calculate Safely</button>
+            <div id="calculatorOutput" class="repl-output mt-4">
+              <span class="text-gray-400">Calculation results will appear here...</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-purple-900/20 border border-purple-500 rounded-lg">
+            <h4 class="text-purple-400 font-bold mb-2">🎯 Learning Objectives:</h4>
+            <ul class="text-sm space-y-1">
+              <li>• Handle ValueError when converting strings to numbers</li>
+              <li>• Handle ZeroDivisionError when dividing by zero</li>
+              <li>• Handle OverflowError for extremely large results</li>
+              <li>• Provide helpful error messages to users</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Step 7: Assessment -->
+        <div class="assessment-section">
+          <h2 class="section-title-8bit">🎓 Check Your Understanding</h2>
+          <p class="mb-4">Test your knowledge of error handling concepts:</p>
+          
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 1: When does the `else` block in try-except execute?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="1" data-correct="false">
+                A) Always, regardless of whether an error occurred
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="true">
+                B) Only when no error occurred in the try block
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                C) Only when an error occurred in the try block
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                D) Never, it's just for documentation
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback1" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 2: What's wrong with using `except:` without specifying an error type?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="2" data-correct="false">
+                A) It's slower than specific except blocks
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="true">
+                B) It catches all errors, making debugging difficult
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                C) It doesn't work in Python 3
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                D) It can only be used once per program
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback2" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 3: In the safety net metaphor, what does the `finally` block represent?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="3" data-correct="false">
+                A) The performance that might fail
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                B) The safety net that catches errors
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="true">
+                C) Cleanup that happens whether the performance (try block) succeeded or failed
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                D) The audience watching the performance
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback3" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Reflection Questions -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
+          <div class="space-y-4">
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">💭 Think About It:</h4>
+              <p class="text-sm mb-2">
+                Why is it important to handle specific error types rather than catching all errors with a general except block?
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Write your thoughts here..."
+              ></textarea>
+            </div>
+            
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">🔍 Real-World Connection:</h4>
+              <p class="text-sm mb-2">
+                Think of a real-world scenario where you need to handle unexpected situations gracefully. 
+                How is it similar to error handling in programming?
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Describe your real-world example..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🚀 What's Next?</h2>
+          <p class="mb-4">
+            You've mastered the fundamentals of error handling! Here's how this connects to your growing programming skills:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+              <h4 class="text-blue-400 font-bold mb-2">🔗 Building On:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Functions (error handling makes functions more robust)</li>
+                <li>• User input validation</li>
+                <li>• Professional code practices</li>
+              </ul>
+            </div>
+            <div class="p-4 bg-green-900/20 border border-green-500 rounded-lg">
+              <h4 class="text-green-400 font-bold mb-2">🎯 Coming Up:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• File I/O with error handling</li>
+                <li>• Network operations with timeouts</li>
+                <li>• Database connections with error recovery</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-8bit">
+        <div style="text-align: center; padding: 2rem 0;">
+          <p style="margin-bottom: 1rem;">🛡️ Well done! You've learned to write resilient code! 🛡️</p>
+          <p style="font-size: 10px; color: #9ca3af; margin-bottom: 1rem;">
+            Professional programmers always handle errors gracefully
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="nested-loops.html" style="margin-right: 2rem;">← Previous: Nested Loops</a>
+            <a href="../index.html" style="margin: 0 1rem;">🏠 Home</a>
+            <a href="file-handling.html" style="margin-left: 2rem;">Next: File Handling →</a>
+          </div>
+        </div>
+      </footer>
+    </div>
 
     <script>
-      const ingredient1Input = document.getElementById('ingredient1Input');
-      const ingredient2Input = document.getElementById('ingredient2Input');
-      const brewPotionButton = document.getElementById('brewPotionButton');
-      const potionResultDiv = document.getElementById('potionResult');
-      const messageBox = document.getElementById('errorHandlingMessage');
-
-      function showBrewMessage(msg, type = 'info') {
-        messageBox.textContent = msg;
-        messageBox.className = `message-box message-box-${type}`;
-        messageBox.style.display = 'block';
-        setTimeout(() => { messageBox.style.display = 'none'; }, 3000);
-      }
-
-      brewPotionButton.addEventListener('click', () => {
-        const ing1 = ingredient1Input.value;
-        const ing2 = ingredient2Input.value;
-        let potionLog = "Starting to brew...\n";
-
+      // Division Demo
+      document.getElementById('divideButton').addEventListener('click', function() {
+        const num1 = parseFloat(document.getElementById('numeratorInput').value);
+        const num2 = parseFloat(document.getElementById('denominatorInput').value);
+        const output = document.getElementById('divisionOutput');
+        
+        let result = '';
+        
+        // Simulate Python's error handling
         try {
-          potionLog += `Adding '${ing1}' to the cauldron.\n`;
-          
-          // Simulate potential errors
-          if (ing1.toLowerCase() === 'number' || ing2.toLowerCase() === 'number') {
-            // Try to convert second ingredient to a number, if first is 'number'
-            // or if second one is explicitly 'number'. This is a common source of ValueError.
-            let quantity = 0;
-            if (ing1.toLowerCase() === 'number'){
-                potionLog += "Expecting second ingredient to be a quantity (number).\n";
-                quantity = parseInt(ing2); 
-                 if (isNaN(quantity)) {
-                    throw new Error('ValueError_Num: Second ingredient is not a valid number for quantity.');
-                }
-            } else if (ing2.toLowerCase() === 'number') {
-                 potionLog += "Expecting first ingredient to be a quantity (number).\n";
-                quantity = parseInt(ing1); 
-                 if (isNaN(quantity)) {
-                    throw new Error('ValueError_Num: First ingredient is not a valid number for quantity.');
-                }
-            } else {
-                quantity = 1; // Default quantity if not expecting a number
-            }
-            
-            potionLog += `Successfully added quantity: ${quantity}.\n`;
+          if (num2 === 0) {
+            throw new Error('ZeroDivisionError: division by zero');
           }
-
-          if (ing1.toLowerCase() === 'dragon scale' && parseInt(ing2) === 0) {
-            throw new Error('ZeroDivisionError_Sim: Cannot divide by zero scales! Potion unstable.');
+          if (isNaN(num1) || isNaN(num2)) {
+            throw new Error('ValueError: invalid literal for float()');
           }
           
-          if (ing1.toLowerCase() === 'griffin feather' && ing2.toLowerCase() === 'lead') {
-              throw new Error('TypeError_Sim: Cannot mix feathers with heavy metals! Alchemy fail.');
-          }
-
-          // Success
-          potionLog += `Successfully brewed a Potion of 8-Bit Wonder with '${ing1}' and '${ing2}'!\n`;
-          potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
-          showBrewMessage('Potion brewed successfully!', 'success');
-
+          const division = num1 / num2;
+          result = `✅ Success!\n`;
+          result += `try:\n`;
+          result += `    result = ${num1} / ${num2}\n`;
+          result += `    print(f"Result: {result}")\n`;
+          result += `# No error occurred!\n`;
+          result += `\nOutput: Result: ${division}`;
+          
         } catch (error) {
-          potionLog += `Error during brewing: ${error.message}\n`;
-          if (error.message.startsWith('ValueError_Num')) {
-            potionLog += "Hint: Ensure numeric ingredients are valid numbers.\n";
-             showBrewMessage('Invalid number for ingredient quantity!', 'error');
-          } else if (error.message.startsWith('ZeroDivisionError_Sim')) {
-            potionLog += "Hint: Dragon scales are potent, don't use zero!\n";
-            showBrewMessage('Potion unstable due to zero quantity!', 'error');
-          } else if (error.message.startsWith('TypeError_Sim')) {
-            potionLog += "Hint: Some ingredients just don\'t mix!\n";
-            showBrewMessage('Ingredient mismatch! Alchemy explosion!', 'error');
+          if (error.message.includes('ZeroDivisionError')) {
+            result = `⚠️ ZeroDivisionError caught!\n`;
+            result += `try:\n`;
+            result += `    result = ${num1} / ${num2}\n`;
+            result += `except ZeroDivisionError:\n`;
+            result += `    print("Cannot divide by zero!")\n`;
+            result += `\nOutput: Cannot divide by zero!`;
+          } else if (error.message.includes('ValueError')) {
+            result = `⚠️ ValueError caught!\n`;
+            result += `try:\n`;
+            result += `    result = ${num1} / ${num2}\n`;
+            result += `except ValueError:\n`;
+            result += `    print("Invalid number format!")\n`;
+            result += `\nOutput: Invalid number format!`;
+          }
+        }
+        
+        output.innerHTML = `<pre>${result}</pre>`;
+      });
+
+      // Safe Calculator
+      document.getElementById('calculateButton').addEventListener('click', function() {
+        const num1Str = document.getElementById('calcNum1').value;
+        const num2Str = document.getElementById('calcNum2').value;
+        const operation = document.getElementById('calcOperation').value;
+        const output = document.getElementById('calculatorOutput');
+        
+        let result = '';
+        
+        try {
+          // Simulate Python's float() conversion
+          const num1 = parseFloat(num1Str);
+          const num2 = parseFloat(num2Str);
+          
+          if (isNaN(num1) || isNaN(num2)) {
+            throw new Error(`ValueError: could not convert string to float: '${isNaN(num1) ? num1Str : num2Str}'`);
+          }
+          
+          let calculation;
+          switch (operation) {
+            case '+':
+              calculation = num1 + num2;
+              break;
+            case '-':
+              calculation = num1 - num2;
+              break;
+            case '*':
+              calculation = num1 * num2;
+              break;
+            case '/':
+              if (num2 === 0) {
+                throw new Error('ZeroDivisionError: float division by zero');
+              }
+              calculation = num1 / num2;
+              break;
+            case '**':
+              calculation = Math.pow(num1, num2);
+              if (!isFinite(calculation)) {
+                throw new Error('OverflowError: (34, \'Numerical result out of range\')');
+              }
+              break;
+          }
+          
+          result = `✅ Calculation successful!\n\n`;
+          result += `try:\n`;
+          result += `    num1 = float("${num1Str}")  # ${num1}\n`;
+          result += `    num2 = float("${num2Str}")  # ${num2}\n`;
+          result += `    result = num1 ${operation} num2\n`;
+          result += `    print(f"Result: {result}")\n`;
+          result += `except ValueError:\n`;
+          result += `    print("Invalid number format!")\n`;
+          result += `except ZeroDivisionError:\n`;
+          result += `    print("Cannot divide by zero!")\n`;
+          result += `except OverflowError:\n`;
+          result += `    print("Result too large to calculate!")\n`;
+          result += `\nOutput: Result: ${calculation}`;
+          
+        } catch (error) {
+          if (error.message.includes('ValueError')) {
+            result = `⚠️ ValueError caught!\n\n`;
+            result += `try:\n`;
+            result += `    num1 = float("${num1Str}")\n`;
+            result += `    num2 = float("${num2Str}")\n`;
+            result += `except ValueError as e:\n`;
+            result += `    print(f"Invalid input: {e}")\n`;
+            result += `\nOutput: Invalid input: ${error.message}`;
+          } else if (error.message.includes('ZeroDivisionError')) {
+            result = `⚠️ ZeroDivisionError caught!\n\n`;
+            result += `try:\n`;
+            result += `    result = ${num1Str} ${operation} ${num2Str}\n`;
+            result += `except ZeroDivisionError:\n`;
+            result += `    print("Error: Cannot divide by zero!")\n`;
+            result += `\nOutput: Error: Cannot divide by zero!`;
+          } else if (error.message.includes('OverflowError')) {
+            result = `⚠️ OverflowError caught!\n\n`;
+            result += `try:\n`;
+            result += `    result = ${num1Str} ** ${num2Str}\n`;
+            result += `except OverflowError:\n`;
+            result += `    print("Error: Result too large!")\n`;
+            result += `\nOutput: Error: Result too large!`;
+          }
+        }
+        
+        output.innerHTML = `<pre>${result}</pre>`;
+      });
+
+      // Quiz functionality
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const isCorrect = this.dataset.correct === 'true';
+          const feedback = document.getElementById(`feedback${question}`);
+          
+          // Clear previous selections
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+          });
+          
+          // Show result
+          if (isCorrect) {
+            this.classList.add('correct');
+            feedback.innerHTML = '<p class="text-green-400 mt-2">✅ Correct! You understand the concept well.</p>';
           } else {
-             showBrewMessage('An unexpected brewing error occurred!', 'error');
+            this.classList.add('incorrect');
+            // Show correct answer
+            document.querySelector(`[data-question="${question}"][data-correct="true"]`).classList.add('correct');
+            
+            if (question === '1') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. The `else` block only runs when NO error occurred in the try block - it\'s like a "success celebration".</p>';
+            } else if (question === '2') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. Using bare `except:` catches ALL errors, making it very hard to debug what actually went wrong.</p>';
+            } else if (question === '3') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. The `finally` block is like cleanup - it runs regardless of whether the performance (try block) succeeded or failed.</p>';
+            }
           }
-          potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
-        } finally {
-          potionLog += "Cleaning the cauldron (finally block executed).\n";
-          // Update one last time to include finally message if not already error-outed
-          if (!potionResultDiv.innerHTML.includes("Cleaning the cauldron")){
-             potionResultDiv.innerHTML = potionLog.replace(/\n/g, "<br>");
-          }
+          
+          feedback.style.display = 'block';
+        });
+      });
+
+      // Progress tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mark this page as visited
+        let visitedPages = JSON.parse(localStorage.getItem('visitedPages') || '[]');
+        const currentPage = 'pages/error-handling.html';
+        if (!visitedPages.includes(currentPage)) {
+          visitedPages.push(currentPage);
+          localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
         }
       });
     </script>

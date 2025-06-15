@@ -3,627 +3,953 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lists & Iteration in Python</title>
+    <title>Collections of Data: Lists & Iteration | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border: none;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        animation: glow-pulse 4s ease-in-out infinite alternate;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes glow-pulse {
+        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      /* List visualization */
+      .list-visualization {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .list-items {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+      }
+
+      .list-item {
+        background: rgba(16, 185, 129, 0.2);
+        border: 2px solid #10b981;
+        border-radius: 8px;
+        padding: 0.8rem;
+        min-width: 60px;
+        text-align: center;
+        font-family: monospace;
+        color: #d1fae5;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .list-item:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      }
+
+      .list-index {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 8px;
+        color: #9ca3af;
+        background: rgba(15, 23, 42, 0.8);
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+
+      .method-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .method-box {
+        background: rgba(59, 130, 246, 0.1);
+        border: 2px solid #3b82f6;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      /* Assessment section */
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .method-showcase {
+          grid-template-columns: 1fr;
+        }
+
+        .list-items {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="loops.html" class="btn">&laquo; Loops</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="nested-loops.html" class="btn">Next: Nested Loops &rarr;</a>
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="loops.html" class="nav-btn">← Repeating Actions</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Foundation: Collections of Data
+          </div>
+          <a href="functions.html" class="nav-btn">Next: Code Recipes →</a>
+        </div>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Lists & Iteration
-          </h2>
-          <p class="text-sm italic mt-1">
-            How to store ordered collections of items and process them one by one.
-          </p>
-        </header>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            1. Python Lists: Ordered and Mutable
-          </h2>
-          <p class="mb-4">
-            A list is like a train with numbered cars - each item has its own position, and you can add or remove cars (items) as needed. Just like how a train can carry different types of cargo (passengers, goods, etc.), Python lists can store different types of data (numbers, text, even other lists!). The best part is that you can modify the train's contents anytime - add new cars, remove old ones, or change what's inside them. Think of it as a flexible storage container that can hold anything you need, similar to a Swiss Army knife that adapts to different tasks.
-          </p>
-          <p class="mb-2">
-            In Python, we create our "train" (list) using square brackets <code>[]</code>,
-            with each "car" (item) separated by commas:
-          </p>
-          <pre><code class="language-python"># An empty list
-empty_list = []
-
-# A list of numbers
-numbers = [1, 2, 3, 4, 5]
-
-# A list of strings (text)
-fruits = ["apple", "banana", "cherry"]
-
-# A list with mixed data types
-mixed_list = [10, "hello", 3.14, True]</code></pre>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            2. Accessing Elements: Indexing
-          </h2>
-          <p class="mb-2">
-            Think of list indexing like a row of lockers in a school. Each locker has a number, and you can access what's inside by using that number. The first locker is number 0 (not 1!), the second is 1, and so on. This might seem strange at first, but it's like counting steps - you start at 0 before taking your first step! It's similar to how a race car starts at position 0 before crossing the starting line, or how a ruler starts at 0 before measuring the first inch.
-          </p>
-          <p class="mb-2 font-medium text-red-600">
-            Important: Indexing starts from 0! The first item is at index 0, the
-            second at index 1, and so on.
-          </p>
-          <p class="mb-2">Negative indices are like counting from the end of the row:</p>
-          <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-            <li><code>-1</code> is like saying "the last locker"</li>
-            <li><code>-2</code> is like saying "the second-to-last locker", etc.</li>
-          </ul>
-          <pre><code class="language-python">my_list = ["apple", "banana", "cherry", "date"]
-
-# Accessing items
-first_item = my_list[0]  # Gets "apple"
-second_item = my_list[1] # Gets "banana"
-last_item = my_list[-1] # Gets "date"
-second_last = my_list[-2] # Gets "cherry"
-
-print(f"Index 0: {first_item}")
-print(f"Index -1: {last_item}")</code></pre>
-
-          <h3 class="text-lg font-medium mt-4 mb-2">Try Indexing:</h3>
-          <p class="text-sm mb-2">
-            Use the list below. Enter an index (e.g., 0, 1, -1, -2) to access its
-            element.
-          </p>
-          <div
-            id="indexingListVisualizer"
-            class="bg-gray-100 p-4 rounded-md min-h-[60px] flex flex-wrap items-center mb-4 relative pb-6"
-          ></div>
-          <div class="flex flex-wrap items-center">
-            <label for="indexInput" class="mr-2">Index:</label>
-            <input
-              type="number"
-              id="indexInput"
-              class="input-field input-field-small"
-              placeholder="e.g., 0, -1"
-            />
-            <button id="accessIndexButton" class="btn">Access Element</button>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Collections of Data</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              📋 Lists & Iteration: Storing and Processing Multiple Values
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master lists - the most important data structure for handling multiple values
+            </div>
           </div>
-          <h4 class="text-md font-medium mt-3 mb-1">Result:</h4>
-          <div id="indexingResultDisplay" class="output-display">
-            <span class="text-gray-500 italic"
-              >Enter an index and click 'Access Element'.</span
-            >
-          </div>
-          <div
-            id="indexingMessage"
-            class="message-box"
-            style="display: none"
-          ></div>
-        </section>
+        </div>
 
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            3. Playing with Lists (Operations)
-          </h2>
-          <p class="mb-4">
-            Working with lists is like managing a stack of cards. You can add new cards to the top, remove the top card, or clear the entire stack. Let's try these operations with our list! It's similar to how you might organize a deck of cards - you can add new cards, remove cards you don't need, or start fresh with a new deck. Think of it as a dynamic collection that you can shape and modify as needed, like a sculptor working with clay.
-          </p>
-          <div class="mb-4">
-            <label for="itemInput" class="mr-2 font-medium">Item to add:</label>
-            <input
-              type="text"
-              id="itemInput"
-              class="input-field"
-              placeholder="e.g., orange"
-            />
-            <button id="addButton" class="btn">Add Item</button>
-            <button id="removeButton" class="btn btn-secondary">
-              Remove Last Item
-            </button>
-            <button id="clearButton" class="btn btn-secondary">Clear List</button>
-          </div>
-          <h3 class="text-lg font-medium mb-2">Your List:</h3>
-          <div
-            id="listVisualizer"
-            class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
-          >
-            <span class="text-gray-500 italic">List is currently empty.</span>
-          </div>
-          <div id="listMessage" class="message-box" style="display: none"></div>
-          <p class="mt-4 text-sm text-gray-600">
-            <strong>Common Operations:</strong><br />
-            - <strong>Adding Items:</strong> Use <code>.append()</code> to add to
-            the end. <code>my_list.append("new item")</code><br />
-            - <strong>Removing Items:</strong> Use <code>.pop()</code> to remove
-            the last item, or <code>.remove("item_value")</code> to remove a
-            specific value.<br />
-            - <strong>Finding Length:</strong> Use <code>len(my_list)</code> to
-            get the number of items.
-          </p>
-        </section>
+        <main>
+          <!-- Core Mental Model Section -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧠 Mental Model: Lists as Ordered Containers</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The Shopping Cart Metaphor</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of lists as shopping carts that can hold multiple items in a specific order:
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>Ordered</strong> - Items have specific positions (index 0, 1, 2...)</li>
+                <li><strong>Mutable</strong> - You can add, remove, or change items</li>
+                <li><strong>Indexed</strong> - Access any item by its position number</li>
+                <li><strong>Dynamic</strong> - Can grow or shrink as needed</li>
+                <li><strong>Mixed types</strong> - Can hold different kinds of data</li>
+              </ul>
+            </div>
 
-        <section class="game-section">
-          <h2 class="section-title-8bit">
-            4. What is Iteration?
-          </h2>
-          <p class="mb-4">
-            Iteration is like reading a book - you go through each page one at a time, from start to finish. When working with lists, we often need to "read" each item in our list, performing some action on each one. It's like checking off items on a shopping list - you look at each item, decide what to do with it, and move to the next one. Think of it as a conveyor belt in a factory, where each item gets processed in sequence, or like a chef following a recipe step by step.
-          </p>
-          <p class="mb-2">
-            The most common way to iterate through a list in Python is using a
-            <code>for</code> loop, which is like having an automatic page-turner for your book:
-          </p>
-          <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+            <div class="list-visualization">
+              <h3 style="color: #3730a3; margin-bottom: 1rem;">List Structure Visualization</h3>
+              <div style="color: #facc15; margin-bottom: 1rem; font-family: monospace;">
+                fruits = ["apple", "banana", "orange", "grape"]
+              </div>
+              <div class="list-items">
+                <div class="list-item">
+                  <div class="list-index">0</div>
+                  "apple"
+                </div>
+                <div class="list-item">
+                  <div class="list-index">1</div>
+                  "banana"
+                </div>
+                <div class="list-item">
+                  <div class="list-index">2</div>
+                  "orange"
+                </div>
+                <div class="list-item">
+                  <div class="list-index">3</div>
+                  "grape"
+                </div>
+              </div>
+              <p style="color: #e5e7eb; font-size: 10px; margin-top: 1rem;">
+                fruits[0] = "apple" | fruits[2] = "orange" | fruits[-1] = "grape"
+              </p>
+            </div>
 
-# This loop goes through each item in the 'fruits' list
-# In each repetition, the current item is assigned to the variable 'fruit'
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive List Builder</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Create and explore your own list:
+              </p>
+              
+              <div style="margin: 1rem 0;">
+                <input type="text" id="listItem" class="input-field" placeholder="Enter item to add" style="width: 60%; margin-right: 0.5rem;">
+                <button id="addItem" class="btn">Add Item</button>
+                <button id="clearList" class="btn btn-small">Clear List</button>
+              </div>
+              
+              <div id="listDisplay" class="output-display">
+                <span class="placeholder-text">Your list will appear here</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Critical Pitfall: List References -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚠️ Critical Pitfall: List References</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">The #1 List Mistake: Shallow vs Deep Copy</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                <strong>Dangerous assumption:</strong> Thinking that <code>list2 = list1</code> creates a copy. 
+                It doesn't! It creates a reference to the same list object.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ This Shares the List</h4>
+                <pre style="color: #fecaca; font-size: 10px; background: #1f2937; padding: 0.5rem; border-radius: 4px;"><code>list1 = [1, 2, 3]
+list2 = list1        # Same list!
+list2.append(4)
+print(list1)         # [1, 2, 3, 4] 😱</code></pre>
+                <p style="color: #fecaca; font-size: 9px; margin-top: 0.5rem;">
+                  Both variables point to the same list object
+                </p>
+              </div>
+              
+              <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ This Creates a Copy</h4>
+                <pre style="color: #d1fae5; font-size: 10px; background: #1f2937; padding: 0.5rem; border-radius: 4px;"><code>list1 = [1, 2, 3]
+list2 = list1.copy() # New list!
+list2.append(4)
+print(list1)         # [1, 2, 3] ✅</code></pre>
+                <p style="color: #d1fae5; font-size: 9px; margin-top: 0.5rem;">
+                  Two separate list objects with same values
+                </p>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Reference vs Copy Demo</h3>
+              <div style="display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap;">
+                <button id="demoReference" class="btn">Demo Reference</button>
+                <button id="demoCopy" class="btn">Demo Copy</button>
+              </div>
+              
+              <div id="referenceOutput" class="output-display">
+                <span class="placeholder-text">Click a demo button to see the difference</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- List Methods -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔧 Essential List Methods</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Lists come with powerful built-in methods for adding, removing, and organizing data. 
+              Think of these as different tools for managing your shopping cart:
+            </p>
+
+            <div class="method-showcase">
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.append()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Add item to end</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">items.append("new item")</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Most common way to add items</p>
+              </div>
+
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.insert()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Add item at position</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">items.insert(1, "new item")</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Insert at specific index</p>
+              </div>
+
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.remove()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Remove by value</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">items.remove("apple")</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Removes first occurrence</p>
+              </div>
+
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.pop()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Remove and return</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">last = items.pop()</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Remove last item (or by index)</p>
+              </div>
+
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">.sort()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Organize in order</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">items.sort()</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Sorts the list in place</p>
+              </div>
+
+              <div class="method-box">
+                <h3 style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 12px;">len()</h3>
+                <p style="color: #e5e7eb; font-size: 10px; margin-bottom: 0.5rem;">Count items</p>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="font-size: 9px;">count = len(items)</code>
+                </div>
+                <p style="color: #93c5fd; font-size: 9px;">Returns number of items</p>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">List Methods Playground</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Start with: <code>["apple", "banana", "cherry"]</code>
+              </p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0;">
+                <button id="demoAppend" class="btn btn-small">append("date")</button>
+                <button id="demoInsert" class="btn btn-small">insert(1, "berry")</button>
+                <button id="demoRemove" class="btn btn-small">remove("banana")</button>
+                <button id="demoPop" class="btn btn-small">pop()</button>
+                <button id="demoSort" class="btn btn-small">sort()</button>
+                <button id="demoLength" class="btn btn-small">len()</button>
+                <button id="resetDemo" class="btn btn-small">Reset</button>
+              </div>
+              
+              <div id="methodsPlayground" class="output-display">
+                <div style="color: #facc15; margin-bottom: 0.5rem;">Current list: ["apple", "banana", "cherry"]</div>
+                <div style="color: #9ca3af; font-size: 10px;">Click a method button to see it in action</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- List Iteration -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔄 Iterating Through Lists</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🧠 Two Ways to Process Every Item</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of processing a list like checking each item in your shopping cart at checkout:
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>For-each style:</strong> "For each item in the cart, scan it" (most common)</li>
+                <li><strong>Index style:</strong> "Check position 0, then 1, then 2..." (when you need position)</li>
+              </ul>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Iteration Patterns</h3>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                <div>
+                  <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 11px;">👍 For-Each (Recommended)</h4>
+                  <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>fruits = ["apple", "banana", "cherry"]
+
 for fruit in fruits:
-  # This action is performed for each item
-  print(f"Current fruit: {fruit}")
+    print(f"I like {fruit}")
 
-# Expected Output:
-# Current fruit: apple
-# Current fruit: banana
-# Current fruit: cherry</code></pre>
-          <p>
-            The loop automatically handles going from one item to the next until
-            it reaches the end of the list.
+# Output:
+# I like apple
+# I like banana  
+# I like cherry</code></pre>
+                  <p style="color: #10b981; font-size: 9px; margin-top: 0.5rem;">
+                    ✅ Clean, readable, less error-prone
+                  </p>
+                </div>
+
+                <div>
+                  <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 11px;">📍 Index-Based (When Needed)</h4>
+                  <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>fruits = ["apple", "banana", "cherry"]
+
+for i in range(len(fruits)):
+    print(f"{i}: {fruits[i]}")
+
+# Output:
+# 0: apple
+# 1: banana
+# 2: cherry</code></pre>
+                  <p style="color: #f59e0b; font-size: 9px; margin-top: 0.5rem;">
+                    ⚠️ Use only when you need the index
+                  </p>
+                </div>
+              </div>
+
+              <div style="margin: 1rem 0;">
+                <button id="demoForEach" class="btn">Demo For-Each</button>
+                <button id="demoIndexed" class="btn">Demo Indexed</button>
+                <button id="demoEnumerate" class="btn">Demo enumerate()</button>
+              </div>
+              
+              <div id="iterationOutput" class="output-display">
+                <span class="placeholder-text">Click a demo button to see iteration in action</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Mastery Check: Lists & Iteration</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: List References</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What happens after this code runs?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>list1 = [1, 2, 3]
+list2 = list1
+list2.append(4)
+print(len(list1))</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints 4 (list1 and list2 share the same list)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Prints 3 (list1 is unchanged)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Causes an error</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Best Iteration Pattern</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What's the best way to print all items in a list called <code>names</code>?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">for name in names: print(name)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">for i in range(len(names)): print(names[i])</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Both are equally good</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 3: List Indexing</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What does this code output?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>fruits = ["apple", "banana", "cherry"]
+print(fruits[-1])
+print(fruits[1:3])</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">cherry<br>['banana', 'cherry']</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">apple<br>['banana', 'cherry']</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">cherry<br>['apple', 'banana']</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 4: List Methods</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                After this code runs, what does <code>numbers</code> contain?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>numbers = [3, 1, 4, 1, 5]
+numbers.append(9)
+numbers.remove(1)
+numbers.sort()</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">[1, 3, 4, 5, 9]</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">[3, 4, 5, 9]</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">[9, 5, 4, 3, 1]</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 5: List vs String</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What's the key difference between these two approaches?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code># Approach A
+word = "hello"
+word[0] = "H"  # Try to change first letter
+
+# Approach B
+letters = ["h", "e", "l", "l", "o"]
+letters[0] = "H"  # Change first letter</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">A causes error (strings immutable), B works (lists mutable)</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Both work the same way</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">A works, B causes error</p>
+              </div>
+            </div>
+
+            <button id="checkListsQuiz" class="btn btn-green">Check My Understanding</button>
+            <div id="listsQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Next Steps -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎯 Ready for Code Recipes!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">What You've Mastered</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ Lists as ordered, mutable containers (shopping cart model)</li>
+                <li>✅ List indexing and slicing (accessing specific items)</li>
+                <li>✅ Critical list reference behavior (.copy() vs assignment)</li>
+                <li>✅ Essential list methods (.append(), .remove(), .pop(), etc.)</li>
+                <li>✅ Iteration patterns (for-each vs indexed)</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Now that you can store and process collections of data, let's learn how to organize 
+                your code into reusable functions!
+              </p>
+              <a href="functions.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                Continue to Code Recipes →
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🎮 Lists Mastered! Ready for Functions? 🎮</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="functions.html" style="color: #facc15;">📦 Next: Code Recipes →</a>
           </p>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">
-            5. See Iteration in Action
-          </h2>
-          <p class="mb-4">
-            Let's watch our automatic page-turner in action! We'll go through each item in our list, just like turning pages in a book. You'll see how the loop processes each item one at a time, from the first to the last. It's similar to how a robot arm might pick up and process items on an assembly line, or how a mail carrier delivers letters to each house on their route. Each item gets its moment of attention before moving to the next.
-          </p>
-          <div class="mb-4">
-            <button id="iterateButton" class="btn btn-green">
-              Iterate Through List
-            </button>
-            <button id="resetIterationButton" class="btn">Reset Iteration</button>
-          </div>
-          <h3 class="text-lg font-medium mb-2">List for Iteration:</h3>
-          <div
-            id="iterationListVisualizer"
-            class="bg-gray-100 p-4 rounded-md min-h-[50px] flex flex-wrap items-center"
-          >
-            <span class="text-gray-500 italic">List will appear here.</span>
-          </div>
-          <h3 class="text-lg font-medium mt-4 mb-2">
-            Iteration Output / Current Step:
-          </h3>
-          <div id="iterationOutput" class="output-display">
-            <span class="text-gray-500 italic"
-              >Click "Iterate Through List" to start.</span
-            >
-          </div>
-          <div
-            id="iterationMessage"
-            class="message-box"
-            style="display: none"
-          ></div>
-        </section>
-
-        <section class="game-section interactive-section">
-          <h2 class="section-title-8bit">6. Quick Quiz</h2>
-          <p class="mb-4">Test your understanding!</p>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q1: In Python, what is the index of the *first* element in a list?
-            </p>
-            <label class="block"
-              ><input type="radio" name="q1" value="a" class="mr-1" /> 1</label
-            >
-            <label class="block"
-              ><input type="radio" name="q1" value="b" class="mr-1" /> 0</label
-            >
-            <label class="block"
-              ><input type="radio" name="q1" value="c" class="mr-1" /> -1</label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q2: If <code>my_list = [10, 20, 30, 40]</code>, what is
-              <code>my_list[-1]</code>?
-            </p>
-            <label class="block"
-              ><input type="radio" name="q2" value="a" class="mr-1" /> 10</label
-            >
-            <label class="block"
-              ><input type="radio" name="q2" value="b" class="mr-1" /> 30</label
-            >
-            <label class="block"
-              ><input type="radio" name="q2" value="c" class="mr-1" /> 40</label
-            >
-          </div>
-          <div class="mb-3">
-            <p class="font-medium mb-1">
-              Q3: What keyword is typically used to iterate through each item in a
-              list?
-            </p>
-            <label class="block"
-              ><input type="radio" name="q3" value="a" class="mr-1" />
-              <code>while</code></label
-            >
-            <label class="block"
-              ><input type="radio" name="q3" value="b" class="mr-1" />
-              <code>if</code></label
-            >
-            <label class="block"
-              ><input type="radio" name="q3" value="c" class="mr-1" />
-              <code>for</code></label
-            >
-          </div>
-          <button id="checkQuizButton" class="btn">Check Answers</button>
-          <div
-            id="quizResult"
-            class="message-box mt-4"
-            style="display: none"
-          ></div>
-        </section>
+        </footer>
       </div>
-
-      <footer class="footer-8bit">
-        <p class="text-sm mb-2">Ready to go deeper with loops?</p>
-        <a href="nested-loops.html" class="btn btn-8bit">Next Tutorial: Nested Loops &rarr;</a>
-      </footer>
     </div>
-    <script src="../js/main.js" defer></script>
+
     <script>
-      // --- State ---
-      let userList = ["apple", "banana"]; // Initial list for the operations section
-      const indexingExampleList = ["apple", "banana", "cherry", "date"]; // Fixed list for indexing example
-      let iterationList = []; // List used for the iteration example
-      let currentIterationIndex = -1; // -1 means not started
-      let iterationInterval = null; // To control the step-by-step iteration animation
+      document.addEventListener('DOMContentLoaded', function() {
+        let currentList = [];
 
-      // --- DOM Elements ---
-      const itemInput = document.getElementById("itemInput");
-      const addButton = document.getElementById("addButton");
-      const removeButton = document.getElementById("removeButton");
-      const clearButton = document.getElementById("clearButton");
-      const listVisualizer = document.getElementById("listVisualizer");
-      const listMessage = document.getElementById("listMessage");
+        // List builder
+        const addItemBtn = document.getElementById('addItem');
+        const clearListBtn = document.getElementById('clearList');
+        const listDisplay = document.getElementById('listDisplay');
 
-      const indexingListVisualizer = document.getElementById(
-        "indexingListVisualizer"
-      );
-      const indexInput = document.getElementById("indexInput");
-      const accessIndexButton = document.getElementById("accessIndexButton");
-      const indexingResultDisplay = document.getElementById(
-        "indexingResultDisplay"
-      );
-      const indexingMessage = document.getElementById("indexingMessage");
-
-      const iterateButton = document.getElementById("iterateButton");
-      const resetIterationButton = document.getElementById(
-        "resetIterationButton"
-      );
-      const iterationListVisualizer = document.getElementById(
-        "iterationListVisualizer"
-      );
-      const iterationOutput = document.getElementById("iterationOutput");
-      const iterationMessage = document.getElementById("iterationMessage");
-
-      const checkQuizButton = document.getElementById("checkQuizButton");
-      const quizResult = document.getElementById("quizResult");
-
-      // --- Utility Functions ---
-      function renderListVisual(list, containerElement, showIndices = false) {
-        containerElement.innerHTML = ""; // Clear previous items
-        if (list.length === 0) {
-          containerElement.innerHTML =
-            '<span class="text-gray-500 italic">List is empty.</span>';
-          return;
-        }
-        list.forEach((item, index) => {
-          const span = document.createElement("span");
-          span.textContent = item;
-          span.className = "list-item-vis";
-          span.dataset.index = index; // Store index for potential highlighting
-
-          if (showIndices) {
-            const indexLabel = document.createElement("span");
-            indexLabel.className = "index-label";
-            indexLabel.textContent = index;
-            span.appendChild(indexLabel);
-
-            // Add negative index label too
-            const negIndexLabel = document.createElement("span");
-            negIndexLabel.className = "index-label";
-            negIndexLabel.style.bottom = "-2.4em"; // Position below positive index
-            negIndexLabel.textContent = `(${index - list.length})`; // Calculate negative index
-            span.appendChild(negIndexLabel);
+        function updateListDisplay() {
+          if (currentList.length === 0) {
+            listDisplay.innerHTML = '<span style="color: #9ca3af;">Your list is empty</span>';
+            return;
           }
-          containerElement.appendChild(span);
+
+          let output = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">my_list = [${currentList.map(item => `"${item}"`).join(', ')}]</div>
+            <div style="color: #d1fae5; font-size: 11px;">Length: ${currentList.length} items</div>
+          `;
+          
+          if (currentList.length > 0) {
+            output += `<div style="color: #d1fae5; font-size: 11px;">First: "${currentList[0]}", Last: "${currentList[currentList.length - 1]}"</div>`;
+          }
+          
+          listDisplay.innerHTML = output;
+        }
+
+        addItemBtn.addEventListener('click', function() {
+          const item = document.getElementById('listItem').value.trim();
+          if (item) {
+            currentList.push(item);
+            document.getElementById('listItem').value = '';
+            updateListDisplay();
+          }
         });
-        // Adjust container padding if indices are shown
-        if (showIndices) {
-          containerElement.style.paddingBottom = "2.5em"; // Make space for negative indices
-        } else {
-          containerElement.style.paddingBottom = ""; // Reset padding
-        }
-      }
 
-      // --- Clear Highlights (Generic) ---
-      function clearHighlights(containerElement) {
-        containerElement
-          .querySelectorAll(".list-item-vis.highlight")
-          .forEach((el) => {
-            el.classList.remove("highlight");
-          });
-      }
+        clearListBtn.addEventListener('click', function() {
+          currentList = [];
+          updateListDisplay();
+        });
 
-      // --- Indexing Logic ---
-      function handleAccessIndex() {
-        clearHighlights(indexingListVisualizer); // Clear previous highlight
-        const indexStr = indexInput.value;
-        if (indexStr === "") {
-          showMessage(indexingMessage, "Please enter an index.", "error");
-          indexingResultDisplay.textContent =
-            "<span class=\"text-gray-500 italic\">Enter an index and click 'Access Element'.</span>";
-          return;
-        }
+        // Reference vs copy demonstration
+        const demoReferenceBtn = document.getElementById('demoReference');
+        const demoCopyBtn = document.getElementById('demoCopy');
+        const referenceOutput = document.getElementById('referenceOutput');
 
-        const index = parseInt(indexStr, 10);
-        const listLength = indexingExampleList.length;
+        demoReferenceBtn.addEventListener('click', function() {
+          referenceOutput.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">Reference Demo:</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list1 = [1, 2, 3]</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list2 = list1  # Same object!</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list2.append(4)</div>
+            <div style="color: #ef4444; font-size: 11px; margin-bottom: 0.5rem;">list1 = [1, 2, 3, 4] 😱</div>
+            <div style="color: #9ca3af; font-size: 9px;">Both variables point to the same list!</div>
+          `;
+        });
 
-        // Validate index
-        if (isNaN(index) || index < -listLength || index >= listLength) {
-          showMessage(
-            indexingMessage,
-            `Index out of bounds. Valid range: -${listLength} to ${
-              listLength - 1
-            }.`,
-            "error"
-          );
-          indexingResultDisplay.textContent =
-            '<span class="text-red-500">Error: Index out of bounds.</span>';
-          return;
-        }
+        demoCopyBtn.addEventListener('click', function() {
+          referenceOutput.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">Copy Demo:</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list1 = [1, 2, 3]</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list2 = list1.copy()  # New object!</div>
+            <div style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">list2.append(4)</div>
+            <div style="color: #10b981; font-size: 11px; margin-bottom: 0.5rem;">list1 = [1, 2, 3] ✅</div>
+            <div style="color: #9ca3af; font-size: 9px;">Two separate lists with same initial values!</div>
+          `;
+        });
 
-        // Calculate the actual positive index if negative is used
-        const actualIndex = index < 0 ? listLength + index : index;
-        const element = indexingExampleList[actualIndex];
+        // Methods playground
+        let demoList = ["apple", "banana", "cherry"];
+        const methodsPlayground = document.getElementById('methodsPlayground');
 
-        // Display result
-        indexingResultDisplay.textContent = `Element at index ${index} (actual index ${actualIndex}): "${element}"`;
-
-        // Highlight the accessed element
-        const targetElement = indexingListVisualizer.querySelector(
-          `.list-item-vis[data-index="${actualIndex}"]`
-        );
-        if (targetElement) {
-          targetElement.classList.add("highlight");
-        }
-        showMessage(
-          indexingMessage,
-          "Element accessed successfully.",
-          "success"
-        );
-      }
-
-      // --- List Operations Logic ---
-      function handleAddItem() {
-        const newItem = itemInput.value.trim();
-        if (newItem) {
-          userList.push(newItem);
-          renderListVisual(userList, listVisualizer);
-          itemInput.value = ""; // Clear input
-          showMessage(
-            listMessage,
-            `"${newItem}" added to the list.`,
-            "success"
-          );
-        } else {
-          showMessage(listMessage, "Please enter an item to add.", "error");
-        }
-        itemInput.focus(); // Keep focus on input
-      }
-
-      function handleRemoveItem() {
-        if (userList.length > 0) {
-          const removedItem = userList.pop(); // Removes and returns the last item
-          renderListVisual(userList, listVisualizer);
-          showMessage(
-            listMessage,
-            `Removed "${removedItem}" from the end.`,
-            "success"
-          );
-        } else {
-          showMessage(listMessage, "The list is already empty.", "error");
-        }
-      }
-
-      function handleClearList() {
-        if (userList.length > 0) {
-          userList = [];
-          renderListVisual(userList, listVisualizer);
-          showMessage(listMessage, "List cleared.", "success");
-        } else {
-          showMessage(listMessage, "The list is already empty.", "error");
-        }
-      }
-
-      // --- Iteration Logic ---
-      function prepareIteration() {
-        // Stop any ongoing iteration animation
-        if (iterationInterval) {
-          clearInterval(iterationInterval);
-          iterationInterval = null;
-        }
-        // Use the user's list if not empty, otherwise use a default
-        iterationList =
-          userList.length > 0 ? [...userList] : ["item1", "item2", "item3"];
-        renderListVisual(iterationList, iterationListVisualizer); // Use generic render
-        iterationOutput.innerHTML =
-          '<span class="text-gray-500 italic">Click "Iterate Through List" to start.</span>';
-        currentIterationIndex = -1; // Reset index
-        iterateButton.disabled = false;
-        showMessage(iterationMessage, "List ready for iteration.", "success");
-      }
-
-      function resetIterationVisuals() {
-        // Remove highlights from iteration list visualizer
-        clearHighlights(iterationListVisualizer);
-        iterationOutput.innerHTML =
-          '<span class="text-gray-500 italic">Iteration reset. Click "Iterate Through List" to start again.</span>';
-        if (iterationInterval) {
-          clearInterval(iterationInterval);
-          iterationInterval = null;
-        }
-        currentIterationIndex = -1;
-        iterateButton.disabled = false;
-      }
-
-      function stepThroughIteration() {
-        // Remove highlight from previous item
-        if (currentIterationIndex >= 0) {
-          const prevElement = iterationListVisualizer.querySelector(
-            `.list-item-vis[data-index="${currentIterationIndex}"]`
-          );
-          if (prevElement) prevElement.classList.remove("highlight");
+        function updateMethodsDisplay() {
+          methodsPlayground.innerHTML = `
+            <div style="color: #facc15; margin-bottom: 0.5rem;">Current list: [${demoList.map(item => `"${item}"`).join(', ')}]</div>
+            <div style="color: #9ca3af; font-size: 10px;">Length: ${demoList.length} | Click a method to see it in action</div>
+          `;
         }
 
-        currentIterationIndex++;
-
-        if (currentIterationIndex < iterationList.length) {
-          const currentItem = iterationList[currentIterationIndex];
-          const currentElement = iterationListVisualizer.querySelector(
-            `.list-item-vis[data-index="${currentIterationIndex}"]`
-          );
-
-          // Highlight current item
-          if (currentElement) currentElement.classList.add("highlight");
-
-          // Update output
-          iterationOutput.innerHTML = `Processing item at index ${currentIterationIndex}: <strong class="text-blue-600">${currentItem}</strong>`;
-        } else {
-          // Iteration finished
-          iterationOutput.innerHTML = `<strong class="text-green-600">Iteration Complete!</strong> Processed all ${iterationList.length} items.`;
-          clearInterval(iterationInterval);
-          iterationInterval = null;
-          iterateButton.disabled = false; // Re-enable button
-          showMessage(iterationMessage, "Iteration finished.", "success");
-        }
-      }
-
-      function startIteration() {
-        // Prepare the list first (copies user list or uses default)
-        prepareIteration();
-
-        if (iterationList.length === 0) {
-          showMessage(
-            iterationMessage,
-            "The list is empty, nothing to iterate.",
-            "error"
-          );
-          return;
-        }
-
-        // Disable button during iteration
-        iterateButton.disabled = true;
-        resetIterationVisuals(); // Clear previous state before starting
-        currentIterationIndex = -1; // Ensure starting from the beginning
-        iterationOutput.innerHTML = "Starting iteration...";
-
-        // Start step-by-step process with a delay
-        iterationInterval = setInterval(stepThroughIteration, 1000); // 1 second delay between steps
-      }
-
-      // --- Quiz Logic ---
-      function checkQuiz() {
-        const answers = {
-          q1: "b", // 0
-          q2: "c", // 40 (-1 is last)
-          q3: "c", // for
+        const methodButtons = {
+          'demoAppend': () => {
+            demoList.push("date");
+            return 'append("date") - Added "date" to the end';
+          },
+          'demoInsert': () => {
+            demoList.splice(1, 0, "berry");
+            return 'insert(1, "berry") - Inserted "berry" at index 1';
+          },
+          'demoRemove': () => {
+            const index = demoList.indexOf("banana");
+            if (index > -1) {
+              demoList.splice(index, 1);
+              return 'remove("banana") - Removed "banana"';
+            }
+            return 'remove("banana") - "banana" not found!';
+          },
+          'demoPop': () => {
+            const popped = demoList.pop();
+            return `pop() - Removed and returned "${popped}"`;
+          },
+          'demoSort': () => {
+            demoList.sort();
+            return 'sort() - Sorted list alphabetically';
+          },
+          'demoLength': () => {
+            return `len() - Current length is ${demoList.length}`;
+          },
+          'resetDemo': () => {
+            demoList = ["apple", "banana", "cherry"];
+            return 'Reset to original list';
+          }
         };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
 
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break; // Stop checking if one question is unanswered
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1
-            )}: Correct!</li>`;
+        Object.keys(methodButtons).forEach(buttonId => {
+          document.getElementById(buttonId).addEventListener('click', function() {
+            const action = methodButtons[buttonId]();
+            updateMethodsDisplay();
+            
+            const actionDiv = document.createElement('div');
+            actionDiv.style.color = '#10b981';
+            actionDiv.style.fontSize = '10px';
+            actionDiv.style.marginTop = '0.5rem';
+            actionDiv.textContent = action;
+            methodsPlayground.appendChild(actionDiv);
+          });
+        });
+
+        updateMethodsDisplay();
+
+        // Iteration demonstrations
+        const demoForEachBtn = document.getElementById('demoForEach');
+        const demoIndexedBtn = document.getElementById('demoIndexed');
+        const demoEnumerateBtn = document.getElementById('demoEnumerate');
+        const iterationOutput = document.getElementById('iterationOutput');
+
+        demoForEachBtn.addEventListener('click', function() {
+          const fruits = ["apple", "banana", "cherry"];
+          let output = '<div style="color: #facc15; margin-bottom: 0.5rem;">for fruit in fruits:</div>';
+          fruits.forEach(fruit => {
+            output += `<div style="color: #d1fae5; font-size: 10px; margin-left: 1rem;">I like ${fruit}</div>`;
+          });
+          output += '<div style="color: #9ca3af; font-size: 9px; margin-top: 0.5rem;">✅ Clean and readable!</div>';
+          iterationOutput.innerHTML = output;
+        });
+
+        demoIndexedBtn.addEventListener('click', function() {
+          const fruits = ["apple", "banana", "cherry"];
+          let output = '<div style="color: #facc15; margin-bottom: 0.5rem;">for i in range(len(fruits)):</div>';
+          fruits.forEach((fruit, i) => {
+            output += `<div style="color: #d1fae5; font-size: 10px; margin-left: 1rem;">${i}: ${fruit}</div>`;
+          });
+          output += '<div style="color: #f59e0b; font-size: 9px; margin-top: 0.5rem;">⚠️ Use only when you need the index</div>';
+          iterationOutput.innerHTML = output;
+        });
+
+        demoEnumerateBtn.addEventListener('click', function() {
+          const fruits = ["apple", "banana", "cherry"];
+          let output = '<div style="color: #facc15; margin-bottom: 0.5rem;">for i, fruit in enumerate(fruits):</div>';
+          fruits.forEach((fruit, i) => {
+            output += `<div style="color: #d1fae5; font-size: 10px; margin-left: 1rem;">${i}: ${fruit}</div>`;
+          });
+          output += '<div style="color: #10b981; font-size: 9px; margin-top: 0.5rem;">✅ Best when you need both index and value!</div>';
+          iterationOutput.innerHTML = output;
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkListsQuizBtn = document.getElementById('checkListsQuiz');
+        const listsQuizResult = document.getElementById('listsQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkListsQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
+                }
+              }
+            });
+          });
+
+          listsQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            listsQuizResult.className = 'message-box message-box-success';
+            listsQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand lists and iteration!`;
           } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1
-            )}: Incorrect.</li>`;
+            listsQuizResult.className = 'message-box message-box-info';
+            listsQuizResult.innerHTML = `${correct}/${total} correct. Review the concepts above, especially list references and iteration patterns!`;
           }
-        }
+        });
 
-        if (!allAnswered) {
-          quizResult.textContent =
-            "Please answer all questions before checking.";
-          quizResult.className = "message-box message-box-error";
-          quizResult.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResult.innerHTML = resultsHTML;
-        quizResult.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResult.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      addButton.addEventListener("click", handleAddItem);
-      itemInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") handleAddItem();
+        // Progress tracking
+        localStorage.setItem('completedLists', 'true');
       });
-      removeButton.addEventListener("click", handleRemoveItem);
-      clearButton.addEventListener("click", handleClearList);
-
-      accessIndexButton.addEventListener("click", handleAccessIndex);
-      indexInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") handleAccessIndex();
-      });
-
-      iterateButton.addEventListener("click", startIteration);
-      resetIterationButton.addEventListener("click", () => {
-        resetIterationVisuals();
-        prepareIteration(); // Re-prepare the list visualizer
-        showMessage(iterationMessage, "Iteration reset.", "success");
-      });
-
-      checkQuizButton.addEventListener("click", checkQuiz);
-
-      // --- Initial Setup ---
-      renderListVisual(userList, listVisualizer);
-      renderListVisual(indexingExampleList, indexingListVisualizer, true);
-      prepareIteration(); // Set up the iteration visualizer with a default or user list
     </script>
   </body>
 </html>

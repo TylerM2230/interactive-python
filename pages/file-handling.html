@@ -3,224 +3,969 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Handling in Python</title>
+    <title>Working with Files - Data Persistence | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-  </head>
-  <body class="">
-    <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="error-handling.html" class="btn">&laquo; Error Handling</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="random-module.html" class="btn">Next: Random Module &rarr;</a>
-      </nav>
-
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            File Handling
-          </h2>
-          <p class="text-sm italic mt-1">
-            Reading from and writing to files in Python.
-          </p>
-        </header>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            1. Why File Handling?
-          </h2>
-          <p class="mb-4">
-            Think of file handling like a library system. Just as a library stores books that can be read and written to, programs need to store and retrieve data from files. Whether it's saving your game progress, reading configuration settings, or logging important events, file handling is like having a permanent memory for your program.
-          </p>
-          <p class="text-sm p-3 rounded-md message-box message-box-warning">
-            <strong>Note:</strong> Interactive examples here *simulate* file operations for security. Web browsers can't directly access local files this way. The Python code shown works with real files in a Python environment.
-          </p>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            2. Opening Files & Modes
-          </h2>
-          <p class="mb-2">
-            Opening a file is like choosing how to interact with a book in a library. The mode you choose determines what you can do:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><code>'r'</code>: Like checking out a book to read - you can only read it, and it must exist.</li>
-            <li><code>'w'</code>: Like getting a blank notebook - you can write anything, but it erases any existing content.</li>
-            <li><code>'a'</code>: Like adding to your diary - you can write at the end without affecting what's already there.</li>
-            <li><code>'r+'</code>: Like having a notebook with both reading and writing permissions.</li>
-            <li>Binary modes (<code>'b'</code>): Like handling special books that aren't just text (images, music, etc.).</li>
-          </ul>
-        </section>
-        
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            3. Reading from Files
-          </h2>
-          <p class="mb-2">
-            Reading from files is like different ways of reading a book:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><code>.read()</code>: Like reading the entire book at once.</li>
-            <li><code>.readline()</code>: Like reading one page at a time.</li>
-            <li><code>.readlines()</code>: Like making a list of all pages to read later.</li>
-            <li><code>for line in file_object:</code>: Like reading the book page by page, efficiently.</li>
-          </ul>
-          <pre><code class="language-python"># Assuming 'scroll.txt' contains:
-# Ancient wisdom...
-# More secrets...
-
-with open('scroll.txt', 'r') as f:
-  for line in f:
-    print(line.strip()) # strip() removes newline</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            4. Writing and Appending to Files
-          </h2>
-          <p class="mb-2">
-            Writing to files is like different ways of writing in a notebook:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li><code>.write(string)</code>: Like writing a single sentence - you need to add your own line breaks.</li>
-            <li><code>.writelines(list_of_strings)</code>: Like writing multiple sentences at once from a list.</li>
-          </ul>
-          <pre><code class="language-python"># 'w' mode overwrites or creates
-with open('logbook.txt', 'w') as f:
-  f.write("Chapter 1: The Quest Begins\n")
-
-# 'a' mode appends or creates
-with open('logbook.txt', 'a') as f:
-  f.write("Chapter 2: The Forest Path\n")</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            5. The <code>with</code> Statement (Best Practice)
-          </h2>
-          <p class="mb-2">
-            The <code>with</code> statement is like having a responsible librarian. When you're done with a book, the librarian automatically puts it back on the shelf. Similarly, <code>with</code> automatically closes your file when you're done, even if something goes wrong.
-          </p>
-          <pre><code class="language-python">with open('treasure_map.txt', 'r') as map_file:
-  instructions = map_file.read()
-  # map_file is automatically closed after this block
-print("Map read and closed!")</code></pre>
-        </section>
-
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            Interactive File Simulation
-          </h2>
-          <p class="mb-4">
-            Let's practice file handling with a magical adventure! You'll be working with an ancient scroll and a logbook, just like a wizard managing their spell books and research notes.
-          </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Read Simulation -->
-            <div>
-              <h3 class="text-lg font-semibold mb-2">Read from Virtual Scroll</h3>
-              <div class="sub-interactive-box mb-4">
-                <label class="block mb-1 font-semibold">Virtual Scroll Content ('virtual_scroll.txt'):</label>
-                <textarea id="readFileContent" class="input-field w-full h-24 font-mono text-sm p-2" readonly>The ancient runes whisper of a hidden treasure.
-Follow the path marked by the three great oaks.
-Beware the sleeping guardian of the Forest Glade.</textarea>
-              </div>
-              <button id="simulateReadButton" class="btn btn-8bit">Read Entire Scroll</button>
-              <button id="simulateReadLineButton" class="btn btn-8bit">Read Next Line</button>
-              <div id="readOutput" class="output-display min-h-[50px] mt-2"></div>
-            </div>
-
-            <!-- Write/Append Simulation -->
-            <div>
-              <h3 class="text-lg font-semibold mb-2">Write to Virtual Logbook</h3>
-              <div class="sub-interactive-box mb-4">
-                <label class="block mb-1 font-semibold">Content to Write/Append:</label>
-                <input type="text" id="writeFileContentInput" class="input-field w-full mb-2" value="Encountered a friendly sprite.">
-                <label class="block mb-1 font-semibold">Current Logbook ('virtual_logbook.txt'):</label>
-                <textarea id="logbookDisplay" class="input-field w-full h-24 font-mono text-sm p-2" readonly></textarea>
-              </div>
-              <button id="simulateWriteButton" class="btn btn-8bit">Write (Overwrite)</button>
-              <button id="simulateAppendButton" class="btn btn-8bit">Append to Logbook</button>
-               <button id="clearLogbookButton" class="btn btn-8bit btn-8bit-alt">Clear Logbook</button>
-            </div>
-          </div>
-          <div id="fileOpMessage" class="message-box mt-3" style="display:none;"></div>
-        </section>
-
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
-
-    <footer class="footer-8bit">
-      <p class="text-sm mb-2">Ready to add randomness?</p>
-      <a href="random-module.html" class="btn btn-8bit">Next Tutorial: Random Module &rarr;</a>
-    </footer>
-
-    <script>
-      const readFileContentEl = document.getElementById('readFileContent');
-      const readOutputEl = document.getElementById('readOutput');
-      const simulateReadButton = document.getElementById('simulateReadButton');
-      const simulateReadLineButton = document.getElementById('simulateReadLineButton');
-      
-      const writeFileContentInputEl = document.getElementById('writeFileContentInput');
-      const logbookDisplayEl = document.getElementById('logbookDisplay');
-      const simulateWriteButton = document.getElementById('simulateWriteButton');
-      const simulateAppendButton = document.getElementById('simulateAppendButton');
-      const clearLogbookButton = document.getElementById('clearLogbookButton');
-
-      const messageBox = document.getElementById('fileOpMessage');
-      let currentReadLineIndex = 0;
-
-      function showFileMessage(msg, type = 'info') {
-        messageBox.textContent = msg;
-        messageBox.className = `message-box message-box-${type}`;
-        messageBox.style.display = 'block';
-        setTimeout(() => { messageBox.style.display = 'none'; }, 2500);
+    <style>
+      /* Full-page layout matching the pedagogical design */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
       }
 
-      // Read Simulation
-      simulateReadButton.addEventListener('click', () => {
-        readOutputEl.textContent = readFileContentEl.value;
-        currentReadLineIndex = 0; // Reset for readline
-        showFileMessage('Virtual scroll content read.', 'success');
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
+
+      .breadcrumb-nav {
+        background: rgba(15, 23, 42, 0.9);
+        padding: 1rem 2rem;
+        margin: 0 -2rem 2rem -2rem;
+        border-bottom: 2px solid #374151;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .nav-links a {
+        color: #facc15;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #fbbf24;
+        text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      }
+
+      /* Mental Model and Pitfall boxes */
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+        border: 2px solid #22c55e;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .mental-model-box h3 {
+        color: #4ade80;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h3 {
+        color: #fb923c;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .interactive-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(250, 204, 21, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .repl-container {
+        background: #0f172a;
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+      }
+
+      .repl-input {
+        background: #1f2937;
+        border: 1px solid #4b5563;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: #e5e7eb;
+        font-family: 'Courier New', monospace;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .repl-output {
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 6px;
+        padding: 1rem;
+        color: #d1d5db;
+        font-family: 'Courier New', monospace;
+        min-height: 100px;
+        margin: 0.5rem 0;
+        overflow-x: auto;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 3rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-question {
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .quiz-options {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 8px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e5e7eb;
+      }
+
+      .quiz-option:hover {
+        border-color: #8b5cf6;
+        background: rgba(139, 92, 246, 0.2);
+      }
+
+      .quiz-option.correct {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      .file-simulator {
+        background: #0f172a;
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .file-content {
+        background: #1f2937;
+        border: 1px solid #4b5563;
+        border-radius: 6px;
+        padding: 1rem;
+        color: #e5e7eb;
+        font-family: 'Courier New', monospace;
+        min-height: 100px;
+        margin: 0.5rem 0;
+      }
+
+      .file-mode-indicator {
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid #22c55e;
+        border-radius: 6px;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        color: #4ade80;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .breadcrumb-nav {
+          padding: 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="console-screen-border">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1 class="pixel-header">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">
+              Interactive Guide to Python
+            </a>
+          </h1>
+          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">
+            Working with Files
+          </h2>
+          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
+            Give Your Programs Memory • Store Data Permanently • Professional Data Persistence
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="breadcrumb-nav">
+        <div class="nav-links">
+          <a href="error-handling.html">← Previous: Error Handling</a>
+          <a href="../index.html">🏠 Home</a>
+          <a href="random-module.html">Next: Random Module →</a>
+        </div>
+      </nav>
+
+      <main class="content-wrapper-8bit">
+        <!-- Step 1: Problem Motivation -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🎯 Why Do Programs Need to Remember Things?</h2>
+          <p class="mb-4">
+            Think about your daily life. You write things down so you don't forget them:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="bg-blue-900/20 border border-blue-500 rounded-lg p-4 text-center">
+              <div class="text-4xl mb-2">📝</div>
+              <h4 class="font-bold text-blue-400 mb-2">Shopping Lists</h4>
+              <p class="text-sm">Remember what to buy at the store</p>
+            </div>
+            <div class="bg-green-900/20 border border-green-500 rounded-lg p-4 text-center">
+              <div class="text-4xl mb-2">💾</div>
+              <h4 class="font-bold text-green-400 mb-2">Game Progress</h4>
+              <p class="text-sm">Continue where you left off</p>
+            </div>
+            <div class="bg-purple-900/20 border border-purple-500 rounded-lg p-4 text-center">
+              <div class="text-4xl mb-2">📊</div>
+              <h4 class="font-bold text-purple-400 mb-2">Data Logs</h4>
+              <p class="text-sm">Track what happened over time</p>
+            </div>
+          </div>
+          <p>
+            Programs have the same need! When your program stops running, all variables disappear. 
+            Files give programs a way to remember things between runs - like a program's external memory.
+          </p>
+        </section>
+
+        <!-- Step 2: Mental Model -->
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: The Filing Cabinet</h3>
+          <p class="mb-4">
+            Think of your computer's file system as a giant filing cabinet:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-green-900/20 border border-green-400 rounded-lg p-4">
+              <h4 class="font-bold text-green-400 mb-2">📁 File System = Filing Cabinet</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Files</strong> are like documents in folders</li>
+                <li>• <strong>Folders</strong> organize related files</li>
+                <li>• <strong>Paths</strong> are addresses to find files</li>
+                <li>• <strong>Permissions</strong> control who can access what</li>
+              </ul>
+            </div>
+            <div class="bg-blue-900/20 border border-blue-400 rounded-lg p-4">
+              <h4 class="font-bold text-blue-400 mb-2">🔑 File Operations = Actions</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Open</strong> - Take a document out of the drawer</li>
+                <li>• <strong>Read</strong> - Look at what's written</li>
+                <li>• <strong>Write</strong> - Add or change content</li>
+                <li>• <strong>Close</strong> - Put the document back</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-sm">
+            <strong>Key Insight:</strong> The computer is still literal and sequential. It can only do one thing at a time with a file, 
+            and you must explicitly tell it to open, read/write, and close files.
+          </p>
+        </div>
+
+        <!-- Step 3: Syntax Introduction -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">📝 File Handling Syntax</h2>
+          <p class="mb-4">
+            Python provides a simple way to work with files. Here are the essential patterns:
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Basic File Operations:</h4>
+            <pre class="text-green-300"><code># BEST PRACTICE: Use 'with' statement
+# This automatically closes the file when done
+with open('filename.txt', 'mode') as file_object:
+    # Do something with the file
+    content = file_object.read()
+
+# Common file modes:
+'r'  # Read only (file must exist)
+'w'  # Write only (creates new file or overwrites existing)
+'a'  # Append only (creates new file or adds to existing)
+'r+' # Read and write (file must exist)</code></pre>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div class="bg-green-900/20 border border-green-400 rounded-lg p-4">
+              <h4 class="font-bold text-green-400 mb-2">✅ Reading Files</h4>
+              <pre class="text-sm"><code>with open('data.txt', 'r') as f:
+    content = f.read()        # Read entire file
+    # OR
+    line = f.readline()       # Read one line
+    # OR
+    lines = f.readlines()     # Read all lines as list
+    # OR
+    for line in f:            # Read line by line
+        print(line.strip())</code></pre>
+            </div>
+            <div class="bg-blue-900/20 border border-blue-400 rounded-lg p-4">
+              <h4 class="font-bold text-blue-400 mb-2">✅ Writing Files</h4>
+              <pre class="text-sm"><code>with open('output.txt', 'w') as f:
+    f.write("Hello, World!")     # Write string
+    f.write("\nNew line")        # Add newline manually
+    
+with open('log.txt', 'a') as f:
+    f.write("New entry\n")       # Append to file</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4: Interactive Exploration -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🔍 Interactive File Simulator</h2>
+          <p class="mb-4">
+            Let's explore file operations with a simulated file system. This shows you exactly what happens 
+            when you read from and write to files:
+          </p>
+          
+          <div class="file-simulator">
+            <h4 class="text-yellow-400 mb-2">Virtual File System:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">File Name:</label>
+                <input type="text" id="filenameInput" class="repl-input" value="my_file.txt" placeholder="Enter filename">
+                <label class="block text-sm font-medium mb-2 mt-3">Operation Mode:</label>
+                <select id="fileModeSelect" class="repl-input">
+                  <option value="r">Read ('r') - File must exist</option>
+                  <option value="w">Write ('w') - Overwrites content</option>
+                  <option value="a">Append ('a') - Adds to end</option>
+                  <option value="r+">Read/Write ('r+') - File must exist</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Content to Write/Append:</label>
+                <textarea id="writeContentInput" class="repl-input h-20 resize-none" placeholder="Enter content to write...">Hello, Python files!</textarea>
+                <button id="performFileOpButton" class="btn btn-8bit mt-2 w-full">Perform File Operation</button>
+              </div>
+            </div>
+            
+            <div class="file-mode-indicator" id="fileModeIndicator">
+              Ready to perform file operations...
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <h5 class="text-sm font-bold mb-2">Virtual File System:</h5>
+                <div id="fileSystemDisplay" class="file-content">
+                  <div class="text-gray-400 italic">No files created yet...</div>
+                </div>
+              </div>
+              <div>
+                <h5 class="text-sm font-bold mb-2">Operation Result:</h5>
+                <div id="fileOperationOutput" class="file-content">
+                  <div class="text-gray-400 italic">Operation results will appear here...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-purple-900/20 border border-purple-500 rounded-lg">
+            <h4 class="text-purple-400 font-bold mb-2">🧪 Experiments to Try:</h4>
+            <ul class="text-sm space-y-1">
+              <li>• Create a new file with 'w' mode</li>
+              <li>• Try to read a file that doesn't exist with 'r' mode</li>
+              <li>• Append content to an existing file with 'a' mode</li>
+              <li>• Overwrite an existing file with 'w' mode</li>
+              <li>• Use 'r+' mode to read and then write to the same file</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Step 5: Common Pitfalls -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: Forgetting to Close Files</h3>
+          <p class="mb-4">
+            <strong>The Mistake:</strong> Opening files without properly closing them.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h4 class="text-red-400 font-bold mb-2">❌ Dangerous Approach:</h4>
+              <pre class="text-sm"><code>file = open('data.txt', 'r')
+content = file.read()
+# Forgot to close the file!
+# This can cause memory leaks
+# and prevent other programs from
+# accessing the file</code></pre>
+            </div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h4 class="text-green-400 font-bold mb-2">✅ Safe Approach:</h4>
+              <pre class="text-sm"><code>with open('data.txt', 'r') as file:
+    content = file.read()
+# File automatically closed when 
+# the 'with' block ends, even if
+# an error occurs!</code></pre>
+            </div>
+          </div>
+          <p class="mt-4 text-sm">
+            <strong>Why This Matters:</strong> The `with` statement is like having a responsible assistant who 
+            always puts files back in the filing cabinet when you're done, even if something goes wrong.
+          </p>
+        </div>
+
+        <!-- Additional Pitfall -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Another Pitfall: File Mode Confusion</h3>
+          <p class="mb-4">
+            <strong>The Mistake:</strong> Not understanding what each file mode does.
+          </p>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h5 class="text-red-400 font-bold mb-1">❌ 'w' Mode</h5>
+              <p>Overwrites entire file! All previous content is lost.</p>
+            </div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h5 class="text-green-400 font-bold mb-1">✅ 'a' Mode</h5>
+              <p>Adds to the end. Previous content is preserved.</p>
+            </div>
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h5 class="text-red-400 font-bold mb-1">❌ 'r' Mode</h5>
+              <p>Crashes if file doesn't exist. Read-only!</p>
+            </div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h5 class="text-green-400 font-bold mb-1">✅ Error Handling</h5>
+              <p>Always use try-except with file operations!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Practice Project -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🛠️ Practice: Personal Journal System</h2>
+          <p class="mb-4">
+            Let's build a personal journal system that demonstrates professional file handling practices. 
+            This combines file I/O with error handling for a robust application.
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Journal System:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Journal Entry:</label>
+                <textarea id="journalEntryInput" class="repl-input h-32 resize-none" placeholder="Write your journal entry here...">Today I learned about file handling in Python!</textarea>
+                <div class="flex gap-2 mt-2">
+                  <button id="addEntryButton" class="btn btn-8bit flex-1">Add Entry</button>
+                  <button id="readJournalButton" class="btn btn-8bit flex-1">Read Journal</button>
+                </div>
+                <div class="flex gap-2 mt-2">
+                  <button id="clearJournalButton" class="btn btn-8bit flex-1">Clear Journal</button>
+                  <button id="exportJournalButton" class="btn btn-8bit flex-1">Export Journal</button>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Journal Contents:</label>
+                <div id="journalContents" class="file-content h-40 overflow-y-auto">
+                  <div class="text-gray-400 italic">Journal is empty. Add your first entry!</div>
+                </div>
+                <div class="mt-2 text-xs text-gray-400">
+                  <span id="journalStats">Entries: 0 | Characters: 0</span>
+                </div>
+              </div>
+            </div>
+            <div id="journalOutput" class="repl-output mt-4" style="display: none;">
+              <span class="text-gray-400">Journal operation results will appear here...</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-green-900/20 border border-green-500 rounded-lg">
+            <h4 class="text-green-400 font-bold mb-2">🎯 Features Demonstrated:</h4>
+            <ul class="text-sm space-y-1">
+              <li>• Safe file operations with proper error handling</li>
+              <li>• Appending new entries while preserving existing content</li>
+              <li>• Reading and displaying file contents</li>
+              <li>• File statistics and data analysis</li>
+              <li>• Professional data export functionality</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Step 7: Assessment -->
+        <div class="assessment-section">
+          <h2 class="section-title-8bit">🎓 Check Your Understanding</h2>
+          <p class="mb-4">Test your knowledge of file handling concepts:</p>
+          
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 1: What happens when you open a file with 'w' mode?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="1" data-correct="false">
+                A) Appends content to the end of the file
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="true">
+                B) Creates a new file or overwrites the existing file completely
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                C) Opens the file in read-only mode
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                D) Raises an error if the file doesn't exist
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback1" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 2: Why is the 'with' statement recommended for file operations?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="2" data-correct="false">
+                A) It makes file operations faster
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="true">
+                B) It automatically closes the file when done, even if an error occurs
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                C) It can only be used with text files
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                D) It prevents other programs from accessing the file
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback2" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 3: In the filing cabinet metaphor, what does "opening a file" represent?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="3" data-correct="false">
+                A) Creating a new filing cabinet
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="true">
+                C) Taking a document out of the drawer to work with it
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                C) Organizing documents in alphabetical order
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                D) Locking the filing cabinet for security
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback3" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Reflection Questions -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
+          <div class="space-y-4">
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">💭 Think About It:</h4>
+              <p class="text-sm mb-2">
+                What are some real-world scenarios where a program would need to save data to files? 
+                Think beyond simple text files.
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Consider applications like games, websites, mobile apps..."
+              ></textarea>
+            </div>
+            
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">🔍 Design Challenge:</h4>
+              <p class="text-sm mb-2">
+                If you were building a simple password manager, what file operations would you need? 
+                What security considerations would be important?
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Think about reading, writing, encryption, backup..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🚀 What's Next?</h2>
+          <p class="mb-4">
+            You've mastered file handling! Here's how this connects to your growing programming skills:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+              <h4 class="text-blue-400 font-bold mb-2">🔗 Building On:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Error handling (essential for file operations)</li>
+                <li>• Functions (create reusable file utilities)</li>
+                <li>• Data structures (organize file data)</li>
+              </ul>
+            </div>
+            <div class="p-4 bg-green-900/20 border border-green-500 rounded-lg">
+              <h4 class="text-green-400 font-bold mb-2">🎯 Coming Up:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Working with CSV and JSON files</li>
+                <li>• Database connections and data persistence</li>
+                <li>• Web scraping and API data storage</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-8bit">
+        <div style="text-align: center; padding: 2rem 0;">
+          <p style="margin-bottom: 1rem;">💾 Excellent! Your programs now have permanent memory! 💾</p>
+          <p style="font-size: 10px; color: #9ca3af; margin-bottom: 1rem;">
+            File handling is the foundation of data persistence in programming
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="error-handling.html" style="margin-right: 2rem;">← Previous: Error Handling</a>
+            <a href="../index.html" style="margin: 0 1rem;">🏠 Home</a>
+            <a href="random-module.html" style="margin-left: 2rem;">Next: Random Module →</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Virtual File System
+      const virtualFileSystem = {};
+      
+      // File Operation Simulator
+      document.getElementById('performFileOpButton').addEventListener('click', function() {
+        const filename = document.getElementById('filenameInput').value;
+        const mode = document.getElementById('fileModeSelect').value;
+        const content = document.getElementById('writeContentInput').value;
+        const indicator = document.getElementById('fileModeIndicator');
+        const fileSystemDisplay = document.getElementById('fileSystemDisplay');
+        const output = document.getElementById('fileOperationOutput');
+        
+        let result = '';
+        let operationSuccess = true;
+        
+        try {
+          switch (mode) {
+            case 'r':
+              if (!virtualFileSystem[filename]) {
+                throw new Error(`FileNotFoundError: [Errno 2] No such file or directory: '${filename}'`);
+              }
+              result = `✅ File '${filename}' read successfully:\n\n${virtualFileSystem[filename]}`;
+              indicator.textContent = `Reading from '${filename}' (mode: 'r')`;
+              indicator.style.borderColor = '#22c55e';
+              break;
+              
+            case 'w':
+              virtualFileSystem[filename] = content;
+              result = `✅ File '${filename}' written successfully!\nContent: "${content}"`;
+              indicator.textContent = `Writing to '${filename}' (mode: 'w') - File created/overwritten`;
+              indicator.style.borderColor = '#3b82f6';
+              break;
+              
+            case 'a':
+              if (virtualFileSystem[filename]) {
+                virtualFileSystem[filename] += '\n' + content;
+              } else {
+                virtualFileSystem[filename] = content;
+              }
+              result = `✅ Content appended to '${filename}'!\nAppended: "${content}"`;
+              indicator.textContent = `Appending to '${filename}' (mode: 'a') - Content added to end`;
+              indicator.style.borderColor = '#8b5cf6';
+              break;
+              
+            case 'r+':
+              if (!virtualFileSystem[filename]) {
+                throw new Error(`FileNotFoundError: [Errno 2] No such file or directory: '${filename}'`);
+              }
+              virtualFileSystem[filename] += '\n' + content;
+              result = `✅ File '${filename}' read and written to!\nOriginal content preserved, new content added`;
+              indicator.textContent = `Read/Write mode for '${filename}' (mode: 'r+')`;
+              indicator.style.borderColor = '#f59e0b';
+              break;
+          }
+        } catch (error) {
+          result = `❌ Error: ${error.message}`;
+          indicator.textContent = `Operation failed: ${error.message}`;
+          indicator.style.borderColor = '#ef4444';
+          operationSuccess = false;
+        }
+        
+        // Update file system display
+        if (Object.keys(virtualFileSystem).length === 0) {
+          fileSystemDisplay.innerHTML = '<div class="text-gray-400 italic">No files created yet...</div>';
+        } else {
+          let fileSystemHTML = '';
+          for (const [file, fileContent] of Object.entries(virtualFileSystem)) {
+            fileSystemHTML += `<div class="mb-2">
+              <div class="font-bold text-yellow-400">${file}</div>
+              <div class="text-sm text-gray-300 ml-4 border-l-2 border-gray-600 pl-2">${fileContent.substring(0, 100)}${fileContent.length > 100 ? '...' : ''}</div>
+            </div>`;
+          }
+          fileSystemDisplay.innerHTML = fileSystemHTML;
+        }
+        
+        output.innerHTML = `<pre>${result}</pre>`;
       });
 
-      simulateReadLineButton.addEventListener('click', () => {
-        const lines = readFileContentEl.value.split('\n');
-        if (currentReadLineIndex < lines.length) {
-          readOutputEl.textContent = lines[currentReadLineIndex];
-          currentReadLineIndex++;
-          showFileMessage('Next line from virtual scroll read.', 'info');
+      // Journal System
+      const journalEntries = [];
+      
+      function updateJournalDisplay() {
+        const journalContents = document.getElementById('journalContents');
+        const journalStats = document.getElementById('journalStats');
+        
+        if (journalEntries.length === 0) {
+          journalContents.innerHTML = '<div class="text-gray-400 italic">Journal is empty. Add your first entry!</div>';
         } else {
-          readOutputEl.textContent = '(End of Scroll)';
-          showFileMessage('Reached the end of the virtual scroll.', 'warning');
+          let journalHTML = '';
+          journalEntries.forEach((entry, index) => {
+            journalHTML += `<div class="mb-3 p-2 bg-gray-800 rounded border-l-4 border-yellow-400">
+              <div class="text-xs text-yellow-400 mb-1">Entry ${index + 1} - ${entry.date}</div>
+              <div class="text-sm">${entry.content}</div>
+            </div>`;
+          });
+          journalContents.innerHTML = journalHTML;
+        }
+        
+        const totalChars = journalEntries.reduce((sum, entry) => sum + entry.content.length, 0);
+        journalStats.textContent = `Entries: ${journalEntries.length} | Characters: ${totalChars}`;
+      }
+      
+      document.getElementById('addEntryButton').addEventListener('click', function() {
+        const entryText = document.getElementById('journalEntryInput').value.trim();
+        const output = document.getElementById('journalOutput');
+        
+        if (entryText) {
+          const entry = {
+            content: entryText,
+            date: new Date().toLocaleString()
+          };
+          journalEntries.push(entry);
+          
+          output.innerHTML = `<pre>✅ Journal Entry Added Successfully!
+
+# Simulated File Operation:
+with open('my_journal.txt', 'a') as f:
+    f.write("${entry.date}: ${entryText}\\n")
+    
+# Entry saved to journal file!</pre>`;
+          output.style.display = 'block';
+          
+          document.getElementById('journalEntryInput').value = '';
+          updateJournalDisplay();
+        } else {
+          output.innerHTML = `<pre>❌ Error: Cannot add empty journal entry!
+
+# This would raise an error in a real program:
+if not entry_text.strip():
+    raise ValueError("Entry cannot be empty")</pre>`;
+          output.style.display = 'block';
         }
       });
+      
+      document.getElementById('readJournalButton').addEventListener('click', function() {
+        const output = document.getElementById('journalOutput');
+        
+        if (journalEntries.length === 0) {
+          output.innerHTML = `<pre>⚠️ Journal is empty!
 
-      // Write/Append Simulation
-      simulateWriteButton.addEventListener('click', () => {
-        const contentToWrite = writeFileContentInputEl.value;
-        logbookDisplayEl.value = contentToWrite + "\n"; 
-        showFileMessage('Virtual logbook overwritten.', 'success');
-      });
+# Simulated File Operation:
+try:
+    with open('my_journal.txt', 'r') as f:
+        content = f.read()
+        if not content:
+            print("Journal is empty")
+except FileNotFoundError:
+    print("Journal file doesn't exist yet")</pre>`;
+        } else {
+          let fullJournal = '';
+          journalEntries.forEach(entry => {
+            fullJournal += `${entry.date}: ${entry.content}\n`;
+          });
+          
+          output.innerHTML = `<pre>✅ Journal Read Successfully!
 
-      simulateAppendButton.addEventListener('click', () => {
-        const contentToAppend = writeFileContentInputEl.value;
-        logbookDisplayEl.value += contentToAppend + "\n";
-        showFileMessage('Content appended to virtual logbook.', 'info');
+# Simulated File Operation:
+with open('my_journal.txt', 'r') as f:
+    content = f.read()
+    print(content)
+
+# Journal Contents:
+${fullJournal}</pre>`;
+        }
+        output.style.display = 'block';
       });
       
-      clearLogbookButton.addEventListener('click', () => {
-          logbookDisplayEl.value = '';
-          showFileMessage('Virtual logbook cleared.', 'info');
+      document.getElementById('clearJournalButton').addEventListener('click', function() {
+        journalEntries.length = 0;
+        const output = document.getElementById('journalOutput');
+        
+        output.innerHTML = `<pre>✅ Journal Cleared!
+
+# Simulated File Operation:
+with open('my_journal.txt', 'w') as f:
+    f.write("")  # Clear the file
+    
+# All entries removed from journal file!</pre>`;
+        output.style.display = 'block';
+        
+        updateJournalDisplay();
+      });
+      
+      document.getElementById('exportJournalButton').addEventListener('click', function() {
+        const output = document.getElementById('journalOutput');
+        
+        if (journalEntries.length === 0) {
+          output.innerHTML = `<pre>⚠️ No entries to export!
+
+# Nothing to export - journal is empty</pre>`;
+        } else {
+          const exportData = JSON.stringify(journalEntries, null, 2);
+          
+          output.innerHTML = `<pre>✅ Journal Exported Successfully!
+
+# Simulated File Operation:
+import json
+
+journal_data = ${exportData}
+
+with open('journal_backup.json', 'w') as f:
+    json.dump(journal_data, f, indent=2)
+    
+# Journal exported as JSON for backup!</pre>`;
+        }
+        output.style.display = 'block';
       });
 
+      // Quiz functionality
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const isCorrect = this.dataset.correct === 'true';
+          const feedback = document.getElementById(`feedback${question}`);
+          
+          // Clear previous selections
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+          });
+          
+          // Show result
+          if (isCorrect) {
+            this.classList.add('correct');
+            feedback.innerHTML = '<p class="text-green-400 mt-2">✅ Correct! You understand the concept well.</p>';
+          } else {
+            this.classList.add('incorrect');
+            // Show correct answer
+            document.querySelector(`[data-question="${question}"][data-correct="true"]`).classList.add('correct');
+            
+            if (question === '1') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. The \'w\' mode creates a new file or completely overwrites existing content - like getting a fresh notebook.</p>';
+            } else if (question === '2') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. The \'with\' statement is like a responsible assistant who always puts files back, preventing resource leaks.</p>';
+            } else if (question === '3') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. Opening a file is like taking a document out of the filing cabinet drawer to work with it.</p>';
+            }
+          }
+          
+          feedback.style.display = 'block';
+        });
+      });
+
+      // Initialize displays
+      updateJournalDisplay();
+
+      // Progress tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mark this page as visited
+        let visitedPages = JSON.parse(localStorage.getItem('visitedPages') || '[]');
+        const currentPage = 'pages/file-handling.html';
+        if (!visitedPages.includes(currentPage)) {
+          visitedPages.push(currentPage);
+          localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+        }
+      });
     </script>
   </body>
 </html>
