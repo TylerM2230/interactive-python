@@ -1,1185 +1,623 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Merge Sort & Joke Sorts - Python Guide</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Sort & Advanced Sorting - Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Styles for sort visualization - preserved as they use theme colors */
-      .sort-container {
-        display: flex;
-        align-items: flex-end; /* Align bars at the bottom */
-        justify-content: center;
-        min-height: 300px; /* Increased from 150px */
-        padding: 20px; /* Increased padding */
-        background-color: #503020; /* Deep Bark */
-        border: 3px solid #706050; /* Lighter Bark/Moss */
-        border-top-color: #302010;
-        border-left-color: #302010;
-        border-radius: 6px;
-        margin-bottom: 20px; /* Increased margin */
-      }
-
-      /* Updated link card styles */
-      .link-card-8bit {
-        background-color: #402040; /* Deep Purple */
-        border: 3px solid #604060; /* Medium Purple */
-        border-top-color: #806080; /* Light Purple */
-        border-left-color: #806080; /* Light Purple */
-        color: #f0c060; /* Sunlight Gold */
-        padding: 16px;
-        margin: 8px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-        box-shadow: 4px 4px 0 #201020; /* Darkest Purple shadow */
-      }
-
-      .link-card-8bit:hover {
-        background-color: #503050; /* Slightly lighter Deep Purple */
-        transform: translateY(2px);
-        box-shadow: 2px 2px 0 #201020;
-      }
-
-      .link-card-8bit h3 {
-        color: #c080c0; /* Bright Purple */
-        font-size: 14px;
-        margin-bottom: 8px;
-      }
-
-      .link-card-8bit p {
-        color: #a060a0; /* Medium Purple */
-        font-size: 12px;
-      }
-
-      .game-section {
-        background-color: #503020; /* Deep Bark */
-        border: 3px solid #706050; /* Lighter Bark/Moss */
-        border-top-color: #302010;
-        border-left-color: #302010;
-        border-radius: 6px;
-        padding: 20px;
-        margin-bottom: 20px;
-      }
-
-      .section-title-8bit {
-        color: #f0c060; /* Sunlight Gold */
-        font-size: 18px;
-        margin-bottom: 16px;
-        text-align: center;
-      }
-
-      .sort-bar {
-        background-color: #f0c060; /* Sunlight Gold */
-        border: 2px solid #a07030; /* Darker Brownish Gold - increased border width */
-        margin: 0 4px; /* Increased spacing between bars */
-        width: 40px; /* Increased from 20px */
-        min-height: 20px; /* Added minimum height */
-        transition: all 0.3s ease;
-        position: relative;
-      }
-      .sort-bar.comparing {
-        background-color: #80b0d0; /* Sky Blue */
-        transform: scale(1.1);
-        box-shadow: 0 0 10px #80b0d0;
-      }
-      .sort-bar.swapping {
-        background-color: #40a090; /* Mystic Teal */
-        transform: scale(1.1);
-        box-shadow: 0 0 10px #40a090;
-      }
-      .sort-bar.sorted {
-        background-color: #60c0b0; /* Lighter Mystic Teal for sorted elements */
-      }
-      .sort-bar.merging {
-        background-color: #f8e8c0; /* Pale Gold for merging */
-        transform: scale(1.1);
-        box-shadow: 0 0 10px #f8e8c0;
-      }
-      .sort-bar.shuffled {
-        background-color: #d08080; /* Reddish for shuffled */
-        transform: scale(1.1);
-        box-shadow: 0 0 10px #d08080;
-      }
-      .value-label {
-        color: #f0c060;
-        font-size: 12px;
-        margin-bottom: 4px;
-        font-family: 'Press Start 2P', monospace;
-        transition: all 0.3s ease;
-      }
-      .value-label.comparing {
-        color: #80b0d0;
-        transform: scale(1.1);
-      }
-      .value-label.swapping {
-        color: #40a090;
-        transform: scale(1.1);
-      }
-      .value-label.merging {
-        color: #f8e8c0;
-        transform: scale(1.1);
-      }
-      .value-label.shuffled {
-        color: #d08080;
-        transform: scale(1.1);
-      }
-      .bogo-status {
-        text-align: center;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 6px;
-        font-family: 'Press Start 2P', monospace;
-        font-size: 14px;
-      }
-      .bogo-status.sorted {
-        background-color: #60c0b0;
-        color: #302010;
-      }
-      .bogo-status.not-sorted {
-        background-color: #d08080;
-        color: #302010;
-      }
-
-      /* Updated button styles */
-      .button-8bit {
-        background-color: #706050; /* Lighter Bark/Moss */
-        color: #f0c060; /* Sunlight Gold */
-        border: 3px solid #302010; /* Dark Bark */
-        border-top-color: #a07030; /* Darker Brownish Gold */
-        border-left-color: #a07030; /* Darker Brownish Gold */
-        padding: 8px 16px;
-        font-family: 'Press Start 2P', monospace;
-        font-size: 12px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        text-transform: uppercase;
-        box-shadow: 2px 2px 0 #302010;
-      }
-
-      .button-8bit:hover {
-        background-color: #807060; /* Even lighter Bark/Moss */
-        transform: translateY(2px);
-        box-shadow: 1px 1px 0 #302010;
-      }
-
-      .button-8bit:active {
-        background-color: #605040; /* Darker Bark/Moss */
-        transform: translateY(4px);
-        box-shadow: none;
-      }
-
-      .button-8bit:disabled {
-        background-color: #403020; /* Very dark Bark */
-        color: #706050; /* Lighter Bark/Moss */
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
+        .sort-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 300px;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.3);
+            border: 2px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .sort-bar {
+            background: linear-gradient(135deg, #facc15, #f59e0b);
+            border: 2px solid #d97706;
+            margin: 0 4px;
+            width: 40px;
+            min-height: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .sort-bar.sorted {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+        
+        .sort-bar.shuffled {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            animation: shake 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        
+        .value-label {
+            color: #facc15;
+            font-size: 12px;
+            margin-bottom: 4px;
+            font-family: 'Courier New', 'Courier', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .bogo-counter {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
-  </head>
-  <body class="min-h-screen">
-    <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="sorting-basic.html" class="btn">
-          &laquo; Basic Sorting
-        </a>
-        <a href="../index.html" class="btn">
-          Main Menu
-        </a>
-        <a href="searching-binary.html" class="btn">
-          Next: Binary Search &rarr;
-        </a>
-      </nav>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <nav class="hero-nav">
+            <a href="sorting-basic.html" class="nav-link">&larr; Basic Sorting</a>
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="searching-binary.html" class="nav-link">Binary Search &rarr;</a>
+        </nav>
+        
+        <div class="hero-content">
+            <h1 style="font-size: 24px;">Advanced Sorting: Merge Sort & Beyond</h1>
+            <p class="hero-subtitle">Master efficient O(n log n) algorithms and explore the world of sorting complexity</p>
+            
+            <div style="background: rgba(34, 197, 94, 0.1); border: 2px dashed #22c55e; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <span style="font-size: 24px;">🍰</span>
+                    <div>
+                        <div style="color: #22c55e; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Cake Mixing Strategy</div>
+                        <div style="color: #e2e8f0;">Think of merge sort like making a layered cake - you prepare smaller portions separately, then combine them layer by layer until you have one perfectly organized result.</div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Merge Sort & Joke Sorts
-          </h2>
-          <p class="text-sm italic mt-1">
-            Understanding the efficient Merge Sort algorithm and exploring some humorous, impractical sorting methods.
-          </p>
-        </header>
+            <div class="hero-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <span>O(n log n) Efficiency</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔄</span>
+                    <span>Divide & Conquer</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">😄</span>
+                    <span>Algorithm Humor</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <main class="mx-auto">
-          <h1 class="page-title-8bit">
-            Merge Sort & Joke Sorts
-          </h1>
-
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              1. Merge Sort: Divide and Conquer
+    <main class="container">
+        <!-- Step 1: Problem Motivation -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">1</span>
+                Why We Need Better Sorting
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Merge Sort is an efficient, comparison-based sorting algorithm that uses a <strong>Divide and Conquer</strong> strategy. It's known for its reliable performance. Think of it like organizing a deck of cards by splitting it into smaller piles, sorting each pile, and then carefully merging them back together - just like how you might sort a large stack of papers by dividing them into smaller stacks, sorting each stack, and then combining them in order.
-              </p>
-              <p><strong>How it works:</strong></p>
-              <ol>
-                <li><strong>Divide:</strong> If the list has more than one element, divide it recursively into two roughly equal halves. Like splitting a deck of cards into two equal piles.</li>
-                <li><strong>Conquer:</strong> Recursively sort each half using Merge Sort (this continues until you have lists of size 1, which are inherently sorted). Like sorting each pile of cards separately.</li>
-                <li><strong>Combine (Merge):</strong> Merge the two sorted halves back into a single sorted list. This merge step involves comparing elements from the start of both sorted halves and placing the smaller one into the result list, repeating until one half is exhausted, then appending the rest of the other half. Like taking the top card from each sorted pile and placing them in order into a new pile.</li>
-              </ol>
-              <p>
-                Merge Sort has a time complexity of O(n log n) in all cases (worst, average, best), making it very efficient for large datasets. Its main drawback is that it requires additional space (O(n)) to store the merged subarrays during the combine step. Think of it like needing extra table space to sort your papers - while it's very efficient, it does require more room to work with.
-              </p>
-
-              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Merge Sort:</h3>
-              <div class="controls-flex">
-                <button id="runMergeSortButton" class="button-8bit">Run Merge Sort</button>
-                <button id="resetMergeSortButton" class="button-8bit">Reset</button>
-                <label for="mergeSpeedRange">Speed:</label>
-                <input type="range" id="mergeSpeedRange" min="100" max="1500" value="500" step="100" class="input-field-8bit range-slider"/>
-              </div>
-              <div id="mergeSortContainer" class="sort-container"></div>
-              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-              <div id="mergeSortLog" class="output-display-8bit min-h-[100px]">
-                <p><em>Click 'Run Merge Sort' to start visualization.</em></p>
-              </div>
-              <div id="mergeSortMessage" class="message-box-8bit" style="display: none;"></div>
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>📈 The Performance Problem</h3>
+                    <div class="example-grid">
+                        <div class="example-item">
+                            <strong>📚 Library Database:</strong> Sorting millions of books by author takes hours with O(n²)
+                        </div>
+                        <div class="example-item">
+                            <strong>🎮 Game Leaderboards:</strong> Real-time ranking of millions of players
+                        </div>
+                        <div class="example-item">
+                            <strong>💰 Financial Trading:</strong> Microsecond sorting of market data for high-frequency trading
+                        </div>
+                        <div class="example-item">
+                            <strong>🧬 DNA Analysis:</strong> Sorting genomic sequences for pattern matching
+                        </div>
+                    </div>
+                </div>
+                <div class="visual-panel">
+                    <h4>Scaling Up Requires Smart Algorithms</h4>
+                    <p>When data grows from thousands to millions of items, the difference between O(n²) and O(n log n) algorithms becomes the difference between seconds and hours of processing time.</p>
+                </div>
             </div>
-          </section>
+        </section>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              2. Radix Sort: Digit by Digit
+        <!-- Step 2: Mental Model -->
+        <section class="mental-model-section">
+            <h2 class="section-title">
+                <span class="step-number">2</span>
+                Mental Model: Cake Mixing Strategy
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Radix Sort is a non-comparison-based sorting algorithm that sorts numbers by processing individual digits. Think of it like sorting a stack of playing cards by first sorting them by suit, then by number - but for digits! It's particularly efficient for sorting numbers with a fixed number of digits, like phone numbers or zip codes.
-              </p>
-              <p><strong>How it works:</strong></p>
-              <ol>
-                <li><strong>Digit Position:</strong> Start from the least significant digit (rightmost) and move towards the most significant digit (leftmost). Like sorting cards by the ones place, then tens place, then hundreds place.</li>
-                <li><strong>Counting Sort:</strong> For each digit position, use a counting sort to arrange numbers based on that digit. This is like putting all cards with the same digit in the same pile.</li>
-                <li><strong>Stable Sort:</strong> Maintain the relative order of numbers with the same digit. If two numbers have the same digit, the one that came first stays first.</li>
-                <li><strong>Repeat:</strong> Move to the next digit position and repeat until all digits have been processed.</li>
-              </ol>
-              <p>
-                Radix Sort has a time complexity of O(d * (n + k)), where d is the number of digits, n is the number of elements, and k is the range of possible digit values (usually 10 for decimal numbers). It's very efficient for numbers with a small number of digits but can be slower for numbers with many digits. Think of it like sorting a phone book - it's very efficient when all numbers have the same length, but becomes more complex when numbers have varying lengths.
-              </p>
-
-              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Radix Sort:</h3>
-              <div class="controls-flex">
-                <button id="runRadixSortButton" class="button-8bit">Run Radix Sort</button>
-                <button id="resetRadixSortButton" class="button-8bit">Reset</button>
-                <label for="radixSpeedRange">Speed:</label>
-                <input type="range" id="radixSpeedRange" min="100" max="1500" value="500" step="100" class="input-field-8bit range-slider"/>
-              </div>
-              <div id="radixSortContainer" class="sort-container"></div>
-              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-              <div id="radixSortLog" class="output-display-8bit min-h-[100px]">
-                <p><em>Click 'Run Radix Sort' to start visualization.</em></p>
-              </div>
-              <div id="radixSortMessage" class="message-box-8bit" style="display: none;"></div>
+            
+            <div class="mental-model-content">
+                <div class="analogy-panel">
+                    <h3>🍰 Think of Merge Sort Like Making a Layered Cake</h3>
+                    <div class="analogy-grid">
+                        <div class="analogy-item">
+                            <div class="analogy-icon">🔪</div>
+                            <div>
+                                <strong>Divide the Problem</strong>
+                                <p>Like cutting ingredients into smaller, manageable portions</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">🥣</div>
+                            <div>
+                                <strong>Mix Small Batches</strong>
+                                <p>Like preparing individual cake layers separately and perfectly</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">🎂</div>
+                            <div>
+                                <strong>Combine Systematically</strong>
+                                <p>Like assembling layers one by one to create the final cake</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">✨</div>
+                            <div>
+                                <strong>Perfect Result</strong>
+                                <p>Like having a beautifully layered, organized final product</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </section>
+        </section>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              3. Quick Sort: Divide and Conquer with Pivot
+        <!-- Step 3: Merge Sort Algorithm -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">3</span>
+                Merge Sort: Divide and Conquer
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Quick Sort is a highly efficient, comparison-based sorting algorithm that uses a divide-and-conquer strategy with a "pivot" element. Think of it like organizing a deck of cards by picking one card as a reference point and then sorting all other cards into two piles - those higher and those lower than your reference card. It's like organizing a bookshelf by picking one book as a reference and then arranging all other books to its left or right based on their titles.
-              </p>
-              <p><strong>How it works:</strong></p>
-              <ol>
-                <li><strong>Choose Pivot:</strong> Select an element from the array as the "pivot". This can be the first element, last element, middle element, or a random element. Like picking a reference book from your shelf.</li>
-                <li><strong>Partition:</strong> Rearrange the array so that all elements smaller than the pivot are on its left, and all elements larger are on its right. The pivot is now in its final sorted position. Like moving all books with titles before your reference book to its left, and all books with titles after it to its right.</li>
-                <li><strong>Recurse:</strong> Apply the same steps to the subarrays on the left and right of the pivot. Like organizing each side of your bookshelf separately.</li>
-                <li><strong>Combine:</strong> No need to combine - the elements are already in their final positions after partitioning!</li>
-              </ol>
-              <p>
-                Quick Sort has an average time complexity of O(n log n), but its worst-case complexity is O(n²) if the pivot selection is poor. However, with good pivot selection strategies (like choosing the median of three elements), it performs very well in practice. Think of it like organizing your bookshelf - if you pick a good reference book (pivot), the sorting goes quickly, but if you pick a book that's too far to one end, you might end up with an unbalanced arrangement that takes longer to sort.
-              </p>
+            
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>🔄 The Merge Sort Strategy</h3>
+                    <p>Recursively divide the array in half until you have single elements, then merge them back together in sorted order</p>
+                    <div class="code-block">
+                        <pre><code>def merge_sort(arr):
+    # Base case: arrays with 0 or 1 element are sorted
+    if len(arr) <= 1:
+        return arr
+    
+    # Divide: split array in half
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])    # Recursively sort left half
+    right = merge_sort(arr[mid:])   # Recursively sort right half
+    
+    # Conquer: merge the sorted halves
+    return merge(left, right)
 
-              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Quick Sort:</h3>
-              <div class="controls-flex">
-                <button id="runQuickSortButton" class="button-8bit">Run Quick Sort</button>
-                <button id="resetQuickSortButton" class="button-8bit">Reset</button>
-                <label for="quickSpeedRange">Speed:</label>
-                <input type="range" id="quickSpeedRange" min="100" max="1500" value="500" step="100" class="input-field-8bit range-slider"/>
-              </div>
-              <div id="quickSortContainer" class="sort-container"></div>
-              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-              <div id="quickSortLog" class="output-display-8bit min-h-[100px]">
-                <p><em>Click 'Run Quick Sort' to start visualization.</em></p>
-              </div>
-              <div id="quickSortMessage" class="message-box-8bit" style="display: none;"></div>
+def merge(left, right):
+    result = []
+    i = j = 0
+    
+    # Compare elements from both arrays
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    
+    # Add remaining elements
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result</code></pre>
+                    </div>
+                </div>
+                
+                <div class="visual-panel">
+                    <h4>🎮 Interactive Merge Sort</h4>
+                    <div class="algorithm-control">
+                        <div class="controls-grid">
+                            <button onclick="runMergeSort()" class="btn-primary">Run Merge Sort</button>
+                            <button onclick="resetMergeSort()" class="btn-secondary">Reset</button>
+                        </div>
+                        <div id="mergeSortContainer" class="sort-container"></div>
+                        <div id="mergeSortSteps" class="code-block" style="max-height: 200px; overflow-y: auto;">
+                            <em>Click 'Run Merge Sort' to see the divide-and-conquer process</em>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </section>
+        </section>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              4. Shell Sort: Insertion Sort with Gaps
+        <!-- Step 4: Joke Algorithms -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">4</span>
+                Joke Algorithms: When Sorting Goes Wrong
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Shell Sort is an optimization of Insertion Sort that allows the exchange of items that are far apart. Think of it like organizing a deck of cards by first sorting cards that are far apart, then gradually reducing the gap until you're sorting adjacent cards. It's like organizing a bookshelf by first moving books that are far apart to roughly the right area, then fine-tuning their positions.
-              </p>
-              <p><strong>How it works:</strong></p>
-              <ol>
-                <li><strong>Choose Gap Sequence:</strong> Start with a large gap between elements to be compared. Common sequences include powers of 2 or the sequence proposed by Donald Shell (n/2, n/4, n/8, ...). Like deciding how many shelves to skip when organizing books.</li>
-                <li><strong>Insertion Sort with Gaps:</strong> For each gap size, perform an insertion sort on the subarrays formed by elements that are 'gap' positions apart. Like sorting books that are several shelves apart, then reducing the distance between the books you're comparing.</li>
-                <li><strong>Reduce Gap:</strong> Decrease the gap size and repeat until the gap is 1, at which point it becomes a regular insertion sort. Like gradually reducing the distance between books you're comparing until you're only looking at adjacent books.</li>
-              </ol>
-              <p>
-                Shell Sort's time complexity depends on the gap sequence used, but it's generally better than O(n²) and can approach O(n log n) with optimal gap sequences. It's particularly efficient for medium-sized arrays and is often used in embedded systems due to its simplicity and reasonable performance. Think of it like organizing a bookshelf - by first moving books to roughly the right area and then fine-tuning their positions, you can often sort the entire shelf more efficiently than if you tried to place each book in its exact position from the start.
-              </p>
+            
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>😂 Bogosort: The "Randomly Hope" Algorithm</h3>
+                    <p>Also known as "Stupid Sort" - randomly shuffle the array and check if it's sorted. Repeat until sorted!</p>
+                    <div class="code-block">
+                        <pre><code>import random
 
-              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Shell Sort:</h3>
-              <div class="controls-flex">
-                <button id="runShellSortButton" class="button-8bit">Run Shell Sort</button>
-                <button id="resetShellSortButton" class="button-8bit">Reset</button>
-                <label for="shellSpeedRange">Speed:</label>
-                <input type="range" id="shellSpeedRange" min="100" max="1500" value="500" step="100" class="input-field-8bit range-slider"/>
-              </div>
-              <div id="shellSortContainer" class="sort-container"></div>
-              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-              <div id="shellSortLog" class="output-display-8bit min-h-[100px]">
-                <p><em>Click 'Run Shell Sort' to start visualization.</em></p>
-              </div>
-              <div id="shellSortMessage" class="message-box-8bit" style="display: none;"></div>
+def bogosort(arr):
+    """
+    The worst sorting algorithm ever created.
+    Time complexity: O((n+1)!) - EXPONENTIAL!
+    """
+    attempts = 0
+    
+    while not is_sorted(arr):
+        random.shuffle(arr)  # Randomly rearrange
+        attempts += 1
+        
+        # Safety check to prevent infinite loops
+        if attempts > 1000000:
+            print("Giving up after 1 million attempts!")
+            break
+    
+    return arr, attempts
+
+# For 10 elements: could take 39,916,800 attempts!</code></pre>
+                    </div>
+                </div>
+                
+                <div class="visual-panel">
+                    <h4>🎲 Interactive Bogosort</h4>
+                    <div class="algorithm-control">
+                        <div class="controls-grid">
+                            <button onclick="runBogosort()" class="btn-accent">Try Bogosort</button>
+                            <button onclick="stopBogosort()" class="btn-secondary">Stop</button>
+                        </div>
+                        
+                        <div class="bogo-counter">
+                            <h4>🎯 Bogosort Attempts</h4>
+                            <div style="font-size: 24px; font-weight: bold; color: #ef4444;" id="bogoAttempts">0</div>
+                            <div style="margin-top: 10px;">
+                                <div id="bogoStatus" style="font-size: 14px;">Ready to shuffle randomly!</div>
+                            </div>
+                        </div>
+                        
+                        <div id="bogosortContainer" class="sort-container"></div>
+                    </div>
+                </div>
             </div>
-          </section>
+        </section>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              5. Joke Sorting Algorithms
+        <!-- Step 5: Critical Pitfalls -->
+        <section class="pitfall-section">
+            <h2 class="section-title">
+                <span class="step-number">5</span>
+                Critical Pitfall: Algorithm Choice Matters
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                While algorithms like Merge Sort are practical and efficient, computer science also has some notoriously inefficient or purely theoretical "joke" algorithms. These are primarily used for educational purposes (to illustrate bad approaches) or humor. Think of them like trying to solve a Rubik's cube by randomly twisting it until it's solved - technically possible, but definitely not the smartest approach!
-              </p>
-            </div>
-          </section>
+            
+            <div class="pitfall-content">
+                <div class="pitfall-warning">
+                    <h3>⚠️ The "It Works on Small Data" Trap</h3>
+                    <p>Many algorithms seem fine with small datasets but become unusably slow as data grows. Always consider scalability!</p>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="wrong-approach">
+                        <h4>❌ Wrong: Using O(n²) for Production</h4>
+                        <div class="code-block">
+                            <pre><code># DANGEROUS: Using bubble sort in production
+def sort_user_posts(posts):
+    # This works fine for 10 posts...
+    return bubble_sort(posts)
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              5a. Bogo Sort
+# But what happens with 100,000 posts?
+# 100,000² = 10,000,000,000 operations!
+# Could take hours instead of seconds</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="right-approach">
+                        <h4>✅ Right: Use Efficient Algorithms</h4>
+                        <div class="code-block">
+                            <pre><code># EFFICIENT: Use proven fast algorithms
+def sort_user_posts(posts):
+    # Python's built-in sort uses Timsort
+    # O(n log n) worst case, often better in practice
+    return sorted(posts, key=lambda p: p.timestamp)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 6: Assessment -->
+        <section class="assessment-section">
+            <h2 class="section-title">
+                <span class="step-number">6</span>
+                Knowledge Assessment: Advanced Sorting Mastery
             </h2>
-            <div class="sub-interactive-box">
-              <p>
-                Bogo Sort is famous for its extreme inefficiency. It's based purely on chance. Imagine trying to sort a deck of cards by shuffling it randomly and checking if it's in order - if not, shuffle again! It's like trying to win the lottery by buying random tickets until you hit the jackpot.
-              </p>
-              <p><strong>How it works:</strong></p>
-              <ol>
-                <li>Check if the list is already sorted. If yes, stop.</li>
-                <li>If not sorted, randomly shuffle the elements of the list.</li>
-                <li>Go back to step 1.</li>
-              </ol>
-              <p class="text-red-600">
-                <strong>Warning:</strong> Bogo Sort has an average time complexity that is astronomically bad (related to O(n * n!)). It might never finish sorting even moderately sized lists within a reasonable timeframe (or even the lifetime of the universe!). It serves as an example of a terrible algorithm.
-              </p>
-
-              <h3 class="section-subtitle-8bit smaller-subtitle">Visualize Bogo Sort:</h3>
-              <p class="text-sm text-gray-500">Using a very small list (5 elements) for demonstration.</p>
-              <div class="controls-flex">
-                <button id="runBogoSortButton" class="button-8bit">Run Bogo Sort (Max 100 attempts)</button>
-                <button id="resetBogoSortButton" class="button-8bit">Reset</button>
-              </div>
-              <div id="bogoSortContainer" class="sort-container"></div>
-              <div id="bogoStatus" class="bogo-status not-sorted">Status: Not Sorted</div>
-              <h4 class="section-subtitle-8bit smaller-subtitle">Log:</h4>
-              <div id="bogoSortLog" class="output-display-8bit min-h-[100px]">
-                <p><em>Click 'Run Bogo Sort'. Be patient (or lucky!).</em></p>
-              </div>
-              <div id="bogoSortMessage" class="message-box-8bit" style="display: none;"></div>
+            
+            <div class="quiz-container">
+                <div class="question-card">
+                    <h3>Question 1: Merge Sort Complexity</h3>
+                    <p>What is the time complexity of merge sort in the worst case?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> O(n)</label>
+                        <label><input type="radio" name="q1" value="b"> O(n log n)</label>
+                        <label><input type="radio" name="q1" value="c"> O(n²)</label>
+                    </div>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Question 2: Divide and Conquer</h3>
+                    <p>What is the key principle behind merge sort's efficiency?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> It uses less memory than other algorithms</label>
+                        <label><input type="radio" name="q2" value="b"> It divides the problem into smaller subproblems and combines results</label>
+                        <label><input type="radio" name="q2" value="c"> It randomly shuffles elements until they're sorted</label>
+                    </div>
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Question 3: Production Choice</h3>
+                    <p>For a production system sorting 1 million records, which algorithm should you choose?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> Bubble sort (simple to understand)</label>
+                        <label><input type="radio" name="q3" value="b"> Merge sort or Python's built-in sort</label>
+                        <label><input type="radio" name="q3" value="c"> Bogosort (eventually it will finish)</label>
+                    </div>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+                
+                <button onclick="checkAnswers()" class="btn-primary" style="margin-top: 20px;">Check Answers</button>
+                <div id="overallFeedback" class="overall-feedback"></div>
             </div>
-          </section>
+        </section>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">
-              5b. Quantum Tunneling Sort (Theoretical Joke)
-            </h2>
-            <div class="sub-interactive-box">
-              <p>
-                This is a purely theoretical joke algorithm based on a misunderstanding or humorous application of quantum mechanics. Think of it like waiting for all the air molecules in a room to spontaneously move to one corner - technically possible according to quantum mechanics, but the probability is so low that it would never happen in the lifetime of the universe!
-              </p>
-              <p><strong>How it "works" (conceptually):</strong></p>
-              <ol>
-                <li>Check if the list is sorted.</li>
-                <li>If not, wait. According to some interpretations of quantum mechanics, there is a non-zero (but unimaginably tiny) probability that the particles making up the computer's memory will spontaneously rearrange ("quantum tunnel") themselves into a sorted order.</li>
-                <li>Go back to step 1.</li>
-              </ol>
-              <p class="text-red-600">
-                This is <strong>not</strong> a practical algorithm. The probability of it working is effectively zero for any list of more than a couple of elements within the age of the universe. It highlights the difference between theoretical possibility and practical computability. There's no visualization for this, as it relies on waiting for an event that essentially never happens.
-              </p>
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
-          </section>
+            <div class="progress-text">Mastery Progress: <span id="progressText">0%</span></div>
+        </div>
+    </main>
 
-          <section class="interactive-section">
-            <h2 class="section-subtitle-8bit">6. Quick Quiz</h2>
-            <div class="sub-interactive-box">
-              <p>Test your understanding!</p>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">Q1: What is the primary strategy used by Merge Sort?</p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_merge" value="a" class="mr-2" />
-                  Iterative swapping
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_merge" value="b" class="mr-2" />
-                  Divide and Conquer
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_merge" value="c" class="mr-2" />
-                  Random shuffling
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">Q2: What is the typical time complexity of Merge Sort?</p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_merge" value="a" class="mr-2" />
-                  O(n²)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_merge" value="b" class="mr-2" />
-                  O(n log n)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_merge" value="c" class="mr-2" />
-                  O(n!)
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">Q3: What is a notable characteristic of Bogo Sort?</p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_merge" value="a" class="mr-2" />
-                  It's very memory efficient.
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_merge" value="b" class="mr-2" />
-                  It has no worst-case scenario.
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_merge" value="c" class="mr-2" />
-                  It's extremely inefficient and relies on chance.
-                </label>
-              </div>
-              <button id="checkQuizButtonMerge" class="button-8bit">Check Answers</button>
-              <div id="quizResultMerge" class="message-box-8bit mt-4" style="display: none;"></div>
-            </div>
-          </section>
-        </main>
-
-        <footer class="footer-8bit text-center py-6">
-          <p class="text-md md:text-lg">Happy Coding, Player 1!</p>
-          <p class="mt-3 md:mt-4">
-            <a href="../index.html" class="link-8bit">Back to Main Menu</a>
-          </p>
-        </footer>
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
-
-    <script src="../js/main.js" defer></script>
     <script>
-      // --- DOM Elements & Shared State ---
-      const mergeSortContainer = document.getElementById("mergeSortContainer");
-      const runMergeSortButton = document.getElementById("runMergeSortButton");
-      const resetMergeSortButton = document.getElementById("resetMergeSortButton");
-      const mergeSortLog = document.getElementById("mergeSortLog");
-      const mergeSortMessage = document.getElementById("mergeSortMessage");
-      const mergeSpeedRange = document.getElementById("mergeSpeedRange");
-
-      const radixSortContainer = document.getElementById("radixSortContainer");
-      const runRadixSortButton = document.getElementById("runRadixSortButton");
-      const resetRadixSortButton = document.getElementById("resetRadixSortButton");
-      const radixSortLog = document.getElementById("radixSortLog");
-      const radixSortMessage = document.getElementById("radixSortMessage");
-      const radixSpeedRange = document.getElementById("radixSpeedRange");
-
-      const quickSortContainer = document.getElementById("quickSortContainer");
-      const runQuickSortButton = document.getElementById("runQuickSortButton");
-      const resetQuickSortButton = document.getElementById("resetQuickSortButton");
-      const quickSortLog = document.getElementById("quickSortLog");
-      const quickSortMessage = document.getElementById("quickSortMessage");
-      const quickSpeedRange = document.getElementById("quickSpeedRange");
-
-      const shellSortContainer = document.getElementById("shellSortContainer");
-      const runShellSortButton = document.getElementById("runShellSortButton");
-      const resetShellSortButton = document.getElementById("resetShellSortButton");
-      const shellSortLog = document.getElementById("shellSortLog");
-      const shellSortMessage = document.getElementById("shellSortMessage");
-      const shellSpeedRange = document.getElementById("shellSpeedRange");
-
-      const bogoSortContainer = document.getElementById("bogoSortContainer");
-      const runBogoSortButton = document.getElementById("runBogoSortButton");
-      const resetBogoSortButton = document.getElementById("resetBogoSortButton");
-      const bogoSortLog = document.getElementById("bogoSortLog");
-      const bogoSortMessage = document.getElementById("bogoSortMessage");
-      const bogoStatus = document.getElementById("bogoStatus");
-
-      const checkQuizButtonMerge = document.getElementById("checkQuizButtonMerge");
-      const quizResultMerge = document.getElementById("quizResultMerge");
-
-      const initialArrayMerge = [65, 55, 45, 35, 25, 15, 70, 50]; // Sample data for merge
-      const initialArrayRadix = [170, 45, 75, 90, 802, 24, 2, 66]; // Sample data for radix
-      const initialArrayQuick = [64, 34, 25, 12, 22, 11, 90, 45]; // Sample data for quick
-      const initialArrayShell = [35, 33, 42, 10, 14, 19, 27, 44]; // Sample data for shell
-      const initialArrayBogo = [40, 20, 50, 10, 30]; // Smaller array for Bogo
-      let mergeArray = [...initialArrayMerge];
-      let radixArray = [...initialArrayRadix];
-      let quickArray = [...initialArrayQuick];
-      let shellArray = [...initialArrayShell];
-      let bogoArray = [...initialArrayBogo];
-      let mergeSortTimeout = null;
-      let radixSortTimeout = null;
-      let quickSortTimeout = null;
-      let shellSortTimeout = null;
-      let bogoSortTimeout = null;
-      let bogoAttempts = 0;
-      const MAX_BOGO_ATTEMPTS = 100; // Reduced from 1000 to 100 for better UX
-      const MAX_VAL = 100; // For scaling bar height
-
-      // --- Visualization Functions ---
-      function createBars(containerId, arr, specificMaxValue = null) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = '';
-        const maxValue = specificMaxValue || Math.max(...arr, 10); // Ensure a minimum height
-        arr.forEach(value => {
-          const barWrapper = document.createElement('div');
-          barWrapper.style.display = 'flex';
-          barWrapper.style.flexDirection = 'column';
-          barWrapper.style.alignItems = 'center';
-          barWrapper.style.margin = '0 4px';
-
-          const valueLabel = document.createElement('div');
-          valueLabel.textContent = value;
-          valueLabel.classList.add('value-label');
-          valueLabel.dataset.value = value;
-
-          const bar = document.createElement('div');
-          bar.classList.add('sort-bar');
-          const percentageHeight = maxValue === 0 ? 0 : (value / maxValue) * 100;
-          bar.style.height = `${Math.max(percentageHeight, 5)}%`; // Ensure a minimum visible height
-          bar.dataset.value = value;
-
-          barWrapper.appendChild(valueLabel);
-          barWrapper.appendChild(bar);
-          container.appendChild(barWrapper);
+        // Global variables
+        let mergeArray = [64, 34, 25, 12, 22, 11, 90, 88];
+        let bogoArray = [4, 2, 3, 1];
+        let bogoRunning = false;
+        let bogoIntervalId = null;
+        let bogoAttemptCount = 0;
+        
+        // Visualization functions
+        function createBars(containerId, array, prefix) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            array.forEach((value, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.style.display = 'flex';
+                wrapper.style.flexDirection = 'column';
+                wrapper.style.alignItems = 'center';
+                
+                const label = document.createElement('div');
+                label.className = 'value-label';
+                label.textContent = value;
+                
+                const bar = document.createElement('div');
+                bar.className = 'sort-bar';
+                bar.id = `${prefix}-bar-${index}`;
+                bar.style.height = (value * 3) + 'px';
+                
+                wrapper.appendChild(label);
+                wrapper.appendChild(bar);
+                container.appendChild(wrapper);
+            });
+        }
+        
+        async function runMergeSort() {
+            const stepsDiv = document.getElementById('mergeSortSteps');
+            
+            mergeArray = [64, 34, 25, 12, 22, 11, 90, 88];
+            createBars('mergeSortContainer', mergeArray, 'merge');
+            
+            stepsDiv.innerHTML = 'Starting Merge Sort...\n';
+            
+            const result = mergeSort([...mergeArray]);
+            stepsDiv.innerHTML += `Sorted array: [${result.join(', ')}]\n`;
+            stepsDiv.innerHTML += '\n✅ Merge Sort Complete!\n';
+            
+            // Final sorted visualization
+            createBars('mergeSortContainer', result, 'merge');
+            const bars = document.querySelectorAll('#mergeSortContainer .sort-bar');
+            bars.forEach(bar => bar.classList.add('sorted'));
+        }
+        
+        function mergeSort(arr) {
+            if (arr.length <= 1) return arr;
+            
+            const mid = Math.floor(arr.length / 2);
+            const left = mergeSort(arr.slice(0, mid));
+            const right = mergeSort(arr.slice(mid));
+            
+            return merge(left, right);
+        }
+        
+        function merge(left, right) {
+            const result = [];
+            let i = 0, j = 0;
+            
+            while (i < left.length && j < right.length) {
+                if (left[i] <= right[j]) {
+                    result.push(left[i]);
+                    i++;
+                } else {
+                    result.push(right[j]);
+                    j++;
+                }
+            }
+            
+            return result.concat(left.slice(i)).concat(right.slice(j));
+        }
+        
+        function resetMergeSort() {
+            mergeArray = [64, 34, 25, 12, 22, 11, 90, 88];
+            createBars('mergeSortContainer', mergeArray, 'merge');
+            document.getElementById('mergeSortSteps').innerHTML = '<em>Click "Run Merge Sort" to see the divide-and-conquer process</em>';
+        }
+        
+        // Bogosort implementation
+        function isSorted(arr) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                if (arr[i] > arr[i + 1]) return false;
+            }
+            return true;
+        }
+        
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        
+        function runBogosort() {
+            if (bogoRunning) return;
+            
+            bogoArray = [4, 2, 3, 1];
+            bogoRunning = true;
+            bogoAttemptCount = 0;
+            
+            document.getElementById('bogoAttempts').textContent = '0';
+            document.getElementById('bogoStatus').textContent = 'Shuffling randomly...';
+            
+            createBars('bogosortContainer', bogoArray, 'bogo');
+            
+            bogoIntervalId = setInterval(() => {
+                if (!isSorted(bogoArray)) {
+                    shuffleArray(bogoArray);
+                    bogoAttemptCount++;
+                    
+                    document.getElementById('bogoAttempts').textContent = bogoAttemptCount;
+                    createBars('bogosortContainer', bogoArray, 'bogo');
+                    
+                    // Add shuffle animation
+                    const bars = document.querySelectorAll('#bogosortContainer .sort-bar');
+                    bars.forEach(bar => bar.classList.add('shuffled'));
+                    
+                    setTimeout(() => {
+                        bars.forEach(bar => bar.classList.remove('shuffled'));
+                    }, 200);
+                    
+                    // Safety check
+                    if (bogoAttemptCount > 10000) {
+                        stopBogosort();
+                        document.getElementById('bogoStatus').textContent = 'Gave up after 10,000 attempts! 😅';
+                    }
+                } else {
+                    stopBogosort();
+                    document.getElementById('bogoStatus').textContent = `🎉 Sorted after ${bogoAttemptCount} attempts!`;
+                    const bars = document.querySelectorAll('#bogosortContainer .sort-bar');
+                    bars.forEach(bar => bar.classList.add('sorted'));
+                }
+            }, 100);
+        }
+        
+        function stopBogosort() {
+            bogoRunning = false;
+            if (bogoIntervalId) {
+                clearInterval(bogoIntervalId);
+                bogoIntervalId = null;
+            }
+        }
+        
+        // Quiz functionality
+        function checkAnswers() {
+            const answers = {
+                q1: 'b', // O(n log n)
+                q2: 'b', // Divide and conquer
+                q3: 'b'  // Merge sort or built-in
+            };
+            
+            const feedbacks = {
+                q1: {
+                    correct: "Correct! Merge sort has O(n log n) time complexity in all cases - best, average, and worst.",
+                    incorrect: "Incorrect. Merge sort consistently operates in O(n log n) time due to its divide-and-conquer approach."
+                },
+                q2: {
+                    correct: "Correct! Merge sort's efficiency comes from dividing the problem into smaller subproblems and then combining the results efficiently.",
+                    incorrect: "Incorrect. The key is the divide-and-conquer strategy that breaks down the sorting problem into manageable pieces."
+                },
+                q3: {
+                    correct: "Correct! For production systems with large datasets, always use O(n log n) algorithms like merge sort or Python's built-in sort.",
+                    incorrect: "Incorrect. Production systems require efficient algorithms. Never use O(n²) or joke algorithms for large datasets."
+                }
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                const feedback = document.getElementById(`feedback${q.slice(1)}`);
+                
+                if (selected) {
+                    const isCorrect = selected.value === answers[q];
+                    if (isCorrect) {
+                        score++;
+                        feedback.innerHTML = `<div class="correct-feedback">✅ ${feedbacks[q].correct}</div>`;
+                    } else {
+                        feedback.innerHTML = `<div class="incorrect-feedback">❌ ${feedbacks[q].incorrect}</div>`;
+                    }
+                } else {
+                    feedback.innerHTML = `<div class="incorrect-feedback">❌ Please select an answer.</div>`;
+                }
+            }
+            
+            const percentage = Math.round((score / total) * 100);
+            const overallFeedback = document.getElementById('overallFeedback');
+            
+            if (percentage >= 80) {
+                overallFeedback.innerHTML = `<div class="success-feedback">🎉 Excellent! You scored ${score}/${total} (${percentage}%). You've mastered advanced sorting algorithms!</div>`;
+            } else if (percentage >= 60) {
+                overallFeedback.innerHTML = `<div class="warning-feedback">📚 Good effort! You scored ${score}/${total} (${percentage}%). Review the concepts and try again.</div>`;
+            } else {
+                overallFeedback.innerHTML = `<div class="error-feedback">💪 Keep learning! You scored ${score}/${total} (${percentage}%). Study the material above and retake the quiz.</div>`;
+            }
+            
+            updateProgress(percentage);
+        }
+        
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = percentage + '%';
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            resetMergeSort();
+            createBars('bogosortContainer', [4, 2, 3, 1], 'bogo');
         });
-      }
-
-      function updateBarClasses(bars, index, action) {
-        if (!bars || !bars[index]) return;
-        const barWrapper = bars[index];
-        const bar = barWrapper.querySelector('.sort-bar');
-        const label = barWrapper.querySelector('.value-label');
-        
-        // Remove all classes
-        bar.classList.remove('comparing', 'swapping', 'sorted', 'minimum', 'merging', 'shuffled');
-        label.classList.remove('comparing', 'swapping', 'minimum', 'merging', 'shuffled');
-        
-        if (action !== 'clear') {
-          bar.classList.add(action);
-          label.classList.add(action);
-        }
-      }
-
-      function logToSort(logId, message) {
-        const logArea = document.getElementById(logId);
-        if (!logArea) return;
-        const p = document.createElement('p');
-        p.innerHTML = message;
-        logArea.appendChild(p);
-        logArea.scrollTop = logArea.scrollHeight;
-      }
-
-      function showSortMessage(messageId, text, type = 'info') {
-        const messageBox = document.getElementById(messageId);
-        if (!messageBox) return;
-        messageBox.textContent = text;
-        messageBox.className = 'message-box-8bit';
-        if (type === 'success') messageBox.classList.add('success');
-        else if (type === 'error') messageBox.classList.add('error');
-        messageBox.style.display = 'block';
-      }
-
-      function hideSortMessage(messageId) {
-        const messageBox = document.getElementById(messageId);
-        if (messageBox) messageBox.style.display = 'none';
-      }
-
-      // --- Merge Sort Visualization ---
-      async function mergeSortVisual(array, container, logElement, speedFunc, level = 0) {
-        const n = array.length;
-        const indent = "&nbsp;".repeat(level * 2);
-        logElement.innerHTML += `${indent}MergeSort called on: [${array.join(", ")}]\n`;
-        logElement.scrollTop = logElement.scrollHeight;
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-
-        if (n <= 1) {
-          logElement.innerHTML += `${indent}Base case: Array size <= 1. Returning [${array.join(", ")}].\n`;
-          logElement.scrollTop = logElement.scrollHeight;
-          createBars(container.id, array);
-          const bars = container.childNodes;
-          if (bars[0]) updateBarClasses(bars, 0, 'sorted');
-          await new Promise(resolve => setTimeout(resolve, speedFunc()));
-          return array;
-        }
-
-        const mid = Math.floor(n / 2);
-        const leftHalf = array.slice(0, mid);
-        const rightHalf = array.slice(mid);
-
-        logElement.innerHTML += `${indent}Dividing into: [${leftHalf.join(", ")}] and [${rightHalf.join(", ")}]\n`;
-        logElement.scrollTop = logElement.scrollHeight;
-        createBars(container.id, array);
-        const bars = container.childNodes;
-        for (let i = 0; i < mid; i++) {
-          updateBarClasses(bars, i, 'merging');
-        }
-        for (let i = mid; i < n; i++) {
-          updateBarClasses(bars, i, 'comparing');
-        }
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-
-        const sortedLeft = await mergeSortVisual(leftHalf, container, logElement, speedFunc, level + 1);
-        const sortedRight = await mergeSortVisual(rightHalf, container, logElement, speedFunc, level + 1);
-
-        logElement.innerHTML += `${indent}Merging: [${sortedLeft.join(", ")}] and [${sortedRight.join(", ")}]\n`;
-        logElement.scrollTop = logElement.scrollHeight;
-        createBars(container.id, [...sortedLeft, ...sortedRight]);
-        const mergedBars = container.childNodes;
-        for (let i = 0; i < sortedLeft.length; i++) {
-          updateBarClasses(mergedBars, i, 'merging');
-        }
-        for (let i = sortedLeft.length; i < n; i++) {
-          updateBarClasses(mergedBars, i, 'comparing');
-        }
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-
-        const mergedArray = [];
-        let i = 0, j = 0;
-        while (i < sortedLeft.length && j < sortedRight.length) {
-          logElement.innerHTML += `${indent}  Comparing ${sortedLeft[i]} and ${sortedRight[j]}... `;
-
-          if (sortedLeft[i] <= sortedRight[j]) {
-            mergedArray.push(sortedLeft[i]);
-            logElement.innerHTML += `Taking ${sortedLeft[i]}\n`;
-            i++;
-          } else {
-            mergedArray.push(sortedRight[j]);
-            logElement.innerHTML += `Taking ${sortedRight[j]}\n`;
-            j++;
-          }
-          logElement.scrollTop = logElement.scrollHeight;
-          createBars(container.id, [...mergedArray, ...sortedLeft.slice(i), ...sortedRight.slice(j)]);
-          const currentBars = container.childNodes;
-          for (let k = 0; k < mergedArray.length; k++) {
-            updateBarClasses(currentBars, k, 'sorted');
-          }
-          if (i < sortedLeft.length) updateBarClasses(currentBars, mergedArray.length, 'merging');
-          if (j < sortedRight.length) updateBarClasses(currentBars, mergedArray.length + (i < sortedLeft.length ? 1 : 0), 'comparing');
-          await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-        }
-
-        while (i < sortedLeft.length) {
-          mergedArray.push(sortedLeft[i]);
-          i++;
-        }
-        while (j < sortedRight.length) {
-          mergedArray.push(sortedRight[j]);
-          j++;
-        }
-
-        logElement.innerHTML += `${indent}Merged result: [${mergedArray.join(", ")}]\n`;
-        logElement.scrollTop = logElement.scrollHeight;
-        createBars(container.id, mergedArray);
-        const finalBars = container.childNodes;
-        for (let k = 0; k < mergedArray.length; k++) {
-          updateBarClasses(finalBars, k, 'sorted');
-        }
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-
-        return mergedArray;
-      }
-
-      // --- Radix Sort Visualization ---
-      function getDigit(num, place) {
-        return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
-      }
-
-      function digitCount(num) {
-        if (num === 0) return 1;
-        return Math.floor(Math.log10(Math.abs(num))) + 1;
-      }
-
-      function mostDigits(nums) {
-        let maxDigits = 0;
-        for (let i = 0; i < nums.length; i++) {
-          maxDigits = Math.max(maxDigits, digitCount(nums[i]));
-        }
-        return maxDigits;
-      }
-
-      async function radixSortVisual(array, container, logElement, speedFunc) {
-        const maxDigits = mostDigits(array);
-        logElement.innerHTML += `Starting Radix Sort. Maximum digits: ${maxDigits}\n`;
-        
-        for (let k = 0; k < maxDigits; k++) {
-          logElement.innerHTML += `\nProcessing digit at position ${k} (${k === 0 ? 'ones' : k === 1 ? 'tens' : k === 2 ? 'hundreds' : 'thousands'} place)...\n`;
-          
-          // Create buckets for each digit (0-9)
-          const digitBuckets = Array.from({ length: 10 }, () => []);
-          
-          // Distribute numbers into buckets
-          for (let i = 0; i < array.length; i++) {
-            const digit = getDigit(array[i], k);
-            digitBuckets[digit].push(array[i]);
-            
-            // Visualize the distribution
-            createBars(container.id, array);
-            const bars = container.childNodes;
-            for (let j = 0; j < array.length; j++) {
-              if (j === i) {
-                updateBarClasses(bars, j, 'comparing');
-              } else if (digitBuckets[digit].includes(array[j])) {
-                updateBarClasses(bars, j, 'merging');
-              }
-            }
-            await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-          }
-          
-          // Log the buckets
-          logElement.innerHTML += `\nBuckets after distribution:\n`;
-          digitBuckets.forEach((bucket, i) => {
-            if (bucket.length > 0) {
-              logElement.innerHTML += `Bucket ${i}: [${bucket.join(', ')}]\n`;
-            }
-          });
-          
-          // Reconstruct array from buckets
-          array = [];
-          for (let i = 0; i < 10; i++) {
-            array = array.concat(digitBuckets[i]);
-            
-            // Visualize the reconstruction
-            createBars(container.id, array);
-            const bars = container.childNodes;
-            for (let j = 0; j < array.length; j++) {
-              if (digitBuckets[i].includes(array[j])) {
-                updateBarClasses(bars, j, 'merging');
-              }
-            }
-            await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-          }
-          
-          logElement.innerHTML += `\nArray after processing digit ${k}: [${array.join(', ')}]\n`;
-          createBars(container.id, array);
-          const finalBars = container.childNodes;
-          for (let i = 0; i < array.length; i++) {
-            updateBarClasses(finalBars, i, 'sorted');
-          }
-          await new Promise(resolve => setTimeout(resolve, speedFunc()));
-        }
-        
-        logElement.innerHTML += `\nRadix Sort Complete!\n`;
-        return array;
-      }
-
-      // --- Quick Sort Visualization ---
-      async function quickSortVisual(array, container, logElement, speedFunc, start = 0, end = null) {
-        if (end === null) end = array.length - 1;
-        if (start >= end) return array;
-
-        const pivot = array[end];
-        logElement.innerHTML += `\nPivot: ${pivot}\n`;
-        logElement.innerHTML += `Array before partition: [${array.slice(start, end + 1).join(', ')}]\n`;
-
-        let i = start - 1;
-        for (let j = start; j < end; j++) {
-          // Visualize comparison
-          createBars(container.id, array);
-          const bars = container.childNodes;
-          for (let k = 0; k < array.length; k++) {
-            if (k === j) updateBarClasses(bars, k, 'comparing');
-            else if (k === end) updateBarClasses(bars, k, 'minimum');
-            else if (k <= i) updateBarClasses(bars, k, 'sorted');
-          }
-          await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-
-          if (array[j] <= pivot) {
-            i++;
-            [array[i], array[j]] = [array[j], array[i]];
-            logElement.innerHTML += `Swapped ${array[i]} and ${array[j]}\n`;
-            
-            // Visualize swap
-            createBars(container.id, array);
-            const swapBars = container.childNodes;
-            for (let k = 0; k < array.length; k++) {
-              if (k === i || k === j) updateBarClasses(swapBars, k, 'swapping');
-              else if (k === end) updateBarClasses(swapBars, k, 'minimum');
-              else if (k < i) updateBarClasses(swapBars, k, 'sorted');
-            }
-            await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-          }
-        }
-
-        [array[i + 1], array[end]] = [array[end], array[i + 1]];
-        logElement.innerHTML += `Placed pivot ${pivot} at position ${i + 1}\n`;
-        
-        // Visualize pivot placement
-        createBars(container.id, array);
-        const pivotBars = container.childNodes;
-        for (let k = 0; k < array.length; k++) {
-          if (k === i + 1) updateBarClasses(pivotBars, k, 'sorted');
-          else if (k < i + 1) updateBarClasses(pivotBars, k, 'sorted');
-        }
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-
-        await quickSortVisual(array, container, logElement, speedFunc, start, i);
-        await quickSortVisual(array, container, logElement, speedFunc, i + 2, end);
-        
-        return array;
-      }
-
-      // --- Shell Sort Visualization ---
-      async function shellSortVisual(array, container, logElement, speedFunc) {
-        const n = array.length;
-        
-        // Generate gap sequence (Shell's original sequence)
-        for (let gap = Math.floor(n/2); gap > 0; gap = Math.floor(gap/2)) {
-          logElement.innerHTML += `\nGap size: ${gap}\n`;
-          
-          // Perform insertion sort for this gap size
-          for (let i = gap; i < n; i++) {
-            const temp = array[i];
-            let j;
-            
-            // Visualize current element
-            createBars(container.id, array);
-            const bars = container.childNodes;
-            for (let k = 0; k < array.length; k++) {
-              if (k === i) updateBarClasses(bars, k, 'comparing');
-              else if (k < i && (i - k) % gap === 0) updateBarClasses(bars, k, 'merging');
-            }
-            await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-            
-            // Shift elements that are gap positions apart
-            for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
-              array[j] = array[j - gap];
-              
-              // Visualize shift
-              createBars(container.id, array);
-              const shiftBars = container.childNodes;
-              for (let k = 0; k < array.length; k++) {
-                if (k === j || k === j - gap) updateBarClasses(shiftBars, k, 'swapping');
-                else if (k < i && (i - k) % gap === 0) updateBarClasses(shiftBars, k, 'merging');
-              }
-              await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-            }
-            
-            array[j] = temp;
-            logElement.innerHTML += `Placed ${temp} at position ${j}\n`;
-            
-            // Visualize final placement
-            createBars(container.id, array);
-            const finalBars = container.childNodes;
-            for (let k = 0; k < array.length; k++) {
-              if (k === j) updateBarClasses(finalBars, k, 'sorted');
-              else if (k < i && (i - k) % gap === 0) updateBarClasses(finalBars, k, 'merging');
-            }
-            await new Promise(resolve => setTimeout(resolve, speedFunc() / 2));
-          }
-        }
-        
-        // Final visualization of sorted array
-        createBars(container.id, array);
-        const sortedBars = container.childNodes;
-        for (let k = 0; k < array.length; k++) {
-          updateBarClasses(sortedBars, k, 'sorted');
-        }
-        await new Promise(resolve => setTimeout(resolve, speedFunc()));
-        
-        return array;
-      }
-
-      // --- Bogo Sort Visualization ---
-      function shuffleArray(array) {
-        let currentIndex = array.length, randomIndex;
-        while (currentIndex !== 0) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
-          [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-        return array;
-      }
-
-      function isSorted(array) {
-        for (let i = 0; i < array.length - 1; i++) {
-          if (array[i] > array[i + 1]) return false;
-        }
-        return true;
-      }
-
-      async function runBogoSortVisual() {
-        runBogoSortButton.disabled = true;
-        resetBogoSortButton.disabled = true;
-        bogoSortLog.innerHTML = "Starting Bogo Sort...\n";
-        bogoAttempts = 0;
-        let sorted = false;
-
-        while (bogoAttempts < MAX_BOGO_ATTEMPTS && !sorted) {
-          bogoAttempts++;
-          bogoSortLog.innerHTML += `Attempt ${bogoAttempts}: Shuffling...\n`;
-          bogoSortLog.scrollTop = bogoSortLog.scrollHeight;
-
-          bogoArray = shuffleArray([...bogoArray]);
-          createBars('bogoSortContainer', bogoArray);
-          const bars = bogoSortContainer.childNodes;
-          for (let i = 0; i < bogoArray.length; i++) {
-            updateBarClasses(bars, i, 'shuffled');
-          }
-          await new Promise(resolve => setTimeout(resolve, 100));
-
-          sorted = isSorted(bogoArray);
-          bogoSortLog.innerHTML += `Checking if sorted: ${sorted ? "YES!" : "No."}\n`;
-          bogoSortLog.scrollTop = bogoSortLog.scrollHeight;
-
-          bogoStatus.textContent = `Status: ${sorted ? "Sorted!" : "Not Sorted"}`;
-          bogoStatus.className = `bogo-status ${sorted ? "sorted" : "not-sorted"}`;
-
-          if (sorted) {
-            createBars('bogoSortContainer', bogoArray);
-            const finalBars = bogoSortContainer.childNodes;
-            for (let i = 0; i < bogoArray.length; i++) {
-              updateBarClasses(finalBars, i, 'sorted');
-            }
-            bogoSortLog.innerHTML += `\nBogo Sort SUCCESSFUL after ${bogoAttempts} attempts!\n`;
-            showSortMessage('bogoSortMessage', `Sorted after ${bogoAttempts} attempts!`, 'success');
-            break;
-          }
-
-          await new Promise(resolve => setTimeout(resolve, 150));
-          const currentBars = bogoSortContainer.childNodes;
-          for (let i = 0; i < bogoArray.length; i++) {
-            updateBarClasses(currentBars, i, 'clear');
-          }
-        }
-
-        if (!sorted) {
-          bogoSortLog.innerHTML += `\nBogo Sort FAILED after ${MAX_BOGO_ATTEMPTS} attempts.\n`;
-          showSortMessage('bogoSortMessage', `Failed to sort within ${MAX_BOGO_ATTEMPTS} attempts.`, 'error');
-        }
-
-        runBogoSortButton.disabled = false;
-        resetBogoSortButton.disabled = false;
-      }
-
-      // --- Event Listeners ---
-      runMergeSortButton.addEventListener("click", async () => {
-        runMergeSortButton.disabled = true;
-        resetMergeSortButton.disabled = true;
-        mergeSortLog.innerHTML = "";
-        mergeSortMessage.style.display = "none";
-        const speed = () => 1600 - parseInt(mergeSpeedRange.value, 10);
-
-        try {
-          let arrayToSort = [...mergeArray];
-          const sortedResult = await mergeSortVisual(
-            arrayToSort,
-            mergeSortContainer,
-            mergeSortLog,
-            speed
-          );
-          mergeSortLog.innerHTML += "\nMerge Sort Complete!\n";
-          showSortMessage(mergeSortMessage, "Merge Sort complete!", "success");
-        } catch (e) {
-          console.error("Merge Sort error:", e);
-          showSortMessage(mergeSortMessage, "An error occurred during sorting.", "error");
-        } finally {
-          runMergeSortButton.disabled = false;
-          resetMergeSortButton.disabled = false;
-        }
-      });
-
-      resetMergeSortButton.addEventListener("click", () => {
-        mergeArray = [...initialArrayMerge];
-        createBars('mergeSortContainer', mergeArray);
-        mergeSortLog.innerHTML = "<p><em>Reset. Click 'Run Merge Sort' to start visualization.</em></p>";
-        runMergeSortButton.disabled = false;
-        showSortMessage(mergeSortMessage, "Merge Sort visualization reset.", "info");
-      });
-
-      runRadixSortButton.addEventListener("click", async () => {
-        runRadixSortButton.disabled = true;
-        resetRadixSortButton.disabled = true;
-        radixSortLog.innerHTML = "";
-        radixSortMessage.style.display = "none";
-        const speed = () => 1600 - parseInt(radixSpeedRange.value, 10);
-
-        try {
-          let arrayToSort = [...radixArray];
-          const sortedResult = await radixSortVisual(
-            arrayToSort,
-            radixSortContainer,
-            radixSortLog,
-            speed
-          );
-          radixSortLog.innerHTML += "\nRadix Sort Complete!\n";
-          showSortMessage(radixSortMessage, "Radix Sort complete!", "success");
-        } catch (e) {
-          console.error("Radix Sort error:", e);
-          showSortMessage(radixSortMessage, "An error occurred during sorting.", "error");
-        } finally {
-          runRadixSortButton.disabled = false;
-          resetRadixSortButton.disabled = false;
-        }
-      });
-
-      resetRadixSortButton.addEventListener("click", () => {
-        radixArray = [...initialArrayRadix];
-        createBars('radixSortContainer', radixArray);
-        radixSortLog.innerHTML = "<p><em>Reset. Click 'Run Radix Sort' to start visualization.</em></p>";
-        runRadixSortButton.disabled = false;
-        showSortMessage(radixSortMessage, "Radix Sort visualization reset.", "info");
-      });
-
-      runQuickSortButton.addEventListener("click", async () => {
-        runQuickSortButton.disabled = true;
-        resetQuickSortButton.disabled = true;
-        quickSortLog.innerHTML = "";
-        quickSortMessage.style.display = "none";
-        const speed = () => 1600 - parseInt(quickSpeedRange.value, 10);
-
-        try {
-          let arrayToSort = [...quickArray];
-          const sortedResult = await quickSortVisual(
-            arrayToSort,
-            quickSortContainer,
-            quickSortLog,
-            speed
-          );
-          quickSortLog.innerHTML += "\nQuick Sort Complete!\n";
-          showSortMessage(quickSortMessage, "Quick Sort complete!", "success");
-        } catch (e) {
-          console.error("Quick Sort error:", e);
-          showSortMessage(quickSortMessage, "An error occurred during sorting.", "error");
-        } finally {
-          runQuickSortButton.disabled = false;
-          resetQuickSortButton.disabled = false;
-        }
-      });
-
-      resetQuickSortButton.addEventListener("click", () => {
-        quickArray = [...initialArrayQuick];
-        createBars('quickSortContainer', quickArray);
-        quickSortLog.innerHTML = "<p><em>Reset. Click 'Run Quick Sort' to start visualization.</em></p>";
-        runQuickSortButton.disabled = false;
-        showSortMessage(quickSortMessage, "Quick Sort visualization reset.", "info");
-      });
-
-      runShellSortButton.addEventListener("click", async () => {
-        runShellSortButton.disabled = true;
-        resetShellSortButton.disabled = true;
-        shellSortLog.innerHTML = "";
-        shellSortMessage.style.display = "none";
-        const speed = () => 1600 - parseInt(shellSpeedRange.value, 10);
-
-        try {
-          let arrayToSort = [...shellArray];
-          const sortedResult = await shellSortVisual(
-            arrayToSort,
-            shellSortContainer,
-            shellSortLog,
-            speed
-          );
-          shellSortLog.innerHTML += "\nShell Sort Complete!\n";
-          showSortMessage(shellSortMessage, "Shell Sort complete!", "success");
-        } catch (e) {
-          console.error("Shell Sort error:", e);
-          showSortMessage(shellSortMessage, "An error occurred during sorting.", "error");
-        } finally {
-          runShellSortButton.disabled = false;
-          resetShellSortButton.disabled = false;
-        }
-      });
-
-      resetShellSortButton.addEventListener("click", () => {
-        shellArray = [...initialArrayShell];
-        createBars('shellSortContainer', shellArray);
-        shellSortLog.innerHTML = "<p><em>Reset. Click 'Run Shell Sort' to start visualization.</em></p>";
-        runShellSortButton.disabled = false;
-        showSortMessage(shellSortMessage, "Shell Sort visualization reset.", "info");
-      });
-
-      runBogoSortButton.addEventListener("click", runBogoSortVisual);
-
-      resetBogoSortButton.addEventListener("click", () => {
-        bogoArray = [...initialArrayBogo];
-        createBars('bogoSortContainer', bogoArray);
-        bogoSortLog.innerHTML = "<p><em>Reset. Click 'Run Bogo Sort'.</em></p>";
-        bogoStatus.textContent = "Status: Not Sorted";
-        bogoStatus.className = "bogo-status not-sorted";
-        runBogoSortButton.disabled = false;
-        showSortMessage(bogoSortMessage, "Bogo Sort visualization reset.", "info");
-      });
-
-      // --- Quiz Logic ---
-      function checkMergeQuiz() {
-        const answers = {
-          q1_merge: "b", // Divide and Conquer
-          q2_merge: "b", // O(n log n)
-          q3_merge: "c", // Randomly shuffling
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(1, 2)}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(1, 2)}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultMerge.textContent = "Please answer all questions before checking.";
-          quizResultMerge.className = "message-box-8bit message-box-error";
-          quizResultMerge.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML = `<p class="font-medium mb-2">You scored ${score} out of ${Object.keys(answers).length}.</p>` + resultsHTML;
-
-        quizResultMerge.innerHTML = resultsHTML;
-        quizResultMerge.className = score === Object.keys(answers).length
-          ? "message-box-8bit message-box-success"
-          : "message-box-8bit message-box-error";
-        quizResultMerge.style.display = "block";
-      }
-
-      checkQuizButtonMerge.addEventListener("click", checkMergeQuiz);
-
-      // --- Initial Setup ---
-      window.onload = () => {
-        createBars('mergeSortContainer', mergeArray);
-        createBars('radixSortContainer', radixArray);
-        createBars('quickSortContainer', quickArray);
-        createBars('shellSortContainer', shellArray);
-        createBars('bogoSortContainer', bogoArray);
-      };
     </script>
-  </body>
-</html>
+</body>
+</html> 

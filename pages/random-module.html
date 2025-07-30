@@ -3,204 +3,857 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random Module in Python</title>
+    <title>Adding Randomness - The Random Module | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-  </head>
-  <body class="">
-    <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="../index.html" class="btn">
-          &laquo; Main Menu
-        </a>
-        <a href="recursion.html" class="btn">
-          Next: Recursion &rarr;
-        </a>
-      </nav>
+    <style>
+      /* Full-page layout matching the pedagogical design */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
 
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Random Module
-          </h2>
-          <p class="text-sm italic mt-1">
-            Generating random numbers and making random choices in Python.
-          </p>
-        </header>
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            1. Why Use Random Numbers?
-          </h2>
-          <p class="mb-4">
-            Random numbers are like the element of surprise in a game of chance. Just as a deck of cards needs to be shuffled to make each game unique, programs often need randomness to create variety and unpredictability. Python's <code>random</code> module is like having a magical dice that can generate any number you need, from simple coin flips to complex simulations. While these numbers seem random, they're actually "pseudo-random" - like a magician's trick that can be repeated if you know the secret (the "seed").
-          </p>
-        </section>
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            2. Importing and Common Functions
-          </h2>
-          <p class="mb-2">
-            Think of the random module as your toolbox of chance. First, you need to bring it into your workspace: <code>import random</code>. Then you can use these magical tools:
-          </p>
-          <ul class="list-disc list-inside ml-4 space-y-2">
-            <li><strong><code>random.random()</code></strong>: Like spinning a wheel that always lands between 0 and 1.</li>
-            <li><strong><code>random.uniform(a, b)</code></strong>: Like setting the wheel to land anywhere between two numbers you choose.</li>
-            <li><strong><code>random.randint(a, b)</code></strong>: Like rolling a die with any number of sides you want.</li>
-            <li><strong><code>random.choice(sequence)</code></strong>: Like drawing a random card from a deck.</li>
-            <li><strong><code>random.shuffle(list)</code></strong>: Like shuffling a deck of cards to mix them up.</li>
-            <li><strong><code>random.seed(a)</code></strong>: Like setting a specific starting point for your magic trick, so you can repeat it exactly.</li>
-          </ul>
-        </section>
+      .hero-section {
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
+        padding: 3rem 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
 
-        <section class="interactive-section mb-6">
-          <h2 class="text-xl font-semibold mb-3">
-            3. Interactive Random Generators
-          </h2>
-          <p class="mb-4">
-            Let's play with these magical tools! Try each one to see how they can help you add randomness to your programs. It's like having a wizard's bag of tricks for creating chance and variety in your code.
-          </p>
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
 
-          <!-- random.random() -->
-          <div class="sub-interactive-box mb-4">
-            <p class="font-semibold mb-1">Float (0.0 to < 1.0): <code>random.random()</code></p>
-            <button id="genRandomFloatButton" class="btn btn-8bit">Generate</button>
-            <div id="randomFloatOutput" class="output-display min-h-[30px] mt-2"></div>
-          </div>
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
 
-          <!-- random.uniform(a,b) -->
-          <div class="sub-interactive-box mb-4">
-            <p class="font-semibold mb-1">Float in Range: <code>random.uniform(min, max)</code></p>
-            <div class="flex flex-wrap items-center gap-2 mb-2">
-              <label for="uniformMinInput">Min:</label>
-              <input type="number" id="uniformMinInput" value="1.0" step="0.1" class="input-field w-20">
-              <label for="uniformMaxInput">Max:</label>
-              <input type="number" id="uniformMaxInput" value="10.0" step="0.1" class="input-field w-20">
-              <button id="genUniformButton" class="btn btn-8bit">Generate</button>
-            </div>
-            <div id="uniformOutput" class="output-display min-h-[30px]"></div>
-          </div>
+      .hero-content {
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        z-index: 1;
+      }
 
-          <!-- random.randint(a,b) -->
-          <div class="sub-interactive-box mb-4">
-            <p class="font-semibold mb-1">Integer in Range: <code>random.randint(min, max)</code> (Dice Roll)</p>
-             <div class="flex flex-wrap items-center gap-2 mb-2">
-              <label for="randintMinInput">Min:</label>
-              <input type="number" id="randintMinInput" value="1" class="input-field w-20">
-              <label for="randintMaxInput">Max:</label>
-              <input type="number" id="randintMaxInput" value="6" class="input-field w-20">
-              <button id="genRandintButton" class="btn btn-8bit">Roll Dice</button>
-            </div>
-            <div id="randintOutput" class="output-display min-h-[30px]"></div>
-          </div>
+      .breadcrumb-nav {
+        background: rgba(15, 23, 42, 0.9);
+        padding: 1rem 2rem;
+        margin: 0 -2rem 2rem -2rem;
+        border-bottom: 2px solid #374151;
+        backdrop-filter: blur(10px);
+      }
 
-          <!-- random.choice(sequence) -->
-          <div class="sub-interactive-box mb-4">
-            <p class="font-semibold mb-1">Choice from List: <code>random.choice(items)</code></p>
-            <label for="choiceListInput">Items (comma-separated):</label>
-            <input type="text" id="choiceListInput" value="Pixel Sword,Magic Potion,Gold Coin,Mystery Box" class="input-field w-full mb-2">
-            <button id="genChoiceButton" class="btn btn-8bit">Get Item</button>
-            <div id="choiceOutput" class="output-display min-h-[30px] mt-2"></div>
-          </div>
+      .nav-links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-          <!-- random.shuffle(list) -->
-          <div class="sub-interactive-box">
-            <p class="font-semibold mb-1">Shuffle List: <code>random.shuffle(items)</code></p>
-            <label for="shuffleListInput">Items (comma-separated):</label>
-            <input type="text" id="shuffleListInput" value="Card A,Card K,Card Q,Card J,Card 10" class="input-field w-full mb-2">
-            <button id="genShuffleButton" class="btn btn-8bit">Shuffle Deck</button>
-            <div id="shuffleOutput" class="output-display min-h-[30px] mt-2"></div>
-          </div>
-            <div id="randomModuleMessage" class="message-box mt-3" style="display: none;"></div>
-        </section>
+      .nav-links a {
+        color: #facc15;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
 
-      </div> <!-- End of content-wrapper-8bit -->
-    </div> <!-- End of console-screen-border -->
+      .nav-links a:hover {
+        color: #fbbf24;
+        text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      }
 
-    <script>
-        const randomFloatOutput = document.getElementById('randomFloatOutput');
-        const uniformMinInput = document.getElementById('uniformMinInput');
-        const uniformMaxInput = document.getElementById('uniformMaxInput');
-        const uniformOutput = document.getElementById('uniformOutput');
-        const randintMinInput = document.getElementById('randintMinInput');
-        const randintMaxInput = document.getElementById('randintMaxInput');
-        const randintOutput = document.getElementById('randintOutput');
-        const choiceListInput = document.getElementById('choiceListInput');
-        const choiceOutput = document.getElementById('choiceOutput');
-        const shuffleListInput = document.getElementById('shuffleListInput');
-        const shuffleOutput = document.getElementById('shuffleOutput');
-        const messageBox = document.getElementById('randomModuleMessage');
+      /* Mental Model and Pitfall boxes */
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+        border: 2px solid #22c55e;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
 
-        function showRandomMessage(msg, type = 'info') {
-            messageBox.textContent = msg;
-            messageBox.className = `message-box message-box-${type}`;
-            messageBox.style.display = 'block';
-            setTimeout(() => { messageBox.style.display = 'none'; }, 2500);
+      .mental-model-box h3 {
+        color: #4ade80;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+        border: 2px solid #f97316;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning h3 {
+        color: #fb923c;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .interactive-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 1px solid rgba(250, 204, 21, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .repl-container {
+        background: #0f172a;
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+      }
+
+      .repl-input {
+        background: #1f2937;
+        border: 1px solid #4b5563;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: #e5e7eb;
+        font-family: 'Courier New', monospace;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .repl-output {
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 6px;
+        padding: 1rem;
+        color: #d1d5db;
+        font-family: 'Courier New', monospace;
+        min-height: 100px;
+        margin: 0.5rem 0;
+        overflow-x: auto;
+      }
+
+      .assessment-section {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 3rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-question {
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .quiz-options {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 8px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e5e7eb;
+      }
+
+      .quiz-option:hover {
+        border-color: #8b5cf6;
+        background: rgba(139, 92, 246, 0.2);
+      }
+
+      .quiz-option.correct {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      .random-simulator {
+        background: #0f172a;
+        border: 2px solid #374151;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .function-demo {
+        background: #1f2937;
+        border: 1px solid #4b5563;
+        border-radius: 6px;
+        padding: 1rem;
+        margin: 0.75rem 0;
+      }
+
+      .function-title {
+        color: #a855f7;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+      }
+
+      .function-output {
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 4px;
+        padding: 0.75rem;
+        color: #d1d5db;
+        font-family: 'Courier New', monospace;
+        min-height: 40px;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
         }
 
-        document.getElementById('genRandomFloatButton').addEventListener('click', () => {
-            randomFloatOutput.textContent = Math.random();
-        });
+        .hero-section {
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
 
-        document.getElementById('genUniformButton').addEventListener('click', () => {
-            const min = parseFloat(uniformMinInput.value);
-            const max = parseFloat(uniformMaxInput.value);
-            if (isNaN(min) || isNaN(max) || min >= max) {
-                showRandomMessage('Invalid min/max for uniform float.', 'error');
-                uniformOutput.textContent = 'Error!'; return;
-            }
-            uniformOutput.textContent = Math.random() * (max - min) + min;
-        });
+        .breadcrumb-nav {
+          padding: 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
 
-        document.getElementById('genRandintButton').addEventListener('click', () => {
-            const min = parseInt(randintMinInput.value);
-            const max = parseInt(randintMaxInput.value);
-            if (isNaN(min) || isNaN(max) || min > max) {
-                showRandomMessage('Invalid min/max for integer.', 'error');
-                randintOutput.textContent = 'Error!'; return;
-            }
-            randintOutput.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
-        });
+        .nav-links {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="console-screen-border">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1 class="pixel-header">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">
+              Interactive Guide to Python
+            </a>
+          </h1>
+          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">
+            Adding Randomness
+          </h2>
+          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
+            Make Your Programs Unpredictable • Games, Simulations & Variety • Python's Standard Library
+          </p>
+        </div>
+      </div>
 
-        document.getElementById('genChoiceButton').addEventListener('click', () => {
-            const itemsStr = choiceListInput.value.trim();
-            if (!itemsStr) {
-                showRandomMessage('Please enter items for choice.', 'error'); 
-                choiceOutput.textContent = 'Error!'; return;
-            }
-            const items = itemsStr.split(',').map(s => s.trim()).filter(s => s !=='');
-            if (items.length === 0) {
-                showRandomMessage('No valid items to choose from.', 'error');
-                choiceOutput.textContent = 'Error!'; return;
-            }
-            choiceOutput.textContent = items[Math.floor(Math.random() * items.length)];
-        });
+      <!-- Navigation -->
+      <nav class="breadcrumb-nav">
+        <div class="nav-links">
+          <a href="file-handling.html">← Previous: File Handling</a>
+          <a href="../index.html">🏠 Home</a>
+          <a href="dictionaries-tuples.html">Next: Dictionaries & Tuples →</a>
+        </div>
+      </nav>
 
-        document.getElementById('genShuffleButton').addEventListener('click', () => {
-            const itemsStr = shuffleListInput.value.trim();
-            if (!itemsStr) {
-                 showRandomMessage('Please enter items to shuffle.', 'error'); 
-                 shuffleOutput.textContent = 'Error!'; return;
+      <main class="content-wrapper-8bit">
+        <!-- Step 1: Problem Motivation -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🎯 Why Do Programs Need Randomness?</h2>
+          <p class="mb-4">
+            Imagine playing the same video game where everything always happens exactly the same way:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-red-900/20 border border-red-500 rounded-lg p-4">
+              <h4 class="text-red-400 font-bold mb-2">❌ Boring & Predictable</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Same enemies in same locations</li>
+                <li>• Same treasure always in same place</li>
+                <li>• Same weather every time</li>
+                <li>• Game becomes boring quickly</li>
+              </ul>
+            </div>
+            <div class="bg-green-900/20 border border-green-500 rounded-lg p-4">
+              <h4 class="text-green-400 font-bold mb-2">✅ Random & Exciting</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Enemies spawn in different places</li>
+                <li>• Random loot and rewards</li>
+                <li>• Unpredictable weather systems</li>
+                <li>• Each playthrough feels fresh</li>
+              </ul>
+            </div>
+          </div>
+          <p>
+            Randomness makes programs interesting and unpredictable! Whether it's shuffling a deck of cards, 
+            generating random passwords, or creating game variations, the `random` module is your tool for adding variety.
+          </p>
+        </section>
+
+        <!-- Step 2: Mental Model -->
+        <div class="mental-model-box">
+          <h3>🧠 Mental Model: The Magic Dice Box</h3>
+          <p class="mb-4">
+            Think of Python's `random` module as a magical dice box with different types of dice:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-purple-900/20 border border-purple-400 rounded-lg p-4">
+              <h4 class="font-bold text-purple-400 mb-2">🎲 Different Types of "Dice"</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Coin flip</strong> - random.choice([True, False])</li>
+                <li>• <strong>Number die</strong> - random.randint(1, 6)</li>
+                <li>• <strong>Decimal spinner</strong> - random.random()</li>
+                <li>• <strong>Card drawer</strong> - random.choice(deck)</li>
+              </ul>
+            </div>
+            <div class="bg-blue-900/20 border border-blue-400 rounded-lg p-4">
+              <h4 class="font-bold text-blue-400 mb-2">🔮 Pseudo-Random Magic</h4>
+              <ul class="text-sm space-y-1">
+                <li>• <strong>Pseudo-random</strong> - looks random but follows a pattern</li>
+                <li>• <strong>Seed</strong> - starting point for the pattern</li>
+                <li>• <strong>Same seed</strong> = same "random" sequence</li>
+                <li>• <strong>Perfect for testing</strong> reproducible randomness</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-sm">
+            <strong>Key Insight:</strong> The computer is still literal and sequential. Random numbers aren't truly random - 
+            they're calculated using mathematical formulas that produce sequences that appear random to us.
+          </p>
+        </div>
+
+        <!-- Step 3: Syntax Introduction -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">📝 Essential Random Functions</h2>
+          <p class="mb-4">
+            Python's `random` module provides everything you need to add unpredictability to your programs:
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Core Random Functions:</h4>
+            <pre class="text-green-300"><code># First, import the module
+import random
+
+# Basic random float between 0.0 and 1.0
+random.random()                    # 0.742195
+
+# Random integer in range (inclusive on both ends)
+random.randint(1, 6)              # Like rolling a die: 1, 2, 3, 4, 5, or 6
+
+# Random float in range
+random.uniform(1.5, 6.7)          # 4.183726
+
+# Pick random item from a list
+random.choice(['red', 'blue', 'green'])    # 'blue'
+
+# Shuffle a list in-place (modifies original list)
+my_list = [1, 2, 3, 4, 5]
+random.shuffle(my_list)           # my_list is now shuffled
+
+# Set seed for reproducible results
+random.seed(42)                   # Same seed = same sequence</code></pre>
+          </div>
+
+          <div class="mt-4 p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+            <h4 class="text-blue-400 font-bold mb-2">🎯 Remember:</h4>
+            <p class="text-sm">You must <code>import random</code> at the top of your file before using any of these functions!</p>
+          </div>
+        </section>
+
+        <!-- Step 4: Interactive Exploration -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🔍 Interactive Random Function Explorer</h2>
+          <p class="mb-4">
+            Let's explore each random function and see how they work. Try different inputs and watch the magic happen!
+          </p>
+          
+          <div class="random-simulator">
+            <h4 class="text-yellow-400 mb-4">Random Function Playground:</h4>
+            
+            <!-- random.random() -->
+            <div class="function-demo">
+              <div class="function-title">random.random() - Basic Random Float</div>
+              <p class="text-sm mb-3">Returns a float between 0.0 and 1.0 (not including 1.0)</p>
+              <button class="btn btn-8bit" onclick="demonstrateRandom()">Generate Random Float</button>
+              <div id="randomOutput" class="function-output">Click button to generate...</div>
+            </div>
+
+            <!-- random.randint() -->
+            <div class="function-demo">
+              <div class="function-title">random.randint(min, max) - Random Integer</div>
+              <p class="text-sm mb-3">Returns a random integer between min and max (both inclusive)</p>
+              <div class="flex gap-2 mb-3">
+                <input type="number" id="randintMin" value="1" class="repl-input w-20" placeholder="Min">
+                <input type="number" id="randintMax" value="6" class="repl-input w-20" placeholder="Max">
+                <button class="btn btn-8bit" onclick="demonstrateRandint()">Roll Dice</button>
+              </div>
+              <div id="randintOutput" class="function-output">Enter min/max and click button...</div>
+            </div>
+
+            <!-- random.choice() -->
+            <div class="function-demo">
+              <div class="function-title">random.choice(sequence) - Pick Random Item</div>
+              <p class="text-sm mb-3">Picks one random item from a list, string, or other sequence</p>
+              <input type="text" id="choiceItems" value="apple,banana,cherry,date,elderberry" class="repl-input mb-3" placeholder="Items separated by commas">
+              <button class="btn btn-8bit" onclick="demonstrateChoice()">Pick Random Item</button>
+              <div id="choiceOutput" class="function-output">Enter items and click button...</div>
+            </div>
+
+            <!-- random.shuffle() -->
+            <div class="function-demo">
+              <div class="function-title">random.shuffle(list) - Shuffle List</div>
+              <p class="text-sm mb-3">Randomly rearranges items in a list (modifies the original list)</p>
+              <input type="text" id="shuffleItems" value="Ace,King,Queen,Jack,10,9,8,7" class="repl-input mb-3" placeholder="Items separated by commas">
+              <button class="btn btn-8bit" onclick="demonstrateShuffle()">Shuffle Cards</button>
+              <div id="shuffleOutput" class="function-output">Enter items and click button...</div>
+            </div>
+
+            <!-- random.uniform() -->
+            <div class="function-demo">
+              <div class="function-title">random.uniform(min, max) - Random Float in Range</div>
+              <p class="text-sm mb-3">Returns a random float between min and max</p>
+              <div class="flex gap-2 mb-3">
+                <input type="number" id="uniformMin" value="1.0" step="0.1" class="repl-input w-24" placeholder="Min">
+                <input type="number" id="uniformMax" value="10.0" step="0.1" class="repl-input w-24" placeholder="Max">
+                <button class="btn btn-8bit" onclick="demonstrateUniform()">Generate Float</button>
+              </div>
+              <div id="uniformOutput" class="function-output">Enter min/max and click button...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 5: Common Pitfalls -->
+        <div class="pitfall-warning">
+          <h3>⚠️ Critical Pitfall: Understanding shuffle() Behavior</h3>
+          <p class="mb-4">
+            <strong>The Mistake:</strong> Not understanding that `shuffle()` modifies the original list.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-900/30 border border-red-400 rounded-lg p-3">
+              <h4 class="text-red-400 font-bold mb-2">❌ Surprising Behavior:</h4>
+              <pre class="text-sm"><code>import random
+
+my_cards = ['A', 'K', 'Q', 'J']
+shuffled = random.shuffle(my_cards)
+print(shuffled)  # None - shuffle returns nothing!
+print(my_cards)  # ['Q', 'A', 'J', 'K'] - original is changed!</code></pre>
+            </div>
+            <div class="bg-green-900/30 border border-green-400 rounded-lg p-3">
+              <h4 class="text-green-400 font-bold mb-2">✅ Expected Approach:</h4>
+              <pre class="text-sm"><code>import random
+
+my_cards = ['A', 'K', 'Q', 'J']
+# To keep original, make a copy first
+shuffled_cards = my_cards.copy()
+random.shuffle(shuffled_cards)
+print(my_cards)       # ['A', 'K', 'Q', 'J'] - unchanged
+print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
+            </div>
+          </div>
+          <p class="mt-4 text-sm">
+            <strong>Why This Matters:</strong> `shuffle()` modifies the list in-place and returns `None`. 
+            If you need to keep the original, make a copy first!
+          </p>
+        </div>
+
+        <!-- Step 6: Practice Project -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🛠️ Practice: Random Game Generator</h2>
+          <p class="mb-4">
+            Let's build a complete random game generator that demonstrates multiple random functions working together. 
+            This is like creating a digital game master for tabletop adventures!
+          </p>
+          
+          <div class="repl-container">
+            <h4 class="text-yellow-400 mb-2">Adventure Game Generator:</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Hero Name:</label>
+                <input type="text" id="heroNameInput" class="repl-input" value="Pixel Warrior" placeholder="Enter hero name">
+                
+                <label class="block text-sm font-medium mb-2 mt-3">Number of Adventures:</label>
+                <input type="number" id="adventureCountInput" class="repl-input" value="3" min="1" max="10">
+                
+                <div class="flex gap-2 mt-3">
+                  <button id="generateAdventureButton" class="btn btn-8bit flex-1">Generate Adventure</button>
+                  <button id="setSeedButton" class="btn btn-8bit flex-1">Use Seed: 42</button>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Generated Adventure:</label>
+                <div id="adventureOutput" class="repl-output h-40 overflow-y-auto">
+                  <div class="text-gray-400 italic">Click "Generate Adventure" to start your quest!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-purple-900/20 border border-purple-500 rounded-lg">
+            <h4 class="text-purple-400 font-bold mb-2">🎯 Features Demonstrated:</h4>
+            <ul class="text-sm space-y-1">
+              <li>• <strong>random.choice()</strong> - selecting random enemies, locations, and treasures</li>
+              <li>• <strong>random.randint()</strong> - generating damage values and gold amounts</li>
+              <li>• <strong>random.uniform()</strong> - creating random success probabilities</li>
+              <li>• <strong>random.shuffle()</strong> - randomizing event order</li>
+              <li>• <strong>random.seed()</strong> - reproducible results for testing</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Step 7: Assessment -->
+        <div class="assessment-section">
+          <h2 class="section-title-8bit">🎓 Check Your Understanding</h2>
+          <p class="mb-4">Test your knowledge of the random module:</p>
+          
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 1: What does random.randint(1, 6) return?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="1" data-correct="false">
+                A) A random integer from 1 to 5 (6 not included)
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="true">
+                B) A random integer from 1 to 6 (both 1 and 6 included)
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                C) A random float between 1.0 and 6.0
+              </div>
+              <div class="quiz-option" data-question="1" data-correct="false">
+                D) A list of random integers
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback1" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 2: What happens when you call random.shuffle(my_list)?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="2" data-correct="false">
+                A) Returns a new shuffled list, original list unchanged
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="true">
+                B) Modifies the original list in-place and returns None
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                C) Returns the original list without shuffling
+              </div>
+              <div class="quiz-option" data-question="2" data-correct="false">
+                D) Raises an error if the list is empty
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback2" style="display: none;"></div>
+          </div>
+
+          <div class="quiz-question">
+            <h4 class="font-bold mb-3">Question 3: Why would you use random.seed(42) in your program?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-question="3" data-correct="false">
+                A) To make the random numbers more random
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="true">
+                B) To get reproducible "random" sequences for testing
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                C) To speed up random number generation
+              </div>
+              <div class="quiz-option" data-question="3" data-correct="false">
+                D) To limit random numbers to values under 42
+              </div>
+            </div>
+            <div class="quiz-feedback" id="feedback3" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Reflection Questions -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
+          <div class="space-y-4">
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">💭 Think About It:</h4>
+              <p class="text-sm mb-2">
+                What are some real-world applications where you would use each random function? 
+                Think beyond games - consider simulations, testing, and data science.
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Consider password generation, A/B testing, sampling..."
+              ></textarea>
+            </div>
+            
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+              <h4 class="font-bold mb-2">🔍 Design Challenge:</h4>
+              <p class="text-sm mb-2">
+                How would you create a simple lottery system that picks 6 unique numbers from 1 to 49? 
+                What random functions would you combine?
+              </p>
+              <textarea 
+                class="repl-input h-20 resize-none" 
+                placeholder="Think about ensuring uniqueness and range limits..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="interactive-section">
+          <h2 class="section-title-8bit">🚀 What's Next?</h2>
+          <p class="mb-4">
+            You've mastered adding randomness to your programs! Here's how this connects to your growing skills:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
+              <h4 class="text-blue-400 font-bold mb-2">🔗 Building On:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Lists and iteration (shuffling, choosing from collections)</li>
+                <li>• Functions (creating reusable random utilities)</li>
+                <li>• File I/O (saving random game states)</li>
+              </ul>
+            </div>
+            <div class="p-4 bg-green-900/20 border border-green-500 rounded-lg">
+              <h4 class="text-green-400 font-bold mb-2">🎯 Coming Up:</h4>
+              <ul class="text-sm space-y-1">
+                <li>• Advanced data structures for complex games</li>
+                <li>• Algorithms that use randomization</li>
+                <li>• Statistical simulations and Monte Carlo methods</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-8bit">
+        <div style="text-align: center; padding: 2rem 0;">
+          <p style="margin-bottom: 1rem;">🎲 Fantastic! You've added the magic of randomness! 🎲</p>
+          <p style="font-size: 10px; color: #9ca3af; margin-bottom: 1rem;">
+            Randomness makes programs dynamic, engaging, and unpredictable
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="file-handling.html" style="margin-right: 2rem;">← Previous: File Handling</a>
+            <a href="../index.html" style="margin: 0 1rem;">🏠 Home</a>
+            <a href="dictionaries-tuples.html" style="margin-left: 2rem;">Next: Dictionaries & Tuples →</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Game data for adventure generator
+      const gameData = {
+        enemies: ['Goblin', 'Orc', 'Dragon', 'Skeleton', 'Dark Wizard', 'Giant Spider', 'Troll', 'Bandit'],
+        locations: ['Dark Forest', 'Ancient Cave', 'Mysterious Tower', 'Haunted Castle', 'Crystal Mines', 'Frozen Wasteland'],
+        treasures: ['Golden Sword', 'Magic Potion', 'Ancient Scroll', 'Jeweled Crown', 'Crystal Orb', 'Silver Shield'],
+        actions: ['discovered', 'fought bravely against', 'outsmarted', 'befriended', 'escaped from', 'defeated']
+      };
+
+      let usingSeed = false;
+
+      // Individual function demonstrations
+      function demonstrateRandom() {
+        const value = Math.random();
+        document.getElementById('randomOutput').innerHTML = `<code>random.random()</code> → ${value.toFixed(6)}`;
+      }
+
+      function demonstrateRandint() {
+        const min = parseInt(document.getElementById('randintMin').value) || 1;
+        const max = parseInt(document.getElementById('randintMax').value) || 6;
+        
+        if (min > max) {
+          document.getElementById('randintOutput').innerHTML = '<span class="text-red-400">Error: Min cannot be greater than max!</span>';
+          return;
+        }
+        
+        const value = Math.floor(Math.random() * (max - min + 1)) + min;
+        document.getElementById('randintOutput').innerHTML = `<code>random.randint(${min}, ${max})</code> → ${value}`;
+      }
+
+      function demonstrateChoice() {
+        const items = document.getElementById('choiceItems').value.split(',').map(s => s.trim()).filter(s => s);
+        
+        if (items.length === 0) {
+          document.getElementById('choiceOutput').innerHTML = '<span class="text-red-400">Error: Please enter items separated by commas!</span>';
+          return;
+        }
+        
+        const choice = items[Math.floor(Math.random() * items.length)];
+        document.getElementById('choiceOutput').innerHTML = `<code>random.choice([${items.slice(0,3).join(', ')}...])</code> → "${choice}"`;
+      }
+
+      function demonstrateShuffle() {
+        const items = document.getElementById('shuffleItems').value.split(',').map(s => s.trim()).filter(s => s);
+        
+        if (items.length === 0) {
+          document.getElementById('shuffleOutput').innerHTML = '<span class="text-red-400">Error: Please enter items separated by commas!</span>';
+          return;
+        }
+        
+        // Fisher-Yates shuffle
+        const shuffled = [...items];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
+        document.getElementById('shuffleOutput').innerHTML = `<div>Original: [${items.join(', ')}]</div><div>Shuffled: [${shuffled.join(', ')}]</div>`;
+      }
+
+      function demonstrateUniform() {
+        const min = parseFloat(document.getElementById('uniformMin').value) || 1.0;
+        const max = parseFloat(document.getElementById('uniformMax').value) || 10.0;
+        
+        if (min >= max) {
+          document.getElementById('uniformOutput').innerHTML = '<span class="text-red-400">Error: Min must be less than max!</span>';
+          return;
+        }
+        
+        const value = Math.random() * (max - min) + min;
+        document.getElementById('uniformOutput').innerHTML = `<code>random.uniform(${min}, ${max})</code> → ${value.toFixed(4)}`;
+      }
+
+      // Adventure generator functions
+      function getRandomChoice(array) {
+        return array[Math.floor(Math.random() * array.length)];
+      }
+
+      function generateAdventure() {
+        const heroName = document.getElementById('heroNameInput').value || 'Hero';
+        const adventureCount = parseInt(document.getElementById('adventureCountInput').value) || 1;
+        const output = document.getElementById('adventureOutput');
+        
+        let adventure = `🏴‍☠️ <strong>${heroName}'s Random Adventure</strong>\n\n`;
+        
+        for (let i = 1; i <= Math.min(adventureCount, 10); i++) {
+          const location = getRandomChoice(gameData.locations);
+          const enemy = getRandomChoice(gameData.enemies);
+          const action = getRandomChoice(gameData.actions);
+          const treasure = getRandomChoice(gameData.treasures);
+          const damage = Math.floor(Math.random() * 25) + 5;
+          const gold = Math.floor(Math.random() * 100) + 10;
+          const success = Math.random() > 0.3; // 70% success rate
+          
+          adventure += `<strong>Chapter ${i}:</strong> In the ${location}, ${heroName} ${action} a ${enemy}!\n`;
+          
+          if (success) {
+            adventure += `✅ Victory! Found ${treasure} and earned ${gold} gold pieces!\n`;
+          } else {
+            adventure += `⚔️ Tough battle! Lost ${damage} health but gained valuable experience!\n`;
+          }
+          adventure += '\n';
+        }
+        
+        if (usingSeed) {
+          adventure += '<em>🔄 Note: Using seed 42 for reproducible results</em>\n';
+        }
+        
+        output.innerHTML = adventure.replace(/\n/g, '<br>');
+      }
+
+      function setSeed() {
+        // Simulate seeded randomness by using a simple PRNG
+        usingSeed = true;
+        // Reset Math.random to use a seeded generator
+        let seed = 42;
+        Math.random = function() {
+          seed = (seed * 9301 + 49297) % 233280;
+          return seed / 233280;
+        };
+        
+        document.getElementById('adventureOutput').innerHTML = '<div class="text-green-400">🌱 Seed set to 42! Random sequences are now reproducible.<br>Click "Generate Adventure" to see consistent results.</div>';
+      }
+
+      // Event listeners
+      document.getElementById('generateAdventureButton').addEventListener('click', generateAdventure);
+      document.getElementById('setSeedButton').addEventListener('click', setSeed);
+
+      // Quiz functionality
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', function() {
+          const question = this.dataset.question;
+          const isCorrect = this.dataset.correct === 'true';
+          const feedback = document.getElementById(`feedback${question}`);
+          
+          // Clear previous selections
+          document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+          });
+          
+          // Show result
+          if (isCorrect) {
+            this.classList.add('correct');
+            feedback.innerHTML = '<p class="text-green-400 mt-2">✅ Correct! You understand how this random function works.</p>';
+          } else {
+            this.classList.add('incorrect');
+            // Show correct answer
+            document.querySelector(`[data-question="${question}"][data-correct="true"]`).classList.add('correct');
+            
+            if (question === '1') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. randint(1, 6) includes both endpoints - it can return 1, 2, 3, 4, 5, OR 6.</p>';
+            } else if (question === '2') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. shuffle() modifies the original list in-place and returns None - it doesn\'t create a new list.</p>';
+            } else if (question === '3') {
+              feedback.innerHTML = '<p class="text-red-400 mt-2">❌ Not quite. Setting a seed makes random sequences reproducible - same seed produces the same "random" sequence every time.</p>';
             }
-            let items = itemsStr.split(',').map(s => s.trim()).filter(s => s !=='');
-            if (items.length === 0) {
-                 showRandomMessage('No valid items to shuffle.', 'error');
-                 shuffleOutput.textContent = 'Error!'; return;
-            }
-            // Fisher-Yates Shuffle Algorithm
-            for (let i = items.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [items[i], items[j]] = [items[j], items[i]];
-            }
-            shuffleOutput.textContent = items.join(', ');
+          }
+          
+          feedback.style.display = 'block';
         });
+      });
+
+      // Progress tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mark this page as visited
+        let visitedPages = JSON.parse(localStorage.getItem('visitedPages') || '[]');
+        const currentPage = 'pages/random-module.html';
+        if (!visitedPages.includes(currentPage)) {
+          visitedPages.push(currentPage);
+          localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+        }
+      });
     </script>
   </body>
 </html>

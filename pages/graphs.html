@@ -1,665 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Graph Data Structures - Python Guide</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Data Structures - Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-  </head>
-  <body class="">
+    <style>
+        .graph-node {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: 3px solid #15803d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            font-size: 14px;
+        }
+        
+        .graph-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+        
+        .graph-edge {
+            stroke: #facc15;
+            stroke-width: 3;
+            opacity: 0.8;
+        }
+        
+        .graph-container {
+            width: 100%;
+            height: 400px;
+            background: rgba(15, 23, 42, 0.3);
+            border: 2px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .adjacency-display {
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 200px;
+            font-family: 'Courier New', 'Courier', monospace;
+            color: #a78bfa;
+        }
+    </style>
+</head>
+<body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="trees.html" class="btn">
-          &laquo; Trees (BST)
-        </a>
-        <a href="../index.html" class="btn">
-          Main Menu
-        </a>
-        <a href="sorting-basic.html" class="btn">
-          Next: Sorting Algorithms &rarr;
-        </a>
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="data-structures.html" class="nav-btn">← Data Structures</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Advanced: Graph Data Structures
+          </div>
+          <a href="sorting-basic.html" class="nav-btn">Next: Basic Sorting →</a>
+        </div>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Understanding Graph Data Structures
-          </h2>
-          <p class="text-sm italic mt-1">
-            Representing networks of connected nodes and edges, and exploring their properties and traversal.
-          </p>
-        </header>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Graph Data Structures</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🌐 Networks & Connections: Webs of Relationships
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master the art of representing relationships and connections in data
+            </div>
+          </div>
+        </div>
 
         <main>
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">1. What are Graphs?</h2>
-            <p class="mb-4">
-              In computer science, a graph is a data structure used to represent
-              relationships or connections between objects. It consists of a set of <strong>vertices</strong>
-              (also called <strong>nodes</strong>) and a set of <strong>edges</strong> that connect pairs of
-              vertices. Unlike trees, graphs can have cycles (paths that start and
-              end at the same vertex) and don't necessarily have a single root node. Think of it like a social network where people (vertices) can be friends with anyone (edges), and these connections can form complex networks of relationships.
-            </p>
-            <p class="mb-2">Key Components:</p>
-            <ul class="list-disc list-inside ml-4 space-y-1">
-              <li>
-                <strong>Vertices (Nodes):</strong> Represent the individual items or
-                entities (e.g., cities, people, web pages). Like stops on a subway map or intersections on a road network.
-              </li>
-              <li>
-                <strong>Edges (Links/Arcs):</strong> Represent the connections or
-                relationships between vertices (e.g., roads between cities,
-                friendships, hyperlinks). Like the subway lines connecting stations or the roads connecting intersections.
-              </li>
-            </ul>
-            <p class="mt-2">
-              Graphs are incredibly versatile for modeling networks and
-              interconnected systems.
-            </p>
-          </section>
+        <!-- Step 1: Problem Motivation -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">1</span>
+                Why Do We Need Graphs?
+            </h2>
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>🌍 Real-World Problems</h3>
+                    <div class="example-grid">
+                        <div class="example-item">
+                            <strong>🗺️ Navigation Apps:</strong> Finding the shortest route between locations
+                        </div>
+                        <div class="example-item">
+                            <strong>👥 Social Networks:</strong> Analyzing friend connections and recommendations
+                        </div>
+                        <div class="example-item">
+                            <strong>🌐 Internet:</strong> Routing data between servers and websites
+                        </div>
+                        <div class="example-item">
+                            <strong>🧬 Biology:</strong> Modeling protein interactions and genetic networks
+                        </div>
+                    </div>
+                </div>
+                <div class="visual-panel">
+                    <h4>Network Everywhere!</h4>
+                    <p>From the neurons in your brain to the global internet, networks of connected elements are fundamental to how our world works. Graphs give us the tools to represent, analyze, and navigate these complex relationships.</p>
+                </div>
+            </div>
+        </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">2. Types of Graphs</h2>
-            <p class="mb-2">Graphs can be classified based on their properties:</p>
-            <ul class="list-disc list-inside ml-4 space-y-2">
-              <li>
-                <strong>Undirected Graph:</strong> Edges have no direction. If
-                there's an edge between A and B, the connection works both ways
-                (like a Facebook friendship). Think of it like a two-way street - you can travel in either direction.
-              </li>
-              <li>
-                <strong>Directed Graph (Digraph):</strong> Edges have a direction.
-                An edge from A to B doesn't necessarily mean there's an edge from B
-                to A (like a one-way street or a Twitter follow). Like a one-way street system where you can only travel in the specified direction.
-              </li>
-              <li>
-                <strong>Weighted Graph:</strong> Edges have an associated weight or
-                cost (e.g., distance between cities, cost of a network connection). Like a road map where each road has a distance or travel time associated with it.
-              </li>
-              <li>
-                <strong>Unweighted Graph:</strong> Edges do not have weights; they
-                simply represent a connection. Like a simple subway map where all connections are treated equally, regardless of distance.
-              </li>
-            </ul>
-            <p class="mt-2">
-              Graphs can also be cyclic (contain cycles) or acyclic (no cycles).
-              Directed Acyclic Graphs (DAGs) are particularly important for tasks
-              like scheduling dependencies.
-            </p>
-          </section>
+        <!-- Step 2: Mental Model -->
+        <section class="mental-model-section">
+            <h2 class="section-title">
+                <span class="step-number">2</span>
+                Mental Model: Social Network Web
+            </h2>
+            
+            <div class="mental-model-content">
+                <div class="analogy-panel">
+                    <h3>🕸️ Think of Graphs Like a Social Media Network</h3>
+                    <div class="analogy-grid">
+                        <div class="analogy-item">
+                            <div class="analogy-icon">👤</div>
+                            <div>
+                                <strong>Nodes (Vertices)</strong>
+                                <p>Like people in your social network - each has a unique identity</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">🤝</div>
+                            <div>
+                                <strong>Edges (Connections)</strong>
+                                <p>Like friendships or follows - they connect people together</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">↔️</div>
+                            <div>
+                                <strong>Undirected</strong>
+                                <p>Like mutual friendships - if A knows B, then B knows A</p>
+                            </div>
+                        </div>
+                        <div class="analogy-item">
+                            <div class="analogy-icon">➡️</div>
+                            <div>
+                                <strong>Directed</strong>
+                                <p>Like following on Twitter - A can follow B without B following back</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-evolution">
+                    <h4>🔄 Model Evolution: From Simple to Sophisticated</h4>
+                    <div class="evolution-steps">
+                        <div class="evolution-step">
+                            <span class="step-badge">Level 1</span>
+                            <strong>Simple Network:</strong> Just people and friendships
+                        </div>
+                        <div class="evolution-step">
+                            <span class="step-badge">Level 2</span>
+                            <strong>Weighted Network:</strong> Friendships have "strength" (close friends vs acquaintances)
+                        </div>
+                        <div class="evolution-step">
+                            <span class="step-badge">Level 3</span>
+                            <strong>Complex Network:</strong> Multiple types of relationships (family, work, hobby groups)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">3. Representing Graphs in Code</h2>
-            <p class="mb-2">
-              There are several common ways to represent graphs in code. Two popular methods are:
-            </p>
-            <h3 class="section-subtitle-8bit smaller-subtitle">Adjacency List:</h3>
-            <p class="mb-2">
-              For each vertex, store a list of its adjacent vertices (its neighbors). This is often efficient for sparse graphs (graphs with relatively few edges).
-              In Python, a dictionary can be used where keys are vertices and values are lists of their neighbors. Think of it like a contact list where each person has a list of their friends' phone numbers.
-            </p>
-            <pre><code class="code-block-8bit python"># Example: An undirected graph
-# A -- B
-# |    |
-# C -- D -- E
-
-graph_adj_list = {
-  'A': ['B', 'C'],
-  'B': ['A', 'D'],
-  'C': ['A', 'D'],
-  'D': ['B', 'C', 'E'],
-  'E': ['D']
+        <!-- Step 3: Syntax and Representation -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">3</span>
+                Graph Representations in Python
+            </h2>
+            
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>📊 Adjacency List</h3>
+                    <p>Like a contact list where each person has a list of their friends</p>
+                    <div class="code-block">
+                        <pre><code># Adjacency List - Dictionary of Lists
+graph = {
+    'Alice': ['Bob', 'Charlie'],
+    'Bob': ['Alice', 'David'],
+    'Charlie': ['Alice', 'David'],
+    'David': ['Bob', 'Charlie', 'Eve'],
+    'Eve': ['David']
 }
-print(graph_adj_list['A']) # Output: ['B', 'C'] (Neighbors of A)</code></pre>
 
-            <h3 class="section-subtitle-8bit smaller-subtitle">Adjacency Matrix:</h3>
-            <p class="mb-2">
-              A 2D matrix (list of lists) where the entry <code>matrix[i][j]</code> is 1 (or some weight) if there's an edge from vertex <code>i</code> to vertex <code>j</code>, and 0 otherwise.
-              This can be good for dense graphs (many edges) but uses more space for sparse graphs. Think of it like a distance chart in a road atlas, where each cell shows whether there's a direct road between two cities.
-            </p>
-            <pre><code class="code-block-8bit python"># For the same graph, assuming vertices A=0, B=1, C=2, D=3, E=4
-#   A B C D E
-# A 0 1 1 0 0
-# B 1 0 0 1 0
-# C 1 0 0 1 0
-# D 0 1 1 0 1
-# E 0 0 0 1 0
-
-graph_adj_matrix = [
-  [0, 1, 1, 0, 0], # A
-  [1, 0, 0, 1, 0], # B
-  [1, 0, 0, 1, 0], # C
-  [0, 1, 1, 0, 1], # D
-  [0, 0, 0, 1, 0]  # E
+# Check Alice's friends
+print(graph['Alice'])  # ['Bob', 'Charlie']</code></pre>
+                    </div>
+                </div>
+                
+                <div class="concept-panel">
+                    <h3>📋 Adjacency Matrix</h3>
+                    <p>Like a friendship chart where 1 means "friends" and 0 means "not friends"</p>
+                    <div class="code-block">
+                        <pre><code># Adjacency Matrix - 2D List
+# People: Alice=0, Bob=1, Charlie=2, David=3, Eve=4
+graph_matrix = [
+    [0, 1, 1, 0, 0],  # Alice
+    [1, 0, 0, 1, 0],  # Bob
+    [1, 0, 0, 1, 0],  # Charlie
+    [0, 1, 1, 0, 1],  # David
+    [0, 0, 0, 1, 0]   # Eve
 ]
-print(graph_adj_matrix[0][1]) # Output: 1 (Edge from A to B)
-print(graph_adj_matrix[0][3]) # Output: 0 (No direct edge from A to E)</code></pre>
-          </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">4. Interactive Graph Visualization</h2>
-            <p class="mb-4">
-              Create a simple undirected graph. Add nodes and then add edges between them.
-              Click and drag nodes to rearrange them.
-            </p>
-
-            <div class="sub-interactive-box p-4">
-              <div class="flex flex-wrap items-center mb-2">
-                <label for="nodeNameInput" class="mr-2">Node Name (A-Z):</label>
-                <input
-                  type="text"
-                  id="nodeNameInput"
-                  class="input-field"
-                  placeholder="e.g., A"
-                  maxlength="1"
-                  pattern="[A-Za-z]"
-                />
-                <button id="addNodeButton" class="btn btn-green">Add Node</button>
-              </div>
-              <div class="flex flex-wrap items-center mb-2">
-                <label for="edgeNode1Input" class="mr-2">Edge From:</label>
-                <input
-                  type="text"
-                  id="edgeNode1Input"
-                  class="input-field"
-                  placeholder="e.g., A"
-                  maxlength="1"
-                  pattern="[A-Za-z]"
-                />
-                <label for="edgeNode2Input" class="ml-4 mr-2">To:</label>
-                <input
-                  type="text"
-                  id="edgeNode2Input"
-                  class="input-field"
-                  placeholder="e.g., B"
-                  maxlength="1"
-                  pattern="[A-Za-z]"
-                />
-                <button id="addEdgeButton" class="btn">Add Edge</button>
-                <button id="resetGraphButton" class="btn btn-orange">
-                  Reset Graph
-                </button>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div>
-                  <h4 class="text-md font-medium mt-3 mb-1">
-                    Graph Visualization (Drag Nodes):
-                  </h4>
-                  <div id="graphVisualization" class="graph-container">
-                    <svg width="100%" height="100%"></svg>
-                    <span class="text-gray-500 italic">Add nodes and edges.</span>
-                  </div>
+# Check if Alice (0) is friends with Bob (1)
+print(graph_matrix[0][1])  # 1 (yes)</code></pre>
+                    </div>
                 </div>
-                <div>
-                  <h4 class="text-md font-medium mt-3 mb-1">Adjacency List:</h4>
-                  <div id="adjacencyListDisplay" class="output-display">{ }</div>
+            </div>
+        </section>
+
+        <!-- Step 4: Interactive Exploration -->
+        <section class="interactive-section">
+            <h2 class="section-title">
+                <span class="step-number">4</span>
+                Hands-on Practice: Build Your Network
+            </h2>
+            
+            <div class="interactive-container">
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label>Add Node:</label>
+                        <input type="text" id="nodeInput" placeholder="Enter node name" maxlength="10">
+                        <button onclick="addNode()" class="btn-primary">Add Node</button>
+                    </div>
+                    <div class="control-group">
+                        <label>Add Edge:</label>
+                        <input type="text" id="fromNode" placeholder="From" maxlength="10">
+                        <input type="text" id="toNode" placeholder="To" maxlength="10">
+                        <button onclick="addEdge()" class="btn-primary">Add Edge</button>
+                    </div>
+                    <div class="control-group">
+                        <button onclick="clearGraph()" class="btn-secondary">Clear Graph</button>
+                        <button onclick="generateSampleGraph()" class="btn-accent">Sample Graph</button>
+                    </div>
                 </div>
-              </div>
-              <div id="graphMessage" class="message-box mt-2" style="display: none"></div>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">5. Common Graph Operations & Algorithms</h2>
-            <p class="mb-2">
-              Graphs are used in a vast array of applications, often involving specific algorithms:
-            </p>
-            <ul class="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Traversal:</strong> Visiting all nodes in a graph.
-                <ul class="list-circle list-inside ml-6 space-y-1">
-                    <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking. Often uses a stack. Like exploring a maze by always taking the rightmost path until you hit a dead end, then backtracking.</li>
-                    <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbor nodes at the present depth prior to moving on to nodes at the next depth level. Often uses a queue. Like exploring a building floor by floor, checking all rooms on one floor before moving to the next.</li>
-                </ul>
-              </li>
-              <li><strong>Shortest Path:</strong> Finding the shortest path between two nodes (e.g., Dijkstra's algorithm, Bellman-Ford algorithm). Like using a GPS to find the quickest route between two locations.</li>
-              <li><strong>Minimum Spanning Tree (MST):</strong> Finding a subgraph that connects all vertices with the minimum total edge weight (e.g., Prim's algorithm, Kruskal's algorithm). Like designing a road network that connects all cities with the minimum total road length.</li>
-              <li><strong>Network Flow:</strong> Analyzing the flow of material through a network (e.g., Ford-Fulkerson algorithm). Like analyzing water flow through a system of pipes or traffic flow through a road network.</li>
-              <li><strong>Topological Sort:</strong> For Directed Acyclic Graphs (DAGs), a linear ordering of vertices such that for every directed edge from vertex u to vertex v, u comes before v in the ordering. Like creating a schedule of tasks where some tasks must be completed before others can begin.</li>
-            </ul>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">6. Interactive Graph Traversal</h2>
-            <p class="mb-2">
-              Using the graph you created above (or the default example), select a starting node and see how DFS and BFS explore the graph.
-            </p>
-            <div class="sub-interactive-box p-4">
-              <div class="flex flex-wrap items-center mb-2">
-                <label for="startNodeTraversal" class="mr-2 font-medium">Start Node:</label>
-                <select id="startNodeTraversal" class="input-field"></select>
-                <button id="runDFSTraversal" class="btn btn-green">Run DFS</button>
-                <button id="runBFSTraversal" class="btn btn-green">Run BFS</button>
-                <button id="resetTraversal" class="btn btn-orange">Reset Traversal</button>
-              </div>
-              <div class="mt-2">
-                <h4 class="text-lg font-medium text-cyan-400">Traversal Path:</h4>
-                <div id="traversalPathDisplay" class="output-display min-h-[40px]">
-                   <span class="text-gray-500 italic">Select a start node and run a traversal.</span>
+                
+                <div class="interactive-grid">
+                    <div class="graph-panel">
+                        <h4>🎨 Graph Visualization</h4>
+                        <div id="graphContainer" class="graph-container">
+                            <svg width="100%" height="100%" id="graphSvg"></svg>
+                            <div id="graphMessage" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #64748b; text-align: center;">
+                                Add nodes and edges to build your graph!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-panel">
+                        <h4>📊 Adjacency List</h4>
+                        <div id="adjacencyList" class="adjacency-display">
+                            { }
+                        </div>
+                        
+                        <h4 style="margin-top: 20px;">🔍 Graph Analysis</h4>
+                        <div id="graphStats" class="adjacency-display">
+                            <div>Nodes: 0</div>
+                            <div>Edges: 0</div>
+                            <div>Density: 0%</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div id="traversalMessage" class="message-box mt-2" style="display: none;"></div>
             </div>
-          </section>
+        </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">7. Quick Quiz</h2>
-            <p class="mb-4">Test your graph knowledge!</p>
-            <div class="sub-interactive-box p-4">
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q1: What are the two main components of a graph?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_graph" value="a" class="mr-2" />
-                  Roots and Leaves
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_graph" value="b" class="mr-2" />
-                  Keys and Values
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_graph" value="c" class="mr-2" />
-                  Vertices (Nodes) and Edges
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q2: In which type of graph do edges have a direction?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_graph" value="a" class="mr-2" />
-                  Undirected Graph
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_graph" value="b" class="mr-2" />
-                  Weighted Graph
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_graph" value="c" class="mr-2" />
-                  Directed Graph (Digraph)
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q3: An Adjacency List representation typically stores, for each
-                  vertex, a list of its...?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_graph" value="a" class="mr-2" />
-                  Edge weights
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_graph" value="b" class="mr-2" />
-                  Adjacent vertices (neighbors)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_graph" value="c" class="mr-2" />
-                  Parent nodes
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q4: Which of these is NOT a typical application of graphs?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_graph" value="a" class="mr-2" />
-                  Social Networks
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_graph" value="b" class="mr-2" />
-                  Storing a single sequence of ordered, immutable items
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_graph" value="c" class="mr-2" />
-                  Road Maps and Navigation
-                </label>
-              </div>
-              <button id="checkQuizButtonGraph" class="btn">Check Answers</button>
-              <div id="quizResultGraph" class="message-box mt-4" style="display: none"></div>
+        <!-- Step 5: Graph Traversal -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="step-number">5</span>
+                Graph Traversal: Exploring the Network
+            </h2>
+            
+            <div class="content-grid">
+                <div class="concept-panel">
+                    <h3>🚶‍♂️ Breadth-First Search (BFS)</h3>
+                    <p>Like exploring your social network level by level - first your direct friends, then their friends, then their friends' friends</p>
+                    <div class="code-block">
+                        <pre><code>from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    result = []
+    
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            visited.add(node)
+            result.append(node)
+            # Add neighbors to queue
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+    
+    return result</code></pre>
+                    </div>
+                </div>
+                
+                <div class="concept-panel">
+                    <h3>🏃‍♂️ Depth-First Search (DFS)</h3>
+                    <p>Like following one friendship chain as far as possible before backtracking</p>
+                    <div class="code-block">
+                        <pre><code>def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    
+    result = []
+    if start not in visited:
+        visited.add(start)
+        result.append(start)
+        
+        for neighbor in graph[start]:
+            result.extend(dfs(graph, neighbor, visited))
+    
+    return result</code></pre>
+                    </div>
+                </div>
             </div>
-          </section>
-        </main>
+            
+            <div class="interactive-container">
+                <h4>🎮 Interactive Traversal</h4>
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label>Start Node:</label>
+                        <input type="text" id="startNode" placeholder="Enter start node">
+                    </div>
+                    <div class="control-group">
+                        <button onclick="runBFS()" class="btn-primary">Run BFS</button>
+                        <button onclick="runDFS()" class="btn-primary">Run DFS</button>
+                        <button onclick="resetTraversal()" class="btn-secondary">Reset</button>
+                    </div>
+                </div>
+                
+                <div id="traversalResult" class="adjacency-display" style="margin-top: 20px;">
+                    Build a graph above and try traversal algorithms!
+                </div>
+            </div>
+        </section>
 
-        <footer class="footer-8bit">
-          <p>Happy Coding!</p>
-          <p class="mt-2">
-            <a href="../index.html">Back to Main Menu</a>
+        <!-- Step 6: Critical Pitfalls -->
+        <section class="pitfall-section">
+            <h2 class="section-title">
+                <span class="step-number">6</span>
+                Critical Pitfall: Cycles and Infinite Loops
+            </h2>
+            
+            <div class="pitfall-content">
+                <div class="pitfall-warning">
+                    <h3>⚠️ The Infinite Loop Trap</h3>
+                    <p>Unlike trees, graphs can have cycles. Without proper tracking of visited nodes, your traversal can loop forever!</p>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="wrong-approach">
+                        <h4>❌ Wrong: No Visited Tracking</h4>
+                        <div class="code-block">
+                            <pre><code># DANGER: This will loop forever in cyclic graphs!
+def bad_dfs(graph, node):
+    result = [node]
+    for neighbor in graph[node]:
+        result.extend(bad_dfs(graph, neighbor))  # Infinite recursion!
+    return result
+
+# With cycle A -> B -> A, this never stops!</code></pre>
+                        </div>
+                        <div class="consequence">💥 Result: Stack overflow from infinite recursion</div>
+                    </div>
+                    
+                    <div class="right-approach">
+                        <h4>✅ Right: Track Visited Nodes</h4>
+                        <div class="code-block">
+                            <pre><code># SAFE: Always track visited nodes
+def safe_dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    
+    if node in visited:  # Stop if already visited
+        return []
+    
+    visited.add(node)
+    result = [node]
+    
+    for neighbor in graph[node]:
+        result.extend(safe_dfs(graph, neighbor, visited))
+    
+    return result</code></pre>
+                        </div>
+                        <div class="consequence">✅ Result: Safe traversal that terminates properly</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 7: Assessment -->
+        <section class="assessment-section">
+            <h2 class="section-title">
+                <span class="step-number">7</span>
+                Knowledge Assessment: Graph Mastery
+            </h2>
+            
+            <div class="quiz-container">
+                <div class="question-card">
+                    <h3>Question 1: Graph Representation</h3>
+                    <p>Which representation is more memory-efficient for a sparse graph (few edges)?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> Adjacency Matrix</label>
+                        <label><input type="radio" name="q1" value="b"> Adjacency List</label>
+                        <label><input type="radio" name="q1" value="c"> Both are equally efficient</label>
+                    </div>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Question 2: Traversal Order</h3>
+                    <p>For the graph A-B-C where A connects to B and C, what's the BFS order starting from A?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> A, B, C</label>
+                        <label><input type="radio" name="q2" value="b"> A, C, B</label>
+                        <label><input type="radio" name="q2" value="c"> Both orders are valid for BFS</label>
+                    </div>
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Question 3: Cycle Detection</h3>
+                    <p>Why is tracking visited nodes crucial in graph traversal?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> To improve performance</label>
+                        <label><input type="radio" name="q3" value="b"> To prevent infinite loops in cyclic graphs</label>
+                        <label><input type="radio" name="q3" value="c"> To maintain the correct order</label>
+                    </div>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+                
+                <button onclick="checkAnswers()" class="btn-primary" style="margin-top: 20px;">Check Answers</button>
+                <div id="overallFeedback" class="overall-feedback"></div>
+            </div>
+        </section>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">Mastery Progress: <span id="progressText">0%</span></div>
+        </div>
+    </main>
+
+    <script>
+        // Graph data structure
+        let graphData = {};
+        let nodePositions = {};
+        
+        // Graph building functions
+        function addNode() {
+            const input = document.getElementById('nodeInput');
+            const nodeName = input.value.trim();
+            
+            if (!nodeName) {
+                alert('Please enter a node name');
+                return;
+            }
+            
+            if (graphData[nodeName]) {
+                alert('Node already exists');
+                return;
+            }
+            
+            graphData[nodeName] = [];
+            
+            // Random position for visualization
+            nodePositions[nodeName] = {
+                x: Math.random() * 300 + 50,
+                y: Math.random() * 200 + 50
+            };
+            
+            input.value = '';
+            updateGraphVisualization();
+            updateGraphStats();
+        }
+        
+        function addEdge() {
+            const fromInput = document.getElementById('fromNode');
+            const toInput = document.getElementById('toNode');
+            const from = fromInput.value.trim();
+            const to = toInput.value.trim();
+            
+            if (!from || !to) {
+                alert('Please enter both nodes');
+                return;
+            }
+            
+            if (!graphData[from] || !graphData[to]) {
+                alert('Both nodes must exist');
+                return;
+            }
+            
+            if (!graphData[from].includes(to)) {
+                graphData[from].push(to);
+                graphData[to].push(from); // Undirected graph
+            }
+            
+            fromInput.value = '';
+            toInput.value = '';
+            updateGraphVisualization();
+            updateGraphStats();
+        }
+        
+        function clearGraph() {
+            graphData = {};
+            nodePositions = {};
+            updateGraphVisualization();
+            updateGraphStats();
+            document.getElementById('traversalResult').innerHTML = 'Build a graph above and try traversal algorithms!';
+        }
+        
+        function generateSampleGraph() {
+            graphData = {
+                'A': ['B', 'C'],
+                'B': ['A', 'D'],
+                'C': ['A', 'D'],
+                'D': ['B', 'C', 'E'],
+                'E': ['D']
+            };
+            
+            nodePositions = {
+                'A': {x: 100, y: 100},
+                'B': {x: 250, y: 80},
+                'C': {x: 100, y: 200},
+                'D': {x: 250, y: 200},
+                'E': {x: 350, y: 150}
+            };
+            
+            updateGraphVisualization();
+            updateGraphStats();
+        }
+        
+        function updateGraphVisualization() {
+            const svg = document.getElementById('graphSvg');
+            const message = document.getElementById('graphMessage');
+            
+            // Clear previous content
+            svg.innerHTML = '';
+            
+            const nodes = Object.keys(graphData);
+            
+            if (nodes.length === 0) {
+                message.style.display = 'block';
+                document.getElementById('adjacencyList').innerHTML = '{ }';
+                return;
+            }
+            
+            message.style.display = 'none';
+            
+            // Draw edges first (so they appear behind nodes)
+            nodes.forEach(node => {
+                const pos1 = nodePositions[node];
+                graphData[node].forEach(neighbor => {
+                    const pos2 = nodePositions[neighbor];
+                    if (pos1 && pos2) {
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', pos1.x + 20);
+                        line.setAttribute('y1', pos1.y + 20);
+                        line.setAttribute('x2', pos2.x + 20);
+                        line.setAttribute('y2', pos2.y + 20);
+                        line.classList.add('graph-edge');
+                        svg.appendChild(line);
+                    }
+                });
+            });
+            
+            // Draw nodes
+            nodes.forEach(node => {
+                const pos = nodePositions[node];
+                if (pos) {
+                    const nodeElement = document.createElement('div');
+                    nodeElement.className = 'graph-node';
+                    nodeElement.style.left = pos.x + 'px';
+                    nodeElement.style.top = pos.y + 'px';
+                    nodeElement.textContent = node;
+                    nodeElement.id = 'node-' + node;
+                    
+                    // Make draggable
+                    nodeElement.addEventListener('mousedown', startDrag);
+                    
+                    svg.parentElement.appendChild(nodeElement);
+                }
+            });
+            
+            updateAdjacencyList();
+        }
+        
+        function updateAdjacencyList() {
+            const display = document.getElementById('adjacencyList');
+            const formatted = JSON.stringify(graphData, null, 2);
+            display.innerHTML = formatted;
+        }
+        
+        function updateGraphStats() {
+            const nodes = Object.keys(graphData);
+            const nodeCount = nodes.length;
+            let edgeCount = 0;
+            
+            nodes.forEach(node => {
+                edgeCount += graphData[node].length;
+            });
+            edgeCount = edgeCount / 2; // Each edge counted twice in undirected graph
+            
+            const maxEdges = nodeCount * (nodeCount - 1) / 2;
+            const density = maxEdges > 0 ? Math.round((edgeCount / maxEdges) * 100) : 0;
+            
+            document.getElementById('graphStats').innerHTML = `
+                <div>Nodes: ${nodeCount}</div>
+                <div>Edges: ${edgeCount}</div>
+                <div>Density: ${density}%</div>
+            `;
+        }
+        
+        // Dragging functionality
+        let isDragging = false;
+        let currentNode = null;
+        let dragOffset = {x: 0, y: 0};
+        
+        function startDrag(e) {
+            isDragging = true;
+            currentNode = e.target;
+            const rect = currentNode.getBoundingClientRect();
+            const containerRect = currentNode.parentElement.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+        
+        function drag(e) {
+            if (!isDragging || !currentNode) return;
+            
+            const containerRect = currentNode.parentElement.getBoundingClientRect();
+            const x = e.clientX - containerRect.left - dragOffset.x;
+            const y = e.clientY - containerRect.top - dragOffset.y;
+            
+            // Keep within bounds
+            const boundedX = Math.max(0, Math.min(x, 360));
+            const boundedY = Math.max(0, Math.min(y, 360));
+            
+            currentNode.style.left = boundedX + 'px';
+            currentNode.style.top = boundedY + 'px';
+            
+            // Update position data
+            const nodeName = currentNode.textContent;
+            nodePositions[nodeName] = {x: boundedX, y: boundedY};
+            
+            updateGraphVisualization();
+        }
+        
+        function stopDrag() {
+            isDragging = false;
+            currentNode = null;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+        
+        // Traversal algorithms
+        function runBFS() {
+            const startInput = document.getElementById('startNode');
+            const start = startInput.value.trim();
+            
+            if (!start || !graphData[start]) {
+                alert('Please enter a valid start node');
+                return;
+            }
+            
+            const result = bfs(graphData, start);
+            displayTraversalResult('BFS', result);
+        }
+        
+        function runDFS() {
+            const startInput = document.getElementById('startNode');
+            const start = startInput.value.trim();
+            
+            if (!start || !graphData[start]) {
+                alert('Please enter a valid start node');
+                return;
+            }
+            
+            const result = dfs(graphData, start);
+            displayTraversalResult('DFS', result);
+        }
+        
+        function bfs(graph, start) {
+            const visited = new Set();
+            const queue = [start];
+            const result = [];
+            
+            while (queue.length > 0) {
+                const node = queue.shift();
+                if (!visited.has(node)) {
+                    visited.add(node);
+                    result.push(node);
+                    
+                    for (const neighbor of graph[node] || []) {
+                        if (!visited.has(neighbor)) {
+                            queue.push(neighbor);
+                        }
+                    }
+                }
+            }
+            
+            return result;
+        }
+        
+        function dfs(graph, start, visited = new Set()) {
+            const result = [];
+            
+            if (!visited.has(start)) {
+                visited.add(start);
+                result.push(start);
+                
+                for (const neighbor of graph[start] || []) {
+                    result.push(...dfs(graph, neighbor, visited));
+                }
+            }
+            
+            return result;
+        }
+        
+        function displayTraversalResult(algorithm, result) {
+            const display = document.getElementById('traversalResult');
+            display.innerHTML = `
+                <div style="margin-bottom: 10px;"><strong>${algorithm} Traversal Result:</strong></div>
+                <div style="color: #22c55e;">${result.join(' → ')}</div>
+                <div style="margin-top: 10px; font-size: 12px; color: #64748b;">
+                    Visited ${result.length} nodes in order shown above
+                </div>
+            `;
+        }
+        
+        function resetTraversal() {
+            document.getElementById('traversalResult').innerHTML = 'Build a graph above and try traversal algorithms!';
+            document.getElementById('startNode').value = '';
+        }
+        
+        // Quiz functionality
+        function checkAnswers() {
+            const answers = {
+                q1: 'b', // Adjacency List for sparse graphs
+                q2: 'c', // Both orders are valid for BFS
+                q3: 'b'  // Prevent infinite loops
+            };
+            
+            const feedbacks = {
+                q1: {
+                    correct: "Correct! Adjacency lists are more memory-efficient for sparse graphs since they only store existing edges.",
+                    incorrect: "Incorrect. Adjacency lists only store existing edges, making them more efficient for sparse graphs than matrices which store all possible connections."
+                },
+                q2: {
+                    correct: "Correct! BFS explores all neighbors at the current level before moving deeper, so both B,C and C,B orders are valid depending on the order they're added to the queue.",
+                    incorrect: "Incorrect. BFS visits all immediate neighbors before going deeper, so both B,C and C,B are valid orders."
+                },
+                q3: {
+                    correct: "Correct! Without tracking visited nodes, traversal algorithms can get stuck in infinite loops when cycles exist in the graph.",
+                    incorrect: "Incorrect. The main reason is to prevent infinite loops in cyclic graphs, not performance or order."
+                }
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                const feedback = document.getElementById(`feedback${q.slice(1)}`);
+                
+                if (selected) {
+                    const isCorrect = selected.value === answers[q];
+                    if (isCorrect) {
+                        score++;
+                        feedback.innerHTML = `<div class="correct-feedback">✅ ${feedbacks[q].correct}</div>`;
+                    } else {
+                        feedback.innerHTML = `<div class="incorrect-feedback">❌ ${feedbacks[q].incorrect}</div>`;
+                    }
+                } else {
+                    feedback.innerHTML = `<div class="incorrect-feedback">❌ Please select an answer.</div>`;
+                }
+            }
+            
+            const percentage = Math.round((score / total) * 100);
+            const overallFeedback = document.getElementById('overallFeedback');
+            
+            if (percentage >= 80) {
+                overallFeedback.innerHTML = `<div class="success-feedback">🎉 Excellent! You scored ${score}/${total} (${percentage}%). You've mastered graph fundamentals!</div>`;
+            } else if (percentage >= 60) {
+                overallFeedback.innerHTML = `<div class="warning-feedback">📚 Good effort! You scored ${score}/${total} (${percentage}%). Review the concepts and try again.</div>`;
+            } else {
+                overallFeedback.innerHTML = `<div class="error-feedback">💪 Keep learning! You scored ${score}/${total} (${percentage}%). Study the material above and retake the quiz.</div>`;
+            }
+            
+            updateProgress(percentage);
+        }
+        
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = percentage + '%';
+        }
+        
+        // Initialize
+        generateSampleGraph();
+
+        // Progress tracking
+        localStorage.setItem('completedGraphs', 'true');
+    </script>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🌐 Graphs Mastered! Ready for Sorting? 🌐</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="sorting-basic.html" style="color: #facc15;">🔄 Next: Basic Sorting →</a>
           </p>
         </footer>
       </div>
     </div>
-
-    <script src="../js/main.js" defer></script>
-    <script>
-      // showMessage is now in js/main.js
-
-      // --- DOM Elements ---
-      const nodeNameInput = document.getElementById("nodeNameInput");
-      const addNodeButton = document.getElementById("addNodeButton");
-      const edgeNode1Input = document.getElementById("edgeNode1Input");
-      const edgeNode2Input = document.getElementById("edgeNode2Input");
-      const addEdgeButton = document.getElementById("addEdgeButton");
-      const resetGraphButton = document.getElementById("resetGraphButton");
-      const graphVisualization = document.getElementById("graphVisualization");
-      const adjacencyListDisplay = document.getElementById(
-        "adjacencyListDisplay"
-      );
-      const graphMessage = document.getElementById("graphMessage");
-      const svgContainer = graphVisualization.querySelector("svg");
-
-      const checkQuizButtonGraph = document.getElementById(
-        "checkQuizButtonGraph"
-      );
-      const quizResultGraph = document.getElementById("quizResultGraph");
-
-      // --- Graph State ---
-      let nodes = {}; // Store node elements and positions: { 'A': { element: div, x: 50, y: 50 }, ... }
-      let adj = {}; // Adjacency list: { 'A': ['B', 'C'], ... }
-      let edges = new Set(); // Store unique edges as strings "A-B" to avoid duplicates
-
-      // --- Graph Interaction Logic ---
-
-      // Function to render the adjacency list display
-      function renderAdjacencyList() {
-        let html = "{\n";
-        const sortedNodes = Object.keys(adj).sort();
-        if (sortedNodes.length === 0) {
-          html = "{ }";
-        } else {
-          sortedNodes.forEach((node, index) => {
-            const neighbors = adj[node]
-              ? [...adj[node]].sort().join("', '")
-              : "";
-            html += `  '${node}': ['${neighbors}']`;
-            if (index < sortedNodes.length - 1) {
-              html += ",\n";
-            } else {
-              html += "\n";
-            }
-          });
-          html += "}";
-        }
-        adjacencyListDisplay.textContent = html;
-      }
-
-      // Function to draw edges using SVG lines
-      function drawEdges() {
-        svgContainer.innerHTML = ""; // Clear previous lines
-        edges.forEach((edgeKey) => {
-          const [node1Name, node2Name] = edgeKey.split("-");
-          const node1 = nodes[node1Name];
-          const node2 = nodes[node2Name];
-
-          if (node1 && node2) {
-            const line = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "line"
-            );
-            // Calculate center of nodes for line endpoints
-            const x1 = node1.x + node1.element.offsetWidth / 2;
-            const y1 = node1.y + node1.element.offsetHeight / 2;
-            const x2 = node2.x + node2.element.offsetWidth / 2;
-            const y2 = node2.y + node2.element.offsetHeight / 2;
-
-            line.setAttribute("x1", x1);
-            line.setAttribute("y1", y1);
-            line.setAttribute("x2", x2);
-            line.setAttribute("y2", y2);
-            line.setAttribute("stroke", "#f59e0b"); // yellow-500
-            line.setAttribute("stroke-width", "3");
-            svgContainer.appendChild(line);
-          }
-        });
-      }
-
-      // --- Node Dragging Logic ---
-      let draggedNode = null;
-      let offsetX, offsetY;
-
-      function startDrag(e) {
-        draggedNode = e.target;
-        // Calculate offset from mouse click to node's top-left corner
-        offsetX = e.clientX - draggedNode.getBoundingClientRect().left;
-        offsetY = e.clientY - draggedNode.getBoundingClientRect().top;
-        draggedNode.style.cursor = "grabbing";
-        draggedNode.style.zIndex = 20; // Bring node to front
-        document.addEventListener("mousemove", dragNode);
-        document.addEventListener("mouseup", stopDrag);
-      }
-
-      function dragNode(e) {
-        if (!draggedNode) return;
-        e.preventDefault(); // Prevent text selection during drag
-
-        const containerRect = graphVisualization.getBoundingClientRect();
-        // Calculate new position relative to the container
-        let newX = e.clientX - containerRect.left - offsetX;
-        let newY = e.clientY - containerRect.top - offsetY;
-
-        // Constrain within container bounds (approximate)
-        newX = Math.max(
-          0,
-          Math.min(newX, containerRect.width - draggedNode.offsetWidth)
-        );
-        newY = Math.max(
-          0,
-          Math.min(newY, containerRect.height - draggedNode.offsetHeight)
-        );
-
-        draggedNode.style.left = `${newX}px`;
-        draggedNode.style.top = `${newY}px`;
-
-        // Update node position in state
-        const nodeName = draggedNode.textContent;
-        nodes[nodeName].x = newX;
-        nodes[nodeName].y = newY;
-
-        drawEdges(); // Redraw edges as node moves
-      }
-
-      function stopDrag() {
-        if (draggedNode) {
-          draggedNode.style.cursor = "grab";
-          draggedNode.style.zIndex = 10; // Reset z-index
-          draggedNode = null;
-        }
-        document.removeEventListener("mousemove", dragNode);
-        document.removeEventListener("mouseup", stopDrag);
-      }
-      // --- End Node Dragging ---
-
-      // Add Node Button
-      addNodeButton.addEventListener("click", () => {
-        let nodeName = nodeNameInput.value.trim().toUpperCase();
-        nodeNameInput.value = ""; // Clear input
-
-        if (!nodeName || !/^[A-Z]$/.test(nodeName)) {
-          showMessage(
-            graphMessage,
-            "Please enter a single uppercase letter (A-Z) for the node name.",
-            "error"
-          );
-          return;
-        }
-
-        if (nodes[nodeName]) {
-          showMessage(
-            graphMessage,
-            `Node '${nodeName}' already exists.`,
-            "info"
-          );
-          return;
-        }
-
-        // Clear initial message if first node
-        if (Object.keys(nodes).length === 0) {
-          graphVisualization.querySelector("span")?.remove(); // Remove italic text
-        }
-
-        // Create node element
-        const nodeElement = document.createElement("div");
-        nodeElement.className = "graph-node";
-        nodeElement.textContent = nodeName;
-        nodeElement.style.position = "absolute"; // Position manually
-
-        // Assign initial position (simple spread for now)
-        const nodeCount = Object.keys(nodes).length;
-        const posX = 50 + (nodeCount % 5) * 80; // Arrange in rows
-        const posY = 50 + Math.floor(nodeCount / 5) * 80;
-        nodeElement.style.left = `${posX}px`;
-        nodeElement.style.top = `${posY}px`;
-
-        // Add drag listeners
-        nodeElement.addEventListener("mousedown", startDrag);
-
-        // Add to visualization and state
-        graphVisualization.appendChild(nodeElement);
-        nodes[nodeName] = { element: nodeElement, x: posX, y: posY };
-        adj[nodeName] = new Set(); // Initialize adjacency list entry
-
-        renderAdjacencyList();
-        showMessage(graphMessage, `Node '${nodeName}' added.`, "success");
-      });
-
-      // Add Edge Button
-      addEdgeButton.addEventListener("click", () => {
-        const node1Name = edgeNode1Input.value.trim().toUpperCase();
-        const node2Name = edgeNode2Input.value.trim().toUpperCase();
-        edgeNode1Input.value = "";
-        edgeNode2Input.value = "";
-
-        if (!node1Name || !node2Name) {
-          showMessage(
-            graphMessage,
-            "Please enter both node names for the edge.",
-            "error"
-          );
-          return;
-        }
-        if (node1Name === node2Name) {
-          showMessage(
-            graphMessage,
-            "Cannot add an edge from a node to itself.",
-            "error"
-          );
-          return;
-        }
-        if (!nodes[node1Name] || !nodes[node2Name]) {
-          showMessage(graphMessage, "One or both nodes do not exist.", "error");
-          return;
-        }
-
-        // Add edge to adjacency list (undirected)
-        adj[node1Name].add(node2Name);
-        adj[node2Name].add(node1Name);
-
-        // Add edge to edge set for drawing (ensure consistent key order)
-        const edgeKey = [node1Name, node2Name].sort().join("-");
-        if (edges.has(edgeKey)) {
-          showMessage(
-            graphMessage,
-            `Edge between '${node1Name}' and '${node2Name}' already exists.`,
-            "info"
-          );
-        } else {
-          edges.add(edgeKey);
-          drawEdges();
-          renderAdjacencyList();
-          showMessage(
-            graphMessage,
-            `Edge added between '${node1Name}' and '${node2Name}'.`,
-            "success"
-          );
-        }
-      });
-
-      // Reset Graph Button
-      resetGraphButton.addEventListener("click", () => {
-        nodes = {};
-        adj = {};
-        edges.clear();
-        // Remove node elements and SVG content
-        graphVisualization
-          .querySelectorAll(".graph-node")
-          .forEach((el) => el.remove());
-        svgContainer.innerHTML = "";
-        graphVisualization.innerHTML =
-          '<svg width="100%" height="100%"></svg><span class="text-gray-500 italic">Add nodes and edges.</span>'; // Reset SVG and placeholder text
-        renderAdjacencyList();
-        showMessage(graphMessage, "Graph reset.", "info");
-      });
-
-      // --- Quiz Logic ---
-      function checkGraphQuiz() {
-        const answers = {
-          q1_graph: "c", // Vertices and Edges
-          q2_graph: "c", // Directed Graph
-          q3_graph: "b", // Adjacent vertices
-          q4_graph: "b", // Storing a single sequence (that's lists/tuples)
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultGraph.textContent =
-            "Please answer all questions before checking.";
-          quizResultGraph.className = "message-box message-box-error";
-          quizResultGraph.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultGraph.innerHTML = resultsHTML;
-        quizResultGraph.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultGraph.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonGraph.addEventListener("click", checkGraphQuiz);
-
-      // --- Initial Setup ---
-      // Initialize SVG container size (can be dynamic based on graphVisualization size)
-      svgContainer.setAttribute("width", graphVisualization.clientWidth);
-      svgContainer.setAttribute("height", graphVisualization.clientHeight);
-      renderAdjacencyList(); // Show empty list initially
-    </script>
-  </body>
-</html>
+</body>
+</html> 

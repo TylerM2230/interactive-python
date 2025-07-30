@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
-  font-family: "Press Start 2P", cursive;
+  font-family: 'Courier New', 'Courier', monospace !important;
+  font-size: 18px; /* Increased base font size for better readability */
+  line-height: 1.7; /* Better line spacing */
   /* Basic 8-bit color palette inspiration */
   --color-8bit-black: #000000;
   --color-8bit-red: #FF0000;
@@ -24,27 +28,28 @@ body {
 
 /* Code block styling */
 pre {
-  background-color: #1e3a8a; /* Tailwind blue-900 */
-  border: 1px solid #3b82f6; /* Tailwind blue-500 */
-  color: #e5e7eb; /* Tailwind gray-200 (lighter for better contrast on blue-900) */
+  background-color: #581c87; /* Deep violet to match theme */
+  border: 1px solid #7c3aed; /* Lighter violet border */
+  color: #e5e7eb; /* Tailwind gray-200 (lighter for better contrast) */
   border-radius: 0.375rem; /* rounded-md */
   padding: 1rem; /* p-4 */
   overflow-x: auto;
-  font-family: monospace;
-  font-size: 0.875rem; /* text-sm */
+  font-family: 'Courier New', 'Courier', monospace !important;
+  font-size: 1rem; /* Increased for better readability */
   margin-top: 0.5rem; /* mt-2 */
   margin-bottom: 1rem; /* mb-4 */
   position: relative; /* For potential future enhancements like copy buttons */
+  line-height: 1.6; /* Better line spacing */
 }
 
 /* Inline code styling */
 code {
-  font-family: monospace;
+  font-family: 'Courier New', 'Courier', monospace !important;
   background-color: rgba(55, 65, 81, 0.8); /* Slightly transparent Tailwind gray-700 */
   color: #e5e7eb; /* Tailwind gray-200 */
-  padding: 0.15rem 0.35rem;
+  padding: 0.25rem 0.5rem; /* Larger padding for better mobile touch */
   border-radius: 0.25rem; /* rounded-sm */
-  font-size: 0.85em; /* Slightly smaller than pre text */
+  font-size: 1em; /* Increased for better readability */
 }
 
 /* Reset styling for code elements specifically within pre blocks */
@@ -59,12 +64,13 @@ pre code {
 
 /* Interactive Section Styling */
 .interactive-section {
-  background-color: #1f2937; /* gray-800 */
+  background-color: #581c87; /* Deep violet for better visual harmony */
   padding: 1.5rem; /* p-6 */
   border-radius: 0.5rem; /* rounded-lg */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
   margin-bottom: 1.5rem; /* mb-6 */
+  border: 1px solid rgba(250, 204, 21, 0.2); /* Subtle gold border */
 }
 
 /* Button Styling */
@@ -139,7 +145,7 @@ pre code {
 
 /* Output Display Styling */
 .output-display {
-  background-color: #1f2937; /* gray-800, to match interactive-section */
+  background-color: #581c87; /* Deep violet to match interactive sections */
   border: 1px dashed #facc15; /* yellow-400 for border */
   color: #facc15; /* yellow-400 for text */
   padding: 1rem; /* p-4 */
@@ -284,10 +290,11 @@ pre code {
 /* ENCHANTED 8-BIT FOREST THEME - START */
 
 body {
-  font-family: 'Press Start 2P', cursive !important; /* Ensure this overrides any Tailwind body font */
+  font-family: 'Courier New', 'Courier', monospace !important; /* Use Courier instead of Press Start 2P */
   color: #f0c060; /* Sunlight Gold - General text */
   background-color: #224022; /* Forest Green - Body BG */
-  image-rendering: pixelated; /* Apply to whole body for crispness */
+  font-size: 18px; /* Increased base font size for readability */
+  line-height: 1.7; /* Better line spacing */
 }
 
 .console-screen-border {
@@ -309,6 +316,7 @@ body {
 
 .pixel-header { /* Typically for H1 on main page */
   color: #f0c060; /* Sunlight Gold */
+  font-family: 'Press Start 2P', cursive !important;
   text-shadow: 
     /* Top-left highlight for 3D effect */
     -1px -1px 0 #f8e8c0, /* Pale Gold highlight */
@@ -320,8 +328,8 @@ body {
     4px 4px 0 #503020,
     5px 5px 0 #302010,   /* Darkest Bark - Layer 3 (deepest shadow) */
     6px 6px 0 #302010;
-  font-size: 2.8rem; 
-  line-height: 1.1; 
+  font-size: 3rem; /* Increased size */
+  line-height: 1.2; 
 }
 
 .pixel-subheader { /* Typically for P subtitle on main page */
@@ -333,13 +341,14 @@ body {
 /* General page title for sub-pages */
 .page-title-8bit {
   color: #f0c060; /* Sunlight Gold */
-   text-shadow: 
+  font-family: 'Press Start 2P', cursive !important;
+  text-shadow: 
     -1px -1px 0 #f8e8c0,
     1px 1px 0 #a07030,
     2px 2px 0 #503020,
     3px 3px 0 #302010;
-  font-size: 2.2rem; /* Slightly smaller than main page H1 */
-  line-height: 1.1;
+  font-size: 2.5rem; /* Increased size */
+  line-height: 1.2;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -347,12 +356,12 @@ body {
 
 /* Section styling for main page sections */
 .game-section {
-  background-color: #a06040; /* Terracotta - Section BG */
-  border: 4px solid #c08060; /* Lighter Terracotta - Section border */
+  background-color: #581c87; /* Deep violet - Section BG */
+  border: 4px solid #7c3aed; /* Lighter violet - Section border */
   box-shadow: 
-    inset 0 0 0 3px #605040, /* Mossy Brown - Inner highlight line */
-    5px 5px 0 0 #503020,    /* Deep Bark - Main outer shadow */
-    -3px -3px 0 0 #d0a080;  /* Pale Terracotta - Top-left highlight */
+    inset 0 0 0 3px #6d28d9, /* Purple highlight line */
+    5px 5px 0 0 #1e1b4b,    /* Dark purple - Main outer shadow */
+    -3px -3px 0 0 #a78bfa;  /* Light purple - Top-left highlight */
   padding: 20px;
   margin-bottom: 30px;
   border-radius: 10px; 
@@ -361,13 +370,14 @@ body {
 .section-title-8bit { /* For H2 titles within .game-section on main page */
   background-color: #40a090; /* Mystic Teal - Title BG */
   color: #f0e0c0; /* Cream - Title Text */
+  font-family: 'Press Start 2P', cursive !important;
   padding: 8px 16px; 
   display: inline-block; 
   border: 3px solid #503020; /* Deep Bark border */
   border-right-color: #f0c060; /* Sunlight Gold accent */
   border-bottom-color: #f0c060; /* Sunlight Gold accent */
   text-shadow: 2px 2px 0 #224022; /* Forest Green shadow */
-  font-size: 1.4rem; 
+  font-size: 1.5rem; /* Increased size */
   margin-bottom: 24px;
   border-radius: 6px; 
 }
@@ -479,19 +489,21 @@ body {
 
 /* Theme adjustments for existing generic classes */
 .interactive-section { /* From original shared-styles */
-  background-color: #a06040; /* Terracotta - to match .game-section */
-  border: 2px solid #c08060; /* Lighter Terracotta */
-  box-shadow: inset 0 0 0 2px #605040, 3px 3px 0 0 #503020;
+  background-color: #581c87; /* Deep violet - to match .game-section */
+  border: 2px solid #7c3aed; /* Lighter violet */
+  box-shadow: inset 0 0 0 2px #6d28d9, 3px 3px 0 0 #1e1b4b;
   padding: 1.5rem; 
   margin-bottom: 1.5rem; 
   border-radius: 8px; /* Rounded to fit theme */
-  color: #f0e0c0; /* Cream text for contrast on Terracotta */
+  color: #f0e0c0; /* Cream text for contrast on violet */
 }
 
 .interactive-section h2, .interactive-section h3 {
     color: #f0c060; /* Sunlight Gold for titles within these sections */
+    font-family: 'Press Start 2P', cursive !important;
     text-shadow: 1px 1px 0px #503020;
     margin-bottom: 1rem;
+    font-size: 1.2rem; /* Increased size */
 }
 
 .btn { /* Generic .btn from original shared-styles, now themed */
@@ -499,7 +511,7 @@ body {
   color: #f0c060; /* Sunlight Gold */
   padding: 0.6rem 1rem;
   border-radius: 8px; /* Rounded */
-  font-weight: normal; /* Press Start 2P is already boldish */
+  font-weight: normal; /* Courier is readable without heavy boldness */
   cursor: pointer;
   transition: transform 0.07s linear, box-shadow 0.07s linear, background-color 0.1s linear;
   border: none; /* Remove default border if any */
@@ -544,7 +556,7 @@ body {
   margin-right: 0.5rem;     
   margin-top: 0.25rem;      
   margin-bottom: 0.5rem;    
-  font-family: 'Press Start 2P', cursive !important; /* Ensure font */
+  font-family: 'Courier New', 'Courier', monospace !important; /* Ensure font */
 }
 
 .input-field:focus,
@@ -570,9 +582,9 @@ body {
 }
 
 .message-box-error {
-  background-color: #a06040; /* Terracotta */
-  color: #f8e8c0; /* Pale Gold */
-  border-color: #c08060; /* Lighter Terracotta */
+  background-color: #dc2626; /* Keep error red for clarity */
+  color: #fecaca; /* Light red text */
+  border-color: #b91c1c; /* Darker red border */
 }
 
 .message-box-info {
@@ -582,15 +594,15 @@ body {
 }
 
 .output-display { /* For code outputs etc. */
-  background-color: #503020; /* Deep Bark */
-  border: 3px solid #706050; /* Lighter Bark/Moss */
-  border-top-color: #302010;
-  border-left-color: #302010;
+  background-color: #581c87; /* Deep violet */
+  border: 3px solid #7c3aed; /* Lighter violet */
+  border-top-color: #4c1d95;
+  border-left-color: #4c1d95;
   color: #f0c060; /* Sunlight Gold text */
   padding: 1rem; 
   border-radius: 6px; 
   min-height: 100px; 
-  font-family: 'Press Start 2P', cursive !important; /* Ensure font for output */
+  font-family: 'Courier New', 'Courier', monospace !important; /* Ensure font for output */
   white-space: pre-wrap; 
   margin-top: 0.5rem; 
   max-height: 300px; 
@@ -599,29 +611,29 @@ body {
 
 /* Code block styling (pre) */
 pre {
-  background-color: #503020; /* Deep Bark */
-  border: 3px solid #706050; /* Lighter Bark/Moss */
+  background-color: #581c87; /* Deep violet */
+  border: 3px solid #7c3aed; /* Lighter violet */
   color: #f0c060; /* Sunlight Gold */
   border-radius: 6px; 
   padding: 1rem; 
   overflow-x: auto;
-  font-family: 'Press Start 2P', cursive !important; /* Monospace will be handled by this font */
-  font-size: 0.8rem; /* Slightly smaller for dense code */
+  font-family: 'Courier New', 'Courier', monospace !important; /* Use Courier instead */
+  font-size: 0.9rem; /* Increased for better readability */
   margin-top: 0.5rem; 
   margin-bottom: 1rem; 
   position: relative;
   line-height: 1.4;
-  box-shadow: inset 0 0 0 3px #302010; /* Inner shadow */
+  box-shadow: inset 0 0 0 3px #4c1d95; /* Inner violet shadow */
 }
 
 /* Inline code styling (code) */
 code {
-  font-family: 'Press Start 2P', cursive !important;
+  font-family: 'Courier New', 'Courier', monospace !important;
   background-color: #706050; /* Lighter Bark/Moss */
   color: #f8e8c0; /* Pale Gold */
-  padding: 0.15rem 0.35rem;
+  padding: 0.2rem 0.4rem; /* Slightly larger for better mobile touch */
   border-radius: 4px; 
-  font-size: 0.9em; /* Relative to parent */
+  font-size: 0.95em; /* Increased for better readability */
   border: 1px solid #503020; /* Deep Bark border for inline code */
 }
 
@@ -637,12 +649,12 @@ pre code { /* Reset for code inside pre */
 
 /* Specific Theming for BST Visualization */
 .tree-container {
-  background-color: #a06040; /* Terracotta, like game-section */
+  background-color: #581c87; /* Deep violet, like game-section */
   padding: 20px;
   border-radius: 8px;
   margin-top: 1rem;
-  border: 2px solid #c08060;
-  box-shadow: inset 0 0 0 2px #605040, 3px 3px 0 0 #503020;
+  border: 2px solid #7c3aed;
+  box-shadow: inset 0 0 0 2px #6d28d9, 3px 3px 0 0 #1e1b4b;
 }
 
 .tree-node {
@@ -654,7 +666,7 @@ pre code { /* Reset for code inside pre */
   border-radius: 50%; 
   width: 45px; /* Slightly larger */
   height: 45px;
-  font-size: 0.8rem; /* Adjusted for Press Start 2P */
+  font-size: 0.85rem; /* Adjusted for Courier readability */
   box-shadow: 2px 2px 0px #302010; /* Darkest Bark shadow */
 }
 
@@ -678,7 +690,7 @@ pre code { /* Reset for code inside pre */
   padding: 0.35rem 0.6rem; 
   margin: 0.25rem; 
   border-radius: 6px; 
-  font-size: 0.8rem; 
+  font-size: 0.85rem; /* Increased for better readability */
   display: inline-block;
   border: 2px solid #208070; /* Darker Mystic Teal */
   box-shadow: 2px 2px 0 #503020; /* Deep Bark shadow */
@@ -731,8 +743,8 @@ pre code { /* Reset for code inside pre */
 
 /* New class for nested interactive boxes, simpler than .interactive-section */
 .sub-interactive-box {
-  background-color: rgba(0,0,0,0.1); /* Subtle darker overlay than content-wrapper */
-  border: 1px solid var(--theme-accent2); /* Dark Wood Brown border */
+  background-color: rgba(88, 28, 135, 0.3); /* Subtle violet overlay */
+  border: 1px solid #7c3aed; /* Violet border */
   padding: 1rem;
   border-radius: 5px;
   margin-top: 1rem;
@@ -777,8 +789,64 @@ pre code { /* Reset for code inside pre */
 }
 
 /* Universal font application - ensure this is last or very high specificity if needed */
-body, h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, select, textarea {
+body, p, a, span, div, button, input, select, textarea {
+  font-family: 'Courier New', 'Courier', monospace !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Press Start 2P', cursive !important;
+}
+
+/* Mobile responsive font sizes */
+@media (max-width: 768px) {
+  body {
+    font-size: 20px; /* Larger base font for mobile */
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p, div, span {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  button {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+  }
+  
+  input, select, textarea {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 21px;
+  }
+  
+  h1 {
+    font-size: 1.7rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
 }
 
 /* ENCHANTED 8-BIT FOREST THEME - END */ 

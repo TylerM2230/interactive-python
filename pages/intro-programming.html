@@ -3,465 +3,648 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to Programming & Python</title>
+    <title>The Notional Machine & Python Basics | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
+    <style>
+      /* Full-page layout for consistency with index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .notional-machine-emphasis {
+        background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.2));
+        border: 3px solid #dc2626;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .machine-property {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid #3b82f6;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      /* Assessment section styling */
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    </style>
   </head>
-  <body class="">
+  <body>
     <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="../index.html" class="btn">
-          &laquo; Main Menu
-        </a>
-        <a href="variables-types.html" class="btn">
-          Next: Variables &rarr;
-        </a>
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="../index.html" class="nav-btn">🏠 Main Menu</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Foundation: Building Your Programming Mindset
+          </div>
+          <a href="variables-types.html" class="nav-btn">Next: Variables & Data Types →</a>
+        </div>
       </nav>
 
       <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Introduction to Programming & Python
-          </h2>
-          <p class="text-sm italic mt-1">
-            Understanding the basics of giving computers instructions and why Python is a popular choice to start.
-          </p>
-        </header>
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">The Notional Machine & Python Basics</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🎯 Mental Model First: How Computers Think
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Before learning ANY syntax, we must understand how computers think!
+            </div>
+          </div>
+        </div>
 
         <main>
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">1. What is Programming?</h2>
-            <p class="mb-4">
-              At its core, <strong>programming</strong> is the process of giving a computer a set of precise instructions
-              to perform a specific task or solve a problem. Think of it like writing a very detailed recipe
-              for a computer to follow. These instructions are written in a <strong>programming language</strong>.
+          <!-- Critical Notional Machine Section -->
+          <section class="notional-machine-emphasis">
+            <h2 style="color: #fca5a5; margin-bottom: 1rem; font-size: 16px;">
+              🧠 The Most Important Lesson: The Notional Machine
+            </h2>
+            <p style="color: #fecaca; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+              <strong>This is the foundation of ALL programming success!</strong> Before we write a single line of code, 
+              you must understand how computers "think." Computers are NOT like humans - they are sequential, literal, and oblivious.
             </p>
-            <ul class="list-disc list-inside ml-4 space-y-2 mb-4">
-              <li>
-                <strong>Instructions:</strong> Computers need exact, step-by-step
-                commands because they cannot infer meaning or make assumptions like
-                humans do. Imagine giving directions to a very literal-minded robot chef. You can't just say 'bake a cake.' You have to specify 'preheat oven to 175°C,' 'mix 200g flour with 100g sugar,' etc. The robot won't guess or fill in blanks.
-              </li>
-              <li>
-                <strong>Programming Languages:</strong> We use special languages
-                (like Python, Java, C++, JavaScript) with strict grammatical rules (syntax) to
-                write these instructions. Each language has its own strengths. Think of these languages like different types of recipe books. Some (like Python) use simpler, everyday terms, making them easier for beginners. Others (closer to machine code) are like highly technical manuals, precise but harder to read.
-              </li>
-              <li>
-                <strong>The Goal:</strong> Programmers write code (sequences of instructions) to create
-                software applications, automate repetitive tasks, analyze data, build websites, develop
-                games, power artificial intelligence, and much more.
-              </li>
-            </ul>
+            <p style="color: #fecaca; font-size: 10px; line-height: 1.4;">
+              Understanding this mental model prevents 90% of beginner confusion and frustration. 
+              Students who skip this concept struggle for months with issues that could be avoided in minutes.
+            </p>
+          </section>
 
-            <div class="sub-interactive-box p-4 mt-4">
-              <h3>Mini-Challenge: Instructions vs. Goal</h3>
-              <p class="mb-3 text-sm">
-                Consider making a cup of tea. Which of these is an <strong>instruction</strong> a
-                computer (or a simple robot) could follow directly?
+          <!-- The Three Properties of Computers -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">How Computers "Think": The Three Critical Properties</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The Computer as a Very Literal Assistant</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5;">
+                Imagine you have an assistant who follows instructions EXACTLY as written, never makes assumptions, 
+                and can only do one thing at a time. This is your computer!
               </p>
-              <div class="space-y-2 quiz-options">
-                <label class="quiz-option-label">
-                  <input type="radio" name="instruction_goal" value="goal" class="mr-2" />
-                  Make a nice cup of tea. (The Goal)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="instruction_goal" value="instruction" class="mr-2" />
-                  Boil water to 100 degrees Celsius. (An Instruction)
-                </label>
+            </div>
+
+            <div class="machine-property">
+              <h3 style="color: #3b82f6; margin-bottom: 0.5rem;">1. Sequential (One Thing at a Time)</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                The computer executes instructions in order, from top to bottom, one line at a time. 
+                It cannot jump ahead or look back unless explicitly told to do so.
+              </p>
+              <div class="interactive-repl">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem;">Example: Watch the Order</h4>
+                <pre style="background: #1f2937; padding: 1rem; border-radius: 6px;"><code>print("First!")
+print("Second!")  
+print("Third!")</code></pre>
+                <p style="font-size: 10px; color: #9ca3af; margin-top: 0.5rem;">
+                  The computer will ALWAYS execute line 1, then line 2, then line 3. Never out of order!
+                </p>
               </div>
-              <button id="checkInstructionButton" class="btn mt-3">
-                Check Answer
-              </button>
-              <div id="instructionResult" class="message-box mt-2" style="display: none"></div>
             </div>
-          </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">2. What is Python?</h2>
-            <p class="mb-4">
-              <strong>Python</strong> is a popular, high-level, general-purpose programming language
-              created by Guido van Rossum and first released in 1991. It's widely used across many industries
-              due to its versatility, extensive libraries, and notably, its readability.
-            </p>
-            <h3 class="mt-3">Key Characteristics:</h3>
-            <ul class="list-disc list-inside ml-4 space-y-1 mb-4">
-              <li>
-                <strong>High-Level:</strong> Its syntax is designed to be closer to human language
-                than to machine code, making it generally easier to learn and write. Python is like speaking to your computer using well-structured English sentences, rather than trying to communicate by only using a series of beeps and boops (which is closer to what machine code, the computer's native language, is like).
-              </li>
-              <li>
-                <strong>Interpreted:</strong> Python code is typically executed line by line by an interpreter.
-                This often leads to a faster development cycle (write, test, debug) as you don't usually
-                need a separate compilation step like in languages such as C++ or Java. Think of an interpreter as a simultaneous translator at a conference. They listen to one sentence of speech and immediately translate it. If the speaker says something unclear (an error in code), the translator stops and flags it right away. This is different from a 'compiled' language, where it's like a translator who takes the entire speech, translates it all at once, and only then delivers the full translated document. You'd only find errors after the whole thing is processed.
-              </li>
-              <li>
-                <strong>General-Purpose:</strong> It's not specialized for one type of task. Python is
-                versatile and used for web development, data science, artificial intelligence,
-                automation, scientific computing, and much more.
-              </li>
-              <li>
-                <strong>Readable and Clean Syntax:</strong> Python emphasizes code readability. It uses
-                indentation (whitespace) to define code blocks (like loops or functions) rather
-                than curly braces or keywords, which enforces a clean and uncluttered style.
-                This is often summarized by the Zen of Python's "Readability counts." Python's use of indentation is like using proper paragraphing and outlining in a book. It visually groups related thoughts (code blocks), making the overall structure clear and easy to follow, helping you see where one idea ends and another begins.
-              </li>
-              <li>
-                <strong>Large Standard Library:</strong> Python comes with a vast collection of pre-built
-                modules and functions that provide tools for many common tasks, so you don't
-                have to write everything from scratch. Python's standard library is like a well-stocked kitchen that comes with your house. Need to measure something (math operations), store food (file handling), or even prepare a fancy dish (complex data processing)? There's a good chance the right utensil or pre-packaged ingredient (module) is already there, saving you the effort of crafting it from scratch.
-              </li>
-              <li>
-                <strong>Dynamically Typed:</strong> You don't need to declare the type of a variable
-                (e.g., integer, string) explicitly. Python figures it out at runtime. Imagine you have a set of magic boxes. In some languages (statically typed), you must label each box *before* putting anything in it: 'This box is ONLY for apples.' In Python (dynamically typed), you can put an apple in a box. Later, you can take the apple out and put a book in the *same* box. Python understands what's inside the box each time you use it, without needing a fixed label on the box itself.
-              </li>
-              <li>
-                <strong>Cross-Platform:</strong> Python code can run on various operating systems
-                (Windows, macOS, Linux) without significant modifications.
-              </li>
-            </ul>
-
-            <div class="sub-interactive-box p-4 mt-4">
-              <h3>Try a Simple Python Instruction</h3>
-              <p class="mb-3 text-sm">
-                The <code>print()</code> function in Python displays output. Click
-                the button to simulate running the code
-                <code>print("Hello, Python!")</code>.
+            <div class="machine-property">
+              <h3 style="color: #3b82f6; margin-bottom: 0.5rem;">2. Literal (Exactly What You Say)</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                The computer does EXACTLY what the code says, no more, no less. It has no understanding 
+                of your intent or what you "meant to" write.
               </p>
-              <pre><code class="language-python">print("Hello, Python!")</code></pre>
-              <button id="runPrintButton" class="btn">Run Code</button>
-              <h4 class="text-md font-medium mt-3 mb-1">Simulated Output:</h4>
-              <div id="printOutputDisplay" class="output-display">
-                <span class="placeholder-text">
-                  Click 'Run Code' to see the output.
-                </span>
+              <div class="interactive-repl">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem;">Example: Literal Interpretation</h4>
+                <pre style="background: #1f2937; padding: 1rem; border-radius: 6px;"><code>print("Hello world")  # Prints exactly this
+print("hello world")  # Different! Lowercase 'h'</code></pre>
+                <p style="font-size: 10px; color: #9ca3af; margin-top: 0.5rem;">
+                  The computer sees these as completely different instructions!
+                </p>
               </div>
-              <div id="printMessage" class="message-box mt-2" style="display: none"></div>
             </div>
 
-            <h3 class="mt-5">Common Uses for Python:</h3>
-            <ul class="list-disc list-inside ml-4 space-y-1">
-              <li>Web Development (Django, Flask)</li>
-              <li>Data Science, Machine Learning, AI</li>
-              <li>Scripting and Automation</li>
-              <li>Scientific Computing</li>
-              <li>Game Development (Pygame)</li>
-              <li>Desktop Applications</li>
-            </ul>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">3. Why Learn Python?</h2>
-            <p class="mb-2">
-              Python is often recommended as a great first programming language for several compelling reasons:
-            </p>
-            <ol class="list-decimal list-inside ml-4 space-y-2">
-              <li>
-                <strong>It's relatively easy to learn (Beginner-Friendly):</strong> Its simple, readable syntax lowers the
-                barrier to entry. It reads a bit like plain English, which means you can focus more on learning programming concepts rather than getting bogged down by complex grammar.
-              </li>
-              <li>
-                <strong>It's highly versatile:</strong> Python isn't a one-trick pony. It's applicable in a vast array of fields, including web development (e.g., Django, Flask), data science, artificial intelligence, machine learning, scientific computing, scripting and automation, and even game development.
-              </li>
-              <li>
-                <strong>It has excellent community support (Large Community):</strong> Learning Python is like joining a massive, friendly global club. If you're stuck on a problem, chances are someone has faced it before and shared a solution. There are countless online forums (like Stack Overflow), tutorials, and experienced members happy to help, like having thousands of helpful librarians and experienced chefs available to consult when you're trying a new recipe.
-              </li>
-              <li>
-                <strong>It's in high demand:</strong> Python developers are highly sought after in many job markets. Learning Python can open doors to numerous career opportunities.
-              </li>
-              <li>
-                <strong>It has extensive libraries and frameworks:</strong> Beyond its large standard library, Python has a vast ecosystem of third-party
-                packages (like NumPy for numerical computing, Pandas for data
-                analysis, Django/Flask for web development) that extend its
-                capabilities significantly. These are like specialized toolkits that let you do amazing things without reinventing the wheel.
-              </li>
-            </ol>
-            <p class="mt-3">
-              Overall, learning Python provides a solid foundation in programming principles
-              that are applicable even if you decide to learn other languages later.
-            </p>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">4. Quick Quiz</h2>
-            <p class="mb-4">Test your understanding!</p>
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1"> 
-                Q1: What is programming fundamentally about?
+            <div class="machine-property">
+              <h3 style="color: #3b82f6; margin-bottom: 0.5rem;">3. Oblivious (No Memory Unless Told)</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                The computer has no memory of past or future instructions beyond its current, 
+                explicitly defined state (variables). It doesn't learn patterns or anticipate needs.
               </p>
-              <label class="quiz-option-label">
-                <input type="radio" name="q1_intro" value="a" class="mr-1" />
-                Designing computer hardware
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q1_intro" value="b" class="mr-1" />
-                Writing instructions for a computer
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q1_intro" value="c" class="mr-1" /> 
-                Using software applications
-              </label>
-            </div>
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1">
-                Q2: Which characteristic describes Python's syntax?
-              </p>
-              <label class="quiz-option-label">
-                <input type="radio" name="q2_intro" value="a" class="mr-1" />
-                Complex and close to machine code
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q2_intro" value="b" class="mr-1" /> 
-                Uses <code>{ }</code> braces extensively for blocks
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q2_intro" value="c" class="mr-1" />
-                Readable and uses indentation for blocks
-              </label>
-            </div>
-            <div class="quiz-options mb-3">
-              <p class="font-medium mb-1">
-                Q3: What does it mean for Python to be "Interpreted"?
-              </p>
-              <label class="quiz-option-label">
-                <input type="radio" name="q3_intro" value="a" class="mr-1" /> Code
-                is translated entirely before running
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q3_intro" value="b" class="mr-1" /> Code
-                is executed line by line by another program
-              </label>
-              <label class="quiz-option-label">
-                <input type="radio" name="q3_intro" value="c" class="mr-1" /> Code
-                can only be used for interpretation, not creation
-              </label>
-            </div>
-            <button id="checkQuizButtonIntro" class="btn">Check Answers</button>
-            <div
-              id="quizResultIntro"
-              class="message-box mt-4"
-              style="display: none"
-            ></div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">5. Your First Interactive Python "Code"</h2>
-            <p class="mb-3">
-              Let's try a very simple interaction. This isn't running Python code
-              directly in your browser in a full sense, but it simulates how Python
-              might respond.
-            </p>
-            <div class="mb-3">
-              <label for="userNameInput" class="block mb-1 font-medium"
-                >Enter Your Name:</label
-              >
-              <input
-                type="text"
-                id="userNameInput"
-                class="input-field w-full md:w-1/2"
-                placeholder="e.g., Alex"
-              />
-            </div>
-            <button id="greetUserButton" class="btn btn-green">Greet Me!</button>
-            <div id="greetingOutput" class="output-display mt-3">
-              <span class="text-gray-500 italic"
-                >Output will appear here...</span
-              >
+              <div class="interactive-repl">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem;">Example: No Automatic Memory</h4>
+                <pre style="background: #1f2937; padding: 1rem; border-radius: 6px;"><code>print("My name is Alice")
+print("Hello, " + name)  # ERROR! What is 'name'?</code></pre>
+                <p style="font-size: 10px; color: #9ca3af; margin-top: 0.5rem;">
+                  The computer doesn't remember "Alice" from the first line unless we explicitly store it!
+                </p>
+              </div>
             </div>
           </section>
 
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">6. Basic Python Concepts (A Sneak Peek)</h2>
-            <p class="mb-4">
-              You'll learn these in detail in upcoming tutorials, but here's a quick
-              glimpse:
+          <!-- Common Beginner "Bugs" -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">The "Superbug": Talking to Computers Like Humans</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">⚠️ Critical Pitfall: The Humanization Error</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5;">
+                The biggest source of beginner frustration is trying to "converse" with the computer 
+                as if it were human. This leads to three major misconceptions:
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+              <div class="pitfall-warning">
+                <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">Parallelism Bug</h4>
+                <p style="color: #fde68a; font-size: 10px; line-height: 1.4;">
+                  Thinking multiple lines run at the same time. Reality: Only ONE line executes at any moment.
+                </p>
+              </div>
+              
+              <div class="pitfall-warning">
+                <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">Intentionality Bug</h4>
+                <p style="color: #fde68a; font-size: 10px; line-height: 1.4;">
+                  Believing the computer can guess what you meant. Reality: It only does what you literally wrote.
+                </p>
+              </div>
+              
+              <div class="pitfall-warning">
+                <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">Egocentrism Bug</h4>
+                <p style="color: #fde68a; font-size: 10px; line-height: 1.4;">
+                  Assuming the computer understands your personal context. Reality: It only knows what you explicitly tell it.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Why Python? -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">Why Python? The Perfect Learning Language</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Now that you understand how computers think, let's explore why Python is the ideal language 
+              for learning programming. Python was designed to be readable and approachable while still being powerful.
             </p>
-            <ul class="list-disc list-inside ml-4 space-y-2 text-sm">
-              <li>
-                <strong class="text-cyan-400">Variables:</strong> Named containers for storing data (e.g.,
-                <code>age = 25</code>, <code>name = "Ada"</code>).
-              </li>
-              <li>
-                <strong class="text-cyan-400">Data Types:</strong> Different kinds of data, like numbers
-                (integers, floats), text (strings), and booleans (True/False).
-              </li>
-              <li>
-                <strong class="text-cyan-400">Operators:</strong> Symbols that perform operations on data
-                (e.g., <code>+</code> for addition, <code>==</code> for comparison).
-              </li>
-              <li>
-                <strong class="text-cyan-400">Control Flow:</strong> Structures that control the order
-                in which instructions are executed (e.g., <code>if</code> statements
-                for decisions, <code>for</code>/<code>while</code> loops for repetition).
-              </li>
-              <li>
-                <strong class="text-cyan-400">Functions:</strong> Reusable blocks of code that perform
-                specific tasks (like <code>print()</code>, or ones you define yourself).
-              </li>
-            </ul>
-            <pre><code class="language-python"># A very simple Python program demonstrating a few concepts:
-name = "Explorer"  # Variable storing a string
-age = 10           # Variable storing an integer
 
-print(f"Hello, {name}!") # Using an f-string to include a variable in text
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">🗣️ Readable Like English</h3>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  Python reads like structured English sentences, making it easier to understand your intent.
+                </p>
+              </div>
+              
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">⚡ Interactive Learning</h3>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  Python has a REPL (Read-Eval-Print Loop) for immediate feedback - perfect for learning!
+                </p>
+              </div>
+              
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">🎯 Focus on Concepts</h3>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  Less complex syntax means more time learning programming concepts, not fighting the language.
+                </p>
+              </div>
+              
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">🌍 Widely Used</h3>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  Used everywhere: web development, data science, AI, automation, games, and more!
+                </p>
+              </div>
+            </div>
+          </section>
 
-if age < 18:
-  print("You are young!")
-else:
-  print("You are an adult (or close to it!).")</code></pre>
+          <!-- First Python Experience -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">Your First Python Instructions</h2>
+            
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Interactive Discovery: The print() Function</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Let's give the computer its first literal instruction. The <span class="code-highlight">print()</span> 
+                function tells the computer to display text on the screen.
+              </p>
+              
+              <div style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                <h4 style="color: #facc15; margin-bottom: 0.5rem;">Try This Code:</h4>
+                <pre><code>print("Hello, I am learning to think like a computer!")</code></pre>
+                <button id="runFirstCode" class="btn btn-green" style="margin-top: 1rem;">Run This Code</button>
+              </div>
+              
+              <div id="firstCodeOutput" class="output-display" style="margin-top: 1rem;">
+                <span class="placeholder-text">Click 'Run This Code' to see the output</span>
+              </div>
+            </div>
+
+            <div class="mental-model-box" style="margin-top: 1.5rem;">
+              <h3 style="color: #10b981; margin-bottom: 0.5rem;">🧠 Mental Model Check</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5;">
+                Notice how the computer did EXACTLY what we told it: it printed the text we specified, 
+                character for character. It didn't add creativity, interpret meaning, or guess our intent.
+              </p>
+            </div>
+          </section>
+
+          <!-- Setting Up Python -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">Setting Up Your Programming Environment</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              To start giving instructions to your computer in Python, you need to install Python and 
+              choose a way to write and run your code.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">1. Install Python</h3>
+                <ul style="color: #d1fae5; font-size: 10px; line-height: 1.4; margin-left: 1rem;">
+                  <li>Visit python.org</li>
+                  <li>Download Python 3.10 or newer</li>
+                  <li>Run the installer</li>
+                  <li>Check "Add Python to PATH"</li>
+                </ul>
+              </div>
+              
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">2. Choose Your Editor</h3>
+                <ul style="color: #d1fae5; font-size: 10px; line-height: 1.4; margin-left: 1rem;">
+                  <li><strong>IDLE:</strong> Comes with Python (great for beginners)</li>
+                  <li><strong>VS Code:</strong> Professional, free, great extensions</li>
+                  <li><strong>PyCharm:</strong> Full-featured IDE</li>
+                </ul>
+              </div>
+              
+              <div class="mental-model-box">
+                <h3 style="color: #10b981; margin-bottom: 0.5rem;">3. Test Your Setup</h3>
+                <div style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                  <code style="color: #facc15; font-size: 10px;">python --version</code>
+                </div>
+                <p style="color: #d1fae5; font-size: 10px; line-height: 1.4;">
+                  This should show your Python version
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Concept Mastery Check</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Understanding the Notional Machine</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Which statement best describes how computers execute instructions?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  Computers execute instructions sequentially, literally, and have no memory unless explicitly programmed
+                </p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  Computers can understand context and execute multiple instructions simultaneously
+                </p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  Computers learn from previous instructions and can guess what you mean
+                </p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Predicting Output</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 0.5rem;">
+                What will this code output?
+              </p>
+              <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;"><code>print("Line 1")
+print("Line 2")
+print("Line 3")</code></pre>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  Line 1<br>Line 2<br>Line 3
+                </p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  Line 3<br>Line 2<br>Line 1
+                </p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">
+                  All lines appear at the same time
+                </p>
+              </div>
+            </div>
+
+            <button id="checkAnswers" class="btn btn-green">Check My Understanding</button>
+            <div id="assessmentResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Next Steps -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎯 You're Ready for the Next Step!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">What You've Learned</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ Computers think sequentially, literally, and are oblivious</li>
+                <li>✅ The "superbug" is humanizing computers</li>
+                <li>✅ Python is designed for readability and learning</li>
+                <li>✅ Programming is giving precise instructions</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Now that you understand HOW computers think, you're ready to learn about storing and 
+                working with different types of information!
+              </p>
+              <a href="variables-types.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                Continue to Variables & Data Types →
+              </a>
+            </div>
           </section>
         </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🎮 Foundation Complete! Ready for Variables? 🎮</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="variables-types.html" style="color: #facc15;">📦 Next: Variables & Data Types →</a>
+          </p>
+        </footer>
       </div>
-
-      <footer class="footer-8bit">
-        <p>Happy Coding!</p>
-        <p class="mt-2">
-          <a href="../index.html">Back to Main Menu (from Footer)</a>
-        </p>
-      </footer>
-
     </div>
 
-    <script src="../js/main.js" defer></script>
     <script>
-      // --- DOM Elements ---
-      const checkInstructionButton = document.getElementById(
-        "checkInstructionButton"
-      );
-      const instructionResult = document.getElementById("instructionResult");
+      // Interactive functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // First code execution
+        const runFirstCodeBtn = document.getElementById('runFirstCode');
+        const firstCodeOutput = document.getElementById('firstCodeOutput');
 
-      const runPrintButton = document.getElementById("runPrintButton");
-      const printOutputDisplay = document.getElementById("printOutputDisplay");
-      const printMessage = document.getElementById("printMessage");
+        runFirstCodeBtn.addEventListener('click', function() {
+          firstCodeOutput.innerHTML = '<span style="color: #10b981;">Hello, I am learning to think like a computer!</span>';
+          
+          // Show explanation after a moment
+          setTimeout(() => {
+            const explanation = document.createElement('div');
+            explanation.innerHTML = '<br><span style="color: #9ca3af; font-size: 10px;">Perfect! The computer executed exactly what you told it - no more, no less.</span>';
+            firstCodeOutput.appendChild(explanation);
+          }, 1000);
+        });
 
-      const checkQuizButtonIntro = document.getElementById(
-        "checkQuizButtonIntro"
-      );
-      const quizResultIntro = document.getElementById("quizResultIntro");
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkAnswersBtn = document.getElementById('checkAnswers');
+        const assessmentResult = document.getElementById('assessmentResult');
 
-      const greetUserButton = document.getElementById("greetUserButton");
-      const greetingOutput = document.getElementById("greetingOutput");
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            // Remove selection from siblings
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            // Highlight selected
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
 
-      // --- Interactive Logic ---
+        checkAnswersBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          // Check each question
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
+                }
+              }
+            });
+          });
 
-      // Instruction vs Goal Check
-      checkInstructionButton.addEventListener("click", () => {
-        const selected = document.querySelector(
-          'input[name="instruction_goal"]:checked'
-        );
-        if (!selected) {
-          showMessage(instructionResult, "Please select an answer.", "error");
-          instructionResult.style.display = "block"; // Ensure it's visible
-        } else if (selected.value === "instruction") {
-          showMessage(
-            instructionResult,
-            'Correct! "Boil water..." is a specific, actionable instruction.',
-            "success"
-          );
-          instructionResult.style.display = "block";
-        } else {
-          showMessage(
-            instructionResult,
-            'Not quite. "Make tea" is the overall goal, not a single, direct instruction for a simple machine.',
-            "error"
-          );
-          instructionResult.style.display = "block";
-        }
-      });
-
-      // Simulate Print
-      runPrintButton.addEventListener("click", () => {
-        printOutputDisplay.textContent = "Hello, Python!";
-        showMessage(
-          printMessage,
-          "Simulated print() function executed.",
-          "success"
-        );
-      });
-
-      // --- Quiz Logic ---
-      function checkIntroQuiz() {
-        const answers = {
-          q1_intro: "b", // Writing instructions
-          q2_intro: "c", // Readable, indentation
-          q3_intro: "b", // Executed line by line
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
+          // Show results
+          assessmentResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            assessmentResult.className = 'message-box message-box-success';
+            assessmentResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand the notional machine! Ready for variables.`;
           } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultIntro.textContent =
-            "Please answer all questions before checking.";
-          quizResultIntro.className = "message-box message-box-error";
-          quizResultIntro.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultIntro.innerHTML = resultsHTML;
-        quizResultIntro.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultIntro.style.display = "block";
-      }
-
-      // --- Event Listeners ---
-      checkQuizButtonIntro.addEventListener("click", checkIntroQuiz);
-
-      // Initial greeting setup - This should be specific to this page
-      const userNameInput = document.getElementById("userNameInput"); // Need this for the greeting logic
-      const initialGreetingName = "Learner";
-      if (greetingOutput) { // Ensure greetingOutput exists
-           greetingOutput.textContent = `Python says: Hello, ${initialGreetingName}!`;
-      }
-      
-      // Event listener for Greet Me button
-      if (greetUserButton && userNameInput && greetingOutput) {
-        greetUserButton.addEventListener("click", () => {
-          const userName = userNameInput.value.trim();
-          if (userName) {
-            greetingOutput.textContent = `Python says: Hello, ${userName}!`;
-            // Optionally, show a success message using the shared function
-            // showMessage(someElementForStatus, "Greeting updated!", "success");
-          } else {
-            greetingOutput.textContent = `Python says: Hello, Anonymous! Please enter a name.`;
+            assessmentResult.className = 'message-box message-box-info';
+            assessmentResult.innerHTML = `${correct}/${total} correct. Review the concepts above and try again. The notional machine is crucial!`;
           }
         });
-      }
+
+        // Progress tracking
+        localStorage.setItem('completedIntro', 'true');
+      });
     </script>
   </body>
 </html>
