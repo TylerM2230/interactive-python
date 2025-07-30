@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graph Data Structures - Interactive Python Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
         .graph-node {
@@ -51,52 +54,37 @@
             border-radius: 12px;
             padding: 20px;
             min-height: 200px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Courier New', 'Courier', monospace;
             color: #a78bfa;
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <nav class="hero-nav">
-            <a href="data-structures.html" class="nav-link">&larr; Data Structures</a>
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="sorting-basic.html" class="nav-link">Basic Sorting &rarr;</a>
-        </nav>
-        
-        <div class="hero-content">
-            <h1 style="font-size: 24px;">Graph Data Structures: Networks and Connections</h1>
-            <p class="hero-subtitle">Master the art of representing relationships and connections in data</p>
-            
-            <div style="background: rgba(139, 92, 246, 0.1); border: 2px dashed #8b5cf6; border-radius: 12px; padding: 20px; margin: 20px 0;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                    <span style="font-size: 24px;">🕸️</span>
-                    <div>
-                        <div style="color: #a78bfa; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Social Network Web</div>
-                        <div style="color: #e2e8f0;">Think of graphs like a social media network where people (nodes) are connected by friendships (edges), creating a web of relationships that can be explored and analyzed.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-features">
-                <div class="feature-item">
-                    <span class="feature-icon">🔗</span>
-                    <span>Node Connections</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🗺️</span>
-                    <span>Path Finding</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🌐</span>
-                    <span>Network Analysis</span>
-                </div>
-            </div>
+    <div class="console-screen-border">
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="data-structures.html" class="nav-btn">← Data Structures</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Advanced: Graph Data Structures
+          </div>
+          <a href="sorting-basic.html" class="nav-btn">Next: Basic Sorting →</a>
         </div>
-    </header>
+      </nav>
 
-    <main class="container">
+      <div class="content-wrapper-8bit">
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Graph Data Structures</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🌐 Networks & Connections: Webs of Relationships
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master the art of representing relationships and connections in data
+            </div>
+          </div>
+        </div>
+
+        <main>
         <!-- Step 1: Problem Motivation -->
         <section class="section">
             <h2 class="section-title">
@@ -836,6 +824,19 @@ def safe_dfs(graph, node, visited=None):
         
         // Initialize
         generateSampleGraph();
+
+        // Progress tracking
+        localStorage.setItem('completedGraphs', 'true');
     </script>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🌐 Graphs Mastered! Ready for Sorting? 🌐</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="sorting-basic.html" style="color: #facc15;">🔄 Next: Basic Sorting →</a>
+          </p>
+        </footer>
+      </div>
+    </div>
 </body>
 </html> 

@@ -1,67 +1,945 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Object-Oriented Programming - Interactive Python Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced OOP: Inheritance & Polymorphism | Interactive Python Guide</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/shared-styles.css">
-</head>
-<body>
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <nav class="hero-nav">
-            <a href="oop-basics.html" class="nav-link">&larr; OOP Basics</a>
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="../index.html" class="nav-link">Complete! 🎉</a>
-        </nav>
-        
-        <div class="hero-content">
-            <h1 style="font-size: 24px;">Advanced OOP: Inheritance, Polymorphism & More</h1>
-            <p class="hero-subtitle">Master advanced object-oriented concepts to build sophisticated software architectures</p>
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .inheritance-tree {
+        background: rgba(15, 23, 42, 0.5);
+        border: 2px solid rgba(250, 204, 21, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .family-tree-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .tree-level {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .class-node {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(147, 51, 234, 0.2));
+        border: 2px solid #a855f7;
+        border-radius: 12px;
+        padding: 1rem;
+        min-width: 120px;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .class-node:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+      }
+
+      .class-node.parent {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+        border-color: #3b82f6;
+      }
+
+      .class-node.child {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+        border-color: #22c55e;
+      }
+
+      .polymorphism-demo {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .animal-card {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .animal-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+      }
+
+      .animal-card.active {
+        border-color: #facc15;
+        background: linear-gradient(135deg, rgba(250, 204, 21, 0.3), rgba(245, 158, 11, 0.2));
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .tree-level {
+          gap: 1rem;
+        }
+
+        .class-node {
+          min-width: 100px;
+          padding: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="console-screen-border">
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="oop-basics.html" class="nav-btn">← OOP Basics</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Mastery: Advanced Object-Oriented Programming
+          </div>
+          <a href="../index.html" class="nav-btn">Complete! 🎉</a>
+        </div>
+      </nav>
+
+      <div class="content-wrapper-8bit">
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">Advanced OOP</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🧬 Inheritance, Polymorphism & Design Patterns
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master sophisticated OOP concepts to build robust, extensible software architectures
+            </div>
+          </div>
+        </div>
+
+        <main>
+          <!-- Core Mental Model Section -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧠 Mental Model: Family Tree Inheritance</h2>
             
-            <div style="background: rgba(168, 85, 247, 0.1); border: 2px dashed #a855f7; border-radius: 12px; padding: 20px; margin: 20px 0;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                    <span style="font-size: 24px;">🧬</span>
-                    <div>
-                        <div style="color: #a855f7; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Family Tree Inheritance</div>
-                        <div style="color: #e2e8f0;">Think of inheritance like a family tree where children inherit traits from parents, but can also develop their own unique characteristics and abilities.</div>
-                    </div>
-                </div>
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The Family DNA Metaphor</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of inheritance like a family tree where children inherit traits from their parents. 
+                Children get their parents' characteristics (eye color, height) but can also develop their own 
+                unique traits. In programming, child classes inherit attributes and methods from parent classes, 
+                but can override or extend them with their own specialized behavior.
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>🧬 Inheritance</strong> - Child classes gain parent's attributes and methods</li>
+                <li><strong>🔒 Encapsulation</strong> - Hiding internal details, showing only what's needed</li>
+                <li><strong>🎭 Polymorphism</strong> - Same interface, different implementations</li>
+                <li><strong>🔄 Method Overriding</strong> - Children can redefine parent's behaviors</li>
+              </ul>
             </div>
 
-            <div class="hero-features">
-                <div class="feature-item">
-                    <span class="feature-icon">🧬</span>
-                    <span>Inheritance</span>
+            <div class="inheritance-tree">
+              <h4 style="color: #facc15; margin-bottom: 1rem; text-align: center;">🌳 Animal Kingdom Inheritance Tree</h4>
+              <div class="family-tree-container">
+                <div class="tree-level">
+                  <div class="class-node parent">
+                    <h5 style="color: #3b82f6; margin: 0;">Animal (Parent)</h5>
+                    <p style="font-size: 9px; margin: 0.5rem 0; color: #93c5fd;">name, age, eat(), sleep()</p>
+                  </div>
                 </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔒</span>
-                    <span>Encapsulation</span>
+                
+                <div style="color: #facc15; text-align: center;">↓ inherits from ↓</div>
+                
+                <div class="tree-level">
+                  <div class="class-node child">
+                    <h5 style="color: #22c55e; margin: 0;">Dog</h5>
+                    <p style="font-size: 9px; margin: 0.5rem 0; color: #86efac;">bark(), fetch()</p>
+                  </div>
+                  <div class="class-node child">
+                    <h5 style="color: #22c55e; margin: 0;">Cat</h5>
+                    <p style="font-size: 9px; margin: 0.5rem 0; color: #86efac;">meow(), scratch()</p>
+                  </div>
+                  <div class="class-node child">
+                    <h5 style="color: #22c55e; margin: 0;">Bird</h5>
+                    <p style="font-size: 9px; margin: 0.5rem 0; color: #86efac;">fly(), sing()</p>
+                  </div>
                 </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🎭</span>
-                    <span>Polymorphism</span>
-                </div>
+              </div>
             </div>
-        </div>
-    </header>
+          </section>
 
-    <main class="container">
-        <div class="content-placeholder">
-            <h2>🚧 Page Under Construction</h2>
-            <p>This Advanced OOP page is being developed with the full pedagogical framework including:</p>
-            <ul>
-                <li>Problem motivation with software architecture examples</li>
-                <li>Family tree metaphor for inheritance relationships</li>
-                <li>Interactive inheritance hierarchy builder</li>
-                <li>Polymorphism demonstration with method overriding</li>
-                <li>Encapsulation principles and private attributes</li>
-                <li>Critical pitfalls about deep inheritance hierarchies</li>
-                <li>Comprehensive assessment</li>
-            </ul>
-            <p>The page will cover inheritance, polymorphism, encapsulation, and design patterns with hands-on practice.</p>
-        </div>
-    </main>
-</body>
+          <!-- Inheritance Implementation -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧬 Inheritance: Code Reuse & Specialization</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Inheritance allows you to create new classes based on existing ones. The child class inherits 
+              all attributes and methods from the parent, but can add new features or modify existing ones. 
+              This promotes code reuse and logical organization.
+            </p>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Building an Animal Hierarchy</h3>
+              
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code># Parent class (Base class)
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.energy = 100
+    
+    def eat(self):
+        self.energy += 20
+        return f"{self.name} is eating. Energy: {self.energy}"
+    
+    def sleep(self):
+        self.energy = 100
+        return f"{self.name} is sleeping. Energy restored!"
+    
+    def make_sound(self):
+        return f"{self.name} makes a generic animal sound"
+
+# Child classes (Derived classes)
+class Dog(Animal):  # Dog inherits from Animal
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)  # Call parent constructor
+        self.breed = breed
+    
+    def bark(self):
+        return f"{self.name} says: Woof! Woof!"
+    
+    def make_sound(self):  # Override parent method
+        return f"{self.name} barks loudly!"
+    
+    def fetch(self):
+        self.energy -= 10
+        return f"{self.name} fetches the ball! Energy: {self.energy}"
+
+class Cat(Animal):  # Cat also inherits from Animal
+    def __init__(self, name, age, indoor=True):
+        super().__init__(name, age)
+        self.indoor = indoor
+    
+    def meow(self):
+        return f"{self.name} says: Meow~"
+    
+    def make_sound(self):  # Override parent method
+        return f"{self.name} purrs contentedly"
+    
+    def scratch(self):
+        return f"{self.name} scratches the furniture"
+
+# Using the inheritance hierarchy
+my_dog = Dog("Buddy", 3, "Golden Retriever")
+my_cat = Cat("Whiskers", 2, indoor=True)
+
+print(my_dog.eat())        # Inherited from Animal
+print(my_dog.bark())       # Dog's own method
+print(my_cat.meow())       # Cat's own method
+print(my_cat.sleep())      # Inherited from Animal</code></pre>
+
+              <div style="margin: 1rem 0;">
+                <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">🎮 Try Inheritance in Action</h4>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                  <button id="createDog" class="btn">Create Dog</button>
+                  <button id="createCat" class="btn">Create Cat</button>
+                  <button id="feedAnimal" class="btn">Feed Animal</button>
+                  <button id="makeSound" class="btn">Make Sound</button>
+                  <button id="specialAction" class="btn">Special Action</button>
+                </div>
+                
+                <div id="inheritanceOutput" class="output-display">
+                  <span class="placeholder-text">Click 'Create Dog' or 'Create Cat' to start</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Polymorphism -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎭 Polymorphism: One Interface, Many Forms</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Polymorphism allows different classes to be treated the same way through a common interface. 
+              Even though a Dog and Cat both have a <span class="code-highlight">make_sound()</span> method, 
+              each implements it differently. You can call the same method on different objects and get 
+              appropriate behavior for each type.
+            </p>
+
+            <div class="polymorphism-demo">
+              <div class="animal-card" data-animal="dog">
+                <h4 style="color: #f59e0b; margin: 0 0 0.5rem 0;">🐕 Dog</h4>
+                <p style="font-size: 10px; margin: 0; color: #fbbf24;">"Woof! Woof!"</p>
+              </div>
+              <div class="animal-card" data-animal="cat">
+                <h4 style="color: #f59e0b; margin: 0 0 0.5rem 0;">🐱 Cat</h4>
+                <p style="font-size: 10px; margin: 0; color: #fbbf24;">"Meow~"</p>
+              </div>
+              <div class="animal-card" data-animal="bird">
+                <h4 style="color: #f59e0b; margin: 0 0 0.5rem 0;">🐦 Bird</h4>
+                <p style="font-size: 10px; margin: 0; color: #fbbf24;">"Tweet tweet!"</p>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Polymorphism in Practice</h3>
+              
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code>class Bird(Animal):
+    def __init__(self, name, age, can_fly=True):
+        super().__init__(name, age)
+        self.can_fly = can_fly
+    
+    def make_sound(self):  # Override parent method
+        return f"{self.name} chirps melodiously"
+    
+    def fly(self):
+        if self.can_fly:
+            return f"{self.name} soars through the sky!"
+        return f"{self.name} cannot fly"
+
+# Polymorphism in action - same method, different behavior
+def animal_concert(animals):
+    """Make all animals perform - demonstrates polymorphism"""
+    concert_sounds = []
+    for animal in animals:
+        # Same method call, but each animal implements it differently!
+        sound = animal.make_sound()
+        concert_sounds.append(sound)
+    return concert_sounds
+
+# Create a mixed group of animals
+zoo_animals = [
+    Dog("Rex", 4, "German Shepherd"),
+    Cat("Luna", 1),
+    Bird("Tweety", 2),
+    Dog("Max", 2, "Beagle")
+]
+
+# Polymorphism: same interface, different implementations
+concert = animal_concert(zoo_animals)
+for sound in concert:
+    print(sound)
+
+# Output:
+# Rex barks loudly!
+# Luna purrs contentedly  
+# Tweety chirps melodiously
+# Max barks loudly!</code></pre>
+
+              <div style="margin: 1rem 0;">
+                <p style="color: #facc15; font-size: 11px; margin-bottom: 1rem;">Click an animal to hear its sound (polymorphism demo):</p>
+                <div id="polymorphismOutput" class="output-display">
+                  <span class="placeholder-text">Click an animal card above to demonstrate polymorphism</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Encapsulation -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔒 Encapsulation: Hiding Implementation Details</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Encapsulation means hiding the internal workings of a class and only exposing what's necessary. 
+              In Python, we use naming conventions to indicate private attributes and methods (prefixed with underscore).
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Public Interface</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance  # Public
+    
+    def deposit(self, amount):  # Public method
+        self.balance += amount
+        
+    def get_balance(self):  # Public method
+        return self.balance</code></pre>
+              </div>
+              
+              <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid #f59e0b; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">🔒 Private Implementation</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class SecureBankAccount:
+    def __init__(self, balance):
+        self._balance = balance  # Protected
+        self.__pin = "1234"     # Private
+    
+    def _validate_pin(self, pin):  # Protected
+        return pin == self.__pin
+        
+    def withdraw(self, amount, pin):
+        if self._validate_pin(pin):
+            self._balance -= amount</code></pre>
+              </div>
+            </div>
+
+            <div class="mental-model-box" style="margin-top: 1.5rem;">
+              <h3 style="color: #10b981; margin-bottom: 0.5rem;">🧠 Naming Conventions</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><span class="code-highlight">public_method</span> - Intended for external use</li>
+                <li><span class="code-highlight">_protected_method</span> - Internal use, but accessible</li>
+                <li><span class="code-highlight">__private_method</span> - Name mangled, truly private</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Critical Pitfall -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚠️ Critical Pitfall: Deep Inheritance Hierarchies</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">Dangerous Assumption: More Inheritance = Better Design</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                <strong>Beginner trap:</strong> Creating overly complex inheritance hierarchies makes code hard to understand 
+                and maintain. Favor composition over inheritance when the relationship isn't a clear "is-a" relationship.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Over-inheritance</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code># Too many levels - confusing!
+class Being:
+    pass
+
+class LivingBeing(Being):
+    pass
+
+class Animal(LivingBeing):
+    pass
+
+class Mammal(Animal):
+    pass
+
+class Carnivore(Mammal):
+    pass
+
+class Dog(Carnivore):  # 6 levels deep!
+    pass</code></pre>
+              </div>
+              
+              <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Composition Alternative</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code># Use composition when not "is-a"
+class Engine:
+    def start(self):
+        return "Engine starting"
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Has-a relationship
+    
+    def start(self):
+        return self.engine.start()
+
+# Car "has an" engine, not "is an" engine</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Mastery Check: Advanced OOP Understanding</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Inheritance</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What does a child class inherit from its parent class?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">All attributes and methods, which can be used or overridden</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Only the methods, not the attributes</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Nothing - child classes must define everything themselves</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Polymorphism</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What does polymorphism allow you to do?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Call the same method on different objects and get appropriate behavior for each type</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Create multiple copies of the same class</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Make all methods in a class private</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 3: Design Principle</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                When should you favor composition over inheritance?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">When the relationship is "has-a" rather than "is-a"</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Never - inheritance is always better</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Only when working with numbers</p>
+              </div>
+            </div>
+
+            <button id="checkAdvancedOOPQuiz" class="btn btn-green">Check My Understanding</button>
+            <div id="advancedOOPQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Completion -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎉 Congratulations! Python Mastery Complete!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">Your Programming Journey Complete</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ <strong>Foundation:</strong> Variables, types, conditionals, loops, functions</li>
+                <li>✅ <strong>Intermediate:</strong> Data structures, error handling, file operations</li>
+                <li>✅ <strong>Advanced:</strong> Algorithms, searching, sorting, data structures</li>
+                <li>✅ <strong>Mastery:</strong> Object-oriented programming and design patterns</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1)); border: 2px solid #10b981; border-radius: 12px;">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🏆 You Are Now a Python Developer!</h3>
+              <p style="color: #d1fae5; font-size: 11px; margin-bottom: 1.5rem;">
+                You've mastered all fundamental Python concepts and are ready to build amazing applications. 
+                Continue practicing, exploring libraries, and building projects to deepen your expertise!
+              </p>
+              <a href="../index.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                🏠 Return to Main Menu
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🎉 Journey Complete! You've Mastered Python! 🎉</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <span style="color: #22c55e;">✨ All Topics Complete! ✨</span>
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Animal simulation
+        let currentAnimal = null;
+
+        // Inheritance demo
+        document.getElementById('createDog').addEventListener('click', function() {
+          currentAnimal = {
+            type: 'Dog',
+            name: 'Buddy',
+            age: 3,
+            breed: 'Golden Retriever',
+            energy: 100
+          };
+          
+          const output = document.getElementById('inheritanceOutput');
+          output.innerHTML = `
+            <div style="color: #22c55e; font-weight: bold;">Dog created!</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              Name: ${currentAnimal.name}<br>
+              Type: ${currentAnimal.type} (${currentAnimal.breed})<br>
+              Age: ${currentAnimal.age} years<br>
+              Energy: ${currentAnimal.energy}
+            </div>
+          `;
+        });
+
+        document.getElementById('createCat').addEventListener('click', function() {
+          currentAnimal = {
+            type: 'Cat',
+            name: 'Whiskers',
+            age: 2,
+            indoor: true,
+            energy: 100
+          };
+          
+          const output = document.getElementById('inheritanceOutput');
+          output.innerHTML = `
+            <div style="color: #22c55e; font-weight: bold;">Cat created!</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              Name: ${currentAnimal.name}<br>
+              Type: ${currentAnimal.type} (${currentAnimal.indoor ? 'Indoor' : 'Outdoor'})<br>
+              Age: ${currentAnimal.age} years<br>
+              Energy: ${currentAnimal.energy}
+            </div>
+          `;
+        });
+
+        document.getElementById('feedAnimal').addEventListener('click', function() {
+          if (!currentAnimal) {
+            document.getElementById('inheritanceOutput').innerHTML = '<div style="color: #ef4444;">Create an animal first!</div>';
+            return;
+          }
+          
+          currentAnimal.energy = Math.min(120, currentAnimal.energy + 20);
+          
+          const output = document.getElementById('inheritanceOutput');
+          output.innerHTML = `
+            <div style="color: #3b82f6; font-weight: bold;">${currentAnimal.name} is eating!</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              Energy increased to: ${currentAnimal.energy}<br>
+              <em>(Inherited method from Animal class)</em>
+            </div>
+          `;
+        });
+
+        document.getElementById('makeSound').addEventListener('click', function() {
+          if (!currentAnimal) {
+            document.getElementById('inheritanceOutput').innerHTML = '<div style="color: #ef4444;">Create an animal first!</div>';
+            return;
+          }
+          
+          let sound = '';
+          if (currentAnimal.type === 'Dog') {
+            sound = `${currentAnimal.name} barks loudly!`;
+          } else if (currentAnimal.type === 'Cat') {
+            sound = `${currentAnimal.name} purrs contentedly`;
+          }
+          
+          const output = document.getElementById('inheritanceOutput');
+          output.innerHTML = `
+            <div style="color: #facc15; font-weight: bold;">${sound}</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              <em>(Overridden method - polymorphism in action!)</em>
+            </div>
+          `;
+        });
+
+        document.getElementById('specialAction').addEventListener('click', function() {
+          if (!currentAnimal) {
+            document.getElementById('inheritanceOutput').innerHTML = '<div style="color: #ef4444;">Create an animal first!</div>';
+            return;
+          }
+          
+          let action = '';
+          if (currentAnimal.type === 'Dog') {
+            currentAnimal.energy = Math.max(0, currentAnimal.energy - 10);
+            action = `${currentAnimal.name} fetches the ball! Energy: ${currentAnimal.energy}`;
+          } else if (currentAnimal.type === 'Cat') {
+            action = `${currentAnimal.name} scratches the furniture`;
+          }
+          
+          const output = document.getElementById('inheritanceOutput');
+          output.innerHTML = `
+            <div style="color: #a855f7; font-weight: bold;">${action}</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              <em>(Unique method specific to ${currentAnimal.type} class)</em>
+            </div>
+          `;
+        });
+
+        // Polymorphism demo
+        const animalCards = document.querySelectorAll('.animal-card');
+        animalCards.forEach(card => {
+          card.addEventListener('click', function() {
+            // Remove active state from all cards
+            animalCards.forEach(c => c.classList.remove('active'));
+            
+            // Add active state to clicked card
+            this.classList.add('active');
+            
+            const animal = this.dataset.animal;
+            let sound = '';
+            let emoji = '';
+            
+            switch(animal) {
+              case 'dog':
+                sound = 'Rex barks loudly!';
+                emoji = '🐕';
+                break;
+              case 'cat':
+                sound = 'Luna purrs contentedly';
+                emoji = '🐱';
+                break;
+              case 'bird':
+                sound = 'Tweety chirps melodiously';
+                emoji = '🐦';
+                break;
+            }
+            
+            const output = document.getElementById('polymorphismOutput');
+            output.innerHTML = `
+              <div style="color: #facc15; font-weight: bold;">${emoji} ${sound}</div>
+              <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+                Same method call (make_sound()), different implementation!<br>
+                <em>This is polymorphism - one interface, many forms.</em>
+              </div>
+            `;
+          });
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkAdvancedOOPQuizBtn = document.getElementById('checkAdvancedOOPQuiz');
+        const advancedOOPQuizResult = document.getElementById('advancedOOPQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkAdvancedOOPQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
+                }
+              }
+            });
+          });
+
+          advancedOOPQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            advancedOOPQuizResult.className = 'message-box message-box-success';
+            advancedOOPQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You've mastered advanced OOP concepts!`;
+          } else {
+            advancedOOPQuizResult.className = 'message-box message-box-info';
+            advancedOOPQuizResult.innerHTML = `${correct}/${total} correct. Review the advanced OOP concepts above, especially inheritance, polymorphism, and composition vs inheritance!`;
+          }
+        });
+
+        // Progress tracking - mark as complete
+        localStorage.setItem('completedAdvancedOOP', 'true');
+        localStorage.setItem('pythonGuideComplete', 'true');
+      });
+    </script>
+  </body>
 </html> 

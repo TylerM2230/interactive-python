@@ -378,15 +378,83 @@
             </div>
           </section>
 
+          <!-- Critical Metaphor Evolution -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔄 Metaphor Evolution: From Boxes to Name Tags</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">🧠 Why Our Mental Model Must Evolve</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Remember when we learned about variables as "labeled boxes"? That metaphor worked perfectly for 
+                numbers and strings (immutable types). But now with lists (mutable types), we need a more 
+                sophisticated understanding.
+              </p>
+              
+              <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin: 1.5rem 0;">
+                <div style="background: rgba(59, 130, 246, 0.2); border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem;">
+                  <h4 style="color: #3b82f6; margin-bottom: 0.5rem;">📦 Simple Types: "Labeled Box"</h4>
+                  <p style="color: #dbeafe; font-size: 10px; margin-bottom: 0.5rem;">
+                    <code>x = 5</code> puts the value 5 inside a box labeled 'x'
+                  </p>
+                  <p style="color: #dbeafe; font-size: 10px;">
+                    <code>y = x</code> copies the value to a new box labeled 'y'
+                  </p>
+                </div>
+                
+                <div style="color: #facc15; font-size: 24px;">→</div>
+                
+                <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                  <h4 style="color: #10b981; margin-bottom: 0.5rem;">🏷️ Mutable Types: "Name Tags"</h4>
+                  <p style="color: #d1fae5; font-size: 10px; margin-bottom: 0.5rem;">
+                    <code>list1 = [1, 2, 3]</code> puts a name tag on a list object
+                  </p>
+                  <p style="color: #d1fae5; font-size: 10px;">
+                    <code>list2 = list1</code> puts a second name tag on the SAME object
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">🎮 Name Tag Visualization</h3>
+              <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Imagine a list object floating in memory. Variables are like name tags attached to it:
+              </p>
+              
+              <div style="text-align: center; margin: 2rem 0;">
+                <div style="display: inline-block; background: rgba(250, 204, 21, 0.2); border: 3px solid #facc15; border-radius: 12px; padding: 1.5rem; position: relative;">
+                  <div style="font-weight: bold; color: #facc15; margin-bottom: 1rem;">List Object in Memory</div>
+                  <div style="background: #1f2937; border-radius: 8px; padding: 1rem; color: #e5e7eb; font-family: monospace;">
+                    [1, 2, 3]
+                  </div>
+                  
+                  <!-- Name tags pointing to the object -->
+                  <div style="position: absolute; top: -10px; left: -20px; background: #3b82f6; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 10px;">
+                    list1 🏷️
+                  </div>
+                  <div style="position: absolute; top: -10px; right: -20px; background: #10b981; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 10px;">
+                    list2 🏷️
+                  </div>
+                </div>
+              </div>
+              
+              <p style="color: #e5e7eb; font-size: 10px; text-align: center; margin-top: 1rem;">
+                Both <code>list1</code> and <code>list2</code> are name tags on the same object!<br>
+                Changes through either name affect both because they reference the same object.
+              </p>
+            </div>
+          </section>
+
           <!-- Critical Pitfall: List References -->
           <section class="concept-section">
             <h2 class="section-title-8bit">⚠️ Critical Pitfall: List References</h2>
             
             <div class="pitfall-warning">
-              <h3 style="color: #f59e0b; margin-bottom: 1rem;">The #1 List Mistake: Shallow vs Deep Copy</h3>
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">The #1 List Mistake: Confusing Name Tags with Copying</h3>
               <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
                 <strong>Dangerous assumption:</strong> Thinking that <code>list2 = list1</code> creates a copy. 
-                It doesn't! It creates a reference to the same list object.
+                It doesn't! Using our new "name tag" metaphor: it just puts a second name tag on the same list object. 
+                This is why our mental model had to evolve from "labeled boxes" to "name tags."
               </p>
             </div>
 

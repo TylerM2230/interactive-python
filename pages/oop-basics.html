@@ -1,66 +1,827 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Object-Oriented Programming Basics - Interactive Python Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OOP Basics: Building with Blueprints | Interactive Python Guide</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/shared-styles.css">
-</head>
-<body>
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <nav class="hero-nav">
-            <a href="searching-binary.html" class="nav-link">&larr; Binary Search</a>
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="oop-advanced.html" class="nav-link">Advanced OOP &rarr;</a>
-        </nav>
-        
-        <div class="hero-content">
-            <h1 style="font-size: 24px;">Object-Oriented Programming: Building with Blueprints</h1>
-            <p class="hero-subtitle">Learn to organize code with classes, objects, methods, and the power of self</p>
+    <style>
+      /* Full-page layout matching index.html */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        background-attachment: fixed;
+      }
+
+      .console-screen-border {
+        min-height: 100vh;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .content-wrapper-8bit {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+        padding: 2rem;
+        margin: 0 -2rem 3rem -2rem;
+        border-bottom: 3px solid #facc15;
+        text-align: center;
+        color: #facc15;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: hero-shimmer 3s infinite;
+      }
+
+      @keyframes hero-shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .navigation-bar {
+        background: rgba(15, 23, 42, 0.9);
+        border-bottom: 2px solid #facc15;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #1e3a8a, #3730a3);
+        color: #facc15;
+        padding: 0.5rem 1rem;
+        border: 2px solid #facc15;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        background: linear-gradient(135deg, #3730a3, #581c87);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .concept-section {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(250, 204, 21, 0.1);
+      }
+
+      .mental-model-box {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .pitfall-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .interactive-repl {
+        background: rgba(31, 41, 55, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .assessment-section {
+        background: rgba(55, 48, 163, 0.2);
+        border: 2px solid #3730a3;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .class-builder {
+        background: rgba(15, 23, 42, 0.5);
+        border: 2px solid rgba(250, 204, 21, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .blueprint-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .blueprint-card {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        border: 2px solid #3b82f6;
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .blueprint-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+      }
+
+      .object-instance {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+        border: 2px solid #22c55e;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .object-instance:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+      }
+
+      .code-highlight {
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        font-family: monospace;
+        color: #facc15;
+      }
+
+      .quiz-option {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid #4b5563;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        border-color: #facc15;
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .quiz-option.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.2);
+      }
+
+      .quiz-option.incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.2);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .content-wrapper-8bit {
+          padding: 0 1rem;
+        }
+
+        .hero-section {
+          padding: 1.5rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
+        }
+
+        .concept-section {
+          padding: 1rem;
+        }
+
+        .nav-content {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .blueprint-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="console-screen-border">
+      <nav class="navigation-bar">
+        <div class="nav-content">
+          <a href="searching-binary.html" class="nav-btn">← Binary Search</a>
+          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
+            Mastery: Object-Oriented Programming Basics
+          </div>
+          <a href="oop-advanced.html" class="nav-btn">Next: Advanced OOP →</a>
+        </div>
+      </nav>
+
+      <div class="content-wrapper-8bit">
+        <div class="hero-section">
+          <div class="hero-content">
+            <h1 class="pixel-header">OOP Basics</h1>
+            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+              🏗️ Building with Blueprints: Classes, Objects & Methods
+            </p>
+            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
+              Master the art of organizing code with classes and objects for scalable, maintainable programs
+            </div>
+          </div>
+        </div>
+
+        <main>
+          <!-- Core Mental Model Section -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🧠 Mental Model: Architectural Blueprints</h2>
             
-            <div style="background: rgba(239, 68, 68, 0.1); border: 2px dashed #ef4444; border-radius: 12px; padding: 20px; margin: 20px 0;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                    <span style="font-size: 24px;">🏠</span>
-                    <div>
-                        <div style="color: #ef4444; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: House Blueprint</div>
-                        <div style="color: #e2e8f0;">Think of classes like architectural blueprints and objects like actual houses built from those blueprints - each house has the same structure but unique characteristics.</div>
-                    </div>
-                </div>
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">The House Blueprint Metaphor</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                Think of a class like an architectural blueprint for a house. The blueprint defines what every house 
+                built from it will have (rooms, doors, windows), but it's not a house itself. When builders use the 
+                blueprint to construct actual houses, each house is an "object" - a real instance with specific features.
+              </p>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li><strong>🏗️ Class</strong> - The blueprint (template) defining structure and behavior</li>
+                <li><strong>🏠 Objects</strong> - Actual houses built from the blueprint (instances)</li>
+                <li><strong>🔧 Methods</strong> - Actions the house can perform (turn on lights, lock doors)</li>
+                <li><strong>📋 Attributes</strong> - Properties of each house (color, size, address)</li>
+              </ul>
             </div>
 
-            <div class="hero-features">
-                <div class="feature-item">
-                    <span class="feature-icon">📋</span>
-                    <span>Class Blueprints</span>
+            <div class="blueprint-container">
+              <div class="blueprint-card">
+                <h4 style="color: #3b82f6; margin-bottom: 0.5rem;">📋 Class Blueprint</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class House:
+    def __init__(self, color, size):
+        self.color = color
+        self.size = size
+        self.lights_on = False
+    
+    def turn_on_lights(self):
+        self.lights_on = True</code></pre>
+              </div>
+              
+              <div class="blueprint-card">
+                <h4 style="color: #22c55e; margin-bottom: 0.5rem;">🏠 Object Instances</h4>
+                <div style="font-size: 10px; color: #d1fae5;">
+                  <div class="object-instance">House 1: Blue, Large</div>
+                  <div class="object-instance">House 2: Red, Small</div>
+                  <div class="object-instance">House 3: Green, Medium</div>
                 </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🏗️</span>
-                    <span>Object Instances</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🎯</span>
-                    <span>Method Behavior</span>
-                </div>
+              </div>
             </div>
-        </div>
-    </header>
+          </section>
 
-    <main class="container">
-        <div class="content-placeholder">
-            <h2>🚧 Page Under Construction</h2>
-            <p>This OOP Basics page is being developed with the full pedagogical framework including:</p>
-            <ul>
-                <li>Problem motivation with real-world examples</li>
-                <li>House blueprint mental model for classes vs objects</li>
-                <li>Interactive class builder</li>
-                <li>Method exploration with self concept</li>
-                <li>Critical pitfalls about mutable default arguments</li>
-                <li>Comprehensive assessment</li>
-            </ul>
-            <p>The page will cover classes, objects, __init__, methods, and self with hands-on practice.</p>
-        </div>
-    </main>
-</body>
+          <!-- Classes and Objects -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🏗️ Classes: Creating Your Own Data Types</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              A class is a template that defines the structure and behavior for objects. It's like creating 
+              your own custom data type with specific properties and actions. Classes help organize related 
+              data and functions together.
+            </p>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Creating Your First Class</h3>
+              
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code>class Student:
+    """A class to represent a student."""
+    
+    def __init__(self, name, age, grade):
+        """Initialize a new student (the constructor)."""
+        self.name = name      # Instance attribute
+        self.age = age        # Instance attribute
+        self.grade = grade    # Instance attribute
+        self.courses = []     # Start with empty course list
+    
+    def add_course(self, course):
+        """Add a course to the student's schedule."""
+        self.courses.append(course)
+        print(f"{self.name} enrolled in {course}")
+    
+    def get_info(self):
+        """Return formatted student information."""
+        return f"{self.name}, age {self.age}, grade {self.grade}"
+
+# Creating objects (instances) from the class
+student1 = Student("Alice", 16, 10)
+student2 = Student("Bob", 17, 11)
+
+# Using methods on objects
+print(student1.get_info())  # Alice, age 16, grade 10
+student1.add_course("Math")  # Alice enrolled in Math</code></pre>
+
+              <div class="class-builder">
+                <h4 style="color: #facc15; margin-bottom: 1rem;">🎮 Interactive Class Builder</h4>
+                <p style="font-size: 11px; margin-bottom: 1rem;">Create your own student and see OOP in action:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                  <div>
+                    <label style="color: #facc15; font-size: 10px; display: block; margin-bottom: 0.5rem;">Student Name:</label>
+                    <input type="text" id="studentName" class="input-field" value="Charlie" style="width: 100%;">
+                  </div>
+                  <div>
+                    <label style="color: #facc15; font-size: 10px; display: block; margin-bottom: 0.5rem;">Age:</label>
+                    <input type="number" id="studentAge" class="input-field" value="16" min="10" max="20" style="width: 100%;">
+                  </div>
+                  <div>
+                    <label style="color: #facc15; font-size: 10px; display: block; margin-bottom: 0.5rem;">Grade:</label>
+                    <input type="number" id="studentGrade" class="input-field" value="10" min="9" max="12" style="width: 100%;">
+                  </div>
+                </div>
+                
+                <div style="margin: 1rem 0;">
+                  <button id="createStudent" class="btn">Create Student Object</button>
+                  <button id="addCourse" class="btn">Add Course</button>
+                  <button id="getStudentInfo" class="btn">Get Student Info</button>
+                </div>
+                
+                <div id="classBuilderOutput" class="output-display">
+                  <span class="placeholder-text">Click 'Create Student Object' to begin</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- The __init__ Method -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🔧 The __init__ Method: Object Constructor</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              The <span class="code-highlight">__init__</span> method is special - it's automatically called when 
+              you create a new object. Think of it as the "setup instructions" that run when a house is built from 
+              the blueprint, setting up the initial state.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Constructor in Action</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class Car:
+    def __init__(self, make, model, year):
+        # These run automatically!
+        self.make = make
+        self.model = model  
+        self.year = year
+        self.mileage = 0  # Default value
+
+# Creating objects calls __init__
+my_car = Car("Toyota", "Camry", 2020)</code></pre>
+              </div>
+              
+              <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #3b82f6; margin-bottom: 0.5rem;">🔍 What Happens</h4>
+                <ul style="color: #93c5fd; font-size: 10px; line-height: 1.4; margin-left: 1rem;">
+                  <li>Python creates new object</li>
+                  <li>Calls <code>__init__</code> automatically</li>
+                  <li>Sets up instance attributes</li>
+                  <li>Returns ready-to-use object</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mental-model-box" style="margin-top: 1.5rem;">
+              <h3 style="color: #10b981; margin-bottom: 0.5rem;">🧠 The 'self' Parameter</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5;">
+                <span class="code-highlight">self</span> refers to the specific object being created or used. 
+                It's like saying "this particular house" when multiple houses exist. Python automatically 
+                passes the object as the first argument to all methods.
+              </p>
+            </div>
+          </section>
+
+          <!-- Methods and Attributes -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚙️ Methods: What Objects Can Do</h2>
+            
+            <p style="font-size: 11px; line-height: 1.5; margin-bottom: 1.5rem;">
+              Methods are functions that belong to a class. They define what actions objects can perform. 
+              Think of them as the "abilities" or "behaviors" that every house built from the blueprint can do.
+            </p>
+
+            <div class="interactive-repl">
+              <h3 style="color: #facc15; margin-bottom: 1rem;">Bank Account Example</h3>
+              
+              <pre style="background: #1f2937; padding: 1rem; border-radius: 8px; margin: 1rem 0;"><code>class BankAccount:
+    def __init__(self, owner, initial_balance=0):
+        self.owner = owner
+        self.balance = initial_balance
+        self.transaction_history = []
+    
+    def deposit(self, amount):
+        """Add money to the account."""
+        if amount > 0:
+            self.balance += amount
+            self.transaction_history.append(f"Deposited ${amount}")
+            return f"Deposited ${amount}. New balance: ${self.balance}"
+        return "Invalid amount"
+    
+    def withdraw(self, amount):
+        """Remove money from the account."""
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            self.transaction_history.append(f"Withdrew ${amount}")
+            return f"Withdrew ${amount}. New balance: ${self.balance}"
+        return "Insufficient funds or invalid amount"
+    
+    def get_balance(self):
+        """Return current balance."""
+        return f"{self.owner}'s balance: ${self.balance}"
+
+# Using the BankAccount class
+account = BankAccount("Alice", 100)
+print(account.deposit(50))    # Deposited $50. New balance: $150
+print(account.withdraw(30))   # Withdrew $30. New balance: $120
+print(account.get_balance())  # Alice's balance: $120</code></pre>
+
+              <div style="margin: 1rem 0;">
+                <h4 style="color: #facc15; font-size: 12px; margin-bottom: 1rem;">🎮 Try the Bank Account</h4>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                  <input type="number" id="accountAmount" class="input-field" value="25" style="width: 100px;">
+                  <button id="depositMoney" class="btn">Deposit</button>
+                  <button id="withdrawMoney" class="btn">Withdraw</button>
+                  <button id="checkBalance" class="btn">Check Balance</button>
+                </div>
+                
+                <div id="bankAccountOutput" class="output-display">
+                  <span class="placeholder-text">Alice's account starts with $100. Try some transactions!</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Critical Pitfall -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">⚠️ Critical Pitfall: Mutable Default Arguments</h2>
+            
+            <div class="pitfall-warning">
+              <h3 style="color: #f59e0b; margin-bottom: 1rem;">Dangerous Assumption: Default Lists Are Safe</h3>
+              <p style="color: #fbbf24; font-size: 11px; line-height: 1.5; margin-bottom: 1rem;">
+                <strong>Beginner trap:</strong> Using mutable objects (like lists) as default arguments creates 
+                shared state between all instances! All objects will share the same list, leading to unexpected behavior.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Wrong: Mutable Default</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class Student:
+    def __init__(self, name, courses=[]):  # DANGER!
+        self.name = name
+        self.courses = courses  # All students share same list!
+
+alice = Student("Alice")
+bob = Student("Bob")
+alice.courses.append("Math")
+print(bob.courses)  # ['Math'] - Bob has Alice's course!</code></pre>
+              </div>
+              
+              <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; border-radius: 8px; padding: 1rem;">
+                <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Correct: None Default</h4>
+                <pre style="background: #1f2937; padding: 0.5rem; border-radius: 4px; font-size: 10px;"><code>class Student:
+    def __init__(self, name, courses=None):
+        self.name = name
+        self.courses = courses if courses else []  # Safe!
+
+alice = Student("Alice")
+bob = Student("Bob")
+alice.courses.append("Math")
+print(bob.courses)  # [] - Bob has his own empty list</code></pre>
+              </div>
+            </div>
+
+            <div class="mental-model-box" style="margin-top: 1.5rem;">
+              <h3 style="color: #10b981; margin-bottom: 0.5rem;">🧠 Safe Default Pattern</h3>
+              <p style="color: #d1fae5; font-size: 11px; line-height: 1.5;">
+                Always use <span class="code-highlight">None</span> as the default for mutable arguments, 
+                then create a new object inside the method. This ensures each instance gets its own separate copy.
+              </p>
+            </div>
+          </section>
+
+          <!-- Assessment Section -->
+          <section class="assessment-section">
+            <h2 style="color: #facc15; margin-bottom: 1.5rem;">🎯 Mastery Check: OOP Basics Understanding</h2>
+            
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Classes vs Objects</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                What is the relationship between a class and an object?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">A class is a blueprint/template, an object is an instance created from that class</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Classes and objects are the same thing</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Objects are blueprints for creating classes</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: The __init__ Method</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                When is the __init__ method called?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">Automatically when a new object is created from the class</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Only when you explicitly call it with object.__init__()</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">When the program starts running</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 3: Mutable Default Arguments</h3>
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Why should you avoid using a list as a default parameter in __init__?
+              </p>
+              
+              <div class="quiz-option" data-answer="correct">
+                <p style="color: #e5e7eb; font-size: 10px;">All instances would share the same list object, causing unexpected behavior</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">Lists are not allowed in __init__ methods</p>
+              </div>
+              
+              <div class="quiz-option" data-answer="incorrect">
+                <p style="color: #e5e7eb; font-size: 10px;">It makes the code run slower</p>
+              </div>
+            </div>
+
+            <button id="checkOOPQuiz" class="btn btn-green">Check My Understanding</button>
+            <div id="oopQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+          </section>
+
+          <!-- Next Steps -->
+          <section class="concept-section">
+            <h2 class="section-title-8bit">🎯 Ready for Advanced OOP!</h2>
+            
+            <div class="mental-model-box">
+              <h3 style="color: #10b981; margin-bottom: 1rem;">What You've Mastered</h3>
+              <ul style="color: #d1fae5; font-size: 11px; line-height: 1.5; margin-left: 1rem;">
+                <li>✅ Classes as blueprints and objects as instances</li>
+                <li>✅ The __init__ constructor method and self parameter</li>
+                <li>✅ Instance attributes and methods</li>
+                <li>✅ Creating and using objects</li>
+                <li>✅ Critical pitfall of mutable default arguments</li>
+              </ul>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+              <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+                Now that you understand the basics of classes and objects, let's explore inheritance, 
+                polymorphism, and other advanced OOP concepts!
+              </p>
+              <a href="oop-advanced.html" class="btn btn-green" style="display: inline-block; padding: 1rem 2rem;">
+                Continue to Advanced OOP →
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🏗️ OOP Basics Mastered! Ready for Advanced Concepts? 🏗️</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
+            <a href="oop-advanced.html" style="color: #facc15;">🧬 Next: Advanced OOP →</a>
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Student class simulation
+        let currentStudent = null;
+        let currentAccount = { owner: "Alice", balance: 100, history: [] };
+
+        // Class Builder functionality
+        document.getElementById('createStudent').addEventListener('click', function() {
+          const name = document.getElementById('studentName').value || "Charlie";
+          const age = parseInt(document.getElementById('studentAge').value) || 16;
+          const grade = parseInt(document.getElementById('studentGrade').value) || 10;
+          
+          currentStudent = {
+            name: name,
+            age: age,
+            grade: grade,
+            courses: []
+          };
+          
+          const output = document.getElementById('classBuilderOutput');
+          output.innerHTML = `
+            <div style="color: #22c55e; font-weight: bold;">Student object created!</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              Name: ${currentStudent.name}<br>
+              Age: ${currentStudent.age}<br>
+              Grade: ${currentStudent.grade}<br>
+              Courses: ${currentStudent.courses.length === 0 ? 'None yet' : currentStudent.courses.join(', ')}
+            </div>
+          `;
+        });
+
+        document.getElementById('addCourse').addEventListener('click', function() {
+          if (!currentStudent) {
+            document.getElementById('classBuilderOutput').innerHTML = '<div style="color: #ef4444;">Create a student first!</div>';
+            return;
+          }
+          
+          const courses = ['Math', 'Science', 'English', 'History', 'Art', 'PE'];
+          const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+          
+          if (!currentStudent.courses.includes(randomCourse)) {
+            currentStudent.courses.push(randomCourse);
+            
+            const output = document.getElementById('classBuilderOutput');
+            output.innerHTML = `
+              <div style="color: #3b82f6; font-weight: bold;">${currentStudent.name} enrolled in ${randomCourse}!</div>
+              <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+                Current courses: ${currentStudent.courses.join(', ')}
+              </div>
+            `;
+          } else {
+            document.getElementById('classBuilderOutput').innerHTML = `<div style="color: #f59e0b;">${currentStudent.name} is already enrolled in ${randomCourse}!</div>`;
+          }
+        });
+
+        document.getElementById('getStudentInfo').addEventListener('click', function() {
+          if (!currentStudent) {
+            document.getElementById('classBuilderOutput').innerHTML = '<div style="color: #ef4444;">Create a student first!</div>';
+            return;
+          }
+          
+          const output = document.getElementById('classBuilderOutput');
+          output.innerHTML = `
+            <div style="color: #facc15; font-weight: bold;">Student Information:</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              ${currentStudent.name}, age ${currentStudent.age}, grade ${currentStudent.grade}<br>
+              Enrolled in ${currentStudent.courses.length} course${currentStudent.courses.length !== 1 ? 's' : ''}:
+              ${currentStudent.courses.length > 0 ? currentStudent.courses.join(', ') : 'None'}
+            </div>
+          `;
+        });
+
+        // Bank Account functionality
+        document.getElementById('depositMoney').addEventListener('click', function() {
+          const amount = parseInt(document.getElementById('accountAmount').value) || 0;
+          if (amount > 0) {
+            currentAccount.balance += amount;
+            currentAccount.history.push(`Deposited $${amount}`);
+            
+            const output = document.getElementById('bankAccountOutput');
+            output.innerHTML = `
+              <div style="color: #22c55e; font-weight: bold;">Deposited $${amount}</div>
+              <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+                New balance: $${currentAccount.balance}
+              </div>
+            `;
+          } else {
+            document.getElementById('bankAccountOutput').innerHTML = '<div style="color: #ef4444;">Please enter a valid amount!</div>';
+          }
+        });
+
+        document.getElementById('withdrawMoney').addEventListener('click', function() {
+          const amount = parseInt(document.getElementById('accountAmount').value) || 0;
+          if (amount > 0 && amount <= currentAccount.balance) {
+            currentAccount.balance -= amount;
+            currentAccount.history.push(`Withdrew $${amount}`);
+            
+            const output = document.getElementById('bankAccountOutput');
+            output.innerHTML = `
+              <div style="color: #f59e0b; font-weight: bold;">Withdrew $${amount}</div>
+              <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+                New balance: $${currentAccount.balance}
+              </div>
+            `;
+          } else if (amount > currentAccount.balance) {
+            document.getElementById('bankAccountOutput').innerHTML = '<div style="color: #ef4444;">Insufficient funds!</div>';
+          } else {
+            document.getElementById('bankAccountOutput').innerHTML = '<div style="color: #ef4444;">Please enter a valid amount!</div>';
+          }
+        });
+
+        document.getElementById('checkBalance').addEventListener('click', function() {
+          const output = document.getElementById('bankAccountOutput');
+          output.innerHTML = `
+            <div style="color: #facc15; font-weight: bold;">${currentAccount.owner}'s Account</div>
+            <div style="color: #d1d5db; font-size: 10px; margin-top: 0.5rem;">
+              Current balance: $${currentAccount.balance}<br>
+              Recent transactions: ${currentAccount.history.length > 0 ? currentAccount.history.slice(-3).join(', ') : 'None'}
+            </div>
+          `;
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkOOPQuizBtn = document.getElementById('checkOOPQuiz');
+        const oopQuizResult = document.getElementById('oopQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkOOPQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.assessment-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.classList.add('correct');
+                } else {
+                  option.classList.add('incorrect');
+                }
+              }
+            });
+          });
+
+          oopQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            oopQuizResult.className = 'message-box message-box-success';
+            oopQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand OOP basics!`;
+          } else {
+            oopQuizResult.className = 'message-box message-box-info';
+            oopQuizResult.innerHTML = `${correct}/${total} correct. Review the OOP concepts above, especially the class/object relationship and mutable default arguments!`;
+          }
+        });
+
+        // Progress tracking
+        localStorage.setItem('completedOOPBasics', 'true');
+      });
+    </script>
+  </body>
 </html> 

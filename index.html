@@ -10,13 +10,16 @@
     />
     <link rel="stylesheet" href="./css/shared-styles.css">
     <style>
-      /* Enhanced pedagogical homepage design - Full page layout */
+      /* Enhanced pedagogical homepage design - Full page layout with Courier font */
       body {
         margin: 0;
         padding: 0;
         min-height: 100vh;
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         background-attachment: fixed;
+        font-family: 'Courier New', 'Courier', monospace !important;
+        font-size: 18px; /* Increased base font size for better readability */
+        line-height: 1.7; /* Better line spacing for readability */
       }
 
       .console-screen-border {
@@ -32,13 +35,13 @@
       .content-wrapper-8bit {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 1rem; /* Reduced padding for mobile */
       }
 
       .hero-section {
         background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-        padding: 3rem 2rem;
-        margin: 0 -2rem 3rem -2rem;
+        padding: 2rem 1rem; /* Reduced padding */
+        margin: 0 -1rem 2rem -1rem; /* Adjusted margins */
         border: none;
         border-bottom: 3px solid #facc15;
         box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
@@ -75,10 +78,24 @@
         z-index: 1;
       }
 
+      .pixel-header {
+        font-family: 'Press Start 2P', cursive !important;
+        font-size: 2.5rem; /* Increased for better impact */
+        font-weight: normal; /* Press Start 2P doesn't need bold */
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        text-shadow: 
+          -1px -1px 0 #f8e8c0,
+          1px 1px 0 #a07030,
+          2px 2px 0 #503020,
+          3px 3px 0 #302010;
+      }
+
       .hero-subtitle {
-        font-size: 12px;
+        font-size: 1.2rem; /* Increased for better readability */
         margin: 1rem 0;
         opacity: 0.9;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .learning-path-indicator {
@@ -88,19 +105,20 @@
         padding: 1rem;
         margin: 1.5rem 0;
         text-align: center;
-        font-size: 10px;
+        font-size: 1.1rem; /* Increased for better readability */
         color: #facc15;
         backdrop-filter: blur(5px);
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
-             .stats-bar {
+      .stats-bar {
         background: rgba(31, 41, 55, 0.9);
         border: 2px solid #374151;
         border-radius: 12px;
         padding: 1.5rem;
         margin: 2rem 0;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Wider minimum */
         gap: 1rem;
         text-align: center;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -108,7 +126,7 @@
       }
 
       .stat-item {
-        padding: 0.5rem;
+        padding: 0.75rem; /* Increased padding */
         border-radius: 8px;
         background: rgba(30, 58, 138, 0.2);
         border: 1px solid rgba(250, 204, 21, 0.2);
@@ -122,25 +140,28 @@
       }
 
       .stat-number {
-        font-size: 20px;
+        font-size: 1.7rem; /* Increased for better readability */
         color: #facc15;
         display: block;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.5rem; /* Increased spacing */
+        font-family: 'Courier New', 'Courier', monospace !important;
+        font-weight: bold;
       }
 
       .stat-label {
-        font-size: 8px;
+        font-size: 0.9rem; /* Increased for better readability */
         color: #d1d5db;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
-             .concept-category {
+      .concept-category {
         margin-bottom: 4rem;
         position: relative;
-        background: rgba(15, 23, 42, 0.3);
+        background: rgba(88, 28, 135, 0.2); /* Subtle violet background */
         border-radius: 16px;
         padding: 2rem;
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(124, 58, 237, 0.3); /* Violet border */
       }
 
       .category-header {
@@ -164,7 +185,7 @@
         align-items: center;
         justify-content: center;
         margin-right: 1.5rem;
-        font-size: 20px;
+        font-size: 1.5rem; /* Increased icon size */
         color: #1e3a8a;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         flex-shrink: 0;
@@ -173,18 +194,21 @@
       .category-info h2 {
         margin: 0 0 0.5rem 0;
         color: #facc15;
+        font-family: 'Press Start 2P', cursive !important;
+        font-size: 1.4rem; /* Increased font size with Press Start 2P */
       }
 
       .category-description {
-        font-size: 11px;
+        font-size: 1rem; /* Increased for better readability */
         color: #e5e7eb;
-        line-height: 1.5;
+        line-height: 1.7; /* Better line height */
         margin: 0;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Wider minimum */
         gap: 1.5rem;
         margin-top: 1rem;
       }
@@ -200,7 +224,8 @@
         display: block;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
-        min-height: 160px;
+        min-height: 180px; /* Increased minimum height */
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .link-card-enhanced::before {
@@ -234,22 +259,23 @@
       .card-level-indicator {
         background: linear-gradient(135deg, #facc15, #eab308);
         color: #1e3a8a;
-        padding: 4px 8px;
+        padding: 7px 12px; /* Increased padding */
         border-radius: 6px;
-        font-size: 8px;
+        font-size: 0.85rem; /* Increased for better readability */
         font-weight: bold;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .card-difficulty {
         display: flex;
-        gap: 3px;
+        gap: 4px; /* Increased gap */
         margin-bottom: 0.75rem;
       }
 
       .difficulty-dot {
-        width: 8px;
-        height: 8px;
+        width: 10px; /* Increased size */
+        height: 10px;
         border-radius: 50%;
         background: #4b5563;
         transition: background 0.3s ease;
@@ -261,17 +287,20 @@
       }
 
       .card-title {
-        font-size: 14px;
+        font-size: 1.1rem; /* Increased for better readability */
         margin-bottom: 0.75rem;
         color: #facc15;
-        line-height: 1.3;
+        line-height: 1.4; /* Better line height */
+        font-family: 'Courier New', 'Courier', monospace !important;
+        font-weight: bold;
       }
 
       .card-description {
-        font-size: 10px;
-        line-height: 1.5;
+        font-size: 1rem; /* Increased for better readability */
+        line-height: 1.7; /* Better line height */
         margin-bottom: 1rem;
         color: #d1d5db;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .card-concepts {
@@ -283,10 +312,11 @@
       .concept-tag {
         background: rgba(59, 130, 246, 0.3);
         color: #93c5fd;
-        padding: 3px 8px;
+        padding: 5px 10px; /* Increased padding */
         border-radius: 4px;
-        font-size: 8px;
+        font-size: 0.8rem; /* Increased for better readability */
         border: 1px solid rgba(59, 130, 246, 0.2);
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .progress-path {
@@ -294,12 +324,13 @@
         align-items: center;
         justify-content: center;
         margin: 3rem 0;
-        font-size: 10px;
+        font-size: 0.9rem; /* Increased for better readability */
         color: #9ca3af;
         background: rgba(31, 41, 55, 0.5);
         padding: 1rem;
         border-radius: 8px;
         border: 1px dashed #4b5563;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .path-step {
@@ -313,82 +344,199 @@
       .path-arrow {
         margin: 0 1rem;
         color: #facc15;
-        font-size: 16px;
+        font-size: 1.2rem; /* Increased arrow size */
+        font-weight: bold;
       }
 
-             .notional-machine-callout {
-        background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.2));
-        border: 2px solid #dc2626;
+      .notional-machine-callout {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(16, 185, 129, 0.2));
+        border: 2px solid #10b981;
         border-radius: 12px;
         padding: 1.5rem;
         margin: 2rem 0;
         text-align: center;
         backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
       }
 
       .notional-machine-callout h3 {
-        color: #fca5a5;
+        color: #34d399;
         margin-bottom: 0.5rem;
-        font-size: 12px;
+        font-size: 1.2rem; /* Increased for better readability */
+        font-family: 'Press Start 2P', cursive !important;
       }
 
       .notional-machine-callout p {
-        color: #fecaca;
-        font-size: 10px;
-        line-height: 1.4;
+        color: #a7f3d0;
+        font-size: 1rem; /* Increased for better readability */
+        line-height: 1.7; /* Better line height */
         margin: 0;
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
 
-             /* Footer styling for full page */
-       .footer-8bit {
+      /* Footer styling for full page */
+             .footer-8bit {
         background: rgba(15, 23, 42, 0.8);
         border-top: 2px solid #facc15;
         margin-top: 4rem;
         backdrop-filter: blur(10px);
+        font-family: 'Courier New', 'Courier', monospace !important;
+        font-size: 1rem; /* Increased base footer font size */
        }
 
-       /* Responsive Design */
+      .footer-8bit p {
+        font-family: 'Courier New', 'Courier', monospace !important;
+      }
+
+      .footer-8bit a {
+        font-family: 'Courier New', 'Courier', monospace !important;
+      }
+
+      /* Enhanced Mobile Responsive Design */
       @media (max-width: 768px) {
+        body {
+          font-size: 20px; /* Larger base font for mobile */
+        }
+
         .content-wrapper-8bit {
-          padding: 0 1rem;
+          padding: 0 0.5rem;
         }
 
         .hero-section {
-          padding: 2rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
+          padding: 1.5rem 0.5rem;
+          margin: 0 -0.5rem 1.5rem -0.5rem;
+        }
+
+        .pixel-header {
+          font-size: 1.8rem; /* Responsive header size */
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem; /* Larger subtitle on mobile */
+        }
+
+        .learning-path-indicator {
+          font-size: 1.2rem; /* Larger on mobile */
+          padding: 1.2rem;
         }
 
         .concept-category {
           padding: 1rem;
+          margin-bottom: 3rem;
         }
         
         .cards-grid {
           grid-template-columns: 1fr;
+          gap: 1rem;
         }
-        
+
+        .link-card-enhanced {
+          min-height: 200px; /* More height on mobile */
+          padding: 1.25rem;
+        }
+
+        .card-title {
+          font-size: 1.2rem; /* Larger titles on mobile */
+        }
+
+        .card-description {
+          font-size: 1.1rem; /* Larger descriptions on mobile */
+          line-height: 1.8;
+        }
+
         .category-header {
           flex-direction: column;
           text-align: center;
+          padding: 1.25rem;
+        }
+
+        .category-info h2 {
+          font-size: 1.5rem; /* Larger category titles */
+        }
+
+        .category-description {
+          font-size: 1.1rem; /* Larger category descriptions */
         }
         
         .category-icon {
           margin-right: 0;
           margin-bottom: 1rem;
+          font-size: 1.75rem;
         }
 
         .stats-bar {
           grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+          padding: 1.25rem;
+        }
+
+        .stat-number {
+          font-size: 2rem;
+        }
+
+        .stat-label {
+          font-size: 1rem;
         }
 
         .progress-path {
           flex-direction: column;
           gap: 1rem;
+          font-size: 1rem;
         }
 
         .path-arrow {
           transform: rotate(90deg);
           margin: 0.5rem 0;
+          font-size: 1.5rem;
+        }
+
+        .notional-machine-callout h3 {
+          font-size: 1.3rem;
+        }
+
+        .notional-machine-callout p {
+          font-size: 1.1rem;
+        }
+
+        .concept-tag {
+          font-size: 1rem;
+          padding: 6px 12px;
+        }
+      }
+
+      /* Extra small screens */
+      @media (max-width: 480px) {
+        body {
+          font-size: 21px;
+        }
+
+        .pixel-header {
+          font-size: 1.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.2rem;
+        }
+
+        .card-title {
+          font-size: 1.15rem;
+        }
+
+        .card-description {
+          font-size: 1.05rem;
+        }
+
+        .stats-bar {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .category-info h2 {
+          font-size: 1.3rem;
+        }
+
+        .category-description {
+          font-size: 1.05rem;
         }
       }
 
@@ -405,6 +553,11 @@
         .link-card-enhanced {
           transition: none;
         }
+      }
+
+      /* Ensure all text elements use Courier */
+      h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, select, textarea {
+        font-family: 'Courier New', 'Courier', monospace !important;
       }
     </style>
   </head>
@@ -429,24 +582,7 @@
       </header>
 
       <main class="content-wrapper-8bit">
-        <div class="stats-bar">
-          <div class="stat-item">
-            <span class="stat-number">7</span>
-            <div class="stat-label">Foundation Topics</div>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">5</span>
-            <div class="stat-label">Intermediate Topics</div>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">9</span>
-            <div class="stat-label">Advanced Concepts</div>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">2</span>
-            <div class="stat-label">OOP Mastery</div>
-          </div>
-        </div>
+
 
         <div class="notional-machine-callout">
           <h3>🎯 Start Here: Build Your Mental Model</h3>
