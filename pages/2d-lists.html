@@ -103,7 +103,11 @@ comprehension_grid = [[None for _ in range(cols)] for _ in range(rows)]
 # comprehension_grid will be: [[None, None, None, None], [None, None, None, None]]
 print(comprehension_grid)</code></pre>
               <div class="message-box-8bit info">
-                  <strong>Watch Out for Shallow Copies!</strong> When creating lists of lists, especially by repeating a row (e.g., <code>row = [0]*cols; grid = [row]*rows</code>), be careful. This creates multiple references to the <em>same</em> inner list object. It's like having multiple windows open to the same spreadsheet - changes in one window affect all of them. Using loops or list comprehensions as shown above avoids this issue by creating distinct inner list objects for each row, like having separate spreadsheets for each row.
+                  <strong>Watch Out for Shallow Copies!</strong> When creating lists of lists, especially by repeating a row (e.g., <code>row = [0]*cols; grid = [row]*rows</code>), be careful. This creates multiple references to the <em>same</em> inner list object. 
+                  <br><br>
+                  <strong>🏷️ Remember the "Name Tag" metaphor from Lists?</strong> This is the same concept: <code>grid = [row]*rows</code> puts multiple name tags on the same inner list object, rather than creating separate list objects. Changes through any name tag affect all references!
+                  <br><br>
+                  Using loops or list comprehensions as shown above avoids this issue by creating distinct inner list objects for each row - like having separate spreadsheets rather than multiple windows to the same spreadsheet.
               </div>
             </div>
           </section>
