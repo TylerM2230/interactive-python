@@ -10,303 +10,57 @@
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Full-page layout matching the pedagogical design */
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        background-attachment: fixed;
-      }
-
-      .console-screen-border {
-        min-height: 100vh;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .content-wrapper-8bit {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
-        padding: 3rem 2rem;
-        margin: 0 -2rem 3rem -2rem;
-        border-bottom: 3px solid #facc15;
-        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: hero-shimmer 3s infinite;
-      }
-
-      @keyframes hero-shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-      }
-
-      .hero-content {
-        text-align: center;
-        color: #facc15;
-        position: relative;
-        z-index: 1;
-      }
-
-      .breadcrumb-nav {
-        background: rgba(15, 23, 42, 0.9);
-        padding: 1rem 2rem;
-        margin: 0 -2rem 2rem -2rem;
-        border-bottom: 2px solid #374151;
-        backdrop-filter: blur(10px);
-      }
-
-      .nav-links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .nav-links a {
-        color: #facc15;
-        text-decoration: none;
-        font-size: 10px;
-        transition: all 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: #fbbf24;
-        text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-      }
-
-      /* Mental Model and Pitfall boxes */
-      .mental-model-box {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
-        border: 2px solid #22c55e;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .mental-model-box h3 {
-        color: #4ade80;
-        margin-bottom: 0.5rem;
-        font-size: 14px;
-      }
-
-      .pitfall-warning {
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
-        border: 2px solid #f97316;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .pitfall-warning h3 {
-        color: #fb923c;
-        margin-bottom: 0.5rem;
-        font-size: 14px;
-      }
-
-      .interactive-section {
-        background: rgba(15, 23, 42, 0.4);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 2rem 0;
-        border: 1px solid rgba(250, 204, 21, 0.2);
-        backdrop-filter: blur(10px);
-      }
-
-      .repl-container {
-        background: #0f172a;
-        border: 2px solid #374151;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-      }
-
-      .repl-input {
-        background: #1f2937;
-        border: 1px solid #4b5563;
-        border-radius: 6px;
-        padding: 0.75rem;
-        color: #e5e7eb;
-        font-family: 'Courier New', monospace;
-        width: 100%;
-        margin: 0.5rem 0;
-      }
-
-      .repl-output {
-        background: #111827;
-        border: 1px solid #374151;
-        border-radius: 6px;
-        padding: 1rem;
-        color: #d1d5db;
-        font-family: 'Courier New', monospace;
-        min-height: 100px;
-        margin: 0.5rem 0;
-        overflow-x: auto;
-      }
-
-      .assessment-section {
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
-        border: 2px solid #8b5cf6;
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 3rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .quiz-question {
-        background: rgba(15, 23, 42, 0.6);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        border: 1px solid rgba(139, 92, 246, 0.3);
-      }
-
-      .quiz-options {
-        display: grid;
-        gap: 0.75rem;
-        margin: 1rem 0;
-      }
-
-      .quiz-option {
-        background: rgba(31, 41, 55, 0.8);
-        border: 2px solid #4b5563;
-        border-radius: 8px;
-        padding: 0.75rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: #e5e7eb;
-      }
-
-      .quiz-option:hover {
-        border-color: #8b5cf6;
-        background: rgba(139, 92, 246, 0.2);
-      }
-
-      .quiz-option.correct {
-        border-color: #22c55e;
-        background: rgba(34, 197, 94, 0.2);
-      }
-
-      .quiz-option.incorrect {
-        border-color: #ef4444;
-        background: rgba(239, 68, 68, 0.2);
-      }
-
+      /* Page-specific styles for function demonstrations */
       .random-simulator {
-        background: #0f172a;
-        border: 2px solid #374151;
+        background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.08));
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+      }
+      
+      .function-demo {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid rgba(100, 116, 139, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
-        margin: 1rem 0;
-      }
-
-      .function-demo {
-        background: #1f2937;
-        border: 1px solid #4b5563;
-        border-radius: 6px;
-        padding: 1rem;
-        margin: 0.75rem 0;
-      }
-
-      .function-title {
-        color: #a855f7;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        font-size: 14px;
-      }
-
-      .function-output {
-        background: #111827;
-        border: 1px solid #374151;
-        border-radius: 4px;
-        padding: 0.75rem;
-        color: #d1d5db;
-        font-family: 'Courier New', monospace;
-        min-height: 40px;
-        margin: 0.5rem 0;
-        display: flex;
-        align-items: center;
-      }
-
-      /* Responsive design */
-      @media (max-width: 768px) {
-        .content-wrapper-8bit {
-          padding: 0 1rem;
-        }
-
-        .hero-section {
-          padding: 2rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .breadcrumb-nav {
-          padding: 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .nav-links {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
+        margin-bottom: 1.5rem;
       }
     </style>
   </head>
-  <body>
-    <div class="console-screen-border">
+  <body class="page-layout">
+    <div class="page-console-border">
       <!-- Hero Section -->
-      <div class="hero-section">
-        <div class="hero-content">
-          <h1 class="pixel-header">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
             <a href="../index.html" style="color: inherit; text-decoration: none;">
               Interactive Guide to Python
             </a>
           </h1>
-          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">
+          <h2 class="lesson-subtitle">
             Adding Randomness
           </h2>
-          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
-            Make Your Programs Unpredictable • Games, Simulations & Variety • Python's Standard Library
+          <p class="lesson-subtitle">
+            Make Your Programs Unpredictable • Simulate Real-World Scenarios • Add Excitement to Games
           </p>
         </div>
       </div>
 
       <!-- Navigation -->
-      <nav class="breadcrumb-nav">
-        <div class="nav-links">
-          <a href="file-handling.html">← Previous: File Handling</a>
-          <a href="../index.html">🏠 Home</a>
-          <a href="dictionaries-tuples.html">Next: Dictionaries & Tuples →</a>
+      <nav class="page-navigation">
+        <div class="nav-content">
+          <a href="file-handling.html" class="nav-btn">← Previous: File Handling</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="dictionaries-tuples.html" class="nav-btn">Next: Dictionaries & Tuples →</a>
         </div>
       </nav>
 
-      <main class="content-wrapper-8bit">
+      <main class="page-content-wrapper">
         <!-- Step 1: Problem Motivation -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🎯 Why Do Programs Need Randomness?</h2>
           <p class="mb-4">
             Imagine playing the same video game where everything always happens exactly the same way:
@@ -370,14 +124,14 @@
         </div>
 
         <!-- Step 3: Syntax Introduction -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">📝 Essential Random Functions</h2>
           <p class="mb-4">
             Python's `random` module provides everything you need to add unpredictability to your programs:
           </p>
           
-          <div class="repl-container">
-            <h4 class="text-yellow-400 mb-2">Core Random Functions:</h4>
+          <div class="interactive-section">
+            <h4 class="section-title-8bit">Core Random Functions:</h4>
             <pre class="text-green-300"><code># First, import the module
 import random
 
@@ -408,63 +162,63 @@ random.seed(42)                   # Same seed = same sequence</code></pre>
         </section>
 
         <!-- Step 4: Interactive Exploration -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🔍 Interactive Random Function Explorer</h2>
           <p class="mb-4">
             Let's explore each random function and see how they work. Try different inputs and watch the magic happen!
           </p>
           
           <div class="random-simulator">
-            <h4 class="text-yellow-400 mb-4">Random Function Playground:</h4>
+            <h4 class="section-title-8bit">Random Function Playground:</h4>
             
             <!-- random.random() -->
             <div class="function-demo">
-              <div class="function-title">random.random() - Basic Random Float</div>
-              <p class="text-sm mb-3">Returns a float between 0.0 and 1.0 (not including 1.0)</p>
-              <button class="btn btn-8bit" onclick="demonstrateRandom()">Generate Random Float</button>
-              <div id="randomOutput" class="function-output">Click button to generate...</div>
+              <div class="section-title-8bit">random.random() - Basic Random Float</div>
+              <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Returns a float between 0.0 and 1.0 (not including 1.0)</p>
+              <button class="btn" onclick="demonstrateRandom()">Generate Random Float</button>
+              <div id="randomOutput" class="output-display">Click button to generate...</div>
             </div>
 
             <!-- random.randint() -->
             <div class="function-demo">
-              <div class="function-title">random.randint(min, max) - Random Integer</div>
-              <p class="text-sm mb-3">Returns a random integer between min and max (both inclusive)</p>
-              <div class="flex gap-2 mb-3">
-                <input type="number" id="randintMin" value="1" class="repl-input w-20" placeholder="Min">
-                <input type="number" id="randintMax" value="6" class="repl-input w-20" placeholder="Max">
-                <button class="btn btn-8bit" onclick="demonstrateRandint()">Roll Dice</button>
+              <div class="section-title-8bit">random.randint(min, max) - Random Integer</div>
+              <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Returns a random integer between min and max (both inclusive)</p>
+              <div class="grid-layout">
+                <input type="number" id="randintMin" value="1" class="input-field" placeholder="Min">
+                <input type="number" id="randintMax" value="6" class="input-field" placeholder="Max">
+                <button class="btn" onclick="demonstrateRandint()">Roll Dice</button>
               </div>
-              <div id="randintOutput" class="function-output">Enter min/max and click button...</div>
+              <div id="randintOutput" class="output-display">Enter min/max and click button...</div>
             </div>
 
             <!-- random.choice() -->
             <div class="function-demo">
-              <div class="function-title">random.choice(sequence) - Pick Random Item</div>
-              <p class="text-sm mb-3">Picks one random item from a list, string, or other sequence</p>
-              <input type="text" id="choiceItems" value="apple,banana,cherry,date,elderberry" class="repl-input mb-3" placeholder="Items separated by commas">
-              <button class="btn btn-8bit" onclick="demonstrateChoice()">Pick Random Item</button>
-              <div id="choiceOutput" class="function-output">Enter items and click button...</div>
+              <div class="section-title-8bit">random.choice(sequence) - Pick Random Item</div>
+              <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Picks one random item from a list, string, or other sequence</p>
+              <input type="text" id="choiceItems" value="apple,banana,cherry,date,elderberry" class="input-field" placeholder="Items separated by commas">
+              <button class="btn" onclick="demonstrateChoice()">Pick Random Item</button>
+              <div id="choiceOutput" class="output-display">Enter items and click button...</div>
             </div>
 
             <!-- random.shuffle() -->
             <div class="function-demo">
-              <div class="function-title">random.shuffle(list) - Shuffle List</div>
-              <p class="text-sm mb-3">Randomly rearranges items in a list (modifies the original list)</p>
-              <input type="text" id="shuffleItems" value="Ace,King,Queen,Jack,10,9,8,7" class="repl-input mb-3" placeholder="Items separated by commas">
-              <button class="btn btn-8bit" onclick="demonstrateShuffle()">Shuffle Cards</button>
-              <div id="shuffleOutput" class="function-output">Enter items and click button...</div>
+              <div class="section-title-8bit">random.shuffle(list) - Shuffle List</div>
+              <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Randomly rearranges items in a list (modifies the original list)</p>
+              <input type="text" id="shuffleItems" value="Ace,King,Queen,Jack,10,9,8,7" class="input-field" placeholder="Items separated by commas">
+              <button class="btn" onclick="demonstrateShuffle()">Shuffle Cards</button>
+              <div id="shuffleOutput" class="output-display">Enter items and click button...</div>
             </div>
 
             <!-- random.uniform() -->
             <div class="function-demo">
-              <div class="function-title">random.uniform(min, max) - Random Float in Range</div>
-              <p class="text-sm mb-3">Returns a random float between min and max</p>
-              <div class="flex gap-2 mb-3">
-                <input type="number" id="uniformMin" value="1.0" step="0.1" class="repl-input w-24" placeholder="Min">
-                <input type="number" id="uniformMax" value="10.0" step="0.1" class="repl-input w-24" placeholder="Max">
-                <button class="btn btn-8bit" onclick="demonstrateUniform()">Generate Float</button>
+              <div class="section-title-8bit">random.uniform(min, max) - Random Float in Range</div>
+              <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Returns a random float between min and max</p>
+              <div class="grid-layout">
+                <input type="number" id="uniformMin" value="1.0" step="0.1" class="input-field" placeholder="Min">
+                <input type="number" id="uniformMax" value="10.0" step="0.1" class="input-field" placeholder="Max">
+                <button class="btn" onclick="demonstrateUniform()">Generate Float</button>
               </div>
-              <div id="uniformOutput" class="function-output">Enter min/max and click button...</div>
+              <div id="uniformOutput" class="output-display">Enter min/max and click button...</div>
             </div>
           </div>
         </section>
@@ -504,32 +258,32 @@ print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
         </div>
 
         <!-- Step 6: Practice Project -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🛠️ Practice: Random Game Generator</h2>
           <p class="mb-4">
             Let's build a complete random game generator that demonstrates multiple random functions working together. 
             This is like creating a digital game master for tabletop adventures!
           </p>
           
-          <div class="repl-container">
-            <h4 class="text-yellow-400 mb-2">Adventure Game Generator:</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="interactive-section">
+            <h4 class="section-title-8bit">Adventure Game Generator:</h4>
+            <div class="grid-layout">
               <div>
-                <label class="block text-sm font-medium mb-2">Hero Name:</label>
-                <input type="text" id="heroNameInput" class="repl-input" value="Pixel Warrior" placeholder="Enter hero name">
+                <label class="input-label">Hero Name:</label>
+                <input type="text" id="heroNameInput" class="input-field" value="Pixel Warrior" placeholder="Enter hero name">
                 
-                <label class="block text-sm font-medium mb-2 mt-3">Number of Adventures:</label>
-                <input type="number" id="adventureCountInput" class="repl-input" value="3" min="1" max="10">
+                <label class="input-label">Number of Adventures:</label>
+                <input type="number" id="adventureCountInput" class="input-field" value="3" min="1" max="10">
                 
-                <div class="flex gap-2 mt-3">
-                  <button id="generateAdventureButton" class="btn btn-8bit flex-1">Generate Adventure</button>
-                  <button id="setSeedButton" class="btn btn-8bit flex-1">Use Seed: 42</button>
+                <div class="grid-layout">
+                  <button id="generateAdventureButton" class="btn">Generate Adventure</button>
+                  <button id="setSeedButton" class="btn">Use Seed: 42</button>
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium mb-2">Generated Adventure:</label>
-                <div id="adventureOutput" class="repl-output h-40 overflow-y-auto">
-                  <div class="text-gray-400 italic">Click "Generate Adventure" to start your quest!</div>
+                <label class="input-label">Generated Adventure:</label>
+                <div id="adventureOutput" class="output-display" style="height: 10rem; overflow-y: auto;">
+                  <div class="placeholder-text">Click "Generate Adventure" to start your quest!</div>
                 </div>
               </div>
             </div>
@@ -611,7 +365,7 @@ print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
         </div>
 
         <!-- Reflection Questions -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
           <div class="space-y-4">
             <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
@@ -621,7 +375,8 @@ print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
                 Think beyond games - consider simulations, testing, and data science.
               </p>
               <textarea 
-                class="repl-input h-20 resize-none" 
+                class="input-field" 
+                style="height: 5rem; resize: none;"
                 placeholder="Consider password generation, A/B testing, sampling..."
               ></textarea>
             </div>
@@ -633,7 +388,8 @@ print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
                 What random functions would you combine?
               </p>
               <textarea 
-                class="repl-input h-20 resize-none" 
+                class="input-field" 
+                style="height: 5rem; resize: none;"
                 placeholder="Think about ensuring uniqueness and range limits..."
               ></textarea>
             </div>
@@ -641,7 +397,7 @@ print(shuffled_cards) # ['Q', 'A', 'J', 'K'] - shuffled copy</code></pre>
         </section>
 
         <!-- Next Steps -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🚀 What's Next?</h2>
           <p class="mb-4">
             You've mastered adding randomness to your programs! Here's how this connects to your growing skills:

@@ -9,322 +9,32 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-    <style>
-      /* Full-page layout matching index.html */
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        background-attachment: fixed;
-      }
-
-      .console-screen-border {
-        min-height: 100vh;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .content-wrapper-8bit {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-        padding: 3rem 2rem;
-        margin: 0 -2rem 3rem -2rem;
-        border: none;
-        border-bottom: 3px solid #facc15;
-        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-        animation: glow-pulse 4s ease-in-out infinite alternate;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: hero-shimmer 3s infinite;
-      }
-
-      @keyframes glow-pulse {
-        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
-        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
-      }
-
-      @keyframes hero-shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-      }
-
-      .hero-content {
-        text-align: center;
-        color: #facc15;
-        position: relative;
-        z-index: 1;
-      }
-
-      .breadcrumb-nav {
-        background: rgba(31, 41, 55, 0.9);
-        border: 2px solid #374151;
-        border-radius: 12px;
-        padding: 1rem 2rem;
-        margin: 2rem 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        backdrop-filter: blur(10px);
-      }
-
-      .nav-button {
-        background: linear-gradient(135deg, #1e40af, #3730a3);
-        color: #facc15;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 10px;
-        border: 2px solid #facc15;
-        transition: all 0.3s ease;
-      }
-
-      .nav-button:hover {
-        background: linear-gradient(135deg, #3730a3, #581c87);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
-      }
-
-      .concept-section {
-        background: rgba(15, 23, 42, 0.4);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(250, 204, 21, 0.2);
-      }
-
-      .mental-model-box {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
-        border: 2px solid #22c55e;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .mental-model-box h3 {
-        color: #86efac;
-        margin-bottom: 0.5rem;
-        font-size: 12px;
-      }
-
-      .pitfall-warning {
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
-        border: 2px solid #f97316;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .pitfall-warning h3 {
-        color: #fdba74;
-        margin-bottom: 0.5rem;
-        font-size: 12px;
-      }
-
-      .interactive-playground {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
-        border: 2px solid #3b82f6;
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .interactive-playground h3 {
-        color: #93c5fd;
-        margin-bottom: 1rem;
-        font-size: 14px;
-      }
-
-      .assessment-section {
-        background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(126, 34, 206, 0.2));
-        border: 2px solid #9333ea;
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .assessment-section h3 {
-        color: #c4b5fd;
-        margin-bottom: 1rem;
-        font-size: 14px;
-      }
-
-      .code-block {
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid #334155;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        line-height: 1.4;
-        color: #e2e8f0;
-        overflow-x: auto;
-      }
-
-      .input-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        align-items: center;
-        margin: 1rem 0;
-      }
-
-      .input-field {
-        background: rgba(15, 23, 42, 0.8);
-        border: 2px solid #374151;
-        border-radius: 8px;
-        padding: 0.5rem;
-        color: #e2e8f0;
-        font-size: 11px;
-      }
-
-      .input-field:focus {
-        border-color: #facc15;
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
-      }
-
-      .btn {
-        background: linear-gradient(135deg, #facc15, #eab308);
-        color: #1e3a8a;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .btn:hover {
-        background: linear-gradient(135deg, #eab308, #ca8a04);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
-      }
-
-      .output-display {
-        background: rgba(15, 23, 42, 0.9);
-        border: 2px solid #374151;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        color: #e2e8f0;
-        min-height: 100px;
-        white-space: pre-wrap;
-      }
-
-      .quiz-option {
-        background: rgba(31, 41, 55, 0.6);
-        border: 1px solid #4b5563;
-        border-radius: 8px;
-        padding: 0.75rem;
-        margin: 0.5rem 0;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .quiz-option:hover {
-        background: rgba(59, 130, 246, 0.2);
-        border-color: #3b82f6;
-      }
-
-      .quiz-option.selected {
-        background: rgba(34, 197, 94, 0.2);
-        border-color: #22c55e;
-      }
-
-      .quiz-option.correct {
-        background: rgba(34, 197, 94, 0.3);
-        border-color: #22c55e;
-      }
-
-      .quiz-option.incorrect {
-        background: rgba(239, 68, 68, 0.3);
-        border-color: #ef4444;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .content-wrapper-8bit {
-          padding: 0 1rem;
-        }
-
-        .hero-section {
-          padding: 2rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .concept-section {
-          padding: 1rem;
-        }
-
-        .breadcrumb-nav {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
-
-        .input-group {
-          flex-direction: column;
-          align-items: stretch;
-        }
-      }
-    </style>
   </head>
-  <body>
-    <div class="console-screen-border">
+  <body class="page-layout">
+    <div class="page-console-border">
       <header>
-        <div class="hero-section">
-          <div class="hero-content">
-            <h1 class="pixel-header">
+        <div class="lesson-hero">
+          <div class="lesson-hero-content">
+            <h1 class="lesson-title">
               <a href="../index.html" style="color: inherit; text-decoration: none;">
                 Interactive Guide to Python
               </a>
             </h1>
-            <h2 class="pixel-subheader">Nested Conditionals: Complex Decision Making</h2>
-            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+            <h2 class="lesson-subtitle">Nested Conditionals: Complex Decision Making</h2>
+            <p class="lesson-subtitle">
               🌳 Decision Trees • 🔀 Hierarchical Logic • 🎯 Structured Thinking
             </p>
           </div>
         </div>
 
-        <nav class="breadcrumb-nav">
-          <a href="booleans-conditionals.html" class="nav-button">← Booleans & Conditionals</a>
+        <nav class="page-navigation">
+          <a href="functions.html" class="nav-button">← Functions</a>
           <a href="../index.html" class="nav-button">🏠 Home</a>
           <a href="nested-loops.html" class="nav-button">Nested Loops →</a>
         </nav>
       </header>
 
-      <main class="content-wrapper-8bit">
+      <main class="page-content-wrapper">
         <!-- Problem Motivation -->
         <section class="concept-section">
           <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🎯 Why Do We Need Nested Conditionals?</h2>
@@ -350,8 +60,7 @@
             Or imagine a <strong>decision tree</strong>: you start at the trunk (first condition), and only if you can climb up do you reach the branches (inner conditions). 
             Each branch represents a new set of choices that only become available after you've successfully navigated the previous level.
           </p>
-          <div class="code-block">
-# Like a security checkpoint system:
+          <pre><code># Like a security checkpoint system:
 if has_valid_id:           # First checkpoint: ID verification
     print("ID verified")
     if has_area_clearance:  # Second checkpoint: Area access
@@ -364,7 +73,7 @@ if has_valid_id:           # First checkpoint: ID verification
         print("Access denied: Insufficient clearance")
 else:
     print("Access denied: Invalid ID")
-          </div>
+          </code></pre>
         </div>
 
         <!-- Syntax Introduction -->
@@ -375,8 +84,7 @@ else:
             This is exactly how the notional machine works: <strong>sequential, literal, and oblivious</strong> to anything it hasn't been explicitly told to check.
           </p>
           
-          <div class="code-block">
-# Basic nested structure
+          <pre><code># Basic nested structure
 if outer_condition:
     print("Outer condition is true")
     if inner_condition:
@@ -385,10 +93,9 @@ if outer_condition:
         print("Outer is true, but inner is false")
 else:
     print("Outer condition is false - inner never checked")
-          </div>
+          </code></pre>
 
-          <div class="code-block">
-# Real example: Student grade system
+          <pre><code># Real example: Student grade system
 score = 85
 attendance = 95
 
@@ -404,25 +111,29 @@ if score >= 60:  # First check: Is it passing?
         print("Passed, but attendance needs improvement")
 else:
     print("Student failed - attendance doesn't matter")
-          </div>
+          </code></pre>
         </section>
 
         <!-- Interactive Exploration -->
-        <div class="interactive-playground">
+        <div class="interactive-section">
           <h3>🔬 Interactive Decision Tree Explorer</h3>
           <p style="color: #dbeafe; margin-bottom: 1rem;">
             Let's build a character creation system for a fantasy game. Watch how each decision opens up new possibilities!
           </p>
           
-          <div class="input-group">
-            <label style="color: #dbeafe;">Character Level:</label>
-            <input type="number" id="characterLevel" class="input-field" value="15" min="1" max="100">
-            
-            <label style="color: #dbeafe;">Has Magic Ability:</label>
-            <input type="checkbox" id="hasMagic" checked>
-            
-            <label style="color: #dbeafe;">Guild Member:</label>
-            <input type="checkbox" id="isGuildMember">
+          <div class="grid-layout">
+            <div>
+              <label class="input-label">Character Level:</label>
+              <input type="number" id="characterLevel" class="input-field" value="15" min="1" max="100">
+            </div>
+            <div>
+              <label class="input-label">Has Magic Ability:</label>
+              <input type="checkbox" id="hasMagic" checked>
+            </div>
+            <div>
+              <label class="input-label">Guild Member:</label>
+              <input type="checkbox" id="isGuildMember">
+            </div>
           </div>
           
           <button id="evaluateCharacter" class="btn">Evaluate Character</button>
@@ -440,8 +151,7 @@ else:
             If your code looks like it's pointing to the right edge of your screen, you've gone too far!
           </p>
           
-          <div class="code-block">
-# BAD: Arrow code (too much nesting)
+          <pre><code># BAD: Arrow code (too much nesting)
 if condition1:
     if condition2:
         if condition3:
@@ -449,10 +159,9 @@ if condition1:
                 if condition5:
                     print("This is getting ridiculous!")
                     # Code is now way over to the right
-          </div>
+          </code></pre>
           
-          <div class="code-block">
-# BETTER: Use logical operators or early returns
+          <pre><code># BETTER: Use logical operators or early returns
 if condition1 and condition2 and condition3:
     print("Much cleaner!")
 
@@ -462,7 +171,7 @@ if not condition1:
 if not condition2:
     return "Failed condition 2"
 # Continue with main logic...
-          </div>
+          </code></pre>
           
           <p style="color: #fed7aa; line-height: 1.6;">
             <strong>Rule of thumb:</strong> If you're nesting more than 2-3 levels deep, consider refactoring with logical operators, 
@@ -471,27 +180,32 @@ if not condition2:
         </div>
 
         <!-- Practice Project -->
-        <div class="interactive-playground">
+        <div class="interactive-section">
           <h3>🎮 Practice: Adventure Game Decision System</h3>
           <p style="color: #dbeafe; margin-bottom: 1rem;">
             Create a text adventure where the player's choices determine their path through a mysterious forest.
           </p>
           
-          <div class="input-group">
-            <label style="color: #dbeafe;">Player Health:</label>
-            <input type="number" id="playerHealth" class="input-field" value="80" min="0" max="100">
-            
-            <label style="color: #dbeafe;">Has Torch:</label>
-            <input type="checkbox" id="hasTorch" checked>
-            
-            <label style="color: #dbeafe;">Has Map:</label>
-            <input type="checkbox" id="hasMap">
-            
-            <label style="color: #dbeafe;">Time of Day:</label>
-            <select id="timeOfDay" class="input-field">
-              <option value="day">Day</option>
-              <option value="night">Night</option>
-            </select>
+          <div class="grid-layout">
+            <div>
+              <label class="input-label">Player Health:</label>
+              <input type="number" id="playerHealth" class="input-field" value="80" min="0" max="100">
+            </div>
+            <div>
+              <label class="input-label">Has Torch:</label>
+              <input type="checkbox" id="hasTorch" checked>
+            </div>
+            <div>
+              <label class="input-label">Has Map:</label>
+              <input type="checkbox" id="hasMap">
+            </div>
+            <div>
+              <label class="input-label">Time of Day:</label>
+              <select id="timeOfDay" class="select-field">
+                <option value="day">Day</option>
+                <option value="night">Night</option>
+              </select>
+            </div>
           </div>
           
           <button id="startAdventure" class="btn">Start Adventure</button>
@@ -512,8 +226,7 @@ if not condition2:
             <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
               Question 1: What gets printed when age = 16 and has_license = True?
             </p>
-            <div class="code-block" style="margin-bottom: 1rem;">
-if age >= 18:
+            <pre style="margin-bottom: 1rem;"><code>if age >= 18:
     print("Adult")
     if has_license:
         print("Can drive alone")
@@ -523,7 +236,7 @@ else:
     print("Minor")
     if has_license:
         print("Can drive with adult")
-            </div>
+            </code></pre>
             <div class="quiz-option" data-question="1" data-answer="a">
               A) "Adult" and "Can drive alone"
             </div>
@@ -542,8 +255,7 @@ else:
             <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
               Question 2: How many conditions are checked when x = 5?
             </p>
-            <div class="code-block" style="margin-bottom: 1rem;">
-if x > 10:
+            <pre style="margin-bottom: 1rem;"><code>if x > 10:
     if x > 20:
         print("Large")
     else:
@@ -553,7 +265,7 @@ else:
         print("Small positive")
     else:
         print("Zero or negative")
-            </div>
+            </code></pre>
             <div class="quiz-option" data-question="2" data-answer="a">
               A) 1 condition (x > 10)
             </div>

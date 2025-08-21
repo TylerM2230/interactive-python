@@ -1,0 +1,5 @@
+*.md
+!README.md
+.claude
+.cursor
+.txt

@@ -10,358 +10,59 @@
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Full-page layout matching index.html */
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        background-attachment: fixed;
-      }
-
-      .console-screen-border {
-        min-height: 100vh;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .content-wrapper-8bit {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-        padding: 3rem 2rem;
-        margin: 0 -2rem 3rem -2rem;
-        border: none;
-        border-bottom: 3px solid #facc15;
-        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-        animation: glow-pulse 4s ease-in-out infinite alternate;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: hero-shimmer 3s infinite;
-      }
-
-      @keyframes glow-pulse {
-        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
-        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
-      }
-
-      @keyframes hero-shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-      }
-
-      .hero-content {
-        text-align: center;
-        color: #facc15;
-        position: relative;
-        z-index: 1;
-      }
-
-      .breadcrumb-nav {
-        background: rgba(31, 41, 55, 0.9);
-        border: 2px solid #374151;
-        border-radius: 12px;
-        padding: 1rem 2rem;
-        margin: 2rem 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        backdrop-filter: blur(10px);
-      }
-
-      .nav-button {
-        background: linear-gradient(135deg, #1e40af, #3730a3);
-        color: #facc15;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 10px;
-        border: 2px solid #facc15;
-        transition: all 0.3s ease;
-      }
-
-      .nav-button:hover {
-        background: linear-gradient(135deg, #3730a3, #581c87);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
-      }
-
-      .concept-section {
-        background: rgba(15, 23, 42, 0.4);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(250, 204, 21, 0.2);
-      }
-
-      .mental-model-box {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
-        border: 2px solid #22c55e;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .mental-model-box h3 {
-        color: #86efac;
-        margin-bottom: 0.5rem;
-        font-size: 12px;
-      }
-
-      .pitfall-warning {
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
-        border: 2px solid #f97316;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .pitfall-warning h3 {
-        color: #fdba74;
-        margin-bottom: 0.5rem;
-        font-size: 12px;
-      }
-
-      .interactive-playground {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
-        border: 2px solid #3b82f6;
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .interactive-playground h3 {
-        color: #93c5fd;
-        margin-bottom: 1rem;
-        font-size: 14px;
-      }
-
-      .assessment-section {
-        background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(126, 34, 206, 0.2));
-        border: 2px solid #9333ea;
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .assessment-section h3 {
-        color: #c4b5fd;
-        margin-bottom: 1rem;
-        font-size: 14px;
-      }
-
-      .code-block {
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid #334155;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        line-height: 1.4;
-        color: #e2e8f0;
-        overflow-x: auto;
-      }
-
-      .input-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        align-items: center;
-        margin: 1rem 0;
-      }
-
-      .input-field {
-        background: rgba(15, 23, 42, 0.8);
-        border: 2px solid #374151;
-        border-radius: 8px;
-        padding: 0.5rem;
-        color: #e2e8f0;
-        font-size: 11px;
-      }
-
-      .input-field:focus {
-        border-color: #facc15;
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
-      }
-
-      .btn {
-        background: linear-gradient(135deg, #facc15, #eab308);
-        color: #1e3a8a;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .btn:hover {
-        background: linear-gradient(135deg, #eab308, #ca8a04);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
-      }
-
-      .output-display {
-        background: rgba(15, 23, 42, 0.9);
-        border: 2px solid #374151;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        color: #e2e8f0;
-        min-height: 100px;
-        white-space: pre-wrap;
-      }
-
-      .grid-display {
-        display: grid;
-        gap: 2px;
-        margin: 1rem 0;
-        padding: 1rem;
-        background: rgba(15, 23, 42, 0.8);
-        border-radius: 8px;
-        border: 1px solid #374151;
-      }
-
+      /* Page-specific styles for loop visualization */
       .grid-cell {
-        background: rgba(59, 130, 246, 0.3);
-        border: 1px solid #3b82f6;
+        background: rgba(250, 204, 21, 0.1);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 6px;
         padding: 0.5rem;
         text-align: center;
-        font-size: 10px;
-        color: #e2e8f0;
-        border-radius: 4px;
+        font-size: 0.75rem;
         transition: all 0.3s ease;
       }
-
+      
       .grid-cell.active {
-        background: rgba(250, 204, 21, 0.6);
+        background: rgba(250, 204, 21, 0.4);
         border-color: #facc15;
-        color: #1e3a8a;
-        font-weight: bold;
-      }
-
-      .quiz-option {
-        background: rgba(31, 41, 55, 0.6);
-        border: 1px solid #4b5563;
-        border-radius: 8px;
-        padding: 0.75rem;
-        margin: 0.5rem 0;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .quiz-option:hover {
-        background: rgba(59, 130, 246, 0.2);
-        border-color: #3b82f6;
-      }
-
-      .quiz-option.selected {
-        background: rgba(34, 197, 94, 0.2);
-        border-color: #22c55e;
-      }
-
-      .quiz-option.correct {
-        background: rgba(34, 197, 94, 0.3);
-        border-color: #22c55e;
-      }
-
-      .quiz-option.incorrect {
-        background: rgba(239, 68, 68, 0.3);
-        border-color: #ef4444;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .content-wrapper-8bit {
-          padding: 0 1rem;
-        }
-
-        .hero-section {
-          padding: 2rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .concept-section {
-          padding: 1rem;
-        }
-
-        .breadcrumb-nav {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
-
-        .input-group {
-          flex-direction: column;
-          align-items: stretch;
-        }
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
       }
     </style>
   </head>
-  <body>
-    <div class="console-screen-border">
+  <body class="page-layout">
+    <div class="page-console-border">
       <header>
-        <div class="hero-section">
-          <div class="hero-content">
-            <h1 class="pixel-header">
+        <div class="lesson-hero">
+          <div class="lesson-hero-content">
+            <h1 class="lesson-title">
               <a href="../index.html" style="color: inherit; text-decoration: none;">
                 Interactive Guide to Python
               </a>
             </h1>
-            <h2 class="pixel-subheader">Nested Loops: Loops Within Loops</h2>
-            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+            <h2 class="lesson-subtitle">Nested Loops: Loops Within Loops</h2>
+            <p class="lesson-subtitle">
               🔄 Iteration Patterns • 🎯 2D Processing • ⚡ Powerful Combinations
             </p>
           </div>
         </div>
 
-        <nav class="breadcrumb-nav">
-          <a href="nested-conditionals.html" class="nav-button">← Nested Conditionals</a>
-          <a href="../index.html" class="nav-button">🏠 Home</a>
-          <a href="error-handling.html" class="nav-button">Error Handling →</a>
+        <nav class="page-navigation">
+          <a href="nested-conditionals.html" class="nav-btn">← Nested Conditionals</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="error-handling.html" class="nav-btn">Error Handling →</a>
         </nav>
       </header>
 
-      <main class="content-wrapper-8bit">
+      <main class="page-content-wrapper">
         <!-- Problem Motivation -->
         <section class="concept-section">
-          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🎯 Why Do We Need Nested Loops?</h2>
-          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+          <h2 class="section-title-8bit">🎯 Why Do We Need Nested Loops?</h2>
+          <p class="mb-4">
             Imagine you're organizing a massive library. You need to visit every shelf (outer loop), and on each shelf, 
             you need to check every single book (inner loop). Or think about a farmer plowing a field: they plow each row (outer loop), 
             and within each row, they need to cover every inch of soil (inner loop).
           </p>
-          <p style="color: #e2e8f0; line-height: 1.6;">
+          <p class="mb-4">
             <strong>The Problem:</strong> Single loops can only handle one-dimensional tasks. But what about grids, tables, 
             combinations, or any situation where you need to process data in multiple dimensions? That's where nested loops become essential - 
             they let you work with complex, multi-layered data structures efficiently.
@@ -371,12 +72,12 @@
         <!-- Mental Model -->
         <div class="mental-model-box">
           <h3>🧠 Mental Model: Clock Hands & Assembly Lines</h3>
-          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+          <p class="mb-4">
             Think of nested loops like a <strong>clock with two hands</strong>: the hour hand (outer loop) moves slowly, 
             and for each position of the hour hand, the minute hand (inner loop) makes a complete circle. 
             The minute hand completes its full rotation for each hour!
           </p>
-          <p style="color: #dcfce7; line-height: 1.6; margin-bottom: 1rem;">
+          <p class="mb-4">
             Or imagine an <strong>assembly line with quality control</strong>: for each product that comes down the line (outer loop), 
             a quality inspector checks every component on that product (inner loop). The inspector finishes checking all components 
             before the next product arrives.
@@ -401,8 +102,8 @@ for i in range(3):      # Hour hand: 0, 1, 2
 
         <!-- Syntax Introduction -->
         <section class="concept-section">
-          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">📝 Nested Loop Mechanics</h2>
-          <p style="color: #e2e8f0; line-height: 1.6; margin-bottom: 1rem;">
+          <h2 class="section-title-8bit">📝 Nested Loop Mechanics</h2>
+          <p class="mb-4">
             The computer processes nested loops with mechanical precision. The outer loop starts, then the inner loop runs completely, 
             then the outer loop advances one step, then the inner loop runs completely again. This is the notional machine at work: 
             <strong>sequential, literal, and oblivious</strong> to our human intuition about "doing things at the same time."
@@ -435,36 +136,39 @@ for row in range(1, 4):      # Rows 1, 2, 3
         </section>
 
         <!-- Interactive Exploration -->
-        <div class="interactive-playground">
+        <div class="interactive-repl">
           <h3>🔬 Interactive Loop Visualizer</h3>
-          <p style="color: #dbeafe; margin-bottom: 1rem;">
+          <p class="mb-4">
             Watch how nested loops work step by step. See the outer loop control the inner loop's complete execution!
           </p>
           
-          <div class="input-group">
-            <label style="color: #dbeafe;">Outer Loop Range:</label>
-            <input type="number" id="outerRange" class="input-field" value="3" min="1" max="5">
-            
-            <label style="color: #dbeafe;">Inner Loop Range:</label>
-            <input type="number" id="innerRange" class="input-field" value="4" min="1" max="6">
+          <div class="grid-layout">
+            <div>
+              <label class="input-label">Outer Loop Range:</label>
+              <input type="number" id="outerRange" class="input-field" value="3" min="1" max="5">
+            </div>
+            <div>
+              <label class="input-label">Inner Loop Range:</label>
+              <input type="number" id="innerRange" class="input-field" value="4" min="1" max="6">
+            </div>
           </div>
           
           <button id="runVisualization" class="btn">Run Visualization</button>
           <button id="resetVisualization" class="btn">Reset</button>
           
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-            <div>
-              <h4 style="color: #dbeafe; margin-bottom: 0.5rem;">Loop State:</h4>
-              <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px;">
-                <p style="color: #e2e8f0;">Outer: <span id="outerCounter" style="color: #facc15; font-weight: bold;">-</span></p>
-                <p style="color: #e2e8f0;">Inner: <span id="innerCounter" style="color: #facc15; font-weight: bold;">-</span></p>
-                <p style="color: #e2e8f0;">Total Iterations: <span id="totalCounter" style="color: #facc15; font-weight: bold;">0</span></p>
+                      <div class="grid-layout">
+              <div>
+                <h4 class="section-title-8bit">Loop State:</h4>
+                <div class="interactive-section">
+                  <p>Outer: <span id="outerCounter" class="highlight-text">0</span></p>
+                  <p>Inner: <span id="innerCounter" class="highlight-text">0</span></p>
+                  <p>Total Iterations: <span id="totalCounter" class="highlight-text">0</span></p>
+                </div>
               </div>
-            </div>
             
             <div>
-              <h4 style="color: #dbeafe; margin-bottom: 0.5rem;">Coordinate Grid:</h4>
-              <div id="coordinateGrid" class="grid-display">
+              <h4 class="section-title-8bit">Coordinate Grid:</h4>
+              <div id="coordinateGrid" class="interactive-section" style="display: grid; gap: 0.5rem; padding: 1rem;">
                 <!-- Grid will be generated here -->
               </div>
             </div>
@@ -478,7 +182,7 @@ for row in range(1, 4):      # Rows 1, 2, 3
         <!-- Common Pitfalls -->
         <div class="pitfall-warning">
           <h3>⚠️ Critical Pitfall: Performance Explosion</h3>
-          <p style="color: #fed7aa; line-height: 1.6; margin-bottom: 1rem;">
+          <p class="mb-4">
             <strong>Danger:</strong> Nested loops multiply their iterations! A loop with 100 iterations inside another loop with 100 iterations 
             creates 10,000 total iterations. This can make your program incredibly slow or even crash.
           </p>
@@ -503,33 +207,37 @@ for i in range(outer_size):
         pass
           </div>
           
-          <p style="color: #fed7aa; line-height: 1.6;">
+          <p class="mb-4">
             <strong>Rule of thumb:</strong> Always calculate total iterations (outer × inner). If it's more than 10,000, 
             consider if there's a more efficient approach. Your computer is fast, but not infinitely fast!
           </p>
         </div>
 
         <!-- Practice Project -->
-        <div class="interactive-playground">
+        <div class="interactive-repl">
           <h3>🎮 Practice: Pattern Generator</h3>
-          <p style="color: #dbeafe; margin-bottom: 1rem;">
+          <p class="mb-4">
             Create different patterns using nested loops. See how changing the loop structure creates different visual effects!
           </p>
           
-          <div class="input-group">
-            <label style="color: #dbeafe;">Pattern Type:</label>
-            <select id="patternType" class="input-field">
-              <option value="rectangle">Rectangle</option>
-              <option value="triangle">Triangle</option>
-              <option value="diamond">Diamond</option>
-              <option value="checkerboard">Checkerboard</option>
-            </select>
-            
-            <label style="color: #dbeafe;">Size:</label>
-            <input type="number" id="patternSize" class="input-field" value="5" min="3" max="8">
-            
-            <label style="color: #dbeafe;">Character:</label>
-            <input type="text" id="patternChar" class="input-field" value="*" maxlength="1">
+          <div class="grid-layout">
+            <div>
+              <label class="input-label">Pattern Type:</label>
+              <select id="patternType" class="select-field">
+                <option value="rectangle">Rectangle</option>
+                <option value="triangle">Triangle</option>
+                <option value="diamond">Diamond</option>
+                <option value="checkerboard">Checkerboard</option>
+              </select>
+            </div>
+            <div>
+              <label class="input-label">Size:</label>
+              <input type="number" id="patternSize" class="input-field" value="5" min="3" max="8">
+            </div>
+            <div>
+              <label class="input-label">Character:</label>
+              <input type="text" id="patternChar" class="input-field" value="*" maxlength="1">
+            </div>
           </div>
           
           <button id="generatePattern" class="btn">Generate Pattern</button>
@@ -542,12 +250,12 @@ for i in range(outer_size):
         <!-- Assessment -->
         <div class="assessment-section">
           <h3>🎯 Mastery Assessment: Nested Loop Logic</h3>
-          <p style="color: #e0e7ff; margin-bottom: 1.5rem;">
+          <p class="mb-4">
             Test your understanding of how nested loops execute. Remember: the inner loop completes fully for each outer iteration!
           </p>
           
           <div class="quiz-question" style="margin-bottom: 2rem;">
-            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+            <p class="mb-4">
               Question 1: How many times does "Hello" get printed?
             </p>
             <div class="code-block" style="margin-bottom: 1rem;">
@@ -570,7 +278,7 @@ for i in range(3):
           </div>
           
           <div class="quiz-question" style="margin-bottom: 2rem;">
-            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+            <p class="mb-4">
               Question 2: What's the last coordinate printed?
             </p>
             <div class="code-block" style="margin-bottom: 1rem;">
@@ -593,10 +301,10 @@ for row in range(2):
           </div>
 
           <div class="quiz-question" style="margin-bottom: 2rem;">
-            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+            <p class="mb-4">
               Question 3: Performance Analysis
             </p>
-            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+            <p class="mb-4">
               Which nested loop structure creates the most total iterations?
             </p>
             <div class="quiz-option" data-question="3" data-answer="a">
@@ -614,10 +322,10 @@ for row in range(2):
           </div>
 
           <div class="quiz-question" style="margin-bottom: 2rem;">
-            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+            <p class="mb-4">
               Question 4: Pattern Recognition
             </p>
-            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+            <p class="mb-4">
               What pattern does this code create?
             </p>
             <div class="code-block" style="margin-bottom: 1rem;">
@@ -641,10 +349,10 @@ for i in range(3):
           </div>
 
           <div class="quiz-question" style="margin-bottom: 2rem;">
-            <p style="color: #e0e7ff; font-weight: bold; margin-bottom: 1rem;">
+            <p class="mb-4">
               Question 5: Loop Order Understanding
             </p>
-            <p style="color: #d1d5db; font-size: 11px; margin-bottom: 1rem;">
+            <p class="mb-4">
               In nested loops, what happens to the inner loop variable?
             </p>
             <div class="quiz-option" data-question="5" data-answer="a">
@@ -669,8 +377,8 @@ for i in range(3):
 
         <!-- Reflection Questions -->
         <section class="concept-section">
-          <h2 style="color: #facc15; font-size: 18px; margin-bottom: 1rem;">🤔 Reflection Questions</h2>
-          <ul style="color: #e2e8f0; line-height: 1.8; list-style-type: disc; margin-left: 2rem;">
+          <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
+          <ul class="reflection-list">
             <li>How do nested loops relate to real-world tasks you do every day?</li>
             <li>When would you use nested loops instead of a single loop?</li>
             <li>How can you calculate the total number of iterations before running nested loops?</li>
@@ -681,9 +389,9 @@ for i in range(3):
 
       <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center;">
         <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-          <p style="color: #facc15; margin-bottom: 1rem;">🎯 Ready to handle errors gracefully?</p>
-          <a href="error-handling.html" class="btn" style="margin-right: 1rem;">Next: Error Handling →</a>
-          <a href="../index.html" class="nav-button">🏠 Back to Home</a>
+                      <p class="highlight-text">🎯 Ready to handle errors gracefully?</p>
+            <a href="error-handling.html" class="btn">Next: Error Handling →</a>
+            <a href="../index.html" class="nav-btn">🏠 Back to Home</a>
         </div>
       </footer>
     </div>

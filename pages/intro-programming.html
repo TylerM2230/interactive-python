@@ -10,63 +10,9 @@
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Full-page layout for consistency with index.html */
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        background-attachment: fixed;
-      }
+      /* Page-specific styles only */
 
-      .console-screen-border {
-        min-height: 100vh;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .content-wrapper-8bit {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-        padding: 2rem;
-        margin: 0 -2rem 3rem -2rem;
-        border-bottom: 3px solid #facc15;
-        text-align: center;
-        color: #facc15;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: hero-shimmer 3s infinite;
-      }
-
-      @keyframes hero-shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 1;
-      }
-
+      /* Page-specific emphasis box */
       .notional-machine-emphasis {
         background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.2));
         border: 3px solid #dc2626;
@@ -78,42 +24,7 @@
         box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
       }
 
-      .concept-section {
-        background: rgba(15, 23, 42, 0.3);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(250, 204, 21, 0.1);
-      }
-
-      .mental-model-box {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1));
-        border: 2px solid #10b981;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .pitfall-warning {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1));
-        border: 2px solid #f59e0b;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .interactive-repl {
-        background: rgba(31, 41, 55, 0.8);
-        border: 2px solid #4b5563;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        backdrop-filter: blur(10px);
-      }
-
+      /* Page-specific machine property boxes */
       .machine-property {
         background: rgba(59, 130, 246, 0.1);
         border-left: 4px solid #3b82f6;
@@ -122,45 +33,7 @@
         border-radius: 0 8px 8px 0;
       }
 
-      .navigation-bar {
-        background: rgba(15, 23, 42, 0.9);
-        border-bottom: 2px solid #facc15;
-        padding: 1rem 0;
-        margin-bottom: 2rem;
-        backdrop-filter: blur(10px);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-
-      .nav-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .nav-btn {
-        background: linear-gradient(135deg, #1e3a8a, #3730a3);
-        color: #facc15;
-        padding: 0.5rem 1rem;
-        border: 2px solid #facc15;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 10px;
-        transition: all 0.3s ease;
-      }
-
-      .nav-btn:hover {
-        background: linear-gradient(135deg, #3730a3, #581c87);
-        box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
-        transform: translateY(-2px);
-      }
-
+      /* Page-specific code highlight */
       .code-highlight {
         background: rgba(250, 204, 21, 0.1);
         border: 1px solid rgba(250, 204, 21, 0.3);
@@ -170,7 +43,7 @@
         color: #facc15;
       }
 
-      /* Assessment section styling */
+      /* Page-specific assessment styling */
       .assessment-section {
         background: rgba(55, 48, 163, 0.2);
         border: 2px solid #3730a3;
@@ -205,31 +78,11 @@
         background: rgba(239, 68, 68, 0.2);
       }
 
-      /* Responsive design */
-      @media (max-width: 768px) {
-        .content-wrapper-8bit {
-          padding: 0 1rem;
-        }
-
-        .hero-section {
-          padding: 1.5rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .concept-section {
-          padding: 1rem;
-        }
-
-        .nav-content {
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-      }
     </style>
   </head>
-  <body>
-    <div class="console-screen-border">
-      <nav class="navigation-bar">
+  <body class="page-layout">
+    <div class="page-console-border">
+      <nav class="page-navigation">
         <div class="nav-content">
           <a href="../index.html" class="nav-btn">🏠 Main Menu</a>
           <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
@@ -239,11 +92,11 @@
         </div>
       </nav>
 
-      <div class="content-wrapper-8bit">
-        <div class="hero-section">
-          <div class="hero-content">
-            <h1 class="pixel-header">The Notional Machine & Python Basics</h1>
-            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
+      <div class="page-content-wrapper">
+        <div class="lesson-hero">
+          <div class="lesson-hero-content">
+            <h1 class="lesson-title">The Notional Machine & Python Basics</h1>
+            <p class="lesson-subtitle">
               🎯 Mental Model First: How Computers Think
             </p>
             <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">

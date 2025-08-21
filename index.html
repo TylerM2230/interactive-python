@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Guide to Python | Learn Programming Step by Step</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
@@ -18,8 +20,8 @@
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         background-attachment: fixed;
         font-family: 'Courier New', 'Courier', monospace !important;
-        font-size: 18px; /* Increased base font size for better readability */
-        line-height: 1.7; /* Better line spacing for readability */
+        font-size: 16px;
+        line-height: 1.6;
       }
 
       .console-screen-border {
@@ -33,21 +35,27 @@
       }
 
       .content-wrapper-8bit {
-        max-width: 1400px;
+        max-width: 900px; /* Reduced from 1400px for better readability */
         margin: 0 auto;
         padding: 0 1rem; /* Reduced padding for mobile */
       }
 
       .hero-section {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-        padding: 2rem 1rem; /* Reduced padding */
-        margin: 0 -1rem 2rem -1rem; /* Adjusted margins */
+        background: 
+          linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(55, 48, 163, 0.8) 50%, rgba(88, 28, 135, 0.9) 100%),
+          radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+        padding: 3rem 1rem 4rem; /* More generous padding for sophisticated look */
+        margin: 0 -1rem 2rem -1rem;
         border: none;
-        border-bottom: 3px solid #facc15;
-        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-        animation: glow-pulse 4s ease-in-out infinite alternate;
+        border-bottom: 1px solid rgba(250, 204, 21, 0.3);
+        border-radius: 0;
+        box-shadow: 
+          0 20px 40px rgba(30, 58, 138, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
         position: relative;
         overflow: hidden;
+        backdrop-filter: blur(20px);
       }
 
       .hero-section::before {
@@ -61,9 +69,21 @@
         animation: hero-shimmer 3s infinite;
       }
 
-      @keyframes glow-pulse {
-        0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
-        100% { box-shadow: 0 0 35px rgba(250, 204, 21, 0.6); }
+      @keyframes float-elements {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-10px) rotate(1deg); }
+        66% { transform: translateY(-5px) rotate(-1deg); }
+      }
+      
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.2); }
+        50% { box-shadow: 0 0 40px rgba(250, 204, 21, 0.4); }
+      }
+      
+      @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
       @keyframes hero-shimmer {
@@ -76,39 +96,198 @@
         color: #facc15;
         position: relative;
         z-index: 1;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      
+      .hero-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        animation: float-elements 6s ease-in-out infinite;
+      }
+      
+      .version-tag {
+        background: linear-gradient(145deg, rgba(34, 197, 94, 0.9), rgba(16, 185, 129, 0.7));
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+      }
+      
+      .tech-stack {
+        background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        color: #bfdbfe;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        backdrop-filter: blur(10px);
+      }
+      
+      .hero-title {
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+      }
+      
+      .title-main {
+        display: block;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 2.2rem;
+        color: #e2e8f0;
+        margin-bottom: 0.5rem;
+        text-shadow: 
+          0 0 20px rgba(250, 204, 21, 0.5),
+          2px 2px 4px rgba(0, 0, 0, 0.8);
+      }
+      
+      .title-accent {
+        display: block;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 3.5rem;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+        animation: pulse-glow 3s ease-in-out infinite;
+      }
+      
+      .title-tech-line {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+      
+      .tech-item {
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+      }
+      
+      .tech-item::before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+        opacity: 0.6;
+      }
+      
+      .tech-separator {
+        color: #fbbf24;
+        font-size: 0.8rem;
+      }
+      
+      .hero-description {
+        font-family: 'Courier New', monospace;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #cbd5e1;
+        margin: 2rem auto;
+        max-width: 700px;
+      }
+      
+      .description-highlight {
+        color: #fbbf24;
+        font-weight: 600;
+      }
+      
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+        padding: 2rem;
+        background: linear-gradient(145deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.3));
+        border-radius: 20px;
+        border: 1px solid rgba(100, 116, 139, 0.2);
+        backdrop-filter: blur(15px);
+      }
+      
+      .hero-stats .stat-item {
+        text-align: center;
+      }
+      
+      .hero-stats .stat-number {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 2rem;
+        color: #fbbf24;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+      }
+      
+      .hero-stats .stat-label {
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
 
       .pixel-header {
-        font-family: 'Press Start 2P', cursive !important;
-        font-size: 2.5rem; /* Increased for better impact */
-        font-weight: normal; /* Press Start 2P doesn't need bold */
+        font-family: 'Press Start 2P', 'Courier New', monospace !important;
+        font-size: 2.2rem;
+        font-weight: normal;
         line-height: 1.3;
         margin-bottom: 1rem;
+        color: #facc15;
         text-shadow: 
-          -1px -1px 0 #f8e8c0,
-          1px 1px 0 #a07030,
-          2px 2px 0 #503020,
-          3px 3px 0 #302010;
+          2px 2px 0 #1e293b,
+          4px 4px 0 #0f172a;
+        text-align: center;
+        font-display: swap;
+      }
+      
+      /* Extra specificity to ensure Press Start 2P font */
+      .hero-content .pixel-header,
+      .hero-content h1.pixel-header,
+      .hero-content .pixel-header a,
+      .hero-content h1.pixel-header a {
+        font-family: 'Press Start 2P', cursive !important;
+      }
+      
+      /* Force Press Start 2P with highest specificity */
+      body .hero-content h1.pixel-header,
+      body .hero-content h1.pixel-header a {
+        font-family: 'Press Start 2P', cursive !important;
+        font-weight: normal !important;
       }
 
       .hero-subtitle {
-        font-size: 1.2rem; /* Increased for better readability */
+        font-size: 1.2rem;
         margin: 1rem 0;
-        opacity: 0.9;
+        color: #e2e8f0;
+        text-align: center;
         font-family: 'Courier New', 'Courier', monospace !important;
       }
 
       .learning-path-indicator {
-        background: rgba(250, 204, 21, 0.1);
-        border: 2px dashed #facc15;
+        background: #1e293b;
+        border: 2px solid #facc15;
         border-radius: 8px;
         padding: 1rem;
         margin: 1.5rem 0;
         text-align: center;
-        font-size: 1.1rem; /* Increased for better readability */
+        font-size: 1rem;
         color: #facc15;
-        backdrop-filter: blur(5px);
         font-family: 'Courier New', 'Courier', monospace !important;
+        box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
       }
 
       .stats-bar {
@@ -118,7 +297,7 @@
         padding: 1.5rem;
         margin: 2rem 0;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Wider minimum */
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Narrower for better mobile */
         gap: 1rem;
         text-align: center;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -155,77 +334,120 @@
       }
 
       .concept-category {
-        margin-bottom: 4rem;
+        margin-bottom: 2.5rem; /* Reduced for compactness */
         position: relative;
-        background: rgba(88, 28, 135, 0.2); /* Subtle violet background */
-        border-radius: 16px;
-        padding: 2rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(124, 58, 237, 0.3); /* Violet border */
+        background: linear-gradient(145deg, rgba(88, 28, 135, 0.15), rgba(124, 58, 237, 0.05)); /* Modern gradient */
+        border-radius: 24px; /* More rounded */
+        padding: 1.5rem; /* More compact */
+        backdrop-filter: blur(15px); /* Enhanced glassmorphism */
+        border: 1px solid rgba(124, 58, 237, 0.2); /* Subtle border */
+        box-shadow: 0 8px 32px rgba(88, 28, 135, 0.1); /* Modern shadow */
       }
 
       .category-header {
         display: flex;
         align-items: flex-start;
         margin-bottom: 2rem;
-        background: linear-gradient(135deg, rgba(30, 58, 138, 0.6), rgba(55, 48, 163, 0.4));
-        padding: 1.5rem;
-        border-radius: 12px;
-        border-left: 5px solid #facc15;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(15px);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.2));
+        padding: 2rem;
+        border-radius: 24px;
+        border: 1px solid rgba(100, 116, 139, 0.2);
+        box-shadow: 
+          0 8px 32px rgba(15, 23, 42, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .category-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.6), transparent);
       }
 
       .category-icon {
-        width: 48px;
-        height: 48px;
-        background: linear-gradient(135deg, #facc15, #eab308);
-        border-radius: 8px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(234, 179, 8, 0.1));
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1.5rem;
-        font-size: 1.5rem; /* Increased icon size */
-        color: #1e3a8a;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-right: 2rem;
+        font-size: 1.8rem;
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        backdrop-filter: blur(10px);
         flex-shrink: 0;
+        position: relative;
+      }
+      
+      .category-icon::after {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), transparent, rgba(251, 191, 36, 0.1));
+        z-index: -1;
       }
 
       .category-info h2 {
-        margin: 0 0 0.5rem 0;
-        color: #facc15;
-        font-family: 'Press Start 2P', cursive !important;
-        font-size: 1.4rem; /* Increased font size with Press Start 2P */
+        margin: 0 0 1rem 0;
+        color: #e2e8f0;
+        font-family: 'Courier New', monospace !important;
+        font-size: 1.6rem;
+        font-weight: bold;
+        position: relative;
+      }
+      
+      .category-info h2::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #fbbf24, transparent);
       }
 
       .category-description {
-        font-size: 1rem; /* Increased for better readability */
-        color: #e5e7eb;
-        line-height: 1.7; /* Better line height */
+        font-size: 1rem;
+        color: #cbd5e1;
+        line-height: 1.6;
         margin: 0;
-        font-family: 'Courier New', 'Courier', monospace !important;
+        font-family: 'Courier New', monospace !important;
+        font-weight: normal;
       }
 
       .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Wider minimum */
-        gap: 1.5rem;
-        margin-top: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Optimized card size */
+        gap: 1.25rem; /* Better spacing */
+        margin-top: 0.75rem; /* Reduced margin */
       }
 
       .link-card-enhanced {
         position: relative;
-        background: linear-gradient(145deg, #1f2937 0%, #374151 100%);
-        border: 2px solid #4b5563;
+        background: linear-gradient(145deg, #1e293b, #334155);
+        border: 2px solid #475569;
         border-radius: 12px;
-        padding: 1.5rem;
+        padding: 1.25rem;
         text-decoration: none;
         color: #e5e7eb;
         display: block;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s ease;
         overflow: hidden;
-        min-height: 180px; /* Increased minimum height */
+        min-height: 140px;
         font-family: 'Courier New', 'Courier', monospace !important;
+        box-shadow: 
+          0 4px 8px rgba(0, 0, 0, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.1);
+        cursor: pointer;
       }
 
       .link-card-enhanced::before {
@@ -244,9 +466,20 @@
       }
 
       .link-card-enhanced:hover {
-        transform: translateY(-6px) scale(1.03);
+        transform: translateY(-2px);
         border-color: #facc15;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(250, 204, 21, 0.3);
+        background: linear-gradient(145deg, #334155, #475569);
+        box-shadow: 
+          0 8px 16px rgba(0, 0, 0, 0.4),
+          0 0 20px rgba(250, 204, 21, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      }
+      
+      .link-card-enhanced:active {
+        transform: translateY(0px);
+        box-shadow: 
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          inset 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .card-header {
@@ -258,13 +491,16 @@
 
       .card-level-indicator {
         background: linear-gradient(135deg, #facc15, #eab308);
-        color: #1e3a8a;
-        padding: 7px 12px; /* Increased padding */
-        border-radius: 6px;
-        font-size: 0.85rem; /* Increased for better readability */
+        color: #0f172a;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 0.8rem;
         font-weight: bold;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.3);
         font-family: 'Courier New', 'Courier', monospace !important;
+        border: 1px solid #d97706;
       }
 
       .card-difficulty {
@@ -287,20 +523,16 @@
       }
 
       .card-title {
-        font-size: 1.1rem; /* Increased for better readability */
+        font-size: 1.2rem;
         margin-bottom: 0.75rem;
         color: #facc15;
-        line-height: 1.4; /* Better line height */
+        line-height: 1.4;
         font-family: 'Courier New', 'Courier', monospace !important;
         font-weight: bold;
       }
 
       .card-description {
-        font-size: 1rem; /* Increased for better readability */
-        line-height: 1.7; /* Better line height */
-        margin-bottom: 1rem;
-        color: #d1d5db;
-        font-family: 'Courier New', 'Courier', monospace !important;
+        display: none; /* Hide descriptions for compact mobile design */
       }
 
       .card-concepts {
@@ -310,66 +542,40 @@
       }
 
       .concept-tag {
-        background: rgba(59, 130, 246, 0.3);
-        color: #93c5fd;
-        padding: 5px 10px; /* Increased padding */
-        border-radius: 4px;
-        font-size: 0.8rem; /* Increased for better readability */
-        border: 1px solid rgba(59, 130, 246, 0.2);
+        background: linear-gradient(135deg, #3b82f6, #1e40af);
+        color: #e0f2fe;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        border: 1px solid #1e40af;
         font-family: 'Courier New', 'Courier', monospace !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
-      .progress-path {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 3rem 0;
-        font-size: 0.9rem; /* Increased for better readability */
-        color: #9ca3af;
-        background: rgba(31, 41, 55, 0.5);
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px dashed #4b5563;
-        font-family: 'Courier New', 'Courier', monospace !important;
-      }
-
-      .path-step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 0.5rem;
-      }
-
-      .path-arrow {
-        margin: 0 1rem;
-        color: #facc15;
-        font-size: 1.2rem; /* Increased arrow size */
-        font-weight: bold;
-      }
 
       .notional-machine-callout {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(16, 185, 129, 0.2));
+        background: linear-gradient(135deg, #059669, #047857);
         border: 2px solid #10b981;
         border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 0;
+        padding: 2rem;
+        margin: 3rem 0;
         text-align: center;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        box-shadow: 
+          0 4px 12px rgba(0, 0, 0, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.2);
       }
 
       .notional-machine-callout h3 {
         color: #34d399;
         margin-bottom: 0.5rem;
-        font-size: 1.2rem; /* Increased for better readability */
-        font-family: 'Press Start 2P', cursive !important;
+        font-size: 1.1rem;
+        font-family: 'Press Start 2P', 'Courier New', monospace !important;
       }
 
       .notional-machine-callout p {
         color: #a7f3d0;
-        font-size: 1rem; /* Increased for better readability */
-        line-height: 1.7; /* Better line height */
+        font-size: 1rem;
+        line-height: 1.6;
         margin: 0;
         font-family: 'Courier New', 'Courier', monospace !important;
       }
@@ -395,73 +601,91 @@
       /* Enhanced Mobile Responsive Design */
       @media (max-width: 768px) {
         body {
-          font-size: 20px; /* Larger base font for mobile */
+          font-size: 16px;
         }
 
         .content-wrapper-8bit {
-          padding: 0 0.5rem;
+          padding: 0 1rem;
         }
 
         .hero-section {
-          padding: 1.5rem 0.5rem;
-          margin: 0 -0.5rem 1.5rem -0.5rem;
+          padding: 2rem 1rem;
+          margin: 0 -1rem 2rem -1rem;
         }
 
         .pixel-header {
-          font-size: 1.8rem; /* Responsive header size */
+          font-size: 1.5rem;
+          line-height: 1.4;
         }
 
         .hero-subtitle {
-          font-size: 1.3rem; /* Larger subtitle on mobile */
+          font-size: 1.1rem;
+          margin: 1.5rem 0;
         }
 
         .learning-path-indicator {
-          font-size: 1.2rem; /* Larger on mobile */
+          font-size: 0.9rem;
           padding: 1.2rem;
+          margin: 2rem 0;
+          line-height: 1.5;
         }
 
         .concept-category {
-          padding: 1rem;
-          margin-bottom: 3rem;
+          padding: 1.5rem;
+          margin-bottom: 2rem;
+          text-align: center;
         }
         
         .cards-grid {
           grid-template-columns: 1fr;
-          gap: 1rem;
+          gap: 1.5rem;
+          justify-items: center;
+          max-width: 400px;
+          margin: 0 auto;
         }
 
         .link-card-enhanced {
-          min-height: 200px; /* More height on mobile */
+          min-height: 140px;
           padding: 1.25rem;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+          width: 100%;
+          max-width: 350px;
         }
 
         .card-title {
-          font-size: 1.2rem; /* Larger titles on mobile */
+          font-size: 1.2rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.4;
         }
 
         .card-description {
-          font-size: 1.1rem; /* Larger descriptions on mobile */
-          line-height: 1.8;
+          display: none; /* Keep hidden on mobile */
         }
 
         .category-header {
           flex-direction: column;
           text-align: center;
-          padding: 1.25rem;
+          align-items: center;
+          padding: 1.5rem;
+          margin-bottom: 1.5rem;
         }
 
         .category-info h2 {
-          font-size: 1.5rem; /* Larger category titles */
+          font-size: 1.4rem;
         }
 
         .category-description {
-          font-size: 1.1rem; /* Larger category descriptions */
+          font-size: 1rem;
+          line-height: 1.5;
         }
         
         .category-icon {
           margin-right: 0;
           margin-bottom: 1rem;
           font-size: 1.75rem;
+          width: 50px;
+          height: 50px;
         }
 
         .stats-bar {
@@ -478,24 +702,14 @@
           font-size: 1rem;
         }
 
-        .progress-path {
-          flex-direction: column;
-          gap: 1rem;
+
+        .notional-machine-callout h3 {
           font-size: 1rem;
         }
 
-        .path-arrow {
-          transform: rotate(90deg);
-          margin: 0.5rem 0;
-          font-size: 1.5rem;
-        }
-
-        .notional-machine-callout h3 {
-          font-size: 1.3rem;
-        }
-
         .notional-machine-callout p {
-          font-size: 1.1rem;
+          font-size: 1rem;
+          line-height: 1.5;
         }
 
         .concept-tag {
@@ -507,15 +721,27 @@
       /* Extra small screens */
       @media (max-width: 480px) {
         body {
-          font-size: 21px;
+          font-size: 15px;
+        }
+
+        .hero-section {
+          padding: 1.5rem 0.75rem;
         }
 
         .pixel-header {
-          font-size: 1.5rem;
+          font-size: 1.3rem;
+          line-height: 1.5;
         }
 
         .hero-subtitle {
-          font-size: 1.2rem;
+          font-size: 1rem;
+          margin: 1rem 0;
+        }
+
+        .learning-path-indicator {
+          font-size: 0.85rem;
+          padding: 1rem;
+          margin: 1.5rem 0;
         }
 
         .card-title {
@@ -523,21 +749,112 @@
         }
 
         .card-description {
-          font-size: 1.05rem;
+          display: none; /* Keep hidden on extra small screens */
         }
 
         .stats-bar {
           grid-template-columns: 1fr;
           text-align: center;
+          gap: 1rem;
+        }
+        
+        .cards-grid {
+          grid-template-columns: 1fr; /* Single column on very small screens */
+          gap: 1rem; /* Consistent spacing */
         }
 
         .category-info h2 {
-          font-size: 1.3rem;
+          font-size: 1.2rem;
         }
 
         .category-description {
-          font-size: 1.05rem;
+          font-size: 0.95rem;
+          line-height: 1.4;
         }
+      }
+
+      /* Touch-friendly improvements */
+      .link-card-enhanced {
+        -webkit-tap-highlight-color: rgba(250, 204, 21, 0.3);
+        touch-action: manipulation;
+        min-height: 44px;
+        cursor: pointer;
+      }
+      
+      .nav-btn {
+        -webkit-tap-highlight-color: rgba(250, 204, 21, 0.3);
+        touch-action: manipulation;
+        min-height: 48px;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+      }
+      
+      /* Better touch targets on mobile */
+      @media (max-width: 768px) {
+        .nav-btn {
+          min-height: 52px;
+          padding: 1rem 1.5rem;
+          font-size: 1.1rem;
+        }
+        
+        .link-card-enhanced {
+          min-height: 50px;
+        }
+        
+        .card-level-indicator {
+          padding: 8px 14px;
+          min-height: 32px;
+          font-size: 0.9rem;
+        }
+        
+        .concept-tag {
+          min-height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 6px 12px;
+        }
+        
+        .stat-item {
+          padding: 1rem;
+          min-height: 80px;
+        }
+        
+        .notional-machine-callout {
+          padding: 1.5rem;
+          margin: 2rem 0;
+        }
+      }
+      
+      /* Improve focus states for accessibility */
+      .link-card-enhanced:focus {
+        outline: 3px solid #facc15;
+        outline-offset: 2px;
+      }
+      
+      .nav-btn:focus {
+        outline: 3px solid #facc15;
+        outline-offset: 2px;
+      }
+      
+      /* Compact spacing for mobile */
+      .mobile-compact .concept-category {
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .mobile-compact .category-header {
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .mobile-compact .learning-path-indicator {
+        padding: 1rem;
+        margin: 1rem auto;
+        font-size: 0.95rem;
       }
 
       /* Accessibility */
@@ -553,11 +870,25 @@
         .link-card-enhanced {
           transition: none;
         }
+        
+        .link-card-enhanced::before {
+          animation: none;
+        }
       }
 
-      /* Ensure all text elements use Courier */
-      h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, select, textarea {
+      /* Ensure all text elements use Courier New monospace font */
+      *, *::before, *::after {
         font-family: 'Courier New', 'Courier', monospace !important;
+      }
+      
+      /* Exception: Main header uses Press Start 2P */
+      .pixel-header, .pixel-header * {
+        font-family: 'Press Start 2P', 'Courier New', monospace !important;
+      }
+      
+      /* Exception: Notional machine callout heading */
+      .notional-machine-callout h3 {
+        font-family: 'Press Start 2P', 'Courier New', monospace !important;
       }
     </style>
   </head>
@@ -566,16 +897,12 @@
       <header class="text-center">
         <div class="hero-section">
           <div class="hero-content">
-            <h1 class="pixel-header">
-              <a href="index.html" style="color: inherit; text-decoration: none;">
-                Interactive Guide to Python
-              </a>
-            </h1>
+            <h1 class="pixel-header">Interactive Guide to Python</h1>
             <p class="hero-subtitle">
-              Master Programming Through Concept-First Learning
+              Learn Programming • 23 Lessons • Step by Step
             </p>
             <div class="learning-path-indicator">
-              🎯 Pedagogically Structured • 🧠 Mental Models First • 🔧 Hands-On Practice
+              ● Mental Model First → ● Hands-On Practice → ● Master Programming
             </div>
           </div>
         </div>
@@ -593,7 +920,7 @@
         </div>
 
         <!-- Foundation: Core Programming Concepts -->
-        <section class="concept-category">
+        <section id="foundation" class="concept-category">
           <div class="category-header">
             <div class="category-icon">🏗️</div>
             <div class="category-info">
@@ -765,31 +1092,10 @@
             </a>
           </div>
 
-          <div class="progress-path">
-            <div class="path-step">
-              <strong>🎯 Mental Model</strong>
-              <div>How computers think</div>
-            </div>
-            <span class="path-arrow">→</span>
-            <div class="path-step">
-              <strong>📦 Data & Variables</strong>
-              <div>Storing information</div>
-            </div>
-            <span class="path-arrow">→</span>
-            <div class="path-step">
-              <strong>🔀 Logic & Control</strong>
-              <div>Making decisions</div>
-            </div>
-            <span class="path-arrow">→</span>
-            <div class="path-step">
-              <strong>🔧 Functions</strong>
-              <div>Reusable tools</div>
-            </div>
-          </div>
         </section>
 
         <!-- Intermediate: Advanced Control & Professional Practices -->
-        <section class="concept-category">
+        <section id="intermediate" class="concept-category">
           <div class="category-header">
             <div class="category-icon">⚡</div>
             <div class="category-info">
@@ -913,7 +1219,7 @@
         </section>
 
         <!-- Advanced: Data Structures & Algorithms -->
-        <section class="concept-category">
+        <section id="advanced" class="concept-category">
           <div class="category-header">
             <div class="category-icon">🧮</div>
             <div class="category-info">
@@ -1127,7 +1433,7 @@
         </section>
 
         <!-- Mastery: Object-Oriented Programming -->
-        <section class="concept-category">
+        <section id="oop" class="concept-category">
           <div class="category-header">
             <div class="category-icon">🏛️</div>
             <div class="category-info">
@@ -1208,7 +1514,39 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
+      // Mobile optimization functions
+      function isMobile() {
+        return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+      
+      function applyMobileOptimizations() {
+        if (isMobile()) {
+          document.body.classList.add('mobile-compact');
+          
+          // Add touch-friendly scrolling
+          document.body.style.webkitOverflowScrolling = 'touch';
+          
+          // Reduce animations for better performance on mobile
+          const cards = document.querySelectorAll('.link-card-enhanced');
+          cards.forEach(card => {
+            card.style.transition = 'transform 0.2s ease, border-color 0.2s ease';
+          });
+          
+          // Add haptic feedback for supported devices
+          if ('vibrate' in navigator) {
+            document.querySelectorAll('.link-card-enhanced, .nav-btn').forEach(element => {
+              element.addEventListener('touchstart', () => {
+                navigator.vibrate(10);
+              });
+            });
+          }
+        }
+      }
+      
       document.addEventListener('DOMContentLoaded', function() {
+        // Apply mobile optimizations first
+        applyMobileOptimizations();
+        window.addEventListener('resize', applyMobileOptimizations);
         // Enhanced card interactions
         const cards = document.querySelectorAll('.link-card-enhanced');
         cards.forEach(card => {

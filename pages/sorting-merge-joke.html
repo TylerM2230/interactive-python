@@ -1,199 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merge Sort & Advanced Sorting - Interactive Python Guide</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merge Sort & Advanced Sorting | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-    <style>
-        .sort-container {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            min-height: 300px;
-            padding: 20px;
-            background: rgba(15, 23, 42, 0.3);
-            border: 2px solid rgba(250, 204, 21, 0.3);
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .sort-bar {
-            background: linear-gradient(135deg, #facc15, #f59e0b);
-            border: 2px solid #d97706;
-            margin: 0 4px;
-            width: 40px;
-            min-height: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .sort-bar.sorted {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-        
-        .sort-bar.shuffled {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            animation: shake 0.5s ease-in-out infinite;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-2px); }
-            75% { transform: translateX(2px); }
-        }
-        
-        .value-label {
-            color: #facc15;
-            font-size: 12px;
-            margin-bottom: 4px;
-            font-family: 'Courier New', 'Courier', monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .bogo-counter {
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid #ef4444;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-    </style>
 </head>
-<body>
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <nav class="hero-nav">
-            <a href="sorting-basic.html" class="nav-link">&larr; Basic Sorting</a>
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="searching-binary.html" class="nav-link">Binary Search &rarr;</a>
-        </nav>
-        
-        <div class="hero-content">
-            <h1 style="font-size: 24px;">Advanced Sorting: Merge Sort & Beyond</h1>
-            <p class="hero-subtitle">Master efficient O(n log n) algorithms and explore the world of sorting complexity</p>
-            
-            <div style="background: rgba(34, 197, 94, 0.1); border: 2px dashed #22c55e; border-radius: 12px; padding: 20px; margin: 20px 0;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                    <span style="font-size: 24px;">🍰</span>
-                    <div>
-                        <div style="color: #22c55e; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Cake Mixing Strategy</div>
-                        <div style="color: #e2e8f0;">Think of merge sort like making a layered cake - you prepare smaller portions separately, then combine them layer by layer until you have one perfectly organized result.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-features">
-                <div class="feature-item">
-                    <span class="feature-icon">⚡</span>
-                    <span>O(n log n) Efficiency</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔄</span>
-                    <span>Divide & Conquer</span>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">😄</span>
-                    <span>Algorithm Humor</span>
-                </div>
-            </div>
+<body class="page-layout">
+    <div class="page-console-border">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Interactive Guide to Python</a>
+          </h1>
+          <h2 class="lesson-subtitle">Merge Sort & Advanced Sorting</h2>
+          <p class="lesson-subtitle">
+            Divide & Conquer • Efficient Algorithms • Performance Optimization
+          </p>
         </div>
-    </header>
+      </div>
 
-    <main class="container">
-        <!-- Step 1: Problem Motivation -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">1</span>
-                Why We Need Better Sorting
-            </h2>
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>📈 The Performance Problem</h3>
-                    <div class="example-grid">
-                        <div class="example-item">
-                            <strong>📚 Library Database:</strong> Sorting millions of books by author takes hours with O(n²)
-                        </div>
-                        <div class="example-item">
-                            <strong>🎮 Game Leaderboards:</strong> Real-time ranking of millions of players
-                        </div>
-                        <div class="example-item">
-                            <strong>💰 Financial Trading:</strong> Microsecond sorting of market data for high-frequency trading
-                        </div>
-                        <div class="example-item">
-                            <strong>🧬 DNA Analysis:</strong> Sorting genomic sequences for pattern matching
+      <nav class="page-navigation">
+        <div class="nav-content">
+          <a href="sorting-basic.html" class="nav-btn">← Basic Sorting</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="searching-binary.html" class="nav-btn">Binary Search →</a>
+        </div>
+      </nav>
+
+      <main class="page-content-wrapper">
+        
+        <div class="mental-model-box">
+          <h3 style="color: #4ade80; margin-bottom: 0.5rem; font-size: 16px;">🧠 Mental Model: Cake Mixing Strategy</h3>
+          <div style="color: #d1fae5; font-size: 13px; line-height: 1.6;">
+            <p><strong>Think of merge sort like making a layered cake:</strong></p>
+            <ul style="margin-left: 1rem;">
+              <li><strong>🔪 Divide</strong> - Cut ingredients into smaller, manageable portions</li>
+              <li><strong>🥣 Mix Small Batches</strong> - Prepare individual layers separately and perfectly</li>
+              <li><strong>🎂 Combine Systematically</strong> - Assemble layers one by one for the final cake</li>
+              <li><strong>✨ Perfect Result</strong> - Beautiful, organized final product</li>
+            </ul>
                         </div>
                     </div>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 1: Why We Need Better Sorting</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            When data grows from thousands to millions of items, the difference between O(n²) and O(n log n) algorithms becomes the difference between seconds and hours of processing time.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #93c5fd; margin-bottom: 0.5rem;">📚 Library Database</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Sorting millions of books by author takes hours with O(n²)</p>
                 </div>
-                <div class="visual-panel">
-                    <h4>Scaling Up Requires Smart Algorithms</h4>
-                    <p>When data grows from thousands to millions of items, the difference between O(n²) and O(n log n) algorithms becomes the difference between seconds and hours of processing time.</p>
+            <div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #86efac; margin-bottom: 0.5rem;">🎮 Game Leaderboards</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Real-time ranking of millions of players</p>
                 </div>
+            <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #c084fc; margin-bottom: 0.5rem;">💰 Financial Trading</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Microsecond sorting of market data for high-frequency trading</p>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #fbbf24; margin-bottom: 0.5rem;">🧬 DNA Analysis</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Sorting genomic sequences for pattern matching</p>
+            </div>
             </div>
         </section>
 
-        <!-- Step 2: Mental Model -->
-        <section class="mental-model-section">
-            <h2 class="section-title">
-                <span class="step-number">2</span>
-                Mental Model: Cake Mixing Strategy
-            </h2>
-            
-            <div class="mental-model-content">
-                <div class="analogy-panel">
-                    <h3>🍰 Think of Merge Sort Like Making a Layered Cake</h3>
-                    <div class="analogy-grid">
-                        <div class="analogy-item">
-                            <div class="analogy-icon">🔪</div>
-                            <div>
-                                <strong>Divide the Problem</strong>
-                                <p>Like cutting ingredients into smaller, manageable portions</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">🥣</div>
-                            <div>
-                                <strong>Mix Small Batches</strong>
-                                <p>Like preparing individual cake layers separately and perfectly</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">🎂</div>
-                            <div>
-                                <strong>Combine Systematically</strong>
-                                <p>Like assembling layers one by one to create the final cake</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">✨</div>
-                            <div>
-                                <strong>Perfect Result</strong>
-                                <p>Like having a beautifully layered, organized final product</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 2: Merge Sort - Divide and Conquer</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Merge sort recursively divides the array in half until you have single elements, then merges them back together in sorted order. This divide-and-conquer approach gives us O(n log n) performance.
+          </p>
 
-        <!-- Step 3: Merge Sort Algorithm -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">3</span>
-                Merge Sort: Divide and Conquer
-            </h2>
-            
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>🔄 The Merge Sort Strategy</h3>
-                    <p>Recursively divide the array in half until you have single elements, then merge them back together in sorted order</p>
-                    <div class="code-block">
-                        <pre><code>def merge_sort(arr):
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🔄 The Merge Sort Strategy</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>def merge_sort(arr):
     # Base case: arrays with 0 or 1 element are sorted
     if len(arr) <= 1:
         return arr
@@ -224,37 +114,31 @@ def merge(left, right):
     result.extend(right[j:])
     return result</code></pre>
                     </div>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Interactive Merge Sort</h4>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+              <button onclick="runMergeSort()" class="btn">Run Merge Sort</button>
+              <button onclick="resetMergeSort()" class="btn btn-secondary">Reset</button>
                 </div>
                 
-                <div class="visual-panel">
-                    <h4>🎮 Interactive Merge Sort</h4>
-                    <div class="algorithm-control">
-                        <div class="controls-grid">
-                            <button onclick="runMergeSort()" class="btn-primary">Run Merge Sort</button>
-                            <button onclick="resetMergeSort()" class="btn-secondary">Reset</button>
-                        </div>
                         <div id="mergeSortContainer" class="sort-container"></div>
-                        <div id="mergeSortSteps" class="code-block" style="max-height: 200px; overflow-y: auto;">
+            <div id="mergeSortSteps" style="background: #1f2937; padding: 0.75rem; border-radius: 6px; max-height: 200px; overflow-y: auto; font-size: 12px; color: #e5e7eb;">
                             <em>Click 'Run Merge Sort' to see the divide-and-conquer process</em>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Step 4: Joke Algorithms -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">4</span>
-                Joke Algorithms: When Sorting Goes Wrong
-            </h2>
-            
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>😂 Bogosort: The "Randomly Hope" Algorithm</h3>
-                    <p>Also known as "Stupid Sort" - randomly shuffle the array and check if it's sorted. Repeat until sorted!</p>
-                    <div class="code-block">
-                        <pre><code>import random
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 3: Joke Algorithms - When Sorting Goes Wrong</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Meet Bogosort ("Stupid Sort") - an algorithm so inefficient it's used only for educational humor. It randomly shuffles the array and checks if it's sorted, repeating until success!
+          </p>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">😂 Bogosort: The "Randomly Hope" Algorithm</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>import random
 
 def bogosort(arr):
     """
@@ -275,127 +159,103 @@ def bogosort(arr):
     return arr, attempts
 
 # For 10 elements: could take 39,916,800 attempts!</code></pre>
-                    </div>
                 </div>
                 
-                <div class="visual-panel">
-                    <h4>🎲 Interactive Bogosort</h4>
-                    <div class="algorithm-control">
-                        <div class="controls-grid">
-                            <button onclick="runBogosort()" class="btn-accent">Try Bogosort</button>
-                            <button onclick="stopBogosort()" class="btn-secondary">Stop</button>
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎲 Interactive Bogosort</h4>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+              <button onclick="runBogosort()" class="btn" style="background: linear-gradient(135deg, #ef4444, #dc2626);">Try Bogosort</button>
+              <button onclick="stopBogosort()" class="btn btn-secondary">Stop</button>
                         </div>
                         
                         <div class="bogo-counter">
-                            <h4>🎯 Bogosort Attempts</h4>
-                            <div style="font-size: 24px; font-weight: bold; color: #ef4444;" id="bogoAttempts">0</div>
-                            <div style="margin-top: 10px;">
-                                <div id="bogoStatus" style="font-size: 14px;">Ready to shuffle randomly!</div>
-                            </div>
+              <h4 style="color: #ef4444; margin-bottom: 0.5rem;">🎯 Bogosort Attempts</h4>
+              <div style="font-size: 24px; font-weight: bold; color: #ef4444; margin-bottom: 0.5rem;" id="bogoAttempts">0</div>
+              <div id="bogoStatus" style="font-size: 14px; color: #fecaca;">Ready to shuffle randomly!</div>
                         </div>
                         
                         <div id="bogosortContainer" class="sort-container"></div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- Step 5: Critical Pitfalls -->
-        <section class="pitfall-section">
-            <h2 class="section-title">
-                <span class="step-number">5</span>
-                Critical Pitfall: Algorithm Choice Matters
-            </h2>
-            
-            <div class="pitfall-content">
                 <div class="pitfall-warning">
-                    <h3>⚠️ The "It Works on Small Data" Trap</h3>
-                    <p>Many algorithms seem fine with small datasets but become unusably slow as data grows. Always consider scalability!</p>
-                </div>
-                
-                <div class="comparison-grid">
-                    <div class="wrong-approach">
-                        <h4>❌ Wrong: Using O(n²) for Production</h4>
-                        <div class="code-block">
-                            <pre><code># DANGEROUS: Using bubble sort in production
+          <h4 style="color: #fca5a5; margin-bottom: 0.5rem; font-size: 14px;">⚠️ Critical Pitfall: Algorithm Choice Matters</h4>
+          <p style="color: #fecaca; font-size: 13px; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Many algorithms seem fine with small datasets but become unusably slow as data grows.</strong> Always consider scalability!
+          </p>
+          <pre style="background: #7f1d1d; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #fecaca;"><code># ❌ DANGEROUS: Using O(n²) for production
 def sort_user_posts(posts):
     # This works fine for 10 posts...
     return bubble_sort(posts)
 
 # But what happens with 100,000 posts?
 # 100,000² = 10,000,000,000 operations!
-# Could take hours instead of seconds</code></pre>
-                        </div>
-                    </div>
+# Could take hours instead of seconds
                     
-                    <div class="right-approach">
-                        <h4>✅ Right: Use Efficient Algorithms</h4>
-                        <div class="code-block">
-                            <pre><code># EFFICIENT: Use proven fast algorithms
+# ✅ EFFICIENT: Use proven fast algorithms
 def sort_user_posts(posts):
     # Python's built-in sort uses Timsort
     # O(n log n) worst case, often better in practice
     return sorted(posts, key=lambda p: p.timestamp)</code></pre>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Step 6: Assessment -->
-        <section class="assessment-section">
-            <h2 class="section-title">
-                <span class="step-number">6</span>
-                Knowledge Assessment: Advanced Sorting Mastery
-            </h2>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 4: Knowledge Check</h2>
+          
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Merge Sort Complexity</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              What is the time complexity of merge sort in the worst case?
+            </p>
             
-            <div class="quiz-container">
-                <div class="question-card">
-                    <h3>Question 1: Merge Sort Complexity</h3>
-                    <p>What is the time complexity of merge sort in the worst case?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q1" value="a"> O(n)</label>
-                        <label><input type="radio" name="q1" value="b"> O(n log n)</label>
-                        <label><input type="radio" name="q1" value="c"> O(n²)</label>
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n)</p>
                     </div>
-                    <div class="feedback" id="feedback1"></div>
-                </div>
-                
-                <div class="question-card">
-                    <h3>Question 2: Divide and Conquer</h3>
-                    <p>What is the key principle behind merge sort's efficiency?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q2" value="a"> It uses less memory than other algorithms</label>
-                        <label><input type="radio" name="q2" value="b"> It divides the problem into smaller subproblems and combines results</label>
-                        <label><input type="radio" name="q2" value="c"> It randomly shuffles elements until they're sorted</label>
-                    </div>
-                    <div class="feedback" id="feedback2"></div>
-                </div>
-                
-                <div class="question-card">
-                    <h3>Question 3: Production Choice</h3>
-                    <p>For a production system sorting 1 million records, which algorithm should you choose?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q3" value="a"> Bubble sort (simple to understand)</label>
-                        <label><input type="radio" name="q3" value="b"> Merge sort or Python's built-in sort</label>
-                        <label><input type="radio" name="q3" value="c"> Bogosort (eventually it will finish)</label>
-                    </div>
-                    <div class="feedback" id="feedback3"></div>
-                </div>
-                
-                <button onclick="checkAnswers()" class="btn-primary" style="margin-top: 20px;">Check Answers</button>
-                <div id="overallFeedback" class="overall-feedback"></div>
+            
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n log n)</p>
             </div>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n²)</p>
+                    </div>
+                </div>
+                
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Production Choice</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              For a production system sorting 1 million records, which algorithm should you choose?
+            </p>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Bubble sort (simple to understand)</p>
+                </div>
+                
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Merge sort or Python's built-in sort</p>
+                </div>
+                
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Bogosort (eventually it will finish)</p>
+            </div>
+          </div>
+
+          <button id="checkAdvancedSortingQuiz" class="btn btn-green" style="margin-top: 1rem;">Check My Understanding</button>
+          <div id="advancedSortingQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
         </section>
 
-        <!-- Progress Indicator -->
-        <div class="progress-indicator">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🍰 Advanced Sorting Mastered! Ready for Binary Search? 🍰</p>
+          <p style="font-size: 12px; color: #9ca3af;">
+            <a href="sorting-basic.html" style="color: #facc15; margin-right: 1rem;">← Back: Basic Sorting</a>
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Main Menu</a>
+            <a href="searching-binary.html" style="color: #facc15;">Next: Binary Search →</a>
+          </p>
+        </footer>
+      </main>
             </div>
-            <div class="progress-text">Mastery Progress: <span id="progressText">0%</span></div>
-        </div>
-    </main>
+
+
 
     <script>
         // Global variables
@@ -549,74 +409,59 @@ def sort_user_posts(posts):
         }
         
         // Quiz functionality
-        function checkAnswers() {
-            const answers = {
-                q1: 'b', // O(n log n)
-                q2: 'b', // Divide and conquer
-                q3: 'b'  // Merge sort or built-in
-            };
+        document.addEventListener('DOMContentLoaded', function() {
+          const quizOptions = document.querySelectorAll('.quiz-option');
+          const checkAdvancedSortingQuizBtn = document.getElementById('checkAdvancedSortingQuiz');
+          const advancedSortingQuizResult = document.getElementById('advancedSortingQuizResult');
+
+          quizOptions.forEach(option => {
+            option.addEventListener('click', function() {
+              const siblings = this.parentElement.querySelectorAll('.quiz-option');
+              siblings.forEach(s => s.style.borderColor = '#4b5563');
+              
+              this.style.borderColor = '#facc15';
+              this.dataset.selected = 'true';
+            });
+          });
+
+          checkAdvancedSortingQuizBtn.addEventListener('click', function() {
+            let correct = 0;
+            let total = 0;
             
-            const feedbacks = {
-                q1: {
-                    correct: "Correct! Merge sort has O(n log n) time complexity in all cases - best, average, and worst.",
-                    incorrect: "Incorrect. Merge sort consistently operates in O(n log n) time due to its divide-and-conquer approach."
-                },
-                q2: {
-                    correct: "Correct! Merge sort's efficiency comes from dividing the problem into smaller subproblems and then combining the results efficiently.",
-                    incorrect: "Incorrect. The key is the divide-and-conquer strategy that breaks down the sorting problem into manageable pieces."
-                },
-                q3: {
-                    correct: "Correct! For production systems with large datasets, always use O(n log n) algorithms like merge sort or Python's built-in sort.",
-                    incorrect: "Incorrect. Production systems require efficient algorithms. Never use O(n²) or joke algorithms for large datasets."
-                }
-            };
-            
-            let score = 0;
-            let total = Object.keys(answers).length;
-            
-            for (let q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                const feedback = document.getElementById(`feedback${q.slice(1)}`);
-                
-                if (selected) {
-                    const isCorrect = selected.value === answers[q];
-                    if (isCorrect) {
-                        score++;
-                        feedback.innerHTML = `<div class="correct-feedback">✅ ${feedbacks[q].correct}</div>`;
+            const questions = document.querySelectorAll('.concept-section > div');
+            questions.forEach(question => {
+              const options = question.querySelectorAll('.quiz-option');
+              options.forEach(option => {
+                if (option.dataset.selected === 'true') {
+                  total++;
+                  if (option.dataset.answer === 'correct') {
+                    correct++;
+                    option.style.borderColor = '#10b981';
+                    option.style.background = 'rgba(16, 185, 129, 0.2)';
                     } else {
-                        feedback.innerHTML = `<div class="incorrect-feedback">❌ ${feedbacks[q].incorrect}</div>`;
-                    }
-                } else {
-                    feedback.innerHTML = `<div class="incorrect-feedback">❌ Please select an answer.</div>`;
+                    option.style.borderColor = '#ef4444';
+                    option.style.background = 'rgba(239, 68, 68, 0.2)';
+                  }
                 }
-            }
-            
-            const percentage = Math.round((score / total) * 100);
-            const overallFeedback = document.getElementById('overallFeedback');
-            
-            if (percentage >= 80) {
-                overallFeedback.innerHTML = `<div class="success-feedback">🎉 Excellent! You scored ${score}/${total} (${percentage}%). You've mastered advanced sorting algorithms!</div>`;
-            } else if (percentage >= 60) {
-                overallFeedback.innerHTML = `<div class="warning-feedback">📚 Good effort! You scored ${score}/${total} (${percentage}%). Review the concepts and try again.</div>`;
+              });
+            });
+
+            advancedSortingQuizResult.style.display = 'block';
+            if (correct === total && total > 0) {
+              advancedSortingQuizResult.className = 'message-box message-box-success';
+              advancedSortingQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You've mastered advanced sorting algorithms!`;
             } else {
-                overallFeedback.innerHTML = `<div class="error-feedback">💪 Keep learning! You scored ${score}/${total} (${percentage}%). Study the material above and retake the quiz.</div>`;
+              advancedSortingQuizResult.className = 'message-box message-box-info';
+              advancedSortingQuizResult.innerHTML = `${correct}/${total} correct. Review advanced sorting concepts above, especially divide-and-conquer and algorithm selection!`;
             }
-            
-            updateProgress(percentage);
-        }
-        
-        function updateProgress(percentage) {
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
-            
-            progressFill.style.width = percentage + '%';
-            progressText.textContent = percentage + '%';
-        }
+          });
         
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
             resetMergeSort();
             createBars('bogosortContainer', [4, 2, 3, 1], 'bogo');
+          
+          // Progress tracking
+          localStorage.setItem('completedSortingAdvanced', 'true');
         });
     </script>
 </body>

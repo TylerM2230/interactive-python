@@ -10,297 +10,49 @@
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
     <style>
-      /* Full-page layout matching the pedagogical design */
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        background-attachment: fixed;
-      }
-
-      .console-screen-border {
-        min-height: 100vh;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .content-wrapper-8bit {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
-        padding: 3rem 2rem;
-        margin: 0 -2rem 3rem -2rem;
-        border-bottom: 3px solid #facc15;
-        box-shadow: 0 4px 20px rgba(250, 204, 21, 0.3);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: hero-shimmer 3s infinite;
-      }
-
-      @keyframes hero-shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-      }
-
-      .hero-content {
-        text-align: center;
-        color: #facc15;
-        position: relative;
-        z-index: 1;
-      }
-
-      .breadcrumb-nav {
-        background: rgba(15, 23, 42, 0.9);
-        padding: 1rem 2rem;
-        margin: 0 -2rem 2rem -2rem;
-        border-bottom: 2px solid #374151;
-        backdrop-filter: blur(10px);
-      }
-
-      .nav-links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .nav-links a {
-        color: #facc15;
-        text-decoration: none;
-        font-size: 10px;
-        transition: all 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: #fbbf24;
-        text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-      }
-
-      /* Mental Model and Pitfall boxes */
-      .mental-model-box {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
-        border: 2px solid #22c55e;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .mental-model-box h3 {
-        color: #4ade80;
-        margin-bottom: 0.5rem;
-        font-size: 14px;
-      }
-
-      .pitfall-warning {
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
-        border: 2px solid #f97316;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .pitfall-warning h3 {
-        color: #fb923c;
-        margin-bottom: 0.5rem;
-        font-size: 14px;
-      }
-
-      .interactive-section {
-        background: rgba(15, 23, 42, 0.4);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 2rem 0;
-        border: 1px solid rgba(250, 204, 21, 0.2);
-        backdrop-filter: blur(10px);
-      }
-
-      .repl-container {
-        background: #0f172a;
-        border: 2px solid #374151;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        font-family: 'Courier New', monospace;
-      }
-
-      .repl-input {
-        background: #1f2937;
-        border: 1px solid #4b5563;
-        border-radius: 6px;
-        padding: 0.75rem;
-        color: #e5e7eb;
-        font-family: 'Courier New', monospace;
-        width: 100%;
-        margin: 0.5rem 0;
-      }
-
-      .repl-output {
-        background: #111827;
-        border: 1px solid #374151;
-        border-radius: 6px;
-        padding: 1rem;
-        color: #d1d5db;
-        font-family: 'Courier New', monospace;
-        min-height: 100px;
-        margin: 0.5rem 0;
-        overflow-x: auto;
-      }
-
-      .assessment-section {
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
-        border: 2px solid #8b5cf6;
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 3rem 0;
-        backdrop-filter: blur(10px);
-      }
-
-      .quiz-question {
-        background: rgba(15, 23, 42, 0.6);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        border: 1px solid rgba(139, 92, 246, 0.3);
-      }
-
-      .quiz-options {
-        display: grid;
-        gap: 0.75rem;
-        margin: 1rem 0;
-      }
-
-      .quiz-option {
-        background: rgba(31, 41, 55, 0.8);
-        border: 2px solid #4b5563;
-        border-radius: 8px;
-        padding: 0.75rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: #e5e7eb;
-      }
-
-      .quiz-option:hover {
-        border-color: #8b5cf6;
-        background: rgba(139, 92, 246, 0.2);
-      }
-
-      .quiz-option.correct {
-        border-color: #22c55e;
-        background: rgba(34, 197, 94, 0.2);
-      }
-
-      .quiz-option.incorrect {
-        border-color: #ef4444;
-        background: rgba(239, 68, 68, 0.2);
-      }
-
+      /* Page-specific styles for file system simulation */
       .file-simulator {
-        background: #0f172a;
-        border: 2px solid #374151;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-      }
-
-      .file-content {
-        background: #1f2937;
-        border: 1px solid #4b5563;
-        border-radius: 6px;
-        padding: 1rem;
-        color: #e5e7eb;
-        font-family: 'Courier New', monospace;
-        min-height: 100px;
-        margin: 0.5rem 0;
-      }
-
-      .file-mode-indicator {
-        background: rgba(34, 197, 94, 0.2);
-        border: 1px solid #22c55e;
-        border-radius: 6px;
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        color: #4ade80;
-        font-size: 12px;
-        text-align: center;
-      }
-
-      /* Responsive design */
-      @media (max-width: 768px) {
-        .content-wrapper-8bit {
-          padding: 0 1rem;
-        }
-
-        .hero-section {
-          padding: 2rem 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .breadcrumb-nav {
-          padding: 1rem;
-          margin: 0 -1rem 2rem -1rem;
-        }
-
-        .nav-links {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
+        background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.08));
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
       }
     </style>
   </head>
-  <body>
-    <div class="console-screen-border">
+  <body class="page-layout">
+    <div class="page-console-border">
       <!-- Hero Section -->
-      <div class="hero-section">
-        <div class="hero-content">
-          <h1 class="pixel-header">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
             <a href="../index.html" style="color: inherit; text-decoration: none;">
               Interactive Guide to Python
             </a>
           </h1>
-          <h2 class="pixel-subheader" style="color: #facc15; margin-top: 1rem;">
+          <h2 class="lesson-subtitle">
             Working with Files
           </h2>
-          <p style="font-size: 12px; margin-top: 1rem; opacity: 0.9;">
+          <p class="lesson-subtitle">
             Give Your Programs Memory • Store Data Permanently • Professional Data Persistence
           </p>
         </div>
       </div>
 
       <!-- Navigation -->
-      <nav class="breadcrumb-nav">
-        <div class="nav-links">
-          <a href="error-handling.html">← Previous: Error Handling</a>
-          <a href="../index.html">🏠 Home</a>
-          <a href="random-module.html">Next: Random Module →</a>
+      <nav class="page-navigation">
+        <div class="nav-content">
+          <a href="error-handling.html" class="nav-btn">← Previous: Error Handling</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="random-module.html" class="nav-btn">Next: Random Module →</a>
         </div>
       </nav>
 
-      <main class="content-wrapper-8bit">
+      <main class="page-content-wrapper">
         <!-- Step 1: Problem Motivation -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🎯 Why Do Programs Need to Remember Things?</h2>
           <p class="mb-4">
             Think about your daily life. You write things down so you don't forget them:
@@ -361,14 +113,14 @@
         </div>
 
         <!-- Step 3: Syntax Introduction -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">📝 File Handling Syntax</h2>
           <p class="mb-4">
             Python provides a simple way to work with files. Here are the essential patterns:
           </p>
           
-          <div class="repl-container">
-            <h4 class="text-yellow-400 mb-2">Basic File Operations:</h4>
+          <div class="interactive-section">
+            <h4 class="section-title-8bit">Basic File Operations:</h4>
             <pre class="text-green-300"><code># BEST PRACTICE: Use 'with' statement
 # This automatically closes the file when done
 with open('filename.txt', 'mode') as file_object:
@@ -408,7 +160,7 @@ with open('log.txt', 'a') as f:
         </section>
 
         <!-- Step 4: Interactive Exploration -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🔍 Interactive File Simulator</h2>
           <p class="mb-4">
             Let's explore file operations with a simulated file system. This shows you exactly what happens 
@@ -416,13 +168,13 @@ with open('log.txt', 'a') as f:
           </p>
           
           <div class="file-simulator">
-            <h4 class="text-yellow-400 mb-2">Virtual File System:</h4>
+            <h4 class="section-title-8bit">Virtual File System:</h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium mb-2">File Name:</label>
-                <input type="text" id="filenameInput" class="repl-input" value="my_file.txt" placeholder="Enter filename">
-                <label class="block text-sm font-medium mb-2 mt-3">Operation Mode:</label>
-                <select id="fileModeSelect" class="repl-input">
+                <label class="input-label">File Name:</label>
+                <input type="text" id="filenameInput" class="input-field" value="my_file.txt" placeholder="Enter filename">
+                <label class="input-label">Operation Mode:</label>
+                <select id="fileModeSelect" class="select-field">
                   <option value="r">Read ('r') - File must exist</option>
                   <option value="w">Write ('w') - Overwrites content</option>
                   <option value="a">Append ('a') - Adds to end</option>
@@ -430,27 +182,27 @@ with open('log.txt', 'a') as f:
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium mb-2">Content to Write/Append:</label>
-                <textarea id="writeContentInput" class="repl-input h-20 resize-none" placeholder="Enter content to write...">Hello, Python files!</textarea>
-                <button id="performFileOpButton" class="btn btn-8bit mt-2 w-full">Perform File Operation</button>
+                <label class="input-label">Content to Write/Append:</label>
+                <textarea id="writeContentInput" class="input-field" style="height: 5rem; resize: none;" placeholder="Enter content to write...">Hello, Python files!</textarea>
+                <button id="performFileOpButton" class="btn">Perform File Operation</button>
               </div>
             </div>
             
-            <div class="file-mode-indicator" id="fileModeIndicator">
+            <div class="message-box message-box-info" id="fileModeIndicator">
               Ready to perform file operations...
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <h5 class="text-sm font-bold mb-2">Virtual File System:</h5>
-                <div id="fileSystemDisplay" class="file-content">
-                  <div class="text-gray-400 italic">No files created yet...</div>
+                <h5 class="input-label">Virtual File System:</h5>
+                <div id="fileSystemDisplay" class="output-display">
+                  <div class="placeholder-text">No files created yet...</div>
                 </div>
               </div>
               <div>
-                <h5 class="text-sm font-bold mb-2">Operation Result:</h5>
-                <div id="fileOperationOutput" class="file-content">
-                  <div class="text-gray-400 italic">Operation results will appear here...</div>
+                <h5 class="input-label">Operation Result:</h5>
+                <div id="fileOperationOutput" class="output-display">
+                  <div class="placeholder-text">Operation results will appear here...</div>
                 </div>
               </div>
             </div>
@@ -526,31 +278,29 @@ content = file.read()
         </div>
 
         <!-- Step 6: Practice Project -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🛠️ Practice: Personal Journal System</h2>
           <p class="mb-4">
             Let's build a personal journal system that demonstrates professional file handling practices. 
             This combines file I/O with error handling for a robust application.
           </p>
           
-          <div class="repl-container">
-            <h4 class="text-yellow-400 mb-2">Journal System:</h4>
+          <div class="interactive-section">
+            <h4 class="section-title-8bit">Journal System:</h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium mb-2">Journal Entry:</label>
-                <textarea id="journalEntryInput" class="repl-input h-32 resize-none" placeholder="Write your journal entry here...">Today I learned about file handling in Python!</textarea>
+                <label class="input-label">Journal Entry:</label>
+                <textarea id="journalEntryInput" class="input-field" style="height: 8rem; resize: none;" placeholder="Write your journal entry here...">Today I learned about file handling in Python!</textarea>
                 <div class="flex gap-2 mt-2">
-                  <button id="addEntryButton" class="btn btn-8bit flex-1">Add Entry</button>
-                  <button id="readJournalButton" class="btn btn-8bit flex-1">Read Journal</button>
-                </div>
-                <div class="flex gap-2 mt-2">
-                  <button id="clearJournalButton" class="btn btn-8bit flex-1">Clear Journal</button>
-                  <button id="exportJournalButton" class="btn btn-8bit flex-1">Export Journal</button>
+                  <button id="addEntryButton" class="btn">Add Entry</button>
+                  <button id="readJournalButton" class="btn">Read Journal</button>
+                  <button id="clearJournalButton" class="btn">Clear Journal</button>
+                  <button id="exportJournalButton" class="btn">Export Journal</button>
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium mb-2">Journal Contents:</label>
-                <div id="journalContents" class="file-content h-40 overflow-y-auto">
+                <label class="input-label">Journal Contents:</label>
+                <div id="journalContents" class="output-display" style="height: 10rem; overflow-y: auto;">
                   <div class="text-gray-400 italic">Journal is empty. Add your first entry!</div>
                 </div>
                 <div class="mt-2 text-xs text-gray-400">
@@ -558,7 +308,7 @@ content = file.read()
                 </div>
               </div>
             </div>
-            <div id="journalOutput" class="repl-output mt-4" style="display: none;">
+            <div id="journalOutput" class="output-display" style="display: none;">
               <span class="text-gray-400">Journal operation results will appear here...</span>
             </div>
           </div>
@@ -639,7 +389,7 @@ content = file.read()
         </div>
 
         <!-- Reflection Questions -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🤔 Reflection Questions</h2>
           <div class="space-y-4">
             <div class="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
@@ -649,7 +399,8 @@ content = file.read()
                 Think beyond simple text files.
               </p>
               <textarea 
-                class="repl-input h-20 resize-none" 
+                class="input-field" 
+                style="height: 5rem; resize: none;"
                 placeholder="Consider applications like games, websites, mobile apps..."
               ></textarea>
             </div>
@@ -661,7 +412,8 @@ content = file.read()
                 What security considerations would be important?
               </p>
               <textarea 
-                class="repl-input h-20 resize-none" 
+                class="input-field" 
+                style="height: 5rem; resize: none;"
                 placeholder="Think about reading, writing, encryption, backup..."
               ></textarea>
             </div>
@@ -669,7 +421,7 @@ content = file.read()
         </section>
 
         <!-- Next Steps -->
-        <section class="interactive-section">
+        <section class="concept-section">
           <h2 class="section-title-8bit">🚀 What's Next?</h2>
           <p class="mb-4">
             You've mastered file handling! Here's how this connects to your growing programming skills:

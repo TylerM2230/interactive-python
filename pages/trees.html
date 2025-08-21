@@ -1,128 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tree Data Structures - Interactive Python Guide</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tree Data Structures | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-</head>
-<body>
-    <div class="console-screen-border">
-      <nav class="navigation-bar">
+  </head>
+  <body class="page-layout">
+    <div class="page-console-border">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Interactive Guide to Python</a>
+          </h1>
+          <h2 class="lesson-subtitle">Tree Data Structures</h2>
+          <p class="lesson-subtitle">
+            Hierarchical Organization • Family Trees • File Systems
+          </p>
+        </div>
+      </div>
+
+      <nav class="page-navigation">
         <div class="nav-content">
-          <a href="data-structures.html" class="nav-btn">← Data Structures</a>
-          <div style="flex: 1; text-align: center; color: #facc15; font-size: 10px;">
-            Advanced: Tree Data Structures
-          </div>
-          <a href="graphs.html" class="nav-btn">Next: Graphs →</a>
+          <a href="recursion.html" class="nav-btn">← Recursion</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="graphs.html" class="nav-btn">Graphs →</a>
         </div>
       </nav>
 
-      <div class="content-wrapper-8bit">
-        <div class="hero-section">
-          <div class="hero-content">
-            <h1 class="pixel-header">Tree Data Structures</h1>
-            <p style="font-size: 12px; margin: 1rem 0; opacity: 0.9;">
-              🌳 Hierarchical Organization: Family Trees for Data
-            </p>
-            <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 10px;">
-              Master hierarchical data organization with binary trees and search trees
-            </div>
+      <main class="page-content-wrapper">
+
+        
+        <div class="mental-model-box">
+          <h3 style="color: #4ade80; margin-bottom: 0.5rem; font-size: 16px;">🧠 Mental Model: Family Tree Structure</h3>
+          <div style="color: #d1fae5; font-size: 13px; line-height: 1.6;">
+            <p><strong>Think of trees like family genealogies:</strong></p>
+            <ul style="margin-left: 1rem;">
+              <li><strong>👑 Root</strong> - The oldest ancestor (starting point)</li>
+              <li><strong>👨‍👩‍👧‍👦 Parent-Child</strong> - Family relationships (one parent, multiple children)</li>
+              <li><strong>🍃 Leaves</strong> - Family members with no descendants</li>
+              <li><strong>📏 Height</strong> - Generations from root to furthest descendant</li>
+            </ul>
           </div>
         </div>
 
-        <main>
-        <!-- Step 1: Problem Motivation -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">1</span>
-                Why Do We Need Trees?
-            </h2>
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>🌍 Real-World Problems</h3>
-                    <div class="example-grid">
-                        <div class="example-item">
-                            <strong>📁 File Systems:</strong> Directories and subdirectories form a tree structure
-                        </div>
-                        <div class="example-item">
-                            <strong>🔍 Database Indexing:</strong> B-trees enable fast data retrieval
-                        </div>
-                        <div class="example-item">
-                            <strong>🌐 DOM Structure:</strong> HTML elements form a tree in web pages
-                        </div>
-                        <div class="example-item">
-                            <strong>🧮 Expression Parsing:</strong> Mathematical expressions as parse trees
-                        </div>
-                    </div>
-                </div>
-                <div class="visual-panel">
-                    <h4>Hierarchical Organization</h4>
-                    <p>Trees provide natural ways to organize hierarchical data with efficient search, insertion, and deletion operations. They're fundamental to many computer science algorithms and data structures.</p>
-                </div>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 1: Why Do We Need Trees?</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Trees solve the fundamental problem of organizing hierarchical data efficiently. They appear everywhere in computer science because they mirror natural organizational structures.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #93c5fd; margin-bottom: 0.5rem;">📁 File Systems</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Directories and subdirectories form natural tree structures</p>
             </div>
+            <div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #86efac; margin-bottom: 0.5rem;">🔍 Database Indexing</h4>
+              <p style="font-size: 13px; line-height: 1.6;">B-trees enable fast data retrieval from massive databases</p>
+            </div>
+            <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #c084fc; margin-bottom: 0.5rem;">🌐 Web Pages</h4>
+              <p style="font-size: 13px; line-height: 1.6;">HTML DOM elements form hierarchical tree structures</p>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #fbbf24; margin-bottom: 0.5rem;">🧮 Expression Parsing</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Mathematical expressions represented as parse trees</p>
+            </div>
+          </div>
         </section>
 
-        <!-- Step 2: Mental Model -->
-        <section class="mental-model-section">
-            <h2 class="section-title">
-                <span class="step-number">2</span>
-                Mental Model: Family Tree
-            </h2>
-            
-            <div class="mental-model-content">
-                <div class="analogy-panel">
-                    <h3>🌳 Think of Trees Like a Family Tree</h3>
-                    <div class="analogy-grid">
-                        <div class="analogy-item">
-                            <div class="analogy-icon">👑</div>
-                            <div>
-                                <strong>Root Node</strong>
-                                <p>Like the oldest ancestor - the starting point of the family tree</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">👨‍👩‍👧‍👦</div>
-                            <div>
-                                <strong>Parent-Child Relationships</strong>
-                                <p>Like family relationships - each person has one parent (except root)</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">🍃</div>
-                            <div>
-                                <strong>Leaf Nodes</strong>
-                                <p>Like family members with no children - the endpoints of branches</p>
-                            </div>
-                        </div>
-                        <div class="analogy-item">
-                            <div class="analogy-icon">📏</div>
-                            <div>
-                                <strong>Height/Depth</strong>
-                                <p>Like generations - how many levels from root to furthest descendant</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 2: Tree Fundamentals</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Trees are hierarchical data structures consisting of nodes connected by edges. Every tree has exactly one path between any two nodes, and there are no cycles.
+          </p>
 
-        <!-- Step 3: Tree Basics -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">3</span>
-                Tree Fundamentals
-            </h2>
-            
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>🌳 Basic Tree Structure</h3>
-                    <div class="code-block">
-                        <pre><code>class TreeNode:
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Basic Tree Structure</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>class TreeNode:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -140,14 +102,19 @@ root.left.right = TreeNode(5)
 #     2   3
 #    / \
 #   4   5</code></pre>
-                    </div>
-                </div>
-                
-                <div class="concept-panel">
-                    <h3>📊 Binary Search Tree (BST)</h3>
-                    <p>A tree where left children are smaller and right children are larger than their parent</p>
-                    <div class="code-block">
-                        <pre><code>class BST:
+          </div>
+        </section>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 3: Binary Search Trees (BST)</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            A Binary Search Tree maintains a special property: for every node, all values in the left subtree are smaller, and all values in the right subtree are larger. This enables efficient searching!
+          </p>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 BST Implementation</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>class BST:
     def __init__(self):
         self.root = None
     
@@ -167,133 +134,109 @@ root.left.right = TreeNode(5)
             if node.right is None:
                 node.right = TreeNode(value)
             else:
-                self._insert_recursive(node.right, value)</code></pre>
-                    </div>
-                </div>
-            </div>
+                self._insert_recursive(node.right, value)
+
+    def search(self, value):
+        return self._search_recursive(self.root, value)
+    
+    def _search_recursive(self, node, value):
+        if not node:
+            return False
+        if value == node.value:
+            return True
+        elif value < node.value:
+            return self._search_recursive(node.left, value)
+        else:
+            return self._search_recursive(node.right, value)</code></pre>
+          </div>
         </section>
 
-        <!-- Step 4: Interactive Tree Builder -->
-        <section class="interactive-section">
-            <h2 class="section-title">
-                <span class="step-number">4</span>
-                Hands-on Practice: Build Your Tree
-            </h2>
-            
-            <div class="interactive-container">
-                <div class="controls-grid">
-                    <div class="control-group">
-                        <label>Insert Value:</label>
-                        <input type="number" id="nodeValue" placeholder="Enter number">
-                        <button onclick="insertNode()" class="btn-primary">Insert</button>
-                    </div>
-                    <div class="control-group">
-                        <label>Search Value:</label>
-                        <input type="number" id="searchValue" placeholder="Enter number">
-                        <button onclick="searchNode()" class="btn-accent">Search</button>
-                    </div>
-                    <div class="control-group">
-                        <button onclick="clearTree()" class="btn-secondary">Clear Tree</button>
-                        <button onclick="createSampleTree()" class="btn-accent">Sample Tree</button>
-                    </div>
-                </div>
-                
-                <div class="interactive-grid">
-                    <div class="tree-panel">
-                        <h4>🌳 Tree Visualization</h4>
-                        <div id="treeContainer" style="width: 100%; height: 400px; background: rgba(15, 23, 42, 0.3); border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 12px; position: relative; overflow: hidden;">
-                            <div id="treeMessage" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #64748b; text-align: center;">
-                                Insert nodes to build your binary search tree!
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="data-panel">
-                        <h4>📊 Tree Traversals</h4>
-                        <div class="tree-info" style="background: rgba(15, 23, 42, 0.5); border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 20px; font-family: 'Courier New', 'Courier', monospace; color: #22c55e;">
-                            <div><strong>In-order:</strong> <span id="inorderResult">[]</span></div>
-                            <div><strong>Pre-order:</strong> <span id="preorderResult">[]</span></div>
-                            <div><strong>Post-order:</strong> <span id="postorderResult">[]</span></div>
-                            <div style="margin-top: 15px;"><strong>Tree Height:</strong> <span id="treeHeight">0</span></div>
-                            <div><strong>Node Count:</strong> <span id="nodeCount">0</span></div>
-                        </div>
-                        
-                        <div class="control-group" style="margin-top: 20px;">
-                            <button onclick="runTraversals()" class="btn-primary">Update Traversals</button>
-                        </div>
-                    </div>
-                </div>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 4: Interactive Tree Builder</h2>
+          
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Build Your Own BST</h4>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+              <div>
+                <label style="color: #facc15; font-size: 12px; display: block; margin-bottom: 0.5rem;">Insert Value:</label>
+                <input type="number" id="nodeValue" class="input-field" placeholder="Enter number">
+              </div>
+              <div>
+                <label style="color: #facc15; font-size: 12px; display: block; margin-bottom: 0.5rem;">Search Value:</label>
+                <input type="number" id="searchValue" class="input-field" placeholder="Enter number">
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                <button onclick="insertNode()" class="btn" style="font-size: 12px;">Insert</button>
+                <button onclick="searchNode()" class="btn" style="font-size: 12px;">Search</button>
+                <button onclick="clearTree()" class="btn" style="font-size: 12px;">Clear</button>
+                <button onclick="createSampleTree()" class="btn" style="font-size: 12px;">Sample</button>
+              </div>
             </div>
+            
+            <div id="treeContainer" class="tree-container">
+              <div id="treeMessage" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #64748b; text-align: center;">
+                Insert nodes to build your binary search tree!
+              </div>
+            </div>
+            
+            <div style="background: rgba(15, 23, 42, 0.5); border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 1rem; margin-top: 1rem; font-family: 'Courier New', 'Courier', monospace; color: #22c55e;">
+              <div><strong>In-order:</strong> <span id="inorderResult">[]</span></div>
+              <div><strong>Pre-order:</strong> <span id="preorderResult">[]</span></div>
+              <div><strong>Post-order:</strong> <span id="postorderResult">[]</span></div>
+              <div style="margin-top: 1rem;"><strong>Tree Height:</strong> <span id="treeHeight">0</span></div>
+              <div><strong>Node Count:</strong> <span id="nodeCount">0</span></div>
+            </div>
+          </div>
         </section>
 
-        <!-- Step 5: Tree Traversal -->
-        <section class="section">
-            <h2 class="section-title">
-                <span class="step-number">5</span>
-                Tree Traversal: Visiting All Nodes
-            </h2>
-            
-            <div class="content-grid">
-                <div class="concept-panel">
-                    <h3>🚶‍♂️ In-order Traversal</h3>
-                    <p>Visit left subtree, root, then right subtree. For BST, this gives sorted order!</p>
-                    <div class="code-block">
-                        <pre><code>def inorder_traversal(node):
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 5: Tree Traversal Methods</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Tree traversal is the process of visiting all nodes in a specific order. Different traversal methods serve different purposes and reveal different aspects of the tree structure.
+          </p>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🚶‍♂️ In-order Traversal (Left → Root → Right)</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>def inorder_traversal(node):
     result = []
     if node:
-        result.extend(inorder_traversal(node.left))
-        result.append(node.value)
-        result.extend(inorder_traversal(node.right))
+        result.extend(inorder_traversal(node.left))  # Visit left
+        result.append(node.value)                    # Visit root
+        result.extend(inorder_traversal(node.right)) # Visit right
     return result
 
-# For BST: [4, 2, 5, 1, 3] becomes [1, 2, 3, 4, 5]</code></pre>
-                    </div>
-                </div>
-                
-                <div class="concept-panel">
-                    <h3>🏃‍♂️ Pre-order & Post-order</h3>
-                    <p>Different visiting patterns for different use cases</p>
-                    <div class="code-block">
-                        <pre><code># Pre-order: Root, Left, Right
+# For BST: gives sorted order! [1, 2, 3, 4, 5]</code></pre>
+          </div>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🏃‍♂️ Pre-order & Post-order Traversals</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code># Pre-order: Root → Left → Right (good for copying trees)
 def preorder_traversal(node):
     result = []
     if node:
-        result.append(node.value)
-        result.extend(preorder_traversal(node.left))
-        result.extend(preorder_traversal(node.right))
+        result.append(node.value)                    # Visit root
+        result.extend(preorder_traversal(node.left)) # Visit left
+        result.extend(preorder_traversal(node.right))# Visit right
     return result
 
-# Post-order: Left, Right, Root
+# Post-order: Left → Right → Root (good for deleting trees)
 def postorder_traversal(node):
     result = []
     if node:
-        result.extend(postorder_traversal(node.left))
-        result.extend(postorder_traversal(node.right))
-        result.append(node.value)
+        result.extend(postorder_traversal(node.left)) # Visit left
+        result.extend(postorder_traversal(node.right))# Visit right
+        result.append(node.value)                     # Visit root
     return result</code></pre>
-                    </div>
-                </div>
-            </div>
+          </div>
         </section>
 
-        <!-- Step 6: Critical Pitfalls -->
-        <section class="pitfall-section">
-            <h2 class="section-title">
-                <span class="step-number">6</span>
-                Critical Pitfall: Unbalanced Trees
-            </h2>
-            
-            <div class="pitfall-content">
-                <div class="pitfall-warning">
-                    <h3>⚠️ The Degenerate Tree Trap</h3>
-                    <p>If you insert sorted data into a BST, it becomes a linear chain, losing all the benefits of tree structure!</p>
-                </div>
-                
-                <div class="comparison-grid">
-                    <div class="wrong-approach">
-                        <h4>❌ Wrong: Inserting Sorted Data</h4>
-                        <div class="code-block">
-                            <pre><code># DANGEROUS: Inserting sorted data
+        <div class="pitfall-warning">
+          <h4 style="color: #fca5a5; margin-bottom: 0.5rem; font-size: 14px;">⚠️ Critical Pitfall: The Degenerate Tree Trap</h4>
+          <p style="color: #fecaca; font-size: 13px; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>If you insert sorted data into a BST, it becomes a linear chain!</strong> This destroys the tree's efficiency.
+          </p>
+          <pre style="background: #7f1d1d; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #fecaca;"><code># ❌ DANGEROUS: Inserting sorted data
 bst = BST()
 for i in range(1, 8):  # 1, 2, 3, 4, 5, 6, 7
     bst.insert(i)
@@ -303,19 +246,11 @@ for i in range(1, 8):  # 1, 2, 3, 4, 5, 6, 7
 #  \
 #   2
 #    \
-#     3
-#      \
-#       4  (and so on...)
+#     3  (becomes a linked list!)
 
-# Search time: O(n) instead of O(log n)!</code></pre>
-                        </div>
-                        <div class="consequence">💥 Result: O(n) search time, no better than a linked list</div>
-                    </div>
-                    
-                    <div class="right-approach">
-                        <h4>✅ Right: Insert in Random Order or Use Balanced Trees</h4>
-                        <div class="code-block">
-                            <pre><code># BETTER: Insert in random order
+# Search time: O(n) instead of O(log n)!
+
+# ✅ BETTER: Insert in random order
 import random
 values = list(range(1, 8))
 random.shuffle(values)  # [4, 1, 6, 2, 7, 3, 5]
@@ -324,411 +259,348 @@ bst = BST()
 for value in values:
     bst.insert(value)
 
-# Results in balanced tree:
-#       4
-#      / \
-#     2   6
-#    / \ / \
-#   1  3 5  7
-
-# Search time: O(log n)</code></pre>
-                        </div>
-                        <div class="consequence">✅ Result: O(log n) search time, efficient tree operations</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 7: Assessment -->
-        <section class="assessment-section">
-            <h2 class="section-title">
-                <span class="step-number">7</span>
-                Knowledge Assessment: Tree Mastery
-            </h2>
-            
-            <div class="quiz-container">
-                <div class="question-card">
-                    <h3>Question 1: BST Property</h3>
-                    <p>In a Binary Search Tree, what is the key property that must be maintained?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q1" value="a"> Left children are smaller, right children are larger than parent</label>
-                        <label><input type="radio" name="q1" value="b"> All nodes must have exactly two children</label>
-                        <label><input type="radio" name="q1" value="c"> The tree must be perfectly balanced</label>
-                    </div>
-                    <div class="feedback" id="feedback1"></div>
-                </div>
-                
-                <div class="question-card">
-                    <h3>Question 2: Tree Traversal</h3>
-                    <p>Which traversal method gives nodes in sorted order for a BST?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q2" value="a"> Pre-order traversal</label>
-                        <label><input type="radio" name="q2" value="b"> In-order traversal</label>
-                        <label><input type="radio" name="q2" value="c"> Post-order traversal</label>
-                    </div>
-                    <div class="feedback" id="feedback2"></div>
-                </div>
-                
-                <div class="question-card">
-                    <h3>Question 3: Balanced vs Unbalanced</h3>
-                    <p>What happens when you insert sorted data (1,2,3,4,5) into an empty BST?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q3" value="a"> You get a perfectly balanced tree</label>
-                        <label><input type="radio" name="q3" value="b"> You get a degenerate tree (like a linked list)</label>
-                        <label><input type="radio" name="q3" value="c"> The BST automatically rebalances itself</label>
-                    </div>
-                    <div class="feedback" id="feedback3"></div>
-                </div>
-                
-                <button onclick="checkAnswers()" class="btn-primary" style="margin-top: 20px;">Check Answers</button>
-                <div id="overallFeedback" class="overall-feedback"></div>
-            </div>
-        </section>
-
-        <!-- Progress Indicator -->
-        <div class="progress-indicator">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text">Mastery Progress: <span id="progressText">0%</span></div>
+# Results in balanced tree with O(log n) performance!</code></pre>
         </div>
-    </main>
 
-    <script>
-        // Tree data structure
-        class TreeNode {
-            constructor(value) {
-                this.value = value;
-                this.left = null;
-                this.right = null;
-            }
-        }
-        
-        class BST {
-            constructor() {
-                this.root = null;
-            }
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 6: Knowledge Check</h2>
+          
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: BST Property</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              In a Binary Search Tree, what is the key property that must be maintained?
+            </p>
             
-            insert(value) {
-                if (!this.root) {
-                    this.root = new TreeNode(value);
-                } else {
-                    this._insertRecursive(this.root, value);
-                }
-            }
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Left children are smaller, right children are larger than parent</p>
+            </div>
             
-            _insertRecursive(node, value) {
-                if (value < node.value) {
-                    if (!node.left) {
-                        node.left = new TreeNode(value);
-                    } else {
-                        this._insertRecursive(node.left, value);
-                    }
-                } else if (value > node.value) {
-                    if (!node.right) {
-                        node.right = new TreeNode(value);
-                    } else {
-                        this._insertRecursive(node.right, value);
-                    }
-                }
-            }
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">All nodes must have exactly two children</p>
+            </div>
             
-            search(value) {
-                return this._searchRecursive(this.root, value);
-            }
-            
-            _searchRecursive(node, value) {
-                if (!node) return false;
-                if (value === node.value) return true;
-                if (value < node.value) return this._searchRecursive(node.left, value);
-                return this._searchRecursive(node.right, value);
-            }
-            
-            inorderTraversal() {
-                const result = [];
-                this._inorderRecursive(this.root, result);
-                return result;
-            }
-            
-            _inorderRecursive(node, result) {
-                if (node) {
-                    this._inorderRecursive(node.left, result);
-                    result.push(node.value);
-                    this._inorderRecursive(node.right, result);
-                }
-            }
-            
-            preorderTraversal() {
-                const result = [];
-                this._preorderRecursive(this.root, result);
-                return result;
-            }
-            
-            _preorderRecursive(node, result) {
-                if (node) {
-                    result.push(node.value);
-                    this._preorderRecursive(node.left, result);
-                    this._preorderRecursive(node.right, result);
-                }
-            }
-            
-            postorderTraversal() {
-                const result = [];
-                this._postorderRecursive(this.root, result);
-                return result;
-            }
-            
-            _postorderRecursive(node, result) {
-                if (node) {
-                    this._postorderRecursive(node.left, result);
-                    this._postorderRecursive(node.right, result);
-                    result.push(node.value);
-                }
-            }
-            
-            getHeight() {
-                return this._getHeightRecursive(this.root);
-            }
-            
-            _getHeightRecursive(node) {
-                if (!node) return 0;
-                return 1 + Math.max(
-                    this._getHeightRecursive(node.left),
-                    this._getHeightRecursive(node.right)
-                );
-            }
-            
-            getNodeCount() {
-                return this._getNodeCountRecursive(this.root);
-            }
-            
-            _getNodeCountRecursive(node) {
-                if (!node) return 0;
-                return 1 + this._getNodeCountRecursive(node.left) + this._getNodeCountRecursive(node.right);
-            }
-        }
-        
-        // Global BST instance
-        let bst = new BST();
-        
-        // Tree manipulation functions
-        function insertNode() {
-            const input = document.getElementById('nodeValue');
-            const value = parseInt(input.value);
-            
-            if (isNaN(value)) {
-                alert('Please enter a valid number');
-                return;
-            }
-            
-            bst.insert(value);
-            input.value = '';
-            
-            updateTreeVisualization();
-            updateTreeInfo();
-        }
-        
-        function searchNode() {
-            const input = document.getElementById('searchValue');
-            const value = parseInt(input.value);
-            
-            if (isNaN(value)) {
-                alert('Please enter a valid number');
-                return;
-            }
-            
-            const found = bst.search(value);
-            alert(found ? `Found ${value} in the tree!` : `${value} not found in the tree.`);
-        }
-        
-        function clearTree() {
-            bst = new BST();
-            updateTreeVisualization();
-            updateTreeInfo();
-        }
-        
-        function createSampleTree() {
-            bst = new BST();
-            const values = [50, 30, 70, 20, 40, 60, 80];
-            values.forEach(value => bst.insert(value));
-            
-            updateTreeVisualization();
-            updateTreeInfo();
-        }
-        
-        function runTraversals() {
-            updateTreeInfo();
-        }
-        
-        function updateTreeVisualization() {
-            const container = document.getElementById('treeContainer');
-            const message = document.getElementById('treeMessage');
-            
-            container.innerHTML = '';
-            
-            if (!bst.root) {
-                const messageDiv = document.createElement('div');
-                messageDiv.id = 'treeMessage';
-                messageDiv.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #64748b; text-align: center;';
-                messageDiv.textContent = 'Insert nodes to build your binary search tree!';
-                container.appendChild(messageDiv);
-                return;
-            }
-            
-            // Simple tree visualization
-            drawNode(container, bst.root, 250, 50, 100);
-        }
-        
-        function drawNode(container, node, x, y, horizontalSpacing) {
-            if (!node) return;
-            
-            // Create node element
-            const nodeElement = document.createElement('div');
-            nodeElement.style.cssText = `
-                position: absolute;
-                left: ${x - 15}px;
-                top: ${y}px;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #22c55e, #16a34a);
-                border: 2px solid #15803d;
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12px;
-                font-weight: bold;
-            `;
-            nodeElement.textContent = node.value;
-            container.appendChild(nodeElement);
-            
-            // Draw children
-            if (node.left) {
-                // Draw line to left child
-                const leftLine = document.createElement('div');
-                leftLine.style.cssText = `
-                    position: absolute;
-                    left: ${x - horizontalSpacing / 2}px;
-                    top: ${y + 30}px;
-                    width: ${horizontalSpacing / 2}px;
-                    height: 2px;
-                    background: #22c55e;
-                    transform-origin: 0 0;
-                    transform: rotate(-30deg);
-                `;
-                container.appendChild(leftLine);
-                
-                drawNode(container, node.left, x - horizontalSpacing, y + 60, horizontalSpacing / 2);
-            }
-            
-            if (node.right) {
-                // Draw line to right child
-                const rightLine = document.createElement('div');
-                rightLine.style.cssText = `
-                    position: absolute;
-                    left: ${x}px;
-                    top: ${y + 30}px;
-                    width: ${horizontalSpacing / 2}px;
-                    height: 2px;
-                    background: #22c55e;
-                    transform-origin: 0 0;
-                    transform: rotate(30deg);
-                `;
-                container.appendChild(rightLine);
-                
-                drawNode(container, node.right, x + horizontalSpacing, y + 60, horizontalSpacing / 2);
-            }
-        }
-        
-        function updateTreeInfo() {
-            document.getElementById('inorderResult').textContent = JSON.stringify(bst.inorderTraversal());
-            document.getElementById('preorderResult').textContent = JSON.stringify(bst.preorderTraversal());
-            document.getElementById('postorderResult').textContent = JSON.stringify(bst.postorderTraversal());
-            document.getElementById('treeHeight').textContent = bst.getHeight();
-            document.getElementById('nodeCount').textContent = bst.getNodeCount();
-        }
-        
-        // Quiz functionality
-        function checkAnswers() {
-            const answers = {
-                q1: 'a', // Left smaller, right larger
-                q2: 'b', // In-order gives sorted
-                q3: 'b'  // Degenerate tree
-            };
-            
-            const feedbacks = {
-                q1: {
-                    correct: "Correct! In a BST, left children must be smaller and right children must be larger than their parent node.",
-                    incorrect: "Incorrect. The key BST property is that left children are smaller and right children are larger than their parent."
-                },
-                q2: {
-                    correct: "Correct! In-order traversal visits nodes in sorted order for a BST because it processes left subtree, root, then right subtree.",
-                    incorrect: "Incorrect. In-order traversal (left, root, right) gives nodes in sorted order for a BST."
-                },
-                q3: {
-                    correct: "Correct! Inserting sorted data creates a degenerate tree that's essentially a linked list, losing the benefits of tree structure.",
-                    incorrect: "Incorrect. Inserting sorted data creates a degenerate tree (linear chain) which has O(n) search time instead of O(log n)."
-                }
-            };
-            
-            let score = 0;
-            let total = Object.keys(answers).length;
-            
-            for (let q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                const feedback = document.getElementById(`feedback${q.slice(1)}`);
-                
-                if (selected) {
-                    const isCorrect = selected.value === answers[q];
-                    if (isCorrect) {
-                        score++;
-                        feedback.innerHTML = `<div class="correct-feedback">✅ ${feedbacks[q].correct}</div>`;
-                    } else {
-                        feedback.innerHTML = `<div class="incorrect-feedback">❌ ${feedbacks[q].incorrect}</div>`;
-                    }
-                } else {
-                    feedback.innerHTML = `<div class="incorrect-feedback">❌ Please select an answer.</div>`;
-                }
-            }
-            
-            const percentage = Math.round((score / total) * 100);
-            const overallFeedback = document.getElementById('overallFeedback');
-            
-            if (percentage >= 80) {
-                overallFeedback.innerHTML = `<div class="success-feedback">🎉 Excellent! You scored ${score}/${total} (${percentage}%). You understand tree data structures!</div>`;
-            } else if (percentage >= 60) {
-                overallFeedback.innerHTML = `<div class="warning-feedback">📚 Good effort! You scored ${score}/${total} (${percentage}%). Review the concepts and try again.</div>`;
-            } else {
-                overallFeedback.innerHTML = `<div class="error-feedback">💪 Keep learning! You scored ${score}/${total} (${percentage}%). Study the material above and retake the quiz.</div>`;
-            }
-            
-            updateProgress(percentage);
-        }
-        
-        function updateProgress(percentage) {
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
-            
-            progressFill.style.width = percentage + '%';
-            progressText.textContent = percentage + '%';
-        }
-        
-        // Initialize
-        createSampleTree();
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">The tree must be perfectly balanced</p>
+            </div>
+          </div>
 
-        // Progress tracking
-        localStorage.setItem('completedTrees', 'true');
-    </script>
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Tree Traversal</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              Which traversal method gives nodes in sorted order for a BST?
+            </p>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Pre-order traversal</p>
+            </div>
+            
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">In-order traversal</p>
+            </div>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Post-order traversal</p>
+            </div>
+          </div>
+
+          <button id="checkTreeQuiz" class="btn btn-green" style="margin-top: 1rem;">Check My Understanding</button>
+          <div id="treeQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+        </section>
 
         <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
           <p style="color: #facc15; margin-bottom: 0.5rem;">🌳 Trees Mastered! Ready for Graphs? 🌳</p>
-          <p style="font-size: 10px; color: #9ca3af;">
-            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Back to Main Menu</a>
-            <a href="graphs.html" style="color: #facc15;">🌐 Next: Graphs →</a>
+          <p style="font-size: 12px; color: #9ca3af;">
+            <a href="data-structures.html" style="color: #facc15; margin-right: 1rem;">← Back: Data Structures</a>
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Main Menu</a>
+            <a href="graphs.html" style="color: #facc15;">Next: Graphs →</a>
           </p>
         </footer>
-      </div>
+      </main>
     </div>
-</body>
+
+    <script>
+      // Tree data structure
+      class TreeNode {
+        constructor(value) {
+          this.value = value;
+          this.left = null;
+          this.right = null;
+        }
+      }
+      
+      class BST {
+        constructor() {
+          this.root = null;
+        }
+        
+        insert(value) {
+          if (!this.root) {
+            this.root = new TreeNode(value);
+          } else {
+            this._insertRecursive(this.root, value);
+          }
+        }
+        
+        _insertRecursive(node, value) {
+          if (value < node.value) {
+            if (!node.left) {
+              node.left = new TreeNode(value);
+            } else {
+              this._insertRecursive(node.left, value);
+            }
+          } else if (value > node.value) {
+            if (!node.right) {
+              node.right = new TreeNode(value);
+            } else {
+              this._insertRecursive(node.right, value);
+            }
+          }
+        }
+        
+        search(value) {
+          return this._searchRecursive(this.root, value);
+        }
+        
+        _searchRecursive(node, value) {
+          if (!node) return false;
+          if (value === node.value) return true;
+          if (value < node.value) return this._searchRecursive(node.left, value);
+          return this._searchRecursive(node.right, value);
+        }
+        
+        inorderTraversal() {
+          const result = [];
+          this._inorderRecursive(this.root, result);
+          return result;
+        }
+        
+        _inorderRecursive(node, result) {
+          if (node) {
+            this._inorderRecursive(node.left, result);
+            result.push(node.value);
+            this._inorderRecursive(node.right, result);
+          }
+        }
+        
+        preorderTraversal() {
+          const result = [];
+          this._preorderRecursive(this.root, result);
+          return result;
+        }
+        
+        _preorderRecursive(node, result) {
+          if (node) {
+            result.push(node.value);
+            this._preorderRecursive(node.left, result);
+            this._preorderRecursive(node.right, result);
+          }
+        }
+        
+        postorderTraversal() {
+          const result = [];
+          this._postorderRecursive(this.root, result);
+          return result;
+        }
+        
+        _postorderRecursive(node, result) {
+          if (node) {
+            this._postorderRecursive(node.left, result);
+            this._postorderRecursive(node.right, result);
+            result.push(node.value);
+          }
+        }
+        
+        getHeight() {
+          return this._getHeightRecursive(this.root);
+        }
+        
+        _getHeightRecursive(node) {
+          if (!node) return 0;
+          return 1 + Math.max(
+            this._getHeightRecursive(node.left),
+            this._getHeightRecursive(node.right)
+          );
+        }
+        
+        getNodeCount() {
+          return this._getNodeCountRecursive(this.root);
+        }
+        
+        _getNodeCountRecursive(node) {
+          if (!node) return 0;
+          return 1 + this._getNodeCountRecursive(node.left) + this._getNodeCountRecursive(node.right);
+        }
+      }
+      
+      // Global BST instance
+      let bst = new BST();
+      
+      // Tree manipulation functions
+      function insertNode() {
+        const input = document.getElementById('nodeValue');
+        const value = parseInt(input.value);
+        
+        if (isNaN(value)) {
+          alert('Please enter a valid number');
+          return;
+        }
+        
+        bst.insert(value);
+        input.value = '';
+        
+        updateTreeVisualization();
+        updateTreeInfo();
+      }
+      
+      function searchNode() {
+        const input = document.getElementById('searchValue');
+        const value = parseInt(input.value);
+        
+        if (isNaN(value)) {
+          alert('Please enter a valid number');
+          return;
+        }
+        
+        const found = bst.search(value);
+        alert(found ? `Found ${value} in the tree!` : `${value} not found in the tree.`);
+      }
+      
+      function clearTree() {
+        bst = new BST();
+        updateTreeVisualization();
+        updateTreeInfo();
+      }
+      
+      function createSampleTree() {
+        bst = new BST();
+        const values = [50, 30, 70, 20, 40, 60, 80];
+        values.forEach(value => bst.insert(value));
+        
+        updateTreeVisualization();
+        updateTreeInfo();
+      }
+      
+      function updateTreeVisualization() {
+        const container = document.getElementById('treeContainer');
+        
+        container.innerHTML = '';
+        
+        if (!bst.root) {
+          const messageDiv = document.createElement('div');
+          messageDiv.id = 'treeMessage';
+          messageDiv.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #64748b; text-align: center;';
+          messageDiv.textContent = 'Insert nodes to build your binary search tree!';
+          container.appendChild(messageDiv);
+          return;
+        }
+        
+        // Simple tree visualization
+        drawNode(container, bst.root, 250, 50, 100);
+      }
+      
+      function drawNode(container, node, x, y, horizontalSpacing) {
+        if (!node) return;
+        
+        // Create node element
+        const nodeElement = document.createElement('div');
+        nodeElement.className = 'tree-node';
+        nodeElement.style.left = (x - 15) + 'px';
+        nodeElement.style.top = y + 'px';
+        nodeElement.textContent = node.value;
+        container.appendChild(nodeElement);
+        
+        // Draw children
+        if (node.left) {
+          // Draw line to left child
+          const leftLine = document.createElement('div');
+          leftLine.className = 'tree-line';
+          leftLine.style.left = (x - horizontalSpacing / 2) + 'px';
+          leftLine.style.top = (y + 30) + 'px';
+          leftLine.style.width = (horizontalSpacing / 2) + 'px';
+          leftLine.style.transformOrigin = '0 0';
+          leftLine.style.transform = 'rotate(-30deg)';
+          container.appendChild(leftLine);
+          
+          drawNode(container, node.left, x - horizontalSpacing, y + 60, horizontalSpacing / 2);
+        }
+        
+        if (node.right) {
+          // Draw line to right child
+          const rightLine = document.createElement('div');
+          rightLine.className = 'tree-line';
+          rightLine.style.left = x + 'px';
+          rightLine.style.top = (y + 30) + 'px';
+          rightLine.style.width = (horizontalSpacing / 2) + 'px';
+          rightLine.style.transformOrigin = '0 0';
+          rightLine.style.transform = 'rotate(30deg)';
+          container.appendChild(rightLine);
+          
+          drawNode(container, node.right, x + horizontalSpacing, y + 60, horizontalSpacing / 2);
+        }
+      }
+      
+      function updateTreeInfo() {
+        document.getElementById('inorderResult').textContent = JSON.stringify(bst.inorderTraversal());
+        document.getElementById('preorderResult').textContent = JSON.stringify(bst.preorderTraversal());
+        document.getElementById('postorderResult').textContent = JSON.stringify(bst.postorderTraversal());
+        document.getElementById('treeHeight').textContent = bst.getHeight();
+        document.getElementById('nodeCount').textContent = bst.getNodeCount();
+      }
+      
+      // Quiz functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkTreeQuizBtn = document.getElementById('checkTreeQuiz');
+        const treeQuizResult = document.getElementById('treeQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkTreeQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.concept-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.style.borderColor = '#10b981';
+                  option.style.background = 'rgba(16, 185, 129, 0.2)';
+                } else {
+                  option.style.borderColor = '#ef4444';
+                  option.style.background = 'rgba(239, 68, 68, 0.2)';
+                }
+              }
+            });
+          });
+
+          treeQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            treeQuizResult.className = 'message-box message-box-success';
+            treeQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand tree data structures!`;
+          } else {
+            treeQuizResult.className = 'message-box message-box-info';
+            treeQuizResult.innerHTML = `${correct}/${total} correct. Review the tree concepts above, especially BST properties and traversal methods!`;
+          }
+        });
+        
+        // Initialize
+        createSampleTree();
+        
+        // Progress tracking
+        localStorage.setItem('completedTrees', 'true');
+      });
+    </script>
+  </body>
 </html> 

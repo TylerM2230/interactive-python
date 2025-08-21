@@ -3,680 +3,335 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Structures Overview (Sets, Stacks, Queues)</title>
+    <title>Sets, Stacks & Queues | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
   </head>
-  <body class="">
-    <div class="console-screen-border">
-      <nav class="navbar-8bit">
-        <a href="dictionaries-tuples.html" class="btn">&laquo; Dictionaries & Tuples</a>
-        <a href="../index.html" class="btn">Main Menu</a>
-        <a href="trees.html" class="btn">Next: Trees (BST) &rarr;</a>
-      </nav>
-
-      <div class="content-wrapper-8bit">
-        <header class="text-center mb-8">
-          <h1 class="pixel-header"><a href="../index.html">
-            Interactive Guide to Python
-          </a></h1>
-          <h2 class="pixel-subheader">
-            Data Structures Overview (Sets, Stacks, Queues)
-          </h2>
-          <p class="text-sm italic mt-1">
-            Exploring fundamental ways to organize and store data, including Sets, Stacks, and Queues.
+  <body class="page-layout">
+    <div class="page-console-border">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Interactive Guide to Python</a>
+          </h1>
+          <h2 class="lesson-subtitle">Sets, Stacks & Queues</h2>
+          <p class="lesson-subtitle">
+            Specialized Collections • Performance Optimization • Real-World Applications
           </p>
-        </header>
-
-        <main>
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">1. Why Data Structures?</h2>
-            <div class="sub-interactive-box">
-              <p>
-                Data structures are specialized formats for organizing, processing,
-                retrieving, and storing data. Just like you might organize clothes
-                in a dresser or books on a shelf, data structures provide ways to
-                arrange data in a computer's memory efficiently. Think of them as different types of containers, each designed for specific purposes - just as you wouldn't use a shoebox to store liquids, you wouldn't use a stack for random access to data.
-              </p>
-              <p>
-                Choosing the right data structure is crucial because it can
-                significantly impact:
-              </p>
-              <ul>
-                <li>
-                  <strong>Efficiency:</strong> How quickly operations like adding,
-                  removing, or searching for data can be performed.
-                </li>
-                <li>
-                  <strong>Memory Usage:</strong> How much space the data takes up.
-                </li>
-                <li>
-                  <strong>Code Clarity:</strong> How easy it is to work with the data
-                  and understand the code.
-                </li>
-              </ul>
-              <p class="mt-2">
-                Different data structures are suited for different kinds of problems.
-              </p>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">2. Sets: Unordered Collections of Unique Items</h2>
-            <div class="sub-interactive-box">
-              <p>
-                A set is an unordered collection of unique items. Think of it like a <strong>"bag of mixed things"</strong> - you can reach in and grab items, but they're not in any particular order. Or imagine a <strong>"club membership roster"</strong> - a person can only be on the list once, no matter how many times they try to sign up!
-              </p>
-              <p>Key characteristics:</p>
-              <ul>
-                <li>
-                  <strong>Unordered:</strong> Items don't have a specific position or
-                  index.
-                </li>
-                <li>
-                  <strong>Unique Elements:</strong> Duplicate items are automatically
-                  removed.
-                </li>
-                <li>
-                  <strong>Mutable:</strong> You can add or remove elements after
-                  creation.
-                </li>
-                <li>
-                  <strong>Fast Membership Testing:</strong> Very efficient for
-                  checking if an item exists within the set (<code>in</code>
-                  operator).
-                </li>
-              </ul>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Common Set Operations:</h3>
-              <pre><code class="code-block-8bit python">set1 = {1, 2, 3}
-set2 = {3, 4, 5}
-
-# Union: items present in either set
-print(f"Union: {set1 | set2}") # Output: {1, 2, 3, 4, 5}
-
-# Intersection: items present in both sets
-print(f"Intersection: {set1 & set2}") # Output: {3}
-
-# Difference: items in set1 but not in set2
-print(f"Difference (set1 - set2): {set1 - set2}") # Output: {1, 2}
-
-# Symmetric Difference: items in either set, but not both
-print(f"Symmetric Difference: {set1 ^ set2}") # Output: {1, 2, 4, 5}</code></pre>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">Interactive: Try Set Operations</h2>
-            <div class="sub-interactive-box">
-              <p>Enter comma-separated numbers for two sets (e.g., 1,2,3).</p>
-              <div class="controls-grid grid-2col-responsive">
-                <div>
-                  <label for="setInput1" class="block mb-1 font-medium">Set 1:</label>
-                  <input
-                    type="text"
-                    id="setInput1"
-                    class="input-field w-full md:w-1/2"
-                    placeholder="e.g., 1,2,3"
-                  />
-                </div>
-                <div>
-                  <label for="setInput2" class="block mb-1 font-medium">Set 2:</label>
-                  <input
-                    type="text"
-                    id="setInput2"
-                    class="input-field w-full md:w-1/2"
-                    placeholder="e.g., 3,4,5"
-                  />
-                </div>
-              </div>
-              <div class="controls-flex mt-2">
-                <button id="calculateSetOperationsButton" class="btn">Calculate Operations</button>
-              </div>
-              <div id="setOperationsResult" class="output-display mt-4">
-                <span class="text-gray-500 italic">Results will appear here.</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">3. Stacks: Last-In, First-Out (LIFO)</h2>
-            <div class="sub-interactive-box">
-              <p>
-                A stack is a linear data structure that follows the Last-In,
-                First-Out (LIFO) principle. Think of a stack of plates: the last
-                plate you put on top is the first one you take off. It's like a PEZ candy dispenser - you can only access the candy that was most recently loaded, and you have to remove that one before getting to the ones below it.
-              </p>
-              <p>Main operations:</p>
-              <ul>
-                <li><strong>Push:</strong> Add an item to the top of the stack.</li>
-                <li>
-                  <strong>Pop:</strong> Remove and return the item from the top of the
-                  stack.
-                </li>
-                <li>
-                  <strong>Peek (or Top):</strong> View the top item without removing
-                  it.
-                </li>
-              </ul>
-              <p class="mt-2 text-sm text-gray-600">
-                In Python, lists can be easily used to implement stacks, using
-                <code>append()</code> for push and <code>pop()</code> (without an
-                index) for pop. It's like having a stack of papers on your desk - you can only work with the top paper, and new papers go on top.
-              </p>
-              <pre><code class="code-block-8bit python">my_stack = []
-
-# Push items
-my_stack.append('A')
-my_stack.append('B')
-my_stack.append('C')
-print(f"Stack after pushes: {my_stack}") # Output: ['A', 'B', 'C']
-
-# Peek (view top item)
-top_item = my_stack[-1]
-print(f"Top item (peek): {top_item}") # Output: C
-
-# Pop item
-removed_item = my_stack.pop()
-print(f"Popped item: {removed_item}") # Output: C
-print(f"Stack after pop: {my_stack}") # Output: ['A', 'B']</code></pre>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">Interactive: Stack Simulation (LIFO)</h2>
-            <div class="sub-interactive-box">
-              <div class="controls-grid grid-2col-responsive">
-                <div>
-                  <label for="stackItemInput" class="block mb-1 font-medium">Item to Push:</label>
-                  <input
-                    type="text"
-                    id="stackItemInput"
-                    class="input-field w-full md:w-1/2"
-                    placeholder="e.g., X"
-                  />
-                </div>
-                <div class="controls-flex gap-2">
-                  <button id="pushButton" class="btn">Push onto Stack</button>
-                  <button id="popButton" class="btn">Pop from Stack</button>
-                  <button id="peekStackButton" class="btn">Peek Top</button>
-                </div>
-              </div>
-              <h4 class="text-md font-medium mt-3 mb-1">
-                Current Stack (Top is Up):
-              </h4>
-              <div
-                id="stackContainer"
-                class="data-structure-container stack-container"
-              ></div>
-              <div id="stackResultDisplay" class="output-display mt-4">
-                <span class="text-gray-500 italic">Perform an operation.</span>
-              </div>
-              <div id="stackMessage" class="message-box mt-2" style="display: none"></div>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">4. Queues: First-In, First-Out (FIFO)</h2>
-            <div class="sub-interactive-box">
-              <p>
-                A queue is a linear data structure that follows the First-In,
-                First-Out (FIFO) principle. Think of a queue or line for a checkout:
-                the first person in line is the first person served. It's like a printer queue - documents are printed in the order they were sent, and you can't jump ahead of others who sent their documents first.
-              </p>
-              <p>Main operations:</p>
-              <ul>
-                <li>
-                  <strong>Enqueue:</strong> Add an item to the rear (end) of the
-                  queue.
-                </li>
-                <li>
-                  <strong>Dequeue:</strong> Remove and return the item from the front
-                  of the queue.
-                </li>
-                <li>
-                  <strong>Peek (or Front):</strong> View the front item without
-                  removing it.
-                </li>
-              </ul>
-              <p class="mt-2 text-sm text-gray-600">
-                While lists can be used, popping from the beginning of a list
-                (<code>list.pop(0)</code>) is inefficient (O(n)). Python's
-                <code>collections.deque</code> (double-ended queue) is optimized for
-                fast appends and pops from both ends, making it ideal for implementing
-                queues. Think of it like a conveyor belt at a factory - items can be added or removed from either end efficiently, unlike a traditional list which is more like a line of people where removing someone from the front requires everyone to step forward.
-              </p>
-              <h3 class="section-subtitle-8bit smaller-subtitle">Implementing a Queue with `collections.deque`:</h3>
-              <pre><code class="code-block-8bit python">from collections import deque
-
-my_queue = deque()
-
-# Enqueue (add to the right)
-my_queue.append("Alice")
-my_queue.append("Bob")
-my_queue.append("Charlie")
-print(f"Queue after enqueuing: {my_queue}")
-
-# Dequeue (remove from the left)
-first_person = my_queue.popleft()
-print(f"Dequeued: {first_person}")
-print(f"Queue after dequeuing: {my_queue}")
-
-# Peek (view the front element)
-if my_queue:
-  print(f"Front of queue: {my_queue[0]}")</code></pre>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">Interactive: Queue Simulation (FIFO)</h2>
-            <div class="sub-interactive-box">
-              <div class="controls-grid grid-2col-responsive">
-                <div>
-                  <label for="queueItemInput" class="block mb-1 font-medium">Item to Enqueue:</label>
-                  <input
-                    type="text"
-                    id="queueItemInput"
-                    class="input-field w-full md:w-1/2"
-                    placeholder="e.g., P1"
-                  />
-                </div>
-                <div class="controls-flex gap-2">
-                  <button id="enqueueButton" class="btn">
-                    Enqueue (Add Rear)
-                  </button>
-                  <button id="dequeueButton" class="btn">
-                    Dequeue (Remove Front)
-                  </button>
-                  <button id="peekQueueButton" class="btn">Peek Front</button>
-                </div>
-              </div>
-              <h4 class="text-md font-medium mt-3 mb-1">
-                Current Queue (Front is Left):
-              </h4>
-              <div
-                id="queueContainer"
-                class="data-structure-container queue-container"
-              ></div>
-              <div id="queueResultDisplay" class="output-display mt-4">
-                <span class="text-gray-500 italic">Perform an operation.</span>
-              </div>
-              <div id="queueMessage" class="message-box mt-2" style="display: none"></div>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">5. Other Important Data Structures (Briefly)</h2>
-            <div class="sub-interactive-box">
-              <p>Beyond the basics, other important structures exist:</p>
-              <ul>
-                <li>
-                  <strong>Linked Lists:</strong> Linear collections where elements
-                  (nodes) are linked using pointers, rather than being stored
-                  contiguously in memory like lists/arrays. Think of it like a treasure hunt where each clue points to the location of the next clue. This structure allows efficient
-                  insertions/deletions in the middle but slower access by index.
-                </li>
-                <li>
-                  <strong>Trees:</strong> Hierarchical structures with a root node and
-                  child nodes branching out. Like a family tree or an organizational chart, where each person (node) can have multiple children but only one parent. Used for representing hierarchies (file
-                  systems), efficient searching (Binary Search Trees), and more.
-                </li>
-                <li>
-                  <strong>Graphs:</strong> Collections of nodes (vertices) connected
-                  by edges. Think of a social network where people (nodes) are connected by friendships (edges), or a map where cities (nodes) are connected by roads (edges). Used to model networks (social networks, road maps,
-                  computer networks).
-                </li>
-                <li>
-                  <strong>Hash Tables (underlying Dictionaries):</strong> Use a hash
-                  function to map keys to indices in an array, providing very fast
-                  average-case lookups, insertions, and deletions. It's like having a library's card catalog system - you can quickly find a book by looking up its unique identifier, rather than searching through every shelf.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="game-section interactive-section mb-8">
-            <h2 class="section-title-8bit">6. Quick Quiz</h2>
-            <div class="sub-interactive-box">
-              <p class="mb-4">Test your understanding!</p>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q1: Which data structure guarantees that all its elements are
-                  unique?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_ds" value="a" class="mr-2" />
-                  List
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_ds" value="b" class="mr-2" />
-                  Set
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q1_ds" value="c" class="mr-2" />
-                  Tuple
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q2: What does LIFO stand for, and which structure follows it?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_ds" value="a" class="mr-2" />
-                  Last-In, First-Out (Queue)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_ds" value="b" class="mr-2" />
-                  First-In, First-Out (Stack)
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q2_ds" value="c" class="mr-2" />
-                  Last-In, First-Out (Stack)
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q3: Adding an element to the end of a queue is called:
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_ds" value="a" class="mr-2" />
-                  Push
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_ds" value="b" class="mr-2" />
-                  Enqueue
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q3_ds" value="c" class="mr-2" />
-                  Append
-                </label>
-              </div>
-              <div class="quiz-options mb-3">
-                <p class="font-medium mb-1">
-                  Q4: Which Python collection type is generally best suited for
-                  implementing an efficient queue?
-                </p>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_ds" value="a" class="mr-2" />
-                  `list`
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_ds" value="b" class="mr-2" />
-                  `tuple`
-                </label>
-                <label class="quiz-option-label">
-                  <input type="radio" name="q4_ds" value="c" class="mr-2" />
-                  `collections.deque`
-                </label>
-              </div>
-              <button id="checkQuizButtonDS" class="btn">Check Answers</button>
-              <div
-                id="quizResultDS"
-                class="message-box mt-4"
-                style="display: none"
-              ></div>
-            </div>
-          </section>
-        </main>
+        </div>
       </div>
 
-      <footer class="footer-8bit">
-        <p class="text-sm mb-2">Ready to branch out?</p>
-        <a href="trees.html" class="btn btn-8bit">Next Tutorial: Trees (BST) &rarr;</a>
-      </footer>
+      <nav class="page-navigation">
+        <div class="nav-content">
+          <a href="2d-lists.html" class="nav-btn">← 2D Lists</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="recursion.html" class="nav-btn">Recursion →</a>
+        </div>
+      </nav>
+
+      <main class="content-wrapper-8bit">
+        
+        <div class="mental-model-box">
+          <h3 style="color: #4ade80; margin-bottom: 0.5rem; font-size: 16px;">🧠 Mental Model: Container Metaphors</h3>
+          <div style="color: #d1fae5; font-size: 13px; line-height: 1.6;">
+            <p><strong>Think of data structures like specialized containers:</strong></p>
+            <ul style="margin-left: 1rem;">
+              <li><strong>🎨 Set</strong> - Art supply box (unique items only, no duplicates)</li>
+              <li><strong>📚 Stack</strong> - Book pile (Last In, First Out - LIFO)</li>
+              <li><strong>🚌 Queue</strong> - Bus line (First In, First Out - FIFO)</li>
+            </ul>
+            <p><strong>Each container is optimized for specific operations!</strong></p>
+          </div>
+        </div>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 1: Sets - The Art Supply Box</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            A set is like an art supply box where you can only have one of each item. No matter how many red crayons you try to put in, there's only space for one. Sets automatically ensure uniqueness!
+          </p>
+
+          <div class="data-structure-demo">
+            <div class="structure-card">
+              <h4 style="color: #3b82f6; margin-bottom: 0.5rem; text-align: center;">🎨 Set Visualization</h4>
+              <div class="structure-visual">
+                <div class="set-items" id="setItems">
+                  <div class="set-item">A</div>
+                  <div class="set-item">B</div>
+                  <div class="set-item">C</div>
+                  <div class="set-item">D</div>
+                </div>
+              </div>
+              <p style="font-size: 12px; text-align: center; color: #9ca3af;">Unique items, no order</p>
+            </div>
+          </div>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Try it: Set Operations</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code># Creating sets
+colors = {"red", "blue", "green", "red"}  # Duplicate "red" ignored
+print(colors)  # Output: {'red', 'blue', 'green'}
+
+# Set operations
+art_supplies = {"pencil", "eraser", "ruler"}
+office_supplies = {"pencil", "stapler", "ruler"}
+
+# Union: items in either set
+all_supplies = art_supplies | office_supplies
+print(f"All supplies: {all_supplies}")
+
+# Intersection: items in both sets
+common = art_supplies & office_supplies
+print(f"Common supplies: {common}")
+
+# Check membership (very fast!)
+print("pencil" in art_supplies)  # True</code></pre>
+          </div>
+        </section>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 2: Stacks - The Book Pile (LIFO)</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            A stack works like a pile of books - you can only add or remove books from the top. The last book you put on is the first one you can take off (LIFO - Last In, First Out).
+          </p>
+
+          <div class="data-structure-demo">
+            <div class="structure-card">
+              <h4 style="color: #8b5cf6; margin-bottom: 0.5rem; text-align: center;">📚 Stack Visualization</h4>
+              <div class="structure-visual">
+                <div class="stack-items" id="stackItems">
+                  <div class="stack-item">Book 1</div>
+                  <div class="stack-item">Book 2</div>
+                  <div class="stack-item">Book 3</div>
+                </div>
+                <div style="position: absolute; top: 10px; right: 10px; color: #facc15;">
+                  ↓ Push/Pop
+                </div>
+              </div>
+              <p style="font-size: 12px; text-align: center; color: #9ca3af;">Last In, First Out (LIFO)</p>
+              <button onclick="pushToStack()" style="margin: 0.5rem; padding: 0.25rem 0.5rem; background: #8b5cf6; color: white; border: none; border-radius: 4px; font-size: 10px;">Push</button>
+              <button onclick="popFromStack()" style="margin: 0.5rem; padding: 0.25rem 0.5rem; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 10px;">Pop</button>
+            </div>
+          </div>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Python Stack Implementation</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code># Python lists work great as stacks!
+stack = []
+
+# Push (add to top)
+stack.append("Book A")
+stack.append("Book B")
+stack.append("Book C")
+print(f"Stack: {stack}")
+
+# Pop (remove from top)
+top_book = stack.pop()
+print(f"Removed: {top_book}")
+print(f"Stack now: {stack}")
+
+# Peek (look at top without removing)
+if stack:
+    print(f"Top book: {stack[-1]}")
+
+# Common uses: Undo operations, function call tracking, browser history</code></pre>
+          </div>
+        </section>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 3: Queues - The Bus Line (FIFO)</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            A queue works like a line for the bus - first person in line is the first person to get on the bus. Fair and orderly! (FIFO - First In, First Out).
+          </p>
+
+          <div class="data-structure-demo">
+            <div class="structure-card">
+              <h4 style="color: #10b981; margin-bottom: 0.5rem; text-align: center;">🚌 Queue Visualization</h4>
+              <div class="structure-visual">
+                <div class="queue-items" id="queueItems">
+                  <div class="queue-item">Person 1</div>
+                  <div class="arrow">→</div>
+                  <div class="queue-item">Person 2</div>
+                  <div class="arrow">→</div>
+                  <div class="queue-item">Person 3</div>
+                </div>
+              </div>
+              <p style="font-size: 12px; text-align: center; color: #9ca3af;">First In, First Out (FIFO)</p>
+              <button onclick="enqueue()" style="margin: 0.5rem; padding: 0.25rem 0.5rem; background: #10b981; color: white; border: none; border-radius: 4px; font-size: 10px;">Enqueue</button>
+              <button onclick="dequeue()" style="margin: 0.5rem; padding: 0.25rem 0.5rem; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 10px;">Dequeue</button>
+            </div>
+          </div>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Python Queue Implementation</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code># Using collections.deque for efficient queues
+from collections import deque
+
+queue = deque()
+
+# Enqueue (add to back)
+queue.append("Person A")
+queue.append("Person B")
+queue.append("Person C")
+print(f"Queue: {list(queue)}")
+
+# Dequeue (remove from front)
+first_person = queue.popleft()
+print(f"Served: {first_person}")
+print(f"Queue now: {list(queue)}")
+
+# Common uses: Task scheduling, breadth-first search, handling requests</code></pre>
+          </div>
+        </section>
+
+        <div class="pitfall-warning">
+          <h4 style="color: #fca5a5; margin-bottom: 0.5rem; font-size: 14px;">⚠️ Performance Pitfall: List vs Deque for Queues</h4>
+          <p style="color: #fecaca; font-size: 13px; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Don't use regular lists for queues!</strong>
+          </p>
+          <pre style="background: #7f1d1d; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #fecaca;"><code># ❌ SLOW - Removing from front of list is O(n)
+queue = [1, 2, 3, 4, 5]
+first = queue.pop(0)  # This shifts all other elements!
+
+# ✅ FAST - deque is optimized for both ends
+from collections import deque
+queue = deque([1, 2, 3, 4, 5])
+first = queue.popleft()  # This is O(1) - instant!</code></pre>
+        </div>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 4: Choosing the Right Data Structure</h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #fbbf24; margin-bottom: 0.5rem;">🎨 Use Sets When:</h4>
+              <ul style="font-size: 13px; line-height: 1.6; margin-left: 1rem;">
+                <li>You need unique elements only</li>
+                <li>Fast membership testing</li>
+                <li>Mathematical set operations</li>
+                <li>Removing duplicates from data</li>
+              </ul>
+            </div>
+            
+            <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #c084fc; margin-bottom: 0.5rem;">📚 Use Stacks When:</h4>
+              <ul style="font-size: 13px; line-height: 1.6; margin-left: 1rem;">
+                <li>Undo/Redo functionality</li>
+                <li>Function call management</li>
+                <li>Parsing expressions</li>
+                <li>Backtracking algorithms</li>
+              </ul>
+            </div>
+            
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #86efac; margin-bottom: 0.5rem;">🚌 Use Queues When:</h4>
+              <ul style="font-size: 13px; line-height: 1.6; margin-left: 1rem;">
+                <li>Fair scheduling (first-come, first-served)</li>
+                <li>Breadth-first search</li>
+                <li>Handling requests in order</li>
+                <li>Buffer for data streams</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">📦 Data Structures Mastered! Ready for Recursion? 📦</p>
+          <p style="font-size: 12px; color: #9ca3af;">
+            <a href="2d-lists.html" style="color: #facc15; margin-right: 1rem;">← Back: 2D Lists</a>
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Main Menu</a>
+            <a href="recursion.html" style="color: #facc15;">Next: Recursion →</a>
+          </p>
+        </footer>
+      </main>
     </div>
 
-    <script src="../js/main.js" defer></script>
     <script>
-      // showMessage is now in js/main.js
+      let stackCount = 3;
+      let queueCount = 3;
 
-      // --- DOM Elements ---
-      const setInput1 = document.getElementById("setInput1");
-      const setInput2 = document.getElementById("setInput2");
-      const calculateSetOperationsButton = document.getElementById("calculateSetOperationsButton");
-      const setOperationsResult = document.getElementById("setOperationsResult");
-
-      const stackItemInput = document.getElementById("stackItemInput");
-      const pushButton = document.getElementById("pushButton");
-      const popButton = document.getElementById("popButton");
-      const peekStackButton = document.getElementById("peekStackButton");
-      const stackContainer = document.getElementById("stackContainer");
-      const stackResultDisplay = document.getElementById("stackResultDisplay");
-      const stackMessage = document.getElementById("stackMessage");
-
-      const queueItemInput = document.getElementById("queueItemInput");
-      const enqueueButton = document.getElementById("enqueueButton");
-      const dequeueButton = document.getElementById("dequeueButton");
-      const peekQueueButton = document.getElementById("peekQueueButton");
-      const queueContainer = document.getElementById("queueContainer");
-      const queueResultDisplay = document.getElementById("queueResultDisplay");
-      const queueMessage = document.getElementById("queueMessage");
-
-      const checkQuizButtonDS = document.getElementById("checkQuizButtonDS");
-      const quizResultDS = document.getElementById("quizResultDS");
-
-      // --- State ---
-      let interactiveSet = new Set(["apple", "banana", "cherry"]);
-      let interactiveStack = ["A", "B"]; // Simulate stack with array (top is end)
-      let interactiveQueue = ["P1", "P2"]; // Simulate queue with array (front is start)
-
-      // --- Set Logic ---
-      function renderSet() {
-        setContainer.innerHTML = ""; // Clear previous
-        if (interactiveSet.size === 0) {
-          setContainer.innerHTML =
-            '<span class="text-gray-500 italic">Set is empty</span>';
-          return;
-        }
-        interactiveSet.forEach((item) => {
-          const span = document.createElement("span");
-          span.className = "ds-item set-item";
-          span.textContent = item;
-          setContainer.appendChild(span);
-        });
+      function pushToStack() {
+        const stackItems = document.getElementById('stackItems');
+        stackCount++;
+        const newItem = document.createElement('div');
+        newItem.className = 'stack-item';
+        newItem.textContent = `Book ${stackCount}`;
+        newItem.style.animation = 'slideDown 0.3s ease-out';
+        stackItems.appendChild(newItem);
       }
 
-      calculateSetOperationsButton.addEventListener("click", () => {
-        const set1 = new Set(setInput1.value.split(",").map(Number));
-        const set2 = new Set(setInput2.value.split(",").map(Number));
-
-        const union = new Set([...set1, ...set2]);
-        const intersection = new Set([...set1].filter(x => set2.has(x)));
-        const difference = new Set([...set1].filter(x => !set2.has(x)));
-        const symmetricDifference = new Set([...set1, ...set2].filter(x => !intersection.has(x)));
-
-        setOperationsResult.textContent = `
-          Union: ${Array.from(union).join(", ")}
-          Intersection: ${Array.from(intersection).join(", ")}
-          Difference (set1 - set2): ${Array.from(difference).join(", ")}
-          Symmetric Difference: ${Array.from(symmetricDifference).join(", ")}
-        `;
-      });
-
-      // --- Stack Logic ---
-      function renderStack() {
-        stackContainer.innerHTML = ""; // Clear previous
-        if (interactiveStack.length === 0) {
-          stackContainer.innerHTML =
-            '<span class="text-gray-500 italic">Stack is empty</span>';
-          return;
+      function popFromStack() {
+        const stackItems = document.getElementById('stackItems');
+        const items = stackItems.children;
+        if (items.length > 0) {
+          const lastItem = items[items.length - 1];
+          lastItem.style.animation = 'slideUp 0.3s ease-out';
+          setTimeout(() => {
+            stackItems.removeChild(lastItem);
+          }, 300);
         }
-        // Render bottom-up visually
-        interactiveStack.forEach((item, index) => {
-          const span = document.createElement("span");
-          span.className = "ds-item stack-item";
-          span.textContent = item;
-          if (index === interactiveStack.length - 1) {
-            span.classList.add("top"); // Mark the top item
-          }
-          stackContainer.appendChild(span);
-        });
       }
 
-      pushButton.addEventListener("click", () => {
-        const item = stackItemInput.value.trim();
-        if (!item) {
-          showMessage(stackMessage, "Please enter an item to push.", "error");
-          return;
+      function enqueue() {
+        const queueItems = document.getElementById('queueItems');
+        queueCount++;
+        
+        // Add arrow if needed
+        if (queueItems.children.length > 0) {
+          const arrow = document.createElement('div');
+          arrow.className = 'arrow';
+          arrow.textContent = '→';
+          queueItems.appendChild(arrow);
         }
-        interactiveStack.push(item);
-        renderStack();
-        stackResultDisplay.textContent = `Pushed "${item}" onto the stack.`;
-        stackItemInput.value = "";
-        showMessage(stackMessage, "Item pushed.", "success");
-      });
-
-      popButton.addEventListener("click", () => {
-        if (interactiveStack.length === 0) {
-          stackResultDisplay.textContent = "Stack is empty. Cannot pop.";
-          showMessage(stackMessage, "Stack is empty.", "error");
-          return;
-        }
-        const poppedItem = interactiveStack.pop();
-        renderStack();
-        stackResultDisplay.textContent = `Popped "${poppedItem}" from the stack.`;
-        showMessage(stackMessage, "Item popped.", "success");
-      });
-
-      peekStackButton.addEventListener("click", () => {
-        renderStack(); // Ensure top is marked
-        if (interactiveStack.length === 0) {
-          stackResultDisplay.textContent = "Stack is empty.";
-          showMessage(stackMessage, "Stack is empty.", "info");
-        } else {
-          const topItem = interactiveStack[interactiveStack.length - 1];
-          stackResultDisplay.textContent = `Top item is "${topItem}".`;
-          showMessage(stackMessage, "Peeked at top item.", "info");
-        }
-      });
-
-      // --- Queue Logic ---
-      function renderQueue() {
-        queueContainer.innerHTML = ""; // Clear previous
-        if (interactiveQueue.length === 0) {
-          queueContainer.innerHTML =
-            '<span class="text-gray-500 italic">Queue is empty</span>';
-          return;
-        }
-        interactiveQueue.forEach((item, index) => {
-          const span = document.createElement("span");
-          span.className = "ds-item queue-item";
-          span.textContent = item;
-          if (index === 0) {
-            span.classList.add("front"); // Mark the front item
-          }
-          if (index === interactiveQueue.length - 1) {
-            span.classList.add("rear"); // Mark the rear item
-          }
-          queueContainer.appendChild(span);
-        });
+        
+        const newItem = document.createElement('div');
+        newItem.className = 'queue-item';
+        newItem.textContent = `Person ${queueCount}`;
+        newItem.style.animation = 'slideInRight 0.3s ease-out';
+        queueItems.appendChild(newItem);
       }
 
-      enqueueButton.addEventListener("click", () => {
-        const item = queueItemInput.value.trim();
-        if (!item) {
-          showMessage(
-            queueMessage,
-            "Please enter an item to enqueue.",
-            "error"
-          );
-          return;
+      function dequeue() {
+        const queueItems = document.getElementById('queueItems');
+        if (queueItems.children.length > 0) {
+          const firstItem = queueItems.children[0];
+          firstItem.style.animation = 'slideOutLeft 0.3s ease-out';
+          setTimeout(() => {
+            queueItems.removeChild(firstItem);
+            // Remove following arrow if it exists
+            if (queueItems.children.length > 0 && queueItems.children[0].className === 'arrow') {
+              queueItems.removeChild(queueItems.children[0]);
+            }
+          }, 300);
         }
-        interactiveQueue.push(item); // Add to the end (rear)
-        renderQueue();
-        queueResultDisplay.textContent = `Enqueued "${item}" to the rear.`;
-        queueItemInput.value = "";
-        showMessage(queueMessage, "Item enqueued.", "success");
-      });
-
-      dequeueButton.addEventListener("click", () => {
-        if (interactiveQueue.length === 0) {
-          queueResultDisplay.textContent = "Queue is empty. Cannot dequeue.";
-          showMessage(queueMessage, "Queue is empty.", "error");
-          return;
-        }
-        const dequeuedItem = interactiveQueue.shift(); // Remove from the front
-        renderQueue();
-        queueResultDisplay.textContent = `Dequeued "${dequeuedItem}" from the front.`;
-        showMessage(queueMessage, "Item dequeued.", "success");
-      });
-
-      peekQueueButton.addEventListener("click", () => {
-        renderQueue(); // Ensure front is marked
-        if (interactiveQueue.length === 0) {
-          queueResultDisplay.textContent = "Queue is empty.";
-          showMessage(queueMessage, "Queue is empty.", "info");
-        } else {
-          const frontItem = interactiveQueue[0];
-          queueResultDisplay.textContent = `Front item is "${frontItem}".`;
-          showMessage(queueMessage, "Peeked at front item.", "info");
-        }
-      });
-
-      // --- Quiz Logic ---
-      function checkDSQuiz() {
-        const answers = {
-          q1_ds: "b", // Set
-          q2_ds: "c", // LIFO (Stack)
-          q3_ds: "b", // Enqueue
-          q4_ds: "c", // collections.deque
-        };
-        let score = 0;
-        let resultsHTML = "<ul>";
-        let allAnswered = true;
-
-        for (const q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (!selected) {
-            allAnswered = false;
-            break;
-          }
-          const isCorrect = selected.value === answers[q];
-          if (isCorrect) {
-            score++;
-            resultsHTML += `<li class="text-green-700">✓ Question ${q.substring(
-              1,
-              2
-            )}: Correct!</li>`;
-          } else {
-            resultsHTML += `<li class="text-red-700">✗ Question ${q.substring(
-              1,
-              2
-            )}: Incorrect.</li>`;
-          }
-        }
-
-        if (!allAnswered) {
-          quizResultDS.textContent =
-            "Please answer all questions before checking.";
-          quizResultDS.className = "message-box message-box-error";
-          quizResultDS.style.display = "block";
-          return;
-        }
-
-        resultsHTML += "</ul>";
-        resultsHTML =
-          `<p class="font-medium mb-2">You scored ${score} out of ${
-            Object.keys(answers).length
-          }.</p>` + resultsHTML;
-
-        quizResultDS.innerHTML = resultsHTML;
-        quizResultDS.className =
-          score === Object.keys(answers).length
-            ? "message-box message-box-success"
-            : "message-box message-box-error";
-        quizResultDS.style.display = "block";
       }
 
-      // --- Event Listeners ---
-      checkQuizButtonDS.addEventListener("click", checkDSQuiz);
-
-      // --- Initial Setup ---
-      // renderSet(); // No longer have setContainer, this was for a different set example
-      renderStack();
-      renderQueue();
+      // Add CSS animations
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideDown {
+          from { transform: translateY(-20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+          from { transform: translateY(0); opacity: 1; }
+          to { transform: translateY(-20px); opacity: 0; }
+        }
+        @keyframes slideInRight {
+          from { transform: translateX(20px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutLeft {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(-20px); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
     </script>
   </body>
 </html>

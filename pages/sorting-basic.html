@@ -3,250 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Sorting Algorithms - Interactive Python Guide</title>
+    <title>Basic Sorting Algorithms | Interactive Python Guide</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/shared-styles.css">
-    <style>
-      /* Styles for sort visualization - preserved as they use theme colors */
-      .sort-container {
-        display: flex;
-        align-items: flex-end; /* Align bars at the bottom */
-        justify-content: center;
-        min-height: 300px; /* Increased from 150px */
-        padding: 20px; /* Increased padding */
-        background: rgba(15, 23, 42, 0.3);
-        border: 2px solid rgba(250, 204, 21, 0.3);
-        border-radius: 12px;
-        margin-bottom: 20px; /* Increased margin */
-      }
-      .sort-bar {
-        background: linear-gradient(135deg, #facc15, #f59e0b);
-        border: 2px solid #d97706;
-        margin: 0 4px; /* Increased spacing between bars */
-        width: 40px; /* Increased from 20px */
-        min-height: 20px; /* Added minimum height */
-        transition: all 0.3s ease;
-        position: relative;
-      }
-      .sort-bar.comparing {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        transform: scale(1.1);
-        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-      }
-      .sort-bar.swapping {
-        background: linear-gradient(135deg, #22c55e, #16a34a);
-        transform: scale(1.1);
-        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-      }
-      .sort-bar.sorted {
-        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      }
-      .sort-bar.minimum { /* For Selection Sort visualization */
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        transform: scale(1.1);
-        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-      }
-      .value-label {
-        color: #facc15;
-        font-size: 12px;
-        margin-bottom: 4px;
-        font-family: 'Courier New', 'Courier', monospace;
-        transition: all 0.3s ease;
-      }
-      .value-label.comparing {
-        color: #80b0d0;
-        transform: scale(1.1);
-      }
-      .value-label.swapping {
-        color: #40a090;
-        transform: scale(1.1);
-      }
-      .value-label.minimum {
-        color: #f8e8c0;
-        transform: scale(1.1);
-      }
-      .algorithm-control {
-        background: rgba(15, 23, 42, 0.5);
-        border: 2px solid rgba(139, 92, 246, 0.3);
-        border-radius: 12px;
-        padding: 20px;
-        margin: 20px 0;
-      }
-      .comparison-bars {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-        margin: 20px 0;
-      }
-      .comparison-bar {
-        background: linear-gradient(135deg, #64748b, #475569);
-        border: 2px solid #334155;
-        border-radius: 8px;
-        padding: 15px;
-        text-align: center;
-        min-width: 120px;
-      }
-      .comparison-bar.winner {
-        background: linear-gradient(135deg, #22c55e, #16a34a);
-        border-color: #15803d;
-      }
-      .comparison-bar.loser {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        border-color: #b91c1c;
-      }
-    </style>
   </head>
-  <body class="min-h-screen">
-    <!-- Hero Section -->
-    <header class="hero-section">
-      <nav class="hero-nav">
-        <a href="graphs.html" class="nav-link">&larr; Graphs</a>
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="sorting-merge-joke.html" class="nav-link">Merge Sort &rarr;</a>
-      </nav>
-      
-      <div class="hero-content">
-        <h1 style="font-size: 24px;">Basic Sorting Algorithms: Organizing Data Step by Step</h1>
-        <p class="hero-subtitle">Learn the fundamentals of arranging data in order with bubble and selection sort</p>
-        
-        <div style="background: rgba(250, 204, 21, 0.1); border: 2px dashed #facc15; border-radius: 12px; padding: 20px; margin: 20px 0;">
-          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-            <span style="font-size: 24px;">🃏</span>
-            <div>
-              <div style="color: #facc15; font-weight: 600; margin-bottom: 5px;">🧠 Mental Model: Organizing Playing Cards</div>
-              <div style="color: #e2e8f0;">Think of sorting algorithms like organizing a deck of playing cards - you can arrange them by comparing and moving cards into the right positions, using different strategies.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-features">
-          <div class="feature-item">
-            <span class="feature-icon">🔄</span>
-            <span>Compare & Swap</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">👁️</span>
-            <span>Visual Learning</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">⚡</span>
-            <span>Performance Analysis</span>
-          </div>
+  <body class="page-layout">
+    <div class="page-console-border">
+      <div class="lesson-hero">
+        <div class="lesson-hero-content">
+          <h1 class="lesson-title">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Interactive Guide to Python</a>
+          </h1>
+          <h2 class="lesson-subtitle">Basic Sorting Algorithms</h2>
+          <p class="lesson-subtitle">
+            Organizing Data • Performance Analysis • Algorithmic Thinking
+          </p>
         </div>
       </div>
-    </header>
 
-    <main class="container">
-      <!-- Step 1: Problem Motivation -->
-      <section class="section">
-        <h2 class="section-title">
-          <span class="step-number">1</span>
-          Why Do We Need Sorting?
-        </h2>
-        <div class="content-grid">
-          <div class="concept-panel">
-            <h3>🌍 Real-World Applications</h3>
-            <div class="example-grid">
-              <div class="example-item">
-                <strong>🔍 Search Efficiency:</strong> Sorted data enables fast binary search (O(log n) vs O(n))
-              </div>
-              <div class="example-item">
-                <strong>📊 Data Analysis:</strong> Rankings, top-K problems, statistical analysis
-              </div>
-              <div class="example-item">
-                <strong>🗄️ Database Operations:</strong> Indexing, query optimization, joins
-              </div>
-              <div class="example-item">
-                <strong>👁️ Human Readability:</strong> Making data easier to understand and navigate
-              </div>
-            </div>
-          </div>
-          <div class="visual-panel">
-            <h4>The Foundation of Computer Science</h4>
-            <p>Sorting is one of the most fundamental operations in computer science. Every time you see a search result, a leaderboard, or organized data, sorting algorithms are working behind the scenes.</p>
+      <nav class="page-navigation">
+        <div class="nav-content">
+          <a href="graphs.html" class="nav-btn">← Graphs</a>
+          <a href="../index.html" class="nav-btn">🏠 Home</a>
+          <a href="sorting-merge-joke.html" class="nav-btn">Advanced Sorting →</a>
+        </div>
+      </nav>
+
+      <main class="page-content-wrapper">
+        
+        <div class="mental-model-box">
+          <h3 style="color: #4ade80; margin-bottom: 0.5rem; font-size: 16px;">🧠 Mental Model: Organizing Playing Cards</h3>
+          <div style="color: #d1fae5; font-size: 13px; line-height: 1.6;">
+            <p><strong>Think of sorting like organizing a deck of cards:</strong></p>
+            <ul style="margin-left: 1rem;">
+              <li><strong>👀 Compare</strong> - Look at two cards to see which is higher/lower</li>
+              <li><strong>🔄 Swap</strong> - Move cards to put them in correct order</li>
+              <li><strong>🎯 Strategy</strong> - Different approaches (bubble up vs find minimum)</li>
+              <li><strong>⏱️ Efficiency</strong> - Some methods are faster than others</li>
+            </ul>
           </div>
         </div>
-      </section>
 
-      <!-- Step 2: Mental Model -->
-      <section class="mental-model-section">
-        <h2 class="section-title">
-          <span class="step-number">2</span>
-          Mental Model: Organizing Playing Cards
-        </h2>
-        
-        <div class="mental-model-content">
-          <div class="analogy-panel">
-            <h3>🃏 Think of Sorting Like Organizing Playing Cards</h3>
-            <div class="analogy-grid">
-              <div class="analogy-item">
-                <div class="analogy-icon">👀</div>
-                <div>
-                  <strong>Compare Values</strong>
-                  <p>Like looking at two cards to see which has a higher value</p>
-                </div>
-              </div>
-              <div class="analogy-item">
-                <div class="analogy-icon">🔄</div>
-                <div>
-                  <strong>Swap Positions</strong>
-                  <p>Like moving cards to put them in the correct order</p>
-                </div>
-              </div>
-              <div class="analogy-item">
-                <div class="analogy-icon">🎯</div>
-                <div>
-                  <strong>Strategy Matters</strong>
-                  <p>Different approaches: bubbling largest up vs selecting smallest first</p>
-                </div>
-              </div>
-              <div class="analogy-item">
-                <div class="analogy-icon">⏱️</div>
-                <div>
-                  <strong>Efficiency Counts</strong>
-                  <p>Some strategies are faster than others for different situations</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 1: Why Do We Need Sorting?</h2>
           
-          <div class="model-evolution">
-            <h4>🔄 Model Evolution: From Simple to Sophisticated</h4>
-            <div class="evolution-steps">
-              <div class="evolution-step">
-                <span class="step-badge">Level 1</span>
-                <strong>Basic Sorting:</strong> Compare and swap adjacent elements
-              </div>
-              <div class="evolution-step">
-                <span class="step-badge">Level 2</span>
-                <strong>Optimized Sorting:</strong> Reduce unnecessary comparisons and swaps
-              </div>
-              <div class="evolution-step">
-                <span class="step-badge">Level 3</span>
-                <strong>Advanced Sorting:</strong> Divide-and-conquer for better performance
-              </div>
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Sorting is fundamental to computer science - it enables efficient searching, makes data human-readable, and is the foundation for many other algorithms.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #93c5fd; margin-bottom: 0.5rem;">🔍 Search Efficiency</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Sorted data enables fast binary search (O(log n) vs O(n))</p>
+            </div>
+            <div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #86efac; margin-bottom: 0.5rem;">📊 Data Analysis</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Rankings, top-K problems, statistical analysis</p>
+            </div>
+            <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #c084fc; margin-bottom: 0.5rem;">🗄️ Database Operations</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Indexing, query optimization, joins</p>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0 8px 8px 0;">
+              <h4 style="color: #fbbf24; margin-bottom: 0.5rem;">👁️ Human Readability</h4>
+              <p style="font-size: 13px; line-height: 1.6;">Making data easier to understand and navigate</p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Step 3: Bubble Sort -->
-      <section class="section">
-        <h2 class="section-title">
-          <span class="step-number">3</span>
-          Bubble Sort: Bubbling to the Top
-        </h2>
-        
-        <div class="content-grid">
-          <div class="concept-panel">
-            <h3>🫧 The Bubble Sort Strategy</h3>
-            <p>Like bubbles rising to the surface, larger elements "bubble up" to their correct positions through repeated comparisons with adjacent elements.</p>
-            <div class="code-block">
-              <pre><code>def bubble_sort(arr):
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 2: Bubble Sort - Bubbling to the Top</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Like bubbles rising to the surface, larger elements "bubble up" to their correct positions through repeated comparisons with adjacent elements.
+          </p>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🫧 The Bubble Sort Strategy</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>def bubble_sort(arr):
     n = len(arr)
     # Traverse through all array elements
     for i in range(n):
@@ -266,42 +103,36 @@
             break
     
     return arr</code></pre>
-            </div>
           </div>
-          
-          <div class="visual-panel">
-            <h4>🎮 Interactive Bubble Sort</h4>
-            <div class="algorithm-control">
-              <div class="controls-grid">
-                <button onclick="runBubbleSort()" class="btn-primary">Run Bubble Sort</button>
-                <button onclick="resetBubbleSort()" class="btn-secondary">Reset</button>
-                <div class="control-group">
-                  <label>Speed:</label>
-                  <input type="range" id="bubbleSpeed" min="50" max="1000" value="300" step="50">
-                </div>
-              </div>
-              <div id="bubbleSortContainer" class="sort-container"></div>
-              <div id="bubbleSortLog" class="code-block" style="max-height: 150px; overflow-y: auto;">
-                <em>Click 'Run Bubble Sort' to start visualization</em>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Step 4: Selection Sort -->
-      <section class="section">
-        <h2 class="section-title">
-          <span class="step-number">4</span>
-          Selection Sort: Finding the Minimum
-        </h2>
-        
-        <div class="content-grid">
-          <div class="concept-panel">
-            <h3>🎯 The Selection Sort Strategy</h3>
-            <p>Like repeatedly finding the smallest card and placing it at the beginning, selection sort finds the minimum element and swaps it to the correct position.</p>
-            <div class="code-block">
-              <pre><code>def selection_sort(arr):
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Interactive Bubble Sort</h4>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+              <button onclick="runBubbleSort()" class="btn">Run Bubble Sort</button>
+              <button onclick="resetBubbleSort()" class="btn btn-secondary">Reset</button>
+              <div>
+                <label style="color: #facc15; font-size: 12px; margin-right: 0.5rem;">Speed:</label>
+                <input type="range" id="bubbleSpeed" min="50" max="1000" value="300" step="50" style="width: 100px;">
+              </div>
+            </div>
+            
+            <div id="bubbleSortContainer" class="sort-container"></div>
+            <div id="bubbleSortLog" style="background: #1f2937; padding: 0.75rem; border-radius: 6px; max-height: 150px; overflow-y: auto; font-size: 12px; color: #e5e7eb;">
+              <em>Click 'Run Bubble Sort' to start visualization</em>
+            </div>
+          </div>
+        </section>
+
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 3: Selection Sort - Finding the Minimum</h2>
+          
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 1rem;">
+            Like repeatedly finding the smallest card and placing it at the beginning, selection sort finds the minimum element and swaps it to the correct position.
+          </p>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎯 The Selection Sort Strategy</h4>
+            <pre style="background: #1f2937; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #e5e7eb;"><code>def selection_sort(arr):
     n = len(arr)
     
     # Traverse through all array elements
@@ -316,190 +147,135 @@
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
     
     return arr</code></pre>
-            </div>
           </div>
-          
-          <div class="visual-panel">
-            <h4>🎮 Interactive Selection Sort</h4>
-            <div class="algorithm-control">
-              <div class="controls-grid">
-                <button onclick="runSelectionSort()" class="btn-primary">Run Selection Sort</button>
-                <button onclick="resetSelectionSort()" class="btn-secondary">Reset</button>
-                <div class="control-group">
-                  <label>Speed:</label>
-                  <input type="range" id="selectionSpeed" min="50" max="1000" value="400" step="50">
-                </div>
-              </div>
-              <div id="selectionSortContainer" class="sort-container"></div>
-              <div id="selectionSortLog" class="code-block" style="max-height: 150px; overflow-y: auto;">
-                <em>Click 'Run Selection Sort' to start visualization</em>
+
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Interactive Selection Sort</h4>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+              <button onclick="runSelectionSort()" class="btn">Run Selection Sort</button>
+              <button onclick="resetSelectionSort()" class="btn btn-secondary">Reset</button>
+              <div>
+                <label style="color: #facc15; font-size: 12px; margin-right: 0.5rem;">Speed:</label>
+                <input type="range" id="selectionSpeed" min="50" max="1000" value="400" step="50" style="width: 100px;">
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Step 5: Performance Comparison -->
-      <section class="interactive-section">
-        <h2 class="section-title">
-          <span class="step-number">5</span>
-          Algorithm Comparison: Head to Head
-        </h2>
-        
-        <div class="interactive-container">
-          <div class="comparison-bars">
-            <div class="comparison-bar" id="bubbleStats">
-              <h4>🫧 Bubble Sort</h4>
-              <div>Comparisons: <span id="bubbleComparisons">-</span></div>
-              <div>Swaps: <span id="bubbleSwaps">-</span></div>
-              <div>Time: <span id="bubbleTime">-</span>ms</div>
-            </div>
-            <div class="comparison-bar" id="selectionStats">
-              <h4>🎯 Selection Sort</h4>
-              <div>Comparisons: <span id="selectionComparisons">-</span></div>
-              <div>Swaps: <span id="selectionSwaps">-</span></div>
-              <div>Time: <span id="selectionTime">-</span>ms</div>
+            
+            <div id="selectionSortContainer" class="sort-container"></div>
+            <div id="selectionSortLog" style="background: #1f2937; padding: 0.75rem; border-radius: 6px; max-height: 150px; overflow-y: auto; font-size: 12px; color: #e5e7eb;">
+              <em>Click 'Run Selection Sort' to start visualization</em>
             </div>
           </div>
-          
-          <div class="controls-grid">
-            <button onclick="runBothAlgorithms()" class="btn-primary">Compare Both Algorithms</button>
-            <button onclick="resetComparison()" class="btn-secondary">Reset Comparison</button>
-          </div>
-          
-          <div id="comparisonResult" class="code-block" style="margin-top: 20px;">
-            Click "Compare Both Algorithms" to see performance metrics
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Step 6: Critical Pitfalls -->
-      <section class="pitfall-section">
-        <h2 class="section-title">
-          <span class="step-number">6</span>
-          Critical Pitfall: O(n²) Time Complexity
-        </h2>
-        
-        <div class="pitfall-content">
-          <div class="pitfall-warning">
-            <h3>⚠️ The Quadratic Time Trap</h3>
-            <p>Both bubble sort and selection sort have O(n²) time complexity, making them impractical for large datasets. They're great for learning but not for production!</p>
-          </div>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 4: Algorithm Comparison</h2>
           
-          <div class="comparison-grid">
-            <div class="wrong-approach">
-              <h4>❌ Wrong: Using Bubble Sort for Large Data</h4>
-              <div class="code-block">
-                <pre><code># INEFFICIENT: Using bubble sort on large data
+          <div class="interactive-repl">
+            <h4 style="color: #facc15; margin-bottom: 0.5rem; font-size: 14px;">🎮 Head-to-Head Performance</h4>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+              <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; border-radius: 8px; padding: 1rem; text-align: center;" id="bubbleStats">
+                <h4 style="color: #93c5fd; margin-bottom: 0.5rem;">🫧 Bubble Sort</h4>
+                <div style="color: #e5e7eb; font-size: 12px;">Comparisons: <span id="bubbleComparisons">-</span></div>
+                <div style="color: #e5e7eb; font-size: 12px;">Swaps: <span id="bubbleSwaps">-</span></div>
+                <div style="color: #e5e7eb; font-size: 12px;">Time: <span id="bubbleTime">-</span>ms</div>
+              </div>
+              <div style="background: rgba(34, 197, 94, 0.1); border: 2px solid #22c55e; border-radius: 8px; padding: 1rem; text-align: center;" id="selectionStats">
+                <h4 style="color: #86efac; margin-bottom: 0.5rem;">🎯 Selection Sort</h4>
+                <div style="color: #e5e7eb; font-size: 12px;">Comparisons: <span id="selectionComparisons">-</span></div>
+                <div style="color: #e5e7eb; font-size: 12px;">Swaps: <span id="selectionSwaps">-</span></div>
+                <div style="color: #e5e7eb; font-size: 12px;">Time: <span id="selectionTime">-</span>ms</div>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; margin: 1rem 0;">
+              <button onclick="runBothAlgorithms()" class="btn">Compare Both Algorithms</button>
+              <button onclick="resetComparison()" class="btn btn-secondary">Reset Comparison</button>
+            </div>
+            
+            <div id="comparisonResult" style="background: #1f2937; padding: 0.75rem; border-radius: 6px; margin-top: 1rem; font-size: 12px; color: #e5e7eb;">
+              Click "Compare Both Algorithms" to see performance metrics
+            </div>
+          </div>
+        </section>
+
+        <div class="pitfall-warning">
+          <h4 style="color: #fca5a5; margin-bottom: 0.5rem; font-size: 14px;">⚠️ Critical Pitfall: O(n²) Time Complexity</h4>
+          <p style="color: #fecaca; font-size: 13px; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Both bubble sort and selection sort have O(n²) time complexity!</strong> They're great for learning but terrible for large datasets.
+          </p>
+          <pre style="background: #7f1d1d; padding: 0.75rem; border-radius: 6px; font-size: 12px; color: #fecaca;"><code># ❌ INEFFICIENT: Using bubble sort on large data
 large_data = list(range(10000, 0, -1))  # 10,000 items
 bubble_sort(large_data)  # Takes ~25 seconds!
 
 # Time complexity: O(n²)
-# For n=10,000: ~100,000,000 operations</code></pre>
-              </div>
-              <div class="consequence">💥 Result: Extremely slow performance, unhappy users</div>
-            </div>
-            
-            <div class="right-approach">
-              <h4>✅ Right: Use Built-in Efficient Sorting</h4>
-              <div class="code-block">
-                <pre><code># EFFICIENT: Use Python's built-in sort
+# For n=10,000: ~100,000,000 operations
+
+# ✅ EFFICIENT: Use Python's built-in sort
 large_data = list(range(10000, 0, -1))  # 10,000 items
 large_data.sort()  # Takes ~0.01 seconds!
 
 # Time complexity: O(n log n)
-# For n=10,000: ~133,000 operations</code></pre>
-              </div>
-              <div class="consequence">✅ Result: Fast performance using optimized algorithms</div>
-            </div>
-          </div>
-          
-          <div class="performance-insight">
-            <h4>📊 Performance Scaling</h4>
-            <table class="performance-table">
-              <tr>
-                <th>Data Size</th>
-                <th>Bubble/Selection Sort</th>
-                <th>Python's sort()</th>
-                <th>Difference</th>
-              </tr>
-              <tr>
-                <td>100 items</td>
-                <td>~10,000 ops</td>
-                <td>~664 ops</td>
-                <td>15x faster</td>
-              </tr>
-              <tr>
-                <td>1,000 items</td>
-                <td>~1,000,000 ops</td>
-                <td>~9,966 ops</td>
-                <td>100x faster</td>
-              </tr>
-              <tr>
-                <td>10,000 items</td>
-                <td>~100,000,000 ops</td>
-                <td>~132,877 ops</td>
-                <td>750x faster!</td>
-              </tr>
-            </table>
-          </div>
+# For n=10,000: ~133,000 operations (750x faster!)</code></pre>
         </div>
-      </section>
 
-      <!-- Step 7: Assessment -->
-      <section class="assessment-section">
-        <h2 class="section-title">
-          <span class="step-number">7</span>
-          Knowledge Assessment: Sorting Mastery
-        </h2>
-        
-        <div class="quiz-container">
-          <div class="question-card">
-            <h3>Question 1: Algorithm Understanding</h3>
-            <p>What is the main difference between bubble sort and selection sort?</p>
-            <div class="options">
-              <label><input type="radio" name="q1" value="a"> Bubble sort is faster than selection sort</label>
-              <label><input type="radio" name="q1" value="b"> Bubble sort compares adjacent elements, selection sort finds minimum</label>
-              <label><input type="radio" name="q1" value="c"> Selection sort uses more memory</label>
-            </div>
-            <div class="feedback" id="feedback1"></div>
-          </div>
+        <section class="concept-section">
+          <h2 style="color: #facc15; margin-bottom: 1rem; font-size: 20px;">Step 5: Knowledge Check</h2>
           
-          <div class="question-card">
-            <h3>Question 2: Time Complexity</h3>
-            <p>What is the time complexity of both bubble sort and selection sort?</p>
-            <div class="options">
-              <label><input type="radio" name="q2" value="a"> O(n)</label>
-              <label><input type="radio" name="q2" value="b"> O(n log n)</label>
-              <label><input type="radio" name="q2" value="c"> O(n²)</label>
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 1: Algorithm Understanding</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              What is the main difference between bubble sort and selection sort?
+            </p>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Bubble sort is faster than selection sort</p>
             </div>
-            <div class="feedback" id="feedback2"></div>
-          </div>
-          
-          <div class="question-card">
-            <h3>Question 3: Practical Usage</h3>
-            <p>When should you use bubble sort or selection sort in production code?</p>
-            <div class="options">
-              <label><input type="radio" name="q3" value="a"> For very small datasets (< 50 elements) or educational purposes</label>
-              <label><input type="radio" name="q3" value="b"> For large datasets because they're simple</label>
-              <label><input type="radio" name="q3" value="c"> Never - always use built-in sorting functions</label>
+            
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Bubble sort compares adjacent elements, selection sort finds minimum</p>
             </div>
-            <div class="feedback" id="feedback3"></div>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">Selection sort uses more memory</p>
+            </div>
           </div>
-          
-          <button onclick="checkAnswers()" class="btn-primary" style="margin-top: 20px;">Check Answers</button>
-          <div id="overallFeedback" class="overall-feedback"></div>
-        </div>
-      </section>
 
-      <!-- Progress Indicator -->
-      <div class="progress-indicator">
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text">Mastery Progress: <span id="progressText">0%</span></div>
-      </div>
-    </main>
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #e5e7eb; margin-bottom: 1rem;">Question 2: Time Complexity</h3>
+            <p style="color: #d1d5db; font-size: 13px; margin-bottom: 1rem;">
+              What is the time complexity of both bubble sort and selection sort?
+            </p>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n)</p>
+            </div>
+            
+            <div class="quiz-option" data-answer="incorrect" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n log n)</p>
+            </div>
+            
+            <div class="quiz-option" data-answer="correct" style="background: rgba(31, 41, 55, 0.6); border: 1px solid #4b5563; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; cursor: pointer; transition: all 0.3s ease;">
+              <p style="color: #e5e7eb; font-size: 12px;">O(n²)</p>
+            </div>
+          </div>
+
+          <button id="checkSortingQuiz" class="btn btn-green" style="margin-top: 1rem;">Check My Understanding</button>
+          <div id="sortingQuizResult" class="message-box" style="display: none; margin-top: 1rem;"></div>
+        </section>
+
+        <footer style="background: rgba(15, 23, 42, 0.8); border-top: 2px solid #facc15; margin-top: 4rem; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px);">
+          <p style="color: #facc15; margin-bottom: 0.5rem;">🃏 Basic Sorting Mastered! Ready for Advanced Algorithms? 🃏</p>
+          <p style="font-size: 12px; color: #9ca3af;">
+            <a href="graphs.html" style="color: #facc15; margin-right: 1rem;">← Back: Graphs</a>
+            <a href="../index.html" style="color: #facc15; margin-right: 1rem;">🏠 Main Menu</a>
+            <a href="sorting-merge-joke.html" style="color: #facc15;">Next: Merge Sort →</a>
+          </p>
+        </footer>
+      </main>
+    </div>
+
+
 
     <script>
       // Global variables for algorithms
@@ -814,73 +590,58 @@ Note: Both algorithms have O(n²) time complexity, so performance differences ar
       }
       
       // Quiz functionality
-      function checkAnswers() {
-        const answers = {
-          q1: 'b', // Bubble sort compares adjacent, selection finds minimum
-          q2: 'c', // O(n²) time complexity
-          q3: 'a'  // Small datasets or educational purposes
-        };
-        
-        const feedbacks = {
-          q1: {
-            correct: "Correct! Bubble sort repeatedly compares adjacent elements and swaps them, while selection sort finds the minimum element and places it in the correct position.",
-            incorrect: "Incorrect. The key difference is the strategy: bubble sort compares adjacent elements, while selection sort finds the minimum element in each pass."
-          },
-          q2: {
-            correct: "Correct! Both algorithms have O(n²) time complexity because they use nested loops to compare elements.",
-            incorrect: "Incorrect. Both bubble sort and selection sort have O(n²) time complexity due to their nested loop structure."
-          },
-          q3: {
-            correct: "Correct! These algorithms are mainly useful for learning or very small datasets. For production code, use built-in sorting functions.",
-            incorrect: "Incorrect. These algorithms are inefficient for large data and should only be used for educational purposes or very small datasets."
-          }
-        };
-        
-        let score = 0;
-        let total = Object.keys(answers).length;
-        
-        for (let q in answers) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          const feedback = document.getElementById(`feedback${q.slice(1)}`);
-          
-          if (selected) {
-            const isCorrect = selected.value === answers[q];
-            if (isCorrect) {
-              score++;
-              feedback.innerHTML = `<div class="correct-feedback">✅ ${feedbacks[q].correct}</div>`;
-            } else {
-              feedback.innerHTML = `<div class="incorrect-feedback">❌ ${feedbacks[q].incorrect}</div>`;
-            }
-          } else {
-            feedback.innerHTML = `<div class="incorrect-feedback">❌ Please select an answer.</div>`;
-          }
-        }
-        
-        const percentage = Math.round((score / total) * 100);
-        const overallFeedback = document.getElementById('overallFeedback');
-        
-        if (percentage >= 80) {
-          overallFeedback.innerHTML = `<div class="success-feedback">🎉 Excellent! You scored ${score}/${total} (${percentage}%). You understand basic sorting algorithms!</div>`;
-        } else if (percentage >= 60) {
-          overallFeedback.innerHTML = `<div class="warning-feedback">📚 Good effort! You scored ${score}/${total} (${percentage}%). Review the concepts and try again.</div>`;
-        } else {
-          overallFeedback.innerHTML = `<div class="error-feedback">💪 Keep learning! You scored ${score}/${total} (${percentage}%). Study the material above and retake the quiz.</div>`;
-        }
-        
-        updateProgress(percentage);
-      }
-      
-      function updateProgress(percentage) {
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        
-        progressFill.style.width = percentage + '%';
-        progressText.textContent = percentage + '%';
-      }
-      
-      // Initialize everything
       document.addEventListener('DOMContentLoaded', function() {
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const checkSortingQuizBtn = document.getElementById('checkSortingQuiz');
+        const sortingQuizResult = document.getElementById('sortingQuizResult');
+
+        quizOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const siblings = this.parentElement.querySelectorAll('.quiz-option');
+            siblings.forEach(s => s.style.borderColor = '#4b5563');
+            
+            this.style.borderColor = '#facc15';
+            this.dataset.selected = 'true';
+          });
+        });
+
+        checkSortingQuizBtn.addEventListener('click', function() {
+          let correct = 0;
+          let total = 0;
+          
+          const questions = document.querySelectorAll('.concept-section > div');
+          questions.forEach(question => {
+            const options = question.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+              if (option.dataset.selected === 'true') {
+                total++;
+                if (option.dataset.answer === 'correct') {
+                  correct++;
+                  option.style.borderColor = '#10b981';
+                  option.style.background = 'rgba(16, 185, 129, 0.2)';
+                } else {
+                  option.style.borderColor = '#ef4444';
+                  option.style.background = 'rgba(239, 68, 68, 0.2)';
+                }
+              }
+            });
+          });
+
+          sortingQuizResult.style.display = 'block';
+          if (correct === total && total > 0) {
+            sortingQuizResult.className = 'message-box message-box-success';
+            sortingQuizResult.innerHTML = `🎉 Perfect! ${correct}/${total} correct. You understand basic sorting algorithms!`;
+          } else {
+            sortingQuizResult.className = 'message-box message-box-info';
+            sortingQuizResult.innerHTML = `${correct}/${total} correct. Review the sorting concepts above, especially algorithm strategies and time complexity!`;
+          }
+        });
+        
+        // Initialize everything
         initializeSortContainers();
+        
+        // Progress tracking
+        localStorage.setItem('completedSortingBasic', 'true');
       });
     </script>
   </body>
